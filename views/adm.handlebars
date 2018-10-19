@@ -1,0 +1,26 @@
+<div>
+
+	<h2>Страница админки</h2>
+
+
+	{{#if adminLogin}}
+	<p>Привет, {{adminLogin}}</p>
+	<p><a href="/adminexit">Выйти</a></p>
+	<br />
+	<p>Здесь будет страница админки с заведением мероприятий, назначением цен каждого места в каждом мероприятии</p>
+	
+	{{else}}
+	<form action="/admin" method="post">
+	  <div class="form-group">
+		<label for="txLogin">Логин</label>
+		<input type="text" class="form-control" id="txLogin" placeholder="Логин">
+	  </div>
+	  <div class="form-group">
+		<label for="txPassword">Пароль</label>
+		<input type="password" class="form-control" id="txPassword" placeholder="Пароль">
+	  </div>
+	  <button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
+	</form>
+	{{/if}}
+
+</div>
