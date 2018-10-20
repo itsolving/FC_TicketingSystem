@@ -1,4 +1,4 @@
-//подключаем модули
+﻿//подключаем модули
 const express = require('express');
 const app = express();
 var session = require('express-session');
@@ -6,6 +6,16 @@ var cookieParser = require('cookie-parser');
 var credentials = require('./credentials.js');
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
+
+var promise = require('bluebird');
+var options = {
+  // Initialization Options
+  promiseLib: promise
+};
+var pgp = require('pg-promise')(options);
+var connectionString = 'postgres://pgadmin:UrdodON9zu83BvtI6L@185.22.64.31:8000/test';
+//var db = pgp(connectionString);
+
 
 //определяем, что главная страница будет состоять из видов (view) с расширением ".handlebars"
 app.engine('handlebars', handlebars.engine);
