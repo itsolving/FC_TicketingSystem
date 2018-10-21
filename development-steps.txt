@@ -1,0 +1,10 @@
+(create folder for this project)
+(context menu to the folder - "bash here")
+npm install -g express-generator
+express --view ejs
+npm install
+npm install --save pg-promise bluebird
+
+(create js-files of the project, codding..)
+
+npm start
