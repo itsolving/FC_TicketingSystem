@@ -8,7 +8,7 @@ var db = require('../queries');
 });*/
 
 router.get('/', function(req, res){
-	res.render('index', {title: 'Главная страница'});
+	res.render('index', {title: 'Учет билетов'});
 })
 
 router.get('/api/events', db.getList);
