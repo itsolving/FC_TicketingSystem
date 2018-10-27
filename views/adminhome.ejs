@@ -10,19 +10,19 @@
   </head>
   <body>
     <h1><%= title %></h1>
-	<% if(adminLogin != ''){ %>
+	<% if(adminLogin){ %>
 		<div>
-			Привет, администратор <%= adminLogin %>! <a href="/adminexit">Выйти</a>
+			Привет, администратор <%= adminLogin %>! <a href="/admin/exit">Выйти</a>
 		</div>
 	<% } else{ %>
 		<form action="/admin" method="post">
 		  <div class="form-group">
 			<label for="txLogin">Логин</label>
-			<input type="text" class="form-control" id="txLogin" placeholder="Логин">
+			<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
 		  </div>
 		  <div class="form-group">
 			<label for="txPassword">Пароль</label>
-			<input type="password" class="form-control" id="txPassword" placeholder="Пароль">
+			<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
 		  </div>
 		  <button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
 		</form>

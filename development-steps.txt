@@ -15,3 +15,5 @@ npm start
 node index.js
 
 (ready, and now you can codding)
+
+npm install express-session --save

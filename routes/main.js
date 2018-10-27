@@ -3,18 +3,17 @@ var router = express.Router();
 var db = require('../queries');
 
 /* GET home page. */
-/*router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});*/
-
-router.get('/', function(req, res){
+router.get('/', function(req, res, next){
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
 	res.render('index', {title: 'Учет билетов'});
 })
 
 router.get('/api/events', db.getList);
 router.put('/api/events/:id', db.Edit);
-router.get('/adminexit', function(req, res){
-	res.redirect('/');
-});
+
 
 module.exports = router;

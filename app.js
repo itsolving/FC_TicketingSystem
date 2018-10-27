@@ -3,13 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session');
 
-var indexRouter = require('./routes/index');
+var mainRouter = require('./routes/main');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 
 var app = express();
+
+var session = require('express-session');
+app.use(session({
+	resave: false,
+	saveUninitialized: true,
+	secret: 'cookieSecret word to encode', 
+	cookie: { maxAge: 1000*60*60*8 }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,15 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-	resave: false,
-	saveUninitialized: true,
-	secret: credentials.cookieSecret, 
-	cookie: { maxAge: 600000 }
-}));
-
-
-app.use('/', indexRouter);
+app.use('/', mainRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 
