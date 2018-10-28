@@ -26,7 +26,31 @@ function getList(req, res, next) {
 
 function Edit(req,res,next){}
 
+/*function getUser(adminLogin, adminPwd){
+	db.one('SELECT "Login" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = '''+adminLogin+''' and "Pwd" = '''+adminPwd+'''')
+    .then(function (data) {
+        console.log("DATA:", data.value);
+		return data.value;
+		/*return json({
+				status: 'success',
+				data: data,
+				message: 'Found admin'
+			});*\
+    })
+    .catch(function (error) {
+        console.log("ERROR:", error);
+		return "";
+		/*return json({
+				status: 'success',
+				data: {},
+				message: error
+			});*\
+    });
+}*/
+
 module.exports = {
 	getList: getList,
-	Edit: Edit
+	Edit: Edit,
+	//getUser: getUser,
+	db: db
 }
