@@ -39,6 +39,7 @@ router.post('/', function(req, res, next) {
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			console.log(qerr ? qerr.stack : qres);
+			//if (typeof qres.rowCount !== 'undefined') {
 			if (!qres.rowCount || qres.rowCount == 0) {
 				console.log('res.rowCount='+qres.rowCount);
 			}
