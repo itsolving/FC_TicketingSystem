@@ -20,9 +20,11 @@
 					</div>
 					
 					<div class="navbar navbar-expand-lg navbar-light bg-light">
-						<div class="navbar-brand"><a href="#">Мероприятия</a></div>
+						<div class="navbar-brand" id="mnuEvents">Мероприятия</div>
 						<div class="navbar-brand"><a href="#">Стадионы</a></div>
 						<div class="navbar-brand"><a href="#">Пользователи</a></div>
+					</div>
+					<div id="workArea">
 					</div>
 				</div>
 			<% } else{ %>
@@ -39,5 +41,12 @@
 				</form>
 			<% } %>
 		</div>
+		<script>
+			$("#mnuEvents").click(function(){
+				$.get("/admin/events", function(data, status){
+					$('#workArea').html(data);
+				});
+			});
+		</script>
 	</body>
 </html>
