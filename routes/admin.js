@@ -86,12 +86,22 @@ router.get('/exit', function(req, res){
 });
 
 router.get('/events', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+
 	const client = new Client(conOptions);
+	var events = {};
 	console.log('client.connect...');
 	client.connect()
-	var sSQL = 'SELECT "ID", "Name", "ImgPath", "IDStatus", "DateFrom", "Dateto", "IDUserCreator", "CreateDate", "IDStadium" '+
-				'FROM public."tEvent" '+
-				'where "IDStatus" = 1 and "Dateto" >= now() ';
+	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
+				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
+				'sd."Name" as "Stadium" '+
+				'FROM public."tEvent" ev '+
+				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'where ev."IDStatus" = 1 and ev."Dateto" >= now() ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -114,9 +124,89 @@ router.get('/events', function(req, res, next) {
 		}
 		console.log('client.end...');
 		client.end();
-		res.send('adminevents', {eventsList: events});
+		//res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+		res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: events});
 	});
 });
+
+
+router.get('/event/:id', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	var nID = req.params.id;
+	var rowEventData = {};
+	var stadiumList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", '+
+				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
+				'sd."Name" as "Stadium" '+
+				'FROM public."tEvent" ev '+
+				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'where ev."IDStatus" = 1 and ev."Dateto" >= now() and ev."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowEventData = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		//res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+	});
+});
+
+router.get('/stadiumsJson', function(req, res, next) {
+	var stadiumList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					stadiumList = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		res.json(stadiumList);
+	});
+});
+
 
 
 module.exports = router;

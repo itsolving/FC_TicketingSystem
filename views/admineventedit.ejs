@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+
+		<title><%= title %></title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+					<div class="row">
+						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
+						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
+					</div>
+					
+					<div class="navbar navbar-expand-lg navbar-light bg-light">
+						<div class="navbar-brand"><a href="/admin/events">Мероприятия</a></div>
+						<div class="navbar-brand"><a href="#">Стадионы</a></div>
+						<div class="navbar-brand"><a href="#">Пользователи</a></div>
+					</div>
+					<div id="workArea">
+						Редактирование мероприятия
+						<div class="container">
+							<form action="/admin/event/<%= eventID %>" method="POST">
+								<% eventData.forEach(function(eventRow) { %>
+								<label>ID: <%= eventRow.ID %><//label>
+								<div class="form-group">
+									<label for="eventName">Наименование:</label>
+									<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название зала">
+								</div>
+								<div class="form-group">
+									<label for="eventDateFrom">Начало:</label>
+									<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало">
+								</div>
+								<div class="form-group">
+									<label for="eventDateTo">Окончание:</label>
+									<input type="datetime" class="form-control" id="eventDateTo" value="<%= eventRow.Dateto %>" placeholder="конец">
+								</div>
+								<div class="form-group">
+									<label for="stadiumsList">Стадион:</label>
+									<select name="stadiumsList" id="stadiumsList">
+										<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
+									</select>
+								</div>
+								<% }); %>
+								<input type="submit" value="Сохранить">
+							</form>
+							<script>
+								$(document).ready(){
+									$.ajax({
+										url: '/stadiumsJson',
+										type: "GET",
+										success: function(result){
+											//$('select#stadiumsList').empty();
+											$.each(result, function(index) {
+												if (restul[index].ID != $("stadiumsList").val()) {
+													$('select#stadiumsList').append(
+														$('<option></option>')
+															.val(restul[index].ID)
+															.html(restul[index].Name)
+													);
+												}
+											});
+										}
+									});
+								}
+							</script>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<form action="/admin" method="post">
+					<div class="form-group">
+						<label for="txLogin">Логин</label>
+						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
+					</div>
+					<div class="form-group">
+						<label for="txPassword">Пароль</label>
+						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
+					</div>
+					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
+				</form>
+			<% } %>
+		</div>
+	</body>
+</html>
+
