@@ -91,7 +91,10 @@ router.get('/events', function(req, res, next) {
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 	}
-
+	else {
+		res.redirect('/admin');
+		return;
+	}
 	const client = new Client(conOptions);
 	var events = {};
 	console.log('client.connect...');
@@ -135,6 +138,10 @@ router.get('/event/:id', function(req, res, next) {
 	var sessData = req.session;
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
 	}
 	var nID = req.params.id;
 	var rowEventData = {};
