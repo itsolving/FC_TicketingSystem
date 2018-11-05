@@ -18,6 +18,40 @@ app.use(session({
 	cookie: { maxAge: 1000*60*60*8 }
 }));
 
+
+
+
+var xAdmin = require('express-admin');
+var config = {
+    dpath: '../express-admin-master/config/',
+    config: require('../express-admin-master/config/config.json'),
+    settings: require('../express-admin-master/config/settings.json'),
+    custom: require('../express-admin-master/config/custom.json'),
+    users: require('../express-admin-master/config/users.json')
+    // additionally you can pass your own session middleware to use
+    //session: session({...})
+};
+xAdmin.init(config, function (err, admin) {
+    if (err) return console.log(err);
+    // web site
+    //var app = express();
+    // mount express-admin before any other middlewares
+    app.use('/admin', admin);
+    // site specific middlewares
+    //app.use(express.bodyParser());
+    // site routes
+    /*app.get('/', function (req, res) {
+        res.send('Hello World');
+    });*/
+    // site server
+    /*app.listen(3000, function () {
+        console.log('My awesome site listening on port 3000');
+    });*/
+});
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -30,7 +64,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRouter);
 app.use('/users', usersRouter);
-app.use('/admin', adminRouter);
+//app.use('/admin', adminRouter);
+app.use('/admin', xAdmin.init);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

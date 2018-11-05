@@ -104,7 +104,7 @@ router.get('/events', function(req, res, next) {
 				'sd."Name" as "Stadium" '+
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'where ev."IDStatus" = 1 and ev."Dateto" >= now() ';
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -154,7 +154,7 @@ router.get('/event/:id', function(req, res, next) {
 				'sd."Name" as "Stadium" '+
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'where ev."IDStatus" = 1 and ev."Dateto" >= now() and ev."ID" = '+nID;
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = '+nID;
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
