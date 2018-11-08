@@ -5,10 +5,12 @@ var db = require('../queries');
 
 const { Client } = require('pg');
 const conOptions = {
-	user: 'postgres',
+	//user: 'postgres', //local test on home-computer
+	user: 'pgadmin', //test on dev-server
 	host: 'localhost',
 	database: 'postgres',
-	password: 'qwe',
+	//password: 'qwe', //local test on home-computer
+	password: 'UrdodON9zu83BvtI6L', //test on dev-server
 	port: 5432,
 };
 
