@@ -1,16 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../queries');
+var passwordHash = require('password-hash');
 
 
 const { Client } = require('pg');
 const conOptions = {
 	//user: 'postgres', //local test on home-computer
 	user: 'pgadmin', //test on dev-server
+	
 	host: 'localhost',
 	database: 'postgres',
+	
 	//password: 'qwe', //local test on home-computer
 	password: 'UrdodON9zu83BvtI6L', //test on dev-server
+	
 	port: 5432,
 };
 
@@ -39,7 +43,9 @@ router.post('/', function(req, res, next) {
 
 		console.log('client.connect...');
 		client.connect()
-		var sSQL = 'SELECT "Login" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = \''+req.body.txLogin+'\' and "Pwd" = \''+req.body.txPassword+'\'';
+		
+		var hashedPassword = passwordHash.generate(req.body.txPassword);
+		var sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = \''+req.body.txLogin+'\'';
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -64,8 +70,14 @@ router.post('/', function(req, res, next) {
 								console.log('res.rows[0].Login not found');
 							}
 							else {
-								console.log('qres.rows[0].Login='+qres.rows[0].Login);
-								sAdminLogin = qres.rows[0].Login;
+								console.log('qres.rows[0].Login='+qres.rows[0].Login+', qres.rows[0].Pwd='+qres.rows[0].Pwd);
+								if (passwordHash.verify(req.body.txPassword, qres.rows[0].Pwd)) {
+									console.log('qres.rows[0].Login='+qres.rows[0].Login);
+									sAdminLogin = qres.rows[0].Login;
+								}
+								else {
+									console.log('wrong password');
+								}
 							}
 						}
 					}
