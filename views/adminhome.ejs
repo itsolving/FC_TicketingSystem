@@ -28,6 +28,7 @@
 					</div>
 				</div>
 			<% } else{ %>
+				<% if (errorMsg) { %><p><%= errorMsg %></p><% } %>
 				<form action="/admin" method="post">
 					<div class="form-group">
 						<label for="txLogin">Логин</label>

@@ -43,6 +43,25 @@
 									</tr>
 								<% }); %>
 							</table>
+							<div id="workArea" class="row">
+							<% if(eventsList) { %>
+								<% eventsList.forEach(function(eventRow) { %>
+								<div class="col-sm-6 col-md-3">
+									<div class="thumbnail">
+										<a href="/admin/event/<%= eventRow.ID %>">
+											<img src="../images/events/<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
+										</a>
+										<div class="caption">
+											<span><%= eventRow.ID %>: </span>
+											<h3><%= eventRow.Name %></h3>
+											<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
+											<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
+										</div>
+									</div>
+								</div>
+								<% }); %>
+							<% } %>
+							</div>
 						</div>
 					</div>
 				</div>
