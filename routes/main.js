@@ -203,6 +203,14 @@ router.get('/event/:id/tickets', function(req, res){
 })
 
 
+router.get('/exit', function(req, res){
+	req.session.destroy(function(err) {
+		if(err){throw err;}
+	});
+	res.redirect('/');
+});
+
+
 router.get('/api/events', db.getList);
 router.put('/api/events/:id', db.Edit);
 
