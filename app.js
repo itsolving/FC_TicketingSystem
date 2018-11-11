@@ -23,11 +23,11 @@ app.use(session({
 
 var xAdmin = require('express-admin');
 var config = {
-    dpath: '../express-admin-master/config/',
-    config: require('../express-admin-master/config/config.json'),
-    settings: require('../express-admin-master/config/settings.json'),
-    custom: require('../express-admin-master/config/custom.json'),
-    users: require('../express-admin-master/config/users.json')
+    dpath: './express-admin-master/config/',
+    config: require('./express-admin-master/config/config.json'),
+    settings: require('./express-admin-master/config/settings.json'),
+    custom: require('./express-admin-master/config/custom.json'),
+    users: require('./express-admin-master/config/users.json')
     // additionally you can pass your own session middleware to use
     //session: session({...})
 };
