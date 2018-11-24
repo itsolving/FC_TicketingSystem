@@ -4,6 +4,8 @@ var db = require('../queries');
 var passwordHash = require('password-hash');
 
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next){
 	var sLogin = "";
@@ -20,7 +22,46 @@ router.get('/', function(req, res, next){
 
 
 router.get('/events', function(req, res, next){
-	res.redirect('/');
+	var sLogin = "";
+	var events = {};
+	var sSQL = "";
+	var sessData = req.session;
+	if(sessData.userLogin){
+		sLogin = sessData.userLogin;
+		
+		console.log('sLogin='+sLogin);
+		
+		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+		console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(data){
+				/*res.status(200)
+				.json({
+					status: 'success',
+					data: data,
+					message: 'Retrieved list'
+				});*/
+				console.log('events found:');
+				console.log(data);
+				sessData.eventsList = data;
+				events = data;
+				console.log('events: '+ JSON.stringify(events));
+				
+				console.log('rendering page...');
+				console.log('sLogin='+sLogin);
+				console.log('events: '+ JSON.stringify(events));
+				//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
+				res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of search actual events:');
+				console.log(err);
+			});
+	}
+	else {
+		res.redirect('/');
+	}
 })
 
 router.post('/events', function(req, res, next){

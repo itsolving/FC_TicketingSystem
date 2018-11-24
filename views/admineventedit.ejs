@@ -28,28 +28,40 @@
 						Редактирование мероприятия
 						<div class="container">
 							<form action="/admin/event/<%= eventID %>" method="POST">
+								<div class="form-group">
+									<input type="submit" value="Сохранить" />
+								</div>
 								<% eventData.forEach(function(eventRow) { %>
-								<label>ID: <%= eventRow.ID %><//label>
-								<div class="form-group">
-									<label for="eventName">Наименование:</label>
-									<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название зала">
-								</div>
-								<div class="form-group">
-									<label for="eventDateFrom">Начало:</label>
-									<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало">
-								</div>
-								<div class="form-group">
-									<label for="eventDateTo">Окончание:</label>
-									<input type="datetime-local" class="form-control" id="eventDateTo" value="<%= eventRow.Dateto %>" placeholder="конец">
-								</div>
-								<div class="form-group">
-									<label for="stadiumsList">Стадион:</label>
-									<select name="stadiumsList" id="stadiumsList">
-										<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
-									</select>
-								</div>
+									<div class="col-md-3">
+										<label>ID: <%= eventRow.ID %><//label>
+										<div class="form-group">
+											<label for="eventName">Наименование:</label>
+											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название зала" />
+										</div>
+										<div class="form-group">
+											<label for="eventDateFrom">Начало:</label>
+											<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало" />
+										</div>
+										<!--
+										<div class="form-group">
+											<label for="eventDateTo">Окончание:</label>
+											<input type="datetime-local" class="form-control" id="eventDateTo" value="<%= eventRow.Dateto %>" placeholder="конец">
+										</div>
+										-->
+										<div class="form-group">
+											<label for="stadiumsList">Стадион:</label>
+											<select name="stadiumsList" id="stadiumsList">
+												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label for="eventImage">Афиша:</label><button onclick="ClickNewImg();">Сменить</button>
+											<img id="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
+										</div>
+									</div>
 								<% }); %>
-								<input type="submit" value="Сохранить">
 							</form>
 							<script>
 								$(document).ready(){
@@ -70,12 +82,16 @@
 										}
 									});
 								}
+								function ClickNewImg(){
+									alert('test');
+									return;
+								}
 							</script>
 						</div>
 					</div>
 				</div>
 			<% } else{ %>
-				<form action="/admin" method="post">
+				<!--<form action="/admin" method="post">
 					<div class="form-group">
 						<label for="txLogin">Логин</label>
 						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
@@ -85,7 +101,8 @@
 						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
 					</div>
 					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-				</form>
+				</form>-->
+				<% include admloginform %>
 			<% } %>
 		</div>
 	</body>

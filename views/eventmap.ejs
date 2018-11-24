@@ -17,6 +17,7 @@
 					<div class="divExitCmd"><strong><a href="/exit">Выйти</a></strong></div>
 				</div>
 				<br />
+				<p><a href="/events">Назад</a> в список мероприятий</p>
 				<div id="workArea" class="row">
 					<span id="eventID" hidden><%= eventsList[0].ID %></span>
 					<p><%= eventsList[0].Name %>, <%= eventsList[0].DateFrom %></p>
@@ -91,7 +92,7 @@
 			</div>
 			
 		<% } else{ %>
-			<form action="/events" method="post">
+			<!--<form action="/events" method="post">
 				<div class="form-group">
 					<label for="txLogin">Логин</label>
 					<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин" />
@@ -101,7 +102,8 @@
 					<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль" />
 				</div>
 				<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-			</form>
+			</form>-->
+			<% include loginform %>
 		<% } %>
 	</div>
   </body>

@@ -14,22 +14,24 @@
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<div class="row">
+					<!--<div class="row">
 						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
 						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
-					</div>
+					</div>-->
+					<% include admheader %>
 					
-					<div class="navbar navbar-expand-lg navbar-light bg-light">
+					<!--<div class="navbar navbar-expand-lg navbar-light bg-light">
 						<div class="navbar-brand" id="mnuEvents"><a href="/admin/events">Мероприятия</a></div>
 						<div class="navbar-brand"><a href="#">Стадионы</a></div>
 						<div class="navbar-brand"><a href="#">Пользователи</a></div>
-					</div>
+					</div>-->
+					<% include admmnu %>
 					<div id="workArea">
 					</div>
 				</div>
 			<% } else{ %>
 				<% if (errorMsg) { %><p><%= errorMsg %></p><% } %>
-				<form action="/admin" method="post">
+				<!--<form action="/admin" method="post">
 					<div class="form-group">
 						<label for="txLogin">Логин</label>
 						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
@@ -39,7 +41,8 @@
 						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
 					</div>
 					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-				</form>
+				</form>-->
+				<% include admloginform %>
 			<% } %>
 		</div>
 		<script>
