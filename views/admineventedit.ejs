@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!--
 		<meta charset="utf-8">
 		<meta name="description" content="">
 
@@ -8,22 +9,16 @@
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		-->
+		<% include head_html %>
 	</head>
 	<body>
 		<div class="container">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<div class="row">
-						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
-						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
-					</div>
-					
-					<div class="navbar navbar-expand-lg navbar-light bg-light">
-						<div class="navbar-brand"><a href="/admin/events">Мероприятия</a></div>
-						<div class="navbar-brand"><a href="#">Стадионы</a></div>
-						<div class="navbar-brand"><a href="#">Пользователи</a></div>
-					</div>
+					<% include admheader %>
+					<% include admmnu %>
 					<div id="workArea">
 						Редактирование мероприятия
 						<div class="container">
@@ -36,7 +31,7 @@
 										<label>ID: <%= eventRow.ID %><//label>
 										<div class="form-group">
 											<label for="eventName">Наименование:</label>
-											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название зала" />
+											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
 										</div>
 										<div class="form-group">
 											<label for="eventDateFrom">Начало:</label>
@@ -71,7 +66,7 @@
 										success: function(result){
 											//$('select#stadiumsList').empty();
 											$.each(result, function(index) {
-												if (restul[index].ID != $("stadiumsList").val()) {
+												if (restul[index].ID != $("#stadiumsList").val()) {
 													$('select#stadiumsList').append(
 														$('<option></option>')
 															.val(restul[index].ID)

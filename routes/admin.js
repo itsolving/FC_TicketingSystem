@@ -285,6 +285,183 @@ router.get('/stadiumsJson', function(req, res, next) {
 	});
 });
 
+router.get('/stadiums', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	const client = new Client(conOptions);
+	var stadiums = {};
+	console.log('client.connect...');
+	client.connect()
+	var sSQL = 'SELECT sd."ID", sd."Name", sd."IDStatus", '+
+				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
+				'ct."Name" as "CityName", \'\' as "ImgPath" '+
+				'FROM public."tStadium" sd '+
+				'join public."tCity" ct on ct."ID" = sd."IDCity" '+
+				'where sd."IDStatus" = 1 ';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					stadiums = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		//res.render('adminstadiums', {title: 'Админка', adminLogin: sAdminLogin, stadiumsList: JSON.stringify(stadiums)});
+		res.render('adminstadiums', {title: 'Админка', adminLogin: sAdminLogin, stadiumsList: stadiums});
+	});
+});
+
+router.get('/stadium/:id', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var nID = req.params.id;
+	var rowStadiumData = {};
+	var cityList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT sd."ID", sd."Name", \'\' as "ImgPath", sd."IDStatus", '+
+				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
+				'ct."Name" as "CityName" '+
+				'FROM public."tStadium" sd '+
+				'join public."tCity" ct on ct."ID" = sd."IDCity" '+
+				'where sd."IDStatus" = 1 and sd."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowStadiumData = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		//res.render('adminstadiumedit', {title: 'Админка', adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+		res.render('adminstadiumedit', {title: 'Админка', adminLogin: sAdminLogin, stadiumData: rowStadiumData, stadiumID: nID, cities: cityList});
+	});
+});
+
+router.post('/stadium/:id', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var nID = req.body.id;
+	var rowStadiumData = {};
+	var cityList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	console.log('connected');
+	
+	res.send('функция сохранения находится в разработке. Скоро будет готова');
+	
+	var sSQL = 'update public."tStadium" set ...'+
+				'where sd."ID" = '+nID;
+	console.log(sSQL);
+	/*client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowEventData = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		//res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+	});*/
+});
+
+router.get('/citiesJson', function(req, res, next) {
+	var cityList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					cityList = qres.rows;
+				}
+			}
+		}
+		console.log('client.end...');
+		client.end();
+		res.json(cityList);
+	});
+});
+
 
 
 module.exports = router;
