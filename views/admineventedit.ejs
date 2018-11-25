@@ -28,7 +28,7 @@
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
-										<label>ID: <%= eventRow.ID %><//label>
+										<label>ID: <span id="eventID"><%= eventRow.ID %></span><//label>
 										<div class="form-group">
 											<label for="eventName">Наименование:</label>
 											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
@@ -48,6 +48,9 @@
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 											</select>
+										</div>
+										<div class="form-group">
+											<button onclick="GenerateTickets();">Генерация билетов</button>
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -80,6 +83,29 @@
 								function ClickNewImg(){
 									alert('test');
 									return;
+								}
+								function GenerateTickets(){
+									var sEventID = $("#eventID").val();
+									$.ajax({
+										url: '/generateTickets',
+										type: "POST",
+										data: {
+											eventID: sEventID
+										},
+										success: function(result){
+											alert('Генерация билетов завершена');
+											//$('select#stadiumsList').empty();
+											/*$.each(result, function(index) {
+												if (restul[index].ID != $("#stadiumsList").val()) {
+													$('select#stadiumsList').append(
+														$('<option></option>')
+															.val(restul[index].ID)
+															.html(restul[index].Name)
+													);
+												}
+											});*/
+										}
+									});
 								}
 							</script>
 						</div>
