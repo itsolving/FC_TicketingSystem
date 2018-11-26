@@ -1,3 +1,7 @@
+/*
+общий коннект к базе данных
+*/
+
 var promise = require('bluebird');
 var options = {
 	promiseLib : promise
@@ -8,6 +12,9 @@ var connectString =
 	'postgres://pgadmin:UrdodON9zu83BvtI6L@localhost:5432/postgres'; //test on dev-server
 var db = pgp(connectString);
 
+
+
+//изначально хотел использовать эту функцию, но позже переписал код, а эта функция осталась ненужной
 function getList(req, res, next) {
 	db.any('SELECT "ID", "Name" FROM public."tEvent";')
 		.then(function(data){
@@ -23,7 +30,7 @@ function getList(req, res, next) {
 		})
 }
 
-
+//подготовил функции, но так и не использовал
 function Edit(req,res,next){}
 
 /*function getUser(adminLogin, adminPwd){
@@ -48,9 +55,12 @@ function Edit(req,res,next){}
     });
 }*/
 
+
+
 module.exports = {
 	getList: getList,
 	Edit: Edit,
 	//getUser: getUser,
 	db: db
 }
+

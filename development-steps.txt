@@ -4,16 +4,11 @@ npm install -g express-generator
 express --view ejs
 npm install
 npm install --save pg-promise bluebird
+npm install express-session --save
 
-(create js-files of the project, codding..)
-
-npm start
-
-(webapplication will work in localhost:3000)
-(copy file ./bin/www to ./ and rename as index.js, change for "server.listen()")
+(copy file "./bin/www" to "./" and rename as "index.js", change code for "server.listen()")
 
 node index.js
 
 (ready, and now you can codding)
 
-npm install express-session --save

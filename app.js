@@ -15,12 +15,16 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true,
 	secret: 'cookieSecret word to encode', 
-	cookie: { maxAge: 1000*60*60*8 }
+	cookie: { maxAge: 1000*60*60*8 } //время сессии должно быть как можно длиннее, я поставил 8 часов
 }));
 
 
 
 
+//------------------------------
+//здесь была попытка использовать готовую админку
+//но была проблема с ее подключением к разрабатываемому сайту
+//поэтому забросил до лучших времен, а пока сам пишу админку
 var xAdmin = require('express-admin');
 var config = {
     dpath: './express-admin-master/config/',
@@ -48,6 +52,8 @@ xAdmin.init(config, function (err, admin) {
         console.log('My awesome site listening on port 3000');
     });*/
 });
+//------------------------------
+
 
 
 
@@ -65,7 +71,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', mainRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
-//app.use('/admin', xAdmin.init);
+//app.use('/admin', xAdmin.init); //попытка использовать готовую админку
+
 
 
 // catch 404 and forward to error handler
@@ -84,4 +91,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+
 module.exports = app;
+
+
