@@ -225,7 +225,9 @@ router.post('/event/:id', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
+	//var nID = req.params.id;
 	var nID = req.body.id;
+	
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);

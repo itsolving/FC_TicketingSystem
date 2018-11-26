@@ -1,40 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<!--
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="/javascripts/jquery-3.3.1.min.js"></script>
-	-->
 	<% include head_html %>
   </head>
   <body>
     <div class="Container">
-		<h1>Авторизация в системе "<%= title %>"</h1>
 		<% if(userLogin){ %>
+			<h1>Система "<%= title %>"</h1>
 			<div>
-				<div class="row">
-					<div class="divLoginName"><strong><%= userLogin %></strong></div>
-					<div class="divExitCmd"><strong><a href="/exit">Выйти</a></strong></div>
-				</div>
+				<!--
+				<% include mainheader %>
+				-->
 				
 				<div id="workArea" class="row">
-					<%= eventsList %>
+					<% include events %>
 				</div>
 			</div>
 		<% } else{ %>
-			<form action="/events" method="post">
-				<div class="form-group">
-					<label for="txLogin">Логин</label>
-					<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин" />
-				</div>
-				<div class="form-group">
-					<label for="txPassword">Пароль</label>
-					<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль" />
-				</div>
-				<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-			</form>
+			<h1>Авторизация в системе "<%= title %>"</h1>
+			<% include loginform %>
 		<% } %>
 	</div>
   </body>

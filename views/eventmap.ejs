@@ -15,10 +15,13 @@
 		
 		<% if(userLogin){ %>
 			<div>
+				<!--
 				<div class="row">
 					<div class="divLoginName"><strong><%= userLogin %></strong></div>
 					<div class="divExitCmd"><strong><a href="/exit">Выйти</a></strong></div>
 				</div>
+				-->
+				<% include mainheader %>
 				<br />
 				<p><a href="/events">Назад</a> в список мероприятий</p>
 				<div id="workArea" class="row">
