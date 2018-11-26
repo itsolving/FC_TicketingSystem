@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+<<<<<<< HEAD
 		<!--
+=======
+>>>>>>> 32c26b73bdb2a6013577320b0b0e6ba78cc7c459
 		<meta charset="utf-8">
 		<meta name="description" content="">
 
@@ -9,14 +12,18 @@
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<<<<<<< HEAD
 		-->
 		<% include head_html %>
+=======
+>>>>>>> 32c26b73bdb2a6013577320b0b0e6ba78cc7c459
 	</head>
 	<body>
 		<div class="container">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
+<<<<<<< HEAD
 					<!--<div class="row">
 						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
 						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
@@ -35,6 +42,21 @@
 			<% } else{ %>
 				<% if (errorMsg) { %><p><%= errorMsg %></p><% } %>
 				<!--<form action="/admin" method="post">
+=======
+					<div class="row">
+						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
+						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
+					</div>
+					
+					<div class="navbar navbar-expand-lg navbar-light bg-light">
+						<div class="navbar-brand"><a href="#">Мероприятия</a></div>
+						<div class="navbar-brand"><a href="#">Стадионы</a></div>
+						<div class="navbar-brand"><a href="#">Пользователи</a></div>
+					</div>
+				</div>
+			<% } else{ %>
+				<form action="/admin" method="post">
+>>>>>>> 32c26b73bdb2a6013577320b0b0e6ba78cc7c459
 					<div class="form-group">
 						<label for="txLogin">Логин</label>
 						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
@@ -44,6 +66,7 @@
 						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
 					</div>
 					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
+<<<<<<< HEAD
 				</form>-->
 				<% include admloginform %>
 			<% } %>
@@ -55,5 +78,10 @@
 				});
 			});*/
 		</script>
+=======
+				</form>
+			<% } %>
+		</div>
+>>>>>>> 32c26b73bdb2a6013577320b0b0e6ba78cc7c459
 	</body>
 </html>
