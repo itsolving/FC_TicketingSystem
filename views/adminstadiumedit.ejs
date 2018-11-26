@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--
+		<meta charset="utf-8">
+		<meta name="description" content="">
+
+		<title><%= title %></title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		-->
+		<% include head_html %>
+	</head>
+	<body>
+		<div class="container">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+					<% include admheader %>
+					<% include admmnu %>
+					<div id="workArea">
+						Редактирование зала (стадиона)
+						<div class="container">
+							<form action="/admin/stadium/<%= stadiumID %>" method="POST">
+								<div class="form-group">
+									<input type="submit" value="Сохранить" />
+								</div>
+								<% stadiumData.forEach(function(stadiumRow) { %>
+									<div class="col-md-3">
+										<label>ID: <%= stadiumRow.ID %><//label>
+										<div class="form-group">
+											<label for="stadiumName">Наименование:</label>
+											<input type="text" class="form-control" id="stadiumName" value="<%= stadiumRow.Name %>" placeholder="название зала" />
+										</div>
+										<div class="form-group">
+											<label for="citiesList">Город:</label>
+											<select name="citiesList" id="citiesList">
+												<option value="<%= stadiumRow.IDCity %>" selected><%= stadiumRow.CityName %></option>
+											</select>
+										</div>
+									</div>
+								<% }); %>
+							</form>
+							<script>
+								$(document).ready(){
+									$.ajax({
+										url: '/citiesJson',
+										type: "GET",
+										success: function(result){
+											$.each(result, function(index) {
+												if (restul[index].ID != $("#citiesList").val()) {
+													$('select#citiesList').append(
+														$('<option></option>')
+															.val(restul[index].ID)
+															.html(restul[index].Name)
+													);
+												}
+											});
+										}
+									});
+								}
+							</script>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

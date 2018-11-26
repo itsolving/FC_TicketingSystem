@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<!--
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="/javascripts/jquery-3.3.1.min.js"></script>
+	-->
+	<% include head_html %>
+  </head>
+  <body>
+    <div class="Container">
+		<h1>Выбор места в схеме зала</h1>
+		
+		<% if(userLogin){ %>
+			<div>
+				<div class="row">
+					<div class="divLoginName"><strong><%= userLogin %></strong></div>
+					<div class="divExitCmd"><strong><a href="/exit">Выйти</a></strong></div>
+				</div>
+				<br />
+				<p><a href="/events">Назад</a> в список мероприятий</p>
+				<div id="workArea" class="row">
+					<span id="eventID" hidden><%= eventsList[0].ID %></span>
+					<p><%= eventsList[0].Name %>, <%= eventsList[0].DateFrom %></p>
+					<div id="stadiumMap">здесь будет карта (схема зала) для выбора и покупки мест</div>
+				</div>
+				
+				<script>
+					function getNewData(pEventID, pRunCount){
+						console.log('getNewData started, pEventID='+pEventID);
+						var sURL = "";
+						if (pRunCount == 1) {
+							//url for getting all tickets
+							sURL = "/event/"+pEventID+"/tickets";
+						}
+						else {
+							//url for getting only updated tickets
+							sURL = "/event/"+pEventID+"/getticketchanges"
+						}
+						
+						$.ajax({
+							type: "GET",
+							url: sURL,
+							dataType: "json",
+							contentType: "application/json",
+							success: function(ticketsData){
+								console.log(JSON.stringify(ticketsData));
+								//example ticketsData = {"status":"success","data":[{"ID":1,"Barcode":"123123123","Price":"1000.00","IDSeat":1,"IDEvent":1,"IDStatus":3,"SectorName":"A","RowN":1,"SeatN":1},{"ID":2,"Barcode":"123123222","Price":"1200.00","IDSeat":2,"IDEvent":1,"IDStatus":3,"SectorName":"A","RowN":1,"SeatN":2}]}
+								/*
+								ID - ticket ID
+								Barcode - ticket barcode
+								Price - ticket price (KZT)
+								IDEvent - event ID in this stadium
+								IDStatus - ticket status (3=free/sale, 4=reserved, 5=sold)
+								IDSeat - maybe we dont need, it is a seat ID, not seat-number
+								SectorName - sector of seat (block of seat)
+								RowN - row of seat (line of seat)
+								SeatN - seat-number (place of seat)
+								*/
+								$("#stadiumMap").text(JSON.stringify(ticketsData));
+							},
+						});
+					}
+					
+					/* //???
+					function SaveTickets(pEventID){
+						var sURL = "/event/"+pEventID+"/save";
+						$.ajax({
+							type: "POST",
+							url: sURL,
+							data: {},
+							success: function(data){
+								console.log('tickets saved');
+								getNewData(pEventID, 2)
+							},
+						});
+					}*/
+					
+					$(document).ready(function (){
+						//console.log('ready');
+						var x = 10000;
+						var eventID = $("#eventID").text();
+						console.log('doc ready, eventID='+eventID);
+						
+						//first run - get all tickets
+						getNewData(eventID, 1);
+						
+						//every x seconds get only updated tickets
+						setInterval(getNewData(eventID, 2), x);
+					});
+					
+				</script>
+			</div>
+			
+		<% } else{ %>
+			<!--<form action="/events" method="post">
+				<div class="form-group">
+					<label for="txLogin">Логин</label>
+					<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин" />
+				</div>
+				<div class="form-group">
+					<label for="txPassword">Пароль</label>
+					<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль" />
+				</div>
+				<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
+			</form>-->
+			<% include loginform %>
+		<% } %>
+	</div>
+  </body>
+</html>
