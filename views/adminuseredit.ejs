@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+	</head>
+	<body>
+		<div class="container">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+					<% include admheader %>
+					<% include admmnu %>
+					<div id="workArea">
+						Редактирование пользователя
+						<div class="container">
+							<form action="/admin/user/<%= userID %>" method="POST">
+								<div class="form-group">
+									<input type="submit" value="Сохранить" />
+								</div>
+								<% userData.forEach(function(userRow) { %>
+									<div class="col-md-3">
+										<label>ID: <%= userRow.ID %><//label>
+										<div class="form-group">
+											<label for="userLogin">Логин:</label>
+											<input type="text" class="form-control" id="userLogin" value="<%= userRow.Login %>" placeholder="логин" />
+										</div>
+										<div class="form-group">
+											<label for="rolesList">Роль:</label>
+											<select name="rolesList" id="rolesList">
+												<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
+											</select>
+										</div>
+									</div>
+								<% }); %>
+							</form>
+							<script>
+								$(document).ready(){
+									$.ajax({
+										url: '/rolesJson',
+										type: "GET",
+										success: function(result){
+											$.each(result, function(index) {
+												if (restul[index].ID != $("#rolesList").val()) {
+													$('select#rolesList').append(
+														$('<option></option>')
+															.val(restul[index].ID)
+															.html(restul[index].Name)
+													);
+												}
+											});
+										}
+									});
+								}
+							</script>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

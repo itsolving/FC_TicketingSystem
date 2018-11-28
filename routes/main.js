@@ -8,6 +8,7 @@ var passwordHash = require('password-hash');
 
 /* GET home page. */
 router.get('/', function(req, res, next){
+	console.log("get: /");
 	var sLogin = "";
 	var events = {};
 	var sessData = req.session;
@@ -22,6 +23,7 @@ router.get('/', function(req, res, next){
 
 
 router.get('/events', function(req, res, next){
+	console.log("get: /events");
 	var sLogin = "";
 	var events = {};
 	var sSQL = "";
@@ -31,7 +33,7 @@ router.get('/events', function(req, res, next){
 		
 		console.log('sLogin='+sLogin);
 		
-		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -65,6 +67,7 @@ router.get('/events', function(req, res, next){
 })
 
 router.post('/events', function(req, res, next){
+	console.log("post: /events");
 	var sLogin = "";
 	var events = {};
 	var sSQL = "";
@@ -74,7 +77,7 @@ router.post('/events', function(req, res, next){
 		
 		console.log('sLogin='+sLogin);
 		
-		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -107,7 +110,7 @@ router.post('/events', function(req, res, next){
 		//var hashedPassword = 'sha1$3I7HRwy7$cbfdac6008f9cab4083784cbd1874f76618d2a97'; if (passwordHash.verify('password123', hashedPassword)) {...};
 		console.log('req.body.txPassword='+req.body.txPassword+', hashedPassword = '+hashedPassword);
 		//sSQL = 'SELECT "Login" FROM public."tUser" where "isLock" = false and "IDRole" = 2 and "Login" = \''+req.body.txLogin+'\' and "Pwd" = \''+hashedPassword+'\'';
-		sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" = 2 and "Login" = \''+req.body.txLogin+'\'';
+		sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -125,7 +128,7 @@ router.post('/events', function(req, res, next){
 					sessData.userLogin = data[0].Login;
 					console.log('sLogin='+sLogin);
 					
-					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1 union all SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 					console.log(sSQL);
 					db.db.any(sSQL)
 						.then(function(data){
@@ -167,6 +170,7 @@ router.post('/events', function(req, res, next){
 
 
 router.get('/event/:id', function(req, res, next){
+	console.log("get: /event/id");
 	var sLogin = "";
 	var events = {};
 	var sessData = req.session;

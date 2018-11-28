@@ -225,7 +225,9 @@ router.post('/event/:id', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
+	//var nID = req.params.id;
 	var nID = req.body.id;
+	
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);
@@ -470,6 +472,129 @@ router.get('/citiesJson', function(req, res, next) {
 		}
 		client.end();
 		res.json(cityList);
+	});
+});
+
+
+//открытие страницы со списком пользователей
+router.get('/users', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	const client = new Client(conOptions);
+	var users = {};
+	console.log('client.connect...');
+	client.connect()
+	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
+				'FROM public."tUser" u '+
+				'join public."tRole" r on r."ID" = u."IDRole" ' +
+				'where u."isLock" = false ';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					users = qres.rows;
+				}
+			}
+		}
+		client.end();
+		res.render('adminusers', {title: 'Админка', adminLogin: sAdminLogin, usersList: users});
+	});
+});
+
+//если зашли на адрес "localhost:3000/admin/user/123" где 123 это идентификатор пользователя
+router.get('/user/:id', function(req, res, next) {
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var nID = req.params.id;
+	var rowUserData = {};
+	var rolesList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
+				'FROM public."tUser" u '+
+				'join public."tRole" r on r."ID" = u."IDRole" ' +
+				'where u."isLock" = false and u."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowUserData = qres.rows;
+				}
+			}
+		}
+		client.end();s
+		res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
+	});
+});
+
+//для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
+router.get('/rolesJson', function(req, res, next) {
+	var roleList = {};
+	const client = new Client(conOptions);
+	console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT r."ID", r."Name" from public."tRole" r ';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					roleList = qres.rows;
+				}
+			}
+		}
+		client.end();
+		res.json(roleList);
 	});
 });
 
