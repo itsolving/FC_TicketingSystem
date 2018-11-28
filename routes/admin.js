@@ -561,7 +561,7 @@ router.get('/user/:id', function(req, res, next) {
 				}
 			}
 		}
-		client.end();s
+		client.end();
 		res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
 	});
 });
