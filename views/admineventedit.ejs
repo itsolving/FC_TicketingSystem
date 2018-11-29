@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--
-		<meta charset="utf-8">
-		<meta name="description" content="">
-
-		<title><%= title %></title>
-		<link rel='stylesheet' href='/stylesheets/style.css' />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		-->
 		<% include head_html %>
 	</head>
 	<body>
@@ -22,9 +13,9 @@
 					<div id="workArea">
 						Редактирование мероприятия
 						<div class="container">
-							<form action="/admin/event/<%= eventID %>" method="POST">
+							<form>
 								<div class="form-group">
-									<input type="submit" value="Сохранить" />
+									<button id="btnSaveEvent" name="btnSaveEvent" value="Сохранить" />
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
@@ -47,6 +38,9 @@
 											<label for="stadiumsList">Стадион:</label>
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
+												<% stadiums.forEach(function(stadiumRow) { %>
+													<option value="<%= stadiumRow.ID %>" selected><%= stadiumRow.Name %></option>
+												<% }); %>
 											</select>
 										</div>
 										<div class="form-group">
@@ -80,6 +74,24 @@
 										}
 									});
 								}
+								$("#btnSaveEvent").click(function(){
+									$.ajax({
+										url: "/admin/event/<%= eventID %>",
+										type: "POST",
+										success: function(result){
+											//$('select#stadiumsList').empty();
+											/*$.each(result, function(index) {
+												if (restul[index].ID != $("#stadiumsList").val()) {
+													$('select#stadiumsList').append(
+														$('<option></option>')
+															.val(restul[index].ID)
+															.html(restul[index].Name)
+													);
+												}
+											});*/
+										}
+									});
+								});
 								function ClickNewImg(){
 									alert('test');
 									return;
@@ -112,17 +124,6 @@
 					</div>
 				</div>
 			<% } else{ %>
-				<!--<form action="/admin" method="post">
-					<div class="form-group">
-						<label for="txLogin">Логин</label>
-						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
-					</div>
-					<div class="form-group">
-						<label for="txPassword">Пароль</label>
-						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
-					</div>
-					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-				</form>-->
 				<% include admloginform %>
 			<% } %>
 		</div>

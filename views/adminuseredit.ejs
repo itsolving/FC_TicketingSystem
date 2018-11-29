@@ -28,6 +28,9 @@
 											<label for="rolesList">Роль:</label>
 											<select name="rolesList" id="rolesList">
 												<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
+												<% roles.forEach(function(roleRow) { %>
+													<option value="<%= roleRow.ID %>"><%= roleRow.Name %></option>
+												<% }); %>
 											</select>
 										</div>
 									</div>
