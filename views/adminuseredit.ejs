@@ -29,7 +29,9 @@
 											<select name="rolesList" id="rolesList">
 												<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
 												<% roles.forEach(function(roleRow) { %>
-													<option value="<%= roleRow.ID %>"><%= roleRow.Name %></option>
+													<% if (roleRow.ID != userRow.IDRole ){ %>
+														<option value="<%= roleRow.ID %>"><%= roleRow.Name %></option>
+													<% } %>
 												<% }); %>
 											</select>
 										</div>

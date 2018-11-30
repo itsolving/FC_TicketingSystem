@@ -12,20 +12,22 @@ var passwordHash = require('password-hash');
 
 //-------------------
 //для админки использую "свой" коннект к БД. Потому что запарился с общим коннектом из файла "queries.js"
-const { Client } = require('pg');
+/*const { Client } = require('pg');
 const conOptions = {
-	//user: 'postgres', //local test on home-computer
-	user: 'pgadmin', //test on dev-server
+	user: 'postgres', //local test on home-computer
+	//user: 'pgadmin', //test on dev-server
 	
-	//password: 'qwe', //local test on home-computer
-	password: 'UrdodON9zu83BvtI6L', //test on dev-server
+	password: 'qwe', //local test on home-computer
+	//password: 'UrdodON9zu83BvtI6L', //test on dev-server
 	
 	host: 'localhost',
 	database: 'postgres',
 	port: 5432,
-};
+};*/
 //-------------------
-
+var conn = require('./conn');
+var Client = conn.connClient;
+var conOptions = conn.conOptions;
 
 
 //при открытии страницы "localhost:3000/admin"
@@ -210,7 +212,33 @@ router.get('/event/:id', function(req, res, next) {
 			}
 		}
 		client.end();
-		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+		const clientStadiums = new Client(conOptions);
+		clientStadiums.connect();
+		var sSQLStadiums = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
+		console.log(sSQLStadiums);
+		clientStadiums.query(sSQLStadiums, (qerrStadium, qresStadium) => {
+			if (qerrStadium) {
+				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
+			}
+			else {
+				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
+				
+				if (typeof qresStadium.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qresStadium.rowCount == 0) {
+						console.log('res.rowCount='+qresStadium.rowCount);
+					}
+					else {
+						stadiumList = qresStadium.rows;
+					}
+				}
+			}
+			clientStadiums.end();
+			res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+		});
+		
 	});
 });
 

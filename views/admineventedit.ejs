@@ -13,6 +13,7 @@
 					<div id="workArea">
 						Редактирование мероприятия
 						<div class="container">
+							<p id="saveResultMsg"></p>
 							<form>
 								<div class="form-group">
 									<button id="btnSaveEvent" name="btnSaveEvent" value="Сохранить" />
@@ -39,7 +40,9 @@
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 												<% stadiums.forEach(function(stadiumRow) { %>
-													<option value="<%= stadiumRow.ID %>" selected><%= stadiumRow.Name %></option>
+													<% if (stadiumRow.ID != eventRow.IDStadium ){ %>
+													<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
+													<% } %>
 												<% }); %>
 											</select>
 										</div>
@@ -75,10 +78,13 @@
 									});
 								}
 								$("#btnSaveEvent").click(function(){
+									$("#saveResultMsg").html("saving...");
+									var nEventID = $("#eventID").val();
 									$.ajax({
-										url: "/admin/event/<%= eventID %>",
+										url: "/admin/event/"+nEventID,
 										type: "POST",
 										success: function(result){
+											$("#saveResultMsg").html(result);
 											//$('select#stadiumsList').empty();
 											/*$.each(result, function(index) {
 												if (restul[index].ID != $("#stadiumsList").val()) {
