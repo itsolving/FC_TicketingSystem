@@ -16,7 +16,7 @@
 							<p id="saveResultMsg"></p>
 							<form>
 								<div class="form-group">
-									<button id="btnSaveEvent" name="btnSaveEvent" value="Сохранить" />
+									<button id="btnSaveEvent" name="btnSaveEvent" value="Сохранить">Сохранить</button>
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
@@ -58,77 +58,93 @@
 									</div>
 								<% }); %>
 							</form>
-							<script>
-								$(document).ready(){
-									$.ajax({
-										url: '/stadiumsJson',
-										type: "GET",
-										success: function(result){
-											//$('select#stadiumsList').empty();
-											$.each(result, function(index) {
-												if (restul[index].ID != $("#stadiumsList").val()) {
-													$('select#stadiumsList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
-													);
-												}
-											});
-										}
-									});
-								}
-								$("#btnSaveEvent").click(function(){
-									$("#saveResultMsg").html("saving...");
-									var nEventID = $("#eventID").val();
-									$.ajax({
-										url: "/admin/event/"+nEventID,
-										type: "POST",
-										success: function(result){
-											$("#saveResultMsg").html(result);
-											//$('select#stadiumsList').empty();
-											/*$.each(result, function(index) {
-												if (restul[index].ID != $("#stadiumsList").val()) {
-													$('select#stadiumsList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
-													);
-												}
-											});*/
-										}
-									});
-								});
-								function ClickNewImg(){
-									alert('test');
-									return;
-								}
-								function GenerateTickets(){
-									var sEventID = $("#eventID").val();
-									$.ajax({
-										url: '/generateTickets',
-										type: "POST",
-										data: {
-											eventID: sEventID
-										},
-										success: function(result){
-											alert('Генерация билетов завершена');
-											//$('select#stadiumsList').empty();
-											/*$.each(result, function(index) {
-												if (restul[index].ID != $("#stadiumsList").val()) {
-													$('select#stadiumsList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
-													);
-												}
-											});*/
-										}
-									});
-								}
-							</script>
+						</div>
+						<div class="container">
+							<div clas="col-md-3">
+								<select id="selSectorList" multiple>
+									<% seats.forEach(function(seatRow) { %>
+										<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
+									<% }); %>
+								</select>
+							</div>
+							<div clas="col-md-3">
+								<select id="selRowList" multiple>
+									<% seats.forEach(function(seatRow) { %>
+										<option value="<%= seatRow.ID %>"><%= seatRow.RowN %></option>
+									<% }); %>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
+				<script>
+					$(document).ready(){
+						$.ajax({
+							url: '/stadiumsJson',
+							type: "GET",
+							success: function(result){
+								//$('select#stadiumsList').empty();
+								$.each(result, function(index) {
+									if (restul[index].ID != $("#stadiumsList").val()) {
+										$('select#stadiumsList').append(
+											$('<option></option>')
+												.val(restul[index].ID)
+												.html(restul[index].Name)
+										);
+									}
+								});
+							}
+						});
+					}
+					$("#btnSaveEvent").click(function(){
+						$("#saveResultMsg").html("saving...");
+						var nEventID = $("#eventID").val();
+						$.ajax({
+							url: "/admin/event/"+nEventID,
+							type: "POST",
+							success: function(result){
+								$("#saveResultMsg").append(result);
+								//$('select#stadiumsList').empty();
+								/*$.each(result, function(index) {
+									if (restul[index].ID != $("#stadiumsList").val()) {
+										$('select#stadiumsList').append(
+											$('<option></option>')
+												.val(restul[index].ID)
+												.html(restul[index].Name)
+										);
+									}
+								});*/
+							}
+						});
+					});
+					function ClickNewImg(){
+						alert('test');
+						return;
+					}
+					function GenerateTickets(){
+						var sEventID = $("#eventID").val();
+						$.ajax({
+							url: '/generateTickets',
+							type: "POST",
+							data: {
+								eventID: sEventID
+							},
+							success: function(result){
+								alert('Генерация билетов завершена');
+								//$('select#stadiumsList').empty();
+								/*$.each(result, function(index) {
+									if (restul[index].ID != $("#stadiumsList").val()) {
+										$('select#stadiumsList').append(
+											$('<option></option>')
+												.val(restul[index].ID)
+												.html(restul[index].Name)
+										);
+									}
+								});*/
+							}
+						});
+					}
+				</script>
 			<% } else{ %>
 				<% include admloginform %>
 			<% } %>

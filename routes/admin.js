@@ -236,7 +236,35 @@ router.get('/event/:id', function(req, res, next) {
 				}
 			}
 			clientStadiums.end();
-			res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+			
+			var seatList = {};
+			const clientSeats = new Client(conOptions);
+			clientSeats.connect();
+			var sSQLSeats = 'SELECT s."ID", s."SectorName", s."RowN", s."SeatN" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
+			console.log(sSQLSeats);
+			clientSeats.query(sSQLSeats, (qerrSeats, qresSeats) => {
+				if (qerrSeats) {
+					console.log(qerrSeats ? qerrSeats.stack : qresSeats);
+				}
+				else {
+					console.log(qerrSeats ? qerrSeats.stack : qresSeats);
+					
+					if (typeof qresSeats.rowCount === 'undefined') {
+						console.log('res.rowCount not found');
+					}
+					else {
+						if (qresSeats.rowCount == 0) {
+							console.log('res.rowCount='+qresSeats.rowCount);
+						}
+						else {
+							seatList = qresSeats.rows;
+						}
+					}
+				}
+				clientSeats.end();
+				
+				res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, seats: seatList});
+			});
 		});
 		
 	});
