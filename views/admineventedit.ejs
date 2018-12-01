@@ -14,9 +14,9 @@
 						Редактирование мероприятия
 						<div class="container">
 							<p id="saveResultMsg"></p>
-							<form>
+							<form name="formEvent">
 								<div class="form-group">
-									<button id="btnSaveEvent" name="btnSaveEvent" value="Сохранить">Сохранить</button>
+									<button id="btnSaveEvent" name="btnSaveEvent">Сохранить</button>
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
@@ -60,20 +60,33 @@
 							</form>
 						</div>
 						<div class="container">
-							<div clas="col-md-3">
-								<select id="selSectorList" multiple>
-									<% seats.forEach(function(seatRow) { %>
-										<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
-									<% }); %>
-								</select>
-							</div>
-							<div clas="col-md-3">
-								<select id="selRowList" multiple>
-									<% seats.forEach(function(seatRow) { %>
-										<option value="<%= seatRow.ID %>"><%= seatRow.RowN %></option>
-									<% }); %>
-								</select>
-							</div>
+							<form name="formPrice">
+								<div class="col-md-1">
+									<select id="selSectorList" multiple>
+										<% sectors.forEach(function(seatRow) { %>
+											<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
+										<% }); %>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<table class="table table-bordered table-hover" id="rowsTable">
+									  <tr>
+										<th>Сектор</th>
+										<th>Ряд</th>
+									  </tr>
+									  <% rownums.forEach(function(rownumRow) { %>
+									   <tr class="clickable-row">
+										<td><%= rownumRow.SectorName %></td>
+										<td><%= rownumRow.RowN %></td>
+									   </tr>
+									  <% }); %>
+									</table>
+								</div>
+								<div class="col-md-2">
+									<input type="text" name="txPrice" value="0" />
+									<button id="savePrice">Сохранить цену</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -96,27 +109,27 @@
 							}
 						});
 					}
-					$("#btnSaveEvent").click(function(){
-						$("#saveResultMsg").html("saving...");
+					$(".btnSaveEvent").click(function(){
+						//alert('asd');
 						var nEventID = $("#eventID").val();
 						$.ajax({
 							url: "/admin/event/"+nEventID,
 							type: "POST",
-							success: function(result){
-								$("#saveResultMsg").append(result);
-								//$('select#stadiumsList').empty();
-								/*$.each(result, function(index) {
-									if (restul[index].ID != $("#stadiumsList").val()) {
-										$('select#stadiumsList').append(
-											$('<option></option>')
-												.val(restul[index].ID)
-												.html(restul[index].Name)
-										);
-									}
-								});*/
+							data: json.stringify({eventID: $("#eventID").val(), eventName: $("#eventName").val(), eventDateFrom: $("#eventDateFrom").val(), stadiumID: $(select#stadiumsList).val() })
 							}
+						})
+						.done(function(result){
+							$("#saveResultMsg").innerHTML = result;
 						});
 					});
+$('#rowsTable').on('click', '.clickable-row', function(event) {
+  //$(this).addClass('active').siblings().removeClass('active');
+  if($(this).hasClass('active')){
+    $(this).removeClass('active'); 
+  } else {
+    $(this).addClass('active').siblings().removeClass('active');
+  }
+});
 					function ClickNewImg(){
 						alert('test');
 						return;

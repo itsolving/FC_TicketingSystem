@@ -237,33 +237,60 @@ router.get('/event/:id', function(req, res, next) {
 			}
 			clientStadiums.end();
 			
-			var seatList = {};
-			const clientSeats = new Client(conOptions);
-			clientSeats.connect();
-			var sSQLSeats = 'SELECT s."ID", s."SectorName", s."RowN", s."SeatN" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
-			console.log(sSQLSeats);
-			clientSeats.query(sSQLSeats, (qerrSeats, qresSeats) => {
-				if (qerrSeats) {
-					console.log(qerrSeats ? qerrSeats.stack : qresSeats);
+			var sectorList = {};
+			const clientSectors = new Client(conOptions);
+			clientSectors.connect();
+			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
+			console.log(sSQLSectors);
+			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
+				if (qerrSectors) {
+					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
 				}
 				else {
-					console.log(qerrSeats ? qerrSeats.stack : qresSeats);
+					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
 					
-					if (typeof qresSeats.rowCount === 'undefined') {
+					if (typeof qresSectors.rowCount === 'undefined') {
 						console.log('res.rowCount not found');
 					}
 					else {
-						if (qresSeats.rowCount == 0) {
-							console.log('res.rowCount='+qresSeats.rowCount);
+						if (qresSectors.rowCount == 0) {
+							console.log('res.rowCount='+qresSectors.rowCount);
 						}
 						else {
-							seatList = qresSeats.rows;
+							sectorList = qresSectors.rows;
 						}
 					}
 				}
-				clientSeats.end();
+				clientSectors.end();
 				
-				res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, seats: seatList});
+				var rowList = {};
+				const clientRows = new Client(conOptions);
+				clientRows.connect();
+				var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
+				console.log(sSQLRows);
+				clientRows.query(sSQLRows, (qerrRow, qresRows) => {
+					if (qerrRow) {
+						console.log(qerrRow ? qerrRow.stack : qresRows);
+					}
+					else {
+						console.log(qerrRow ? qerrRow.stack : qresRows);
+						
+						if (typeof qresRows.rowCount === 'undefined') {
+							console.log('res.rowCount not found');
+						}
+						else {
+							if (qresRows.rowCount == 0) {
+								console.log('res.rowCount='+qresRows.rowCount);
+							}
+							else {
+								rowList = qresRows.rows;
+							}
+						}
+					}
+					clientRows.end();
+					
+					res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
+				});
 			});
 		});
 		
