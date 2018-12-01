@@ -16,11 +16,11 @@
 							<p id="saveResultMsg"></p>
 							<form name="formEvent">
 								<div class="form-group">
-									<button id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+									<button type="button" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
-										<label>ID: <span id="eventID"><%= eventRow.ID %></span><//label>
+										<label>ID: <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span><//label>
 										<div class="form-group">
 											<label for="eventName">Наименование:</label>
 											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
@@ -48,12 +48,12 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<button onclick="GenerateTickets();">Генерация билетов</button>
+											<button type="button" onclick="GenerateTickets();">Генерация билетов</button>
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="eventImage">Афиша:</label><button onclick="ClickNewImg();">Сменить</button>
+											<label for="eventImage">Афиша:</label><button type="button" onclick="ClickNewImg();">Сменить</button>
 											<img id="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
 										</div>
 									</div>
@@ -85,7 +85,7 @@
 								</div>
 								<div class="col-md-2">
 									<input type="text" name="txPrice" value="0" />
-									<button id="savePrice">Сохранить цену</button>
+									<button type="button" id="savePrice">Сохранить цену</button>
 								</div>
 							</form>
 						</div>
@@ -99,7 +99,6 @@
 							success: function(result){
 								$('select#stadiumsList').empty();
 								$.each(result, function(index) {
-									//if (result[index].ID != $("#stadiumsList").val()) {
 									if (result[index].ID == $("#eventIDStadium").val()) {
 										$('select#stadiumsList').append(
 												$('<option selected></option>')
@@ -114,29 +113,36 @@
 												.html(result[index].Name)
 										);
 									}
-									//}
 								});
 							}
 						});
 					});
 					
 					$("#btnSaveEvent").on('click', function(){
-						console.log("btnSaveEvent click");
-						//alert('btnSaveEvent click');
-						var nEventID = $("#eventID").val();
+						var nEventID = 0;
+						nEventID = $("#eventID").data("value");
+						console.log("btnSaveEvent click: nEventID="+nEventID);
 						$.ajax({
 							url: "/admin/event/"+nEventID,
-							type: "POST"/*,
-							data: json.stringify({
+							type: "POST",
+							data: {
 								eventID: $("#eventID").val(),
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
-								stadiumID: $(select#stadiumsList).val()
-								})*/
-						})
-						.done(function(result){
-							console.log(result);
-							$("#saveResultMsg").innerHTML = result;
+								stadiumID: $("select#stadiumsList").val(),
+								eventAfisha: $("#eventImage").val()
+								},
+							success: function(result){
+									console.log("POST /admin/event/id success: result="+result);
+									$("#saveResultMsg").html(result);
+									window.setTimeout( function(){
+										$("#saveResultMsg").html("");
+									}, 5000 );
+								},
+							error: function(err){
+								console.log("POST /admin/event/id error:");
+								console.log(err);
+							}
 						});
 					});
 					
@@ -161,7 +167,7 @@
 								eventID: sEventID
 							},
 							success: function(result){
-								alert('Генерация билетов завершена');
+								alert('Генерация билетов скоро будет разработана');
 								//$('select#stadiumsList').empty();
 								/*$.each(result, function(index) {
 									if (restul[index].ID != $("#stadiumsList").val()) {

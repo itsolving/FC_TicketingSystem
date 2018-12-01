@@ -21,6 +21,18 @@
 				</div>
 				
 				<script>
+					$(document).ready(function (){
+						var x = 10000;
+						var eventID = $("#eventID").text();
+						console.log('doc ready, eventID='+eventID);
+						
+						//first run - get all tickets
+						getNewData(eventID, 1);
+						
+						//every x seconds get only updated tickets
+						setInterval(getNewData(eventID, 2), x);
+					});
+					
 					function getNewData(pEventID, pRunCount){
 						console.log('getNewData started, pEventID='+pEventID);
 						var sURL = "";
@@ -57,33 +69,21 @@
 						});
 					}
 					
-					/* //???
+					/*
+					//TODO: write here a function to save saled or reserved tickets to the DB by using POST-request
 					function SaveTickets(pEventID){
 						var sURL = "/event/"+pEventID+"/save";
 						$.ajax({
 							type: "POST",
 							url: sURL,
-							data: {},
-							success: function(data){
-								console.log('tickets saved');
-								getNewData(pEventID, 2)
-							},
+							data: {...}
+						})
+						.done(function(result){
+							console.log('tickets saved');
+							getNewData(pEventID, 2)
 						});
-					}*/
-					
-					$(document).ready(function (){
-						//console.log('ready');
-						var x = 10000;
-						var eventID = $("#eventID").text();
-						console.log('doc ready, eventID='+eventID);
-						
-						//first run - get all tickets
-						getNewData(eventID, 1);
-						
-						//every x seconds get only updated tickets
-						setInterval(getNewData(eventID, 2), x);
-					});
-					
+					}
+					*/
 				</script>
 			</div>
 			

@@ -32,6 +32,7 @@ var conOptions = conn.conOptions;
 
 //при открытии страницы "localhost:3000/admin"
 router.get('/', function(req, res, next) {
+	console.log("GET /admin");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -42,6 +43,7 @@ router.get('/', function(req, res, next) {
 
 //при нажатии кнопки на странице "localhost:3000/admin"
 router.post('/', function(req, res, next) {
+	console.log('POST /admin');
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -52,7 +54,7 @@ router.post('/', function(req, res, next) {
 	else {
 		const client = new Client(conOptions);
 
-		console.log('client.connect...');
+		//console.log('client.connect...');
 		client.connect()
 		
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
@@ -61,11 +63,12 @@ router.post('/', function(req, res, next) {
 		client.query(sSQL, (qerr, qres) => {
 			var errMsg = "";
 			if (qerr) {
+				console.log('qerr:');
 				console.log(qerr ? qerr.stack : qres);
 				errMsg = "Ошибка подключения. Попробуйте позже.";
 			}
 			else {
-				console.log(qerr ? qerr.stack : qres);
+				//console.log(qerr ? qerr.stack : qres);
 				
 				if (typeof qres.rowCount === 'undefined') {
 					console.log('res.rowCount not found');
@@ -87,7 +90,7 @@ router.post('/', function(req, res, next) {
 								errMsg = "Ошибка А4: неверный логин, либо пользователь заблокирован";
 							}
 							else {
-								console.log('qres.rows[0].Login='+qres.rows[0].Login+', qres.rows[0].Pwd='+qres.rows[0].Pwd);
+								//console.log('qres.rows[0].Login='+qres.rows[0].Login+', qres.rows[0].Pwd='+qres.rows[0].Pwd);
 								if (passwordHash.verify(req.body.txPassword, qres.rows[0].Pwd)) {
 									console.log('qres.rows[0].Login='+qres.rows[0].Login);
 									sAdminLogin = qres.rows[0].Login;
@@ -113,6 +116,7 @@ router.post('/', function(req, res, next) {
 
 //когда нажимают ссылку "Выйти" надо очистить сессию
 router.get('/exit', function(req, res){
+	console.log("GET /admin/exit");
 	req.session.destroy(function(err) {
 		if(err){throw err;}
 	});
@@ -123,6 +127,7 @@ router.get('/exit', function(req, res){
 
 //открытие страницы "localhost:3000/admin/events", отображение списка мероприятий
 router.get('/events', function(req, res, next) {
+	console.log("GET /admin/events");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -134,7 +139,7 @@ router.get('/events', function(req, res, next) {
 	}
 	const client = new Client(conOptions);
 	var events = {};
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect()
 	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
 				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
@@ -145,10 +150,11 @@ router.get('/events', function(req, res, next) {
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
+			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -170,6 +176,7 @@ router.get('/events', function(req, res, next) {
 
 //открытие страницы редактирования одного мероприятия "localhost:3000/admin/event/123", где 123 это идентификатор мероприятия
 router.get('/event/:id', function(req, res, next) {
+	console.log("GET /admin/event/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -183,7 +190,7 @@ router.get('/event/:id', function(req, res, next) {
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
 				'replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
@@ -194,10 +201,11 @@ router.get('/event/:id', function(req, res, next) {
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
+			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -212,16 +220,18 @@ router.get('/event/:id', function(req, res, next) {
 			}
 		}
 		client.end();
+		
 		const clientStadiums = new Client(conOptions);
 		clientStadiums.connect();
 		var sSQLStadiums = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
 		console.log(sSQLStadiums);
 		clientStadiums.query(sSQLStadiums, (qerrStadium, qresStadium) => {
 			if (qerrStadium) {
+				console.log("qerrStadium:");
 				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
 			}
 			else {
-				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
+				//console.log(qerrStadium ? qerrStadium.stack : qresStadium);
 				
 				if (typeof qresStadium.rowCount === 'undefined') {
 					console.log('res.rowCount not found');
@@ -244,10 +254,11 @@ router.get('/event/:id', function(req, res, next) {
 			console.log(sSQLSectors);
 			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
 				if (qerrSectors) {
+					console.log("qerrSectors:");
 					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
 				}
 				else {
-					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
+					//console.log(qerrSectors ? qerrSectors.stack : qresSectors);
 					
 					if (typeof qresSectors.rowCount === 'undefined') {
 						console.log('res.rowCount not found');
@@ -270,10 +281,11 @@ router.get('/event/:id', function(req, res, next) {
 				console.log(sSQLRows);
 				clientRows.query(sSQLRows, (qerrRow, qresRows) => {
 					if (qerrRow) {
+						console.log("qerrRow:");
 						console.log(qerrRow ? qerrRow.stack : qresRows);
 					}
 					else {
-						console.log(qerrRow ? qerrRow.stack : qresRows);
+						//console.log(qerrRow ? qerrRow.stack : qresRows);
 						
 						if (typeof qresRows.rowCount === 'undefined') {
 							console.log('res.rowCount not found');
@@ -299,6 +311,7 @@ router.get('/event/:id', function(req, res, next) {
 
 //сохранение изменений мероприятия
 router.post('/event/:id', function(req, res, next) {
+	console.log("POST /admin/event/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -310,26 +323,25 @@ router.post('/event/:id', function(req, res, next) {
 	}
 	//var nID = req.params.id;
 	var nID = req.body.id;
+	var sEventName = req.body.eventName;
 	
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
 	client.connect();
-	console.log('connected');
-	
 	res.send('функция сохранения находится в разработке. Скоро будет готова');
 	
 	//пока не готово
-	var sSQL = 'update public."tEvent" set ...'+
-				'where ev."ID" = '+nID;
+	var sSQL = 'update public."tEvent" set "name"='+sEventName+' '+
+				'where "ID" = '+nID;
 	console.log(sSQL);
 	/*client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
+			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -351,18 +363,20 @@ router.post('/event/:id', function(req, res, next) {
 
 //это нужно для jquery чтобы проставить значения в выпадающий список поля "стадионы"
 router.get('/stadiumsJson', function(req, res, next) {
+	console.log("GET /admin/stadiumsjson");
 	var stadiumList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
+			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -384,6 +398,7 @@ router.get('/stadiumsJson', function(req, res, next) {
 
 //открытие страницы со списком стадионов
 router.get('/stadiums', function(req, res, next) {
+	console.log("GET /admin/stadiums");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -395,7 +410,6 @@ router.get('/stadiums', function(req, res, next) {
 	}
 	const client = new Client(conOptions);
 	var stadiums = {};
-	console.log('client.connect...');
 	client.connect()
 	var sSQL = 'SELECT sd."ID", sd."Name", sd."IDStatus", '+
 				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
@@ -406,10 +420,11 @@ router.get('/stadiums', function(req, res, next) {
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
+			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -431,6 +446,7 @@ router.get('/stadiums', function(req, res, next) {
 
 //если зашли на адрес "localhost:3000/admin/stadium/123" где 123 это идентификатор стадиона
 router.get('/stadium/:id', function(req, res, next) {
+	console.log("GET /admin/stradium/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -444,7 +460,7 @@ router.get('/stadium/:id', function(req, res, next) {
 	var rowStadiumData = {};
 	var cityList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT sd."ID", sd."Name", \'\' as "ImgPath", sd."IDStatus", '+
 				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
@@ -458,7 +474,7 @@ router.get('/stadium/:id', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -474,7 +490,7 @@ router.get('/stadium/:id', function(req, res, next) {
 		}
 		client.end();
 		const clientCity = new Client(conOptions);
-		console.log('client.connect...');
+		//console.log('client.connect...');
 		clientCity.connect();
 		var sSQLCity = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
 		console.log(sSQLCity);
@@ -483,7 +499,7 @@ router.get('/stadium/:id', function(req, res, next) {
 				console.log(qerrCity ? qerrCity.stack : qresCity);
 			}
 			else {
-				console.log(qerrCity ? qerrCity.stack : qresCity);
+				//console.log(qerrCity ? qerrCity.stack : qresCity);
 				
 				if (typeof qresCity.rowCount === 'undefined') {
 					console.log('res.rowCount not found');
@@ -505,6 +521,7 @@ router.get('/stadium/:id', function(req, res, next) {
 
 //сохранение изменений по стадиону
 router.post('/stadium/:id', function(req, res, next) {
+	console.log("POST /admin/stadium/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -518,9 +535,7 @@ router.post('/stadium/:id', function(req, res, next) {
 	var rowStadiumData = {};
 	var cityList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
 	client.connect();
-	console.log('connected');
 	
 	res.send('функция сохранения находится в разработке. Скоро будет готова');
 	
@@ -533,7 +548,7 @@ router.post('/stadium/:id', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -554,9 +569,10 @@ router.post('/stadium/:id', function(req, res, next) {
 
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/citiesJson', function(req, res, next) {
+	console.log("GET /admin/citiesjson");
 	var cityList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
 	console.log(sSQL);
@@ -565,7 +581,7 @@ router.get('/citiesJson', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -587,6 +603,7 @@ router.get('/citiesJson', function(req, res, next) {
 
 //открытие страницы со списком пользователей
 router.get('/users', function(req, res, next) {
+	console.log("GET /users");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -610,7 +627,7 @@ router.get('/users', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -631,6 +648,7 @@ router.get('/users', function(req, res, next) {
 
 //если зашли на адрес "localhost:3000/admin/user/123" где 123 это идентификатор пользователя
 router.get('/user/:id', function(req, res, next) {
+	console.log("GET /user/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -644,7 +662,7 @@ router.get('/user/:id', function(req, res, next) {
 	var rowUserData = {};
 	var rolesList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
 				'FROM public."tUser" u '+
@@ -656,7 +674,7 @@ router.get('/user/:id', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
@@ -671,6 +689,7 @@ router.get('/user/:id', function(req, res, next) {
 			}
 		}
 		client.end();
+		
 		const clientRoles = new Client(conOptions);
 		clientRoles.connect();
 		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
@@ -680,7 +699,7 @@ router.get('/user/:id', function(req, res, next) {
 				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
 			}
 			else {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
 				
 				if (typeof qresRoles.rowCount === 'undefined') {
 					console.log('res.rowCount not found');
@@ -695,7 +714,6 @@ router.get('/user/:id', function(req, res, next) {
 				}
 			}
 			clientRoles.end();
-			console.log(rolesList);
 			res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
 		});
 	});
@@ -703,9 +721,10 @@ router.get('/user/:id', function(req, res, next) {
 
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/rolesJson', function(req, res, next) {
+	console.log("GET /rolesjson");
 	var roleList = {};
 	const client = new Client(conOptions);
-	console.log('client.connect...');
+	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT r."ID", r."Name" from public."tRole" r ';
 	console.log(sSQL);
@@ -714,7 +733,7 @@ router.get('/rolesJson', function(req, res, next) {
 			console.log(qerr ? qerr.stack : qres);
 		}
 		else {
-			console.log(qerr ? qerr.stack : qres);
+			//console.log(qerr ? qerr.stack : qres);
 			
 			if (typeof qres.rowCount === 'undefined') {
 				console.log('res.rowCount not found');
