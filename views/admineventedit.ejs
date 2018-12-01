@@ -16,7 +16,7 @@
 							<p id="saveResultMsg"></p>
 							<form name="formEvent">
 								<div class="form-group">
-									<button id="btnSaveEvent" name="btnSaveEvent">Сохранить</button>
+									<button id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
@@ -37,6 +37,7 @@
 										-->
 										<div class="form-group">
 											<label for="stadiumsList">Стадион:</label>
+											<span id="eventIDStadium" hidden><%= eventRow.IDStadium %></span>
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 												<% stadiums.forEach(function(stadiumRow) { %>
@@ -91,53 +92,70 @@
 					</div>
 				</div>
 				<script>
-					$(document).ready(){
+					$(document).ready(function(){
 						$.ajax({
-							url: '/stadiumsJson',
+							url: '/admin/stadiumsJson',
 							type: "GET",
 							success: function(result){
-								//$('select#stadiumsList').empty();
+								$('select#stadiumsList').empty();
 								$.each(result, function(index) {
-									if (restul[index].ID != $("#stadiumsList").val()) {
+									//if (result[index].ID != $("#stadiumsList").val()) {
+									if (result[index].ID == $("#eventIDStadium").val()) {
 										$('select#stadiumsList').append(
-											$('<option></option>')
-												.val(restul[index].ID)
-												.html(restul[index].Name)
+												$('<option selected></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
 										);
 									}
+									else {
+										$('select#stadiumsList').append(
+												$('<option></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
+										);
+									}
+									//}
 								});
 							}
 						});
-					}
-					$(".btnSaveEvent").click(function(){
-						//alert('asd');
+					});
+					
+					$("#btnSaveEvent").on('click', function(){
+						console.log("btnSaveEvent click");
+						//alert('btnSaveEvent click');
 						var nEventID = $("#eventID").val();
 						$.ajax({
 							url: "/admin/event/"+nEventID,
-							type: "POST",
-							data: json.stringify({eventID: $("#eventID").val(), eventName: $("#eventName").val(), eventDateFrom: $("#eventDateFrom").val(), stadiumID: $(select#stadiumsList).val() })
-							}
+							type: "POST"/*,
+							data: json.stringify({
+								eventID: $("#eventID").val(),
+								eventName: $("#eventName").val(),
+								eventDateFrom: $("#eventDateFrom").val(),
+								stadiumID: $(select#stadiumsList).val()
+								})*/
 						})
 						.done(function(result){
+							console.log(result);
 							$("#saveResultMsg").innerHTML = result;
 						});
 					});
-$('#rowsTable').on('click', '.clickable-row', function(event) {
-  //$(this).addClass('active').siblings().removeClass('active');
-  if($(this).hasClass('active')){
-    $(this).removeClass('active'); 
-  } else {
-    $(this).addClass('active').siblings().removeClass('active');
-  }
-});
+					
+					$('#rowsTable').on('click', '.clickable-row', function(event) {
+					  //$(this).addClass('active').siblings().removeClass('active');
+					  if($(this).hasClass('active')){
+						$(this).removeClass('active'); 
+					  } else {
+						$(this).addClass('active').siblings().removeClass('active');
+					  }
+					});
 					function ClickNewImg(){
 						alert('test');
 						return;
-					}
+					};
 					function GenerateTickets(){
 						var sEventID = $("#eventID").val();
 						$.ajax({
-							url: '/generateTickets',
+							url: '/admin/generateTickets',
 							type: "POST",
 							data: {
 								eventID: sEventID
@@ -156,9 +174,9 @@ $('#rowsTable').on('click', '.clickable-row', function(event) {
 								});*/
 							}
 						});
-					}
+					};
 				</script>
-			<% } else{ %>
+			<% } else { %>
 				<% include admloginform %>
 			<% } %>
 		</div>

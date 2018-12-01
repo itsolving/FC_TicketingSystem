@@ -26,6 +26,7 @@
 										</div>
 										<div class="form-group">
 											<label for="rolesList">Роль:</label>
+											<span id="userRoleID" hidden><%= userRow.IDRole %></span>
 											<select name="rolesList" id="rolesList">
 												<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
 												<% roles.forEach(function(roleRow) { %>
@@ -39,23 +40,32 @@
 								<% }); %>
 							</form>
 							<script>
-								$(document).ready(){
+								$(document).ready(function(){
+									$('select#rolesList').empty();
 									$.ajax({
-										url: '/rolesJson',
+										url: '/admin/rolesJson',
 										type: "GET",
 										success: function(result){
 											$.each(result, function(index) {
-												if (restul[index].ID != $("#rolesList").val()) {
+												
+												if (result[index].ID == $("#userRoleID").val()) {
 													$('select#rolesList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
+															$('<option selected></option>')
+															.val(result[index].ID)
+															.html(result[index].Name)
+													);
+												}
+												else {
+													$('select#rolesList').append(
+															$('<option></option>')
+															.val(result[index].ID)
+															.html(result[index].Name)
 													);
 												}
 											});
 										}
 									});
-								}
+								});
 							</script>
 						</div>
 					</div>
