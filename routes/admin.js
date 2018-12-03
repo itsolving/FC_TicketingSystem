@@ -192,11 +192,14 @@ router.get('/event/:id', function(req, res, next) {
 	const client = new Client(conOptions);
 	//console.log('client.connect...');
 	client.connect();
-	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
+	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
+				'replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
 				'replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
-				'sd."Name" as "Stadium" '+
+				'sd."Name" as "Stadium", s."Name" as "StatusName", '+
+				'ev."ShowOnline", ev."ShowCasher", ev."ShowAPI" ' +
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
 				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = '+nID;
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
@@ -329,7 +332,7 @@ router.post('/event/:id', function(req, res, next) {
 	var stadiumList = {};
 	const client = new Client(conOptions);
 	client.connect();
-	res.send('функция сохранения находится в разработке. Скоро будет готова');
+	res.send('функция находится в разработке. Скоро будет готова');
 	
 	//пока не готово
 	var sSQL = 'update public."tEvent" set "name"='+sEventName+' '+
@@ -357,6 +360,7 @@ router.post('/event/:id', function(req, res, next) {
 		}
 		client.end();
 		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+		res.redirect('event/:id');
 	});*/
 });
 

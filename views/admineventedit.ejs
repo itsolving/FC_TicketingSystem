@@ -13,14 +13,16 @@
 					<div id="workArea">
 						Редактирование мероприятия
 						<div class="container">
-							<p id="saveResultMsg"></p>
 							<form name="formEvent">
 								<div class="form-group">
 									<button type="button" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+									<button type="button" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
+									<p id="txResultMsg"></p>
 								</div>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
-										<label>ID: <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span><//label>
+										<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
+										<p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p>
 										<div class="form-group">
 											<label for="eventName">Наименование:</label>
 											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
@@ -48,8 +50,30 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<button type="button" onclick="GenerateTickets();">Генерация билетов</button>
+											<% if (eventRow.ShowOnline) { %>
+												<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowOnline">Показать online</input>
+											<% } %>
 										</div>
+										<div class="form-group">
+											<% if (eventRow.ShowCasher) { %>
+												<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+											<% } %>
+										</div>
+										<div class="form-group">
+											<% if (eventRow.ShowAPI) { %>
+												<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowAPI">Показать для API</input>
+											<% } %>
+										</div>
+										<!--<div class="form-group">
+											<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
+											<p id="GenerateTicketsMSG"></p>
+										</div>-->
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
@@ -93,6 +117,10 @@
 				</div>
 				<script>
 					$(document).ready(function(){
+						GetStadiumList();
+					});
+					
+					function GetStadiumList(){
 						$.ajax({
 							url: '/admin/stadiumsJson',
 							type: "GET",
@@ -116,7 +144,7 @@
 								});
 							}
 						});
-					});
+					};
 					
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
@@ -126,6 +154,7 @@
 							url: "/admin/event/"+nEventID,
 							type: "POST",
 							data: {
+								postOperation: 'upd',
 								eventID: $("#eventID").val(),
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
@@ -133,11 +162,42 @@
 								eventAfisha: $("#eventImage").val()
 								},
 							success: function(result){
-									console.log("POST /admin/event/id success: result="+result);
-									$("#saveResultMsg").html(result);
-									window.setTimeout( function(){
-										$("#saveResultMsg").html("");
-									}, 5000 );
+									console.log("POST upd /admin/event/id success: result="+result);
+									$("#txResultMsg").html(result);
+									//--------------
+									//TODO: after development this functional we must delete this command:
+									ClearMsg("#txResultMsg");
+									//--------------
+								},
+							error: function(err){
+								console.log("POST /admin/event/id error:");
+								console.log(err);
+							}
+						});
+					});
+					
+					$("#btnDeleteEvent").on('click', function(){
+						var nEventID = 0;
+						nEventID = $("#eventID").data("value");
+						console.log("btnDeleteEvent click: nEventID="+nEventID);
+						$.ajax({
+							url: "/admin/event/"+nEventID,
+							type: "POST",
+							data: {
+								postOperation: 'del',
+								eventID: $("#eventID").val(),
+								eventName: $("#eventName").val(),
+								eventDateFrom: $("#eventDateFrom").val(),
+								stadiumID: $("select#stadiumsList").val(),
+								eventAfisha: $("#eventImage").val()
+								},
+							success: function(result){
+									console.log("POST del /admin/event/id success: result="+result);
+									$("#txResultMsg").html(result);
+									//--------------
+									//TODO: after development this functional we must delete this command:
+									ClearMsg("#txResultMsg");
+									//--------------
 								},
 							error: function(err){
 								console.log("POST /admin/event/id error:");
@@ -154,11 +214,12 @@
 						$(this).addClass('active').siblings().removeClass('active');
 					  }
 					});
+					
 					function ClickNewImg(){
 						alert('test');
-						return;
 					};
-					function GenerateTickets(){
+					
+					/*function GenerateTickets(){
 						var sEventID = $("#eventID").val();
 						$.ajax({
 							url: '/admin/generateTickets',
@@ -167,20 +228,28 @@
 								eventID: sEventID
 							},
 							success: function(result){
-								alert('Генерация билетов скоро будет разработана');
-								//$('select#stadiumsList').empty();
-								/*$.each(result, function(index) {
-									if (restul[index].ID != $("#stadiumsList").val()) {
-										$('select#stadiumsList').append(
-											$('<option></option>')
-												.val(restul[index].ID)
-												.html(restul[index].Name)
-										);
-									}
-								});*/
+								$("#GenerateTicketsMSG").html("Генерация билетов скоро будет разработана");
+								//--------------
+								//TODO: after development this functional we must delete this command:
+								ClearMsg("#GenerateTicketsMSG");
+								//--------------
+							},
+							error: function(err){
+								console.log("GenerateTickets error:");
+								console.log(err);
+								$("#GenerateTicketsMSG").html("Есть какая-та ошибка");
+								//--------------
+								//TODO: after development this functional we must delete this command:
+								ClearMsg("#GenerateTicketsMSG");
+								//--------------
 							}
 						});
-					};
+					};*/
+					function ClearMsg(msgElement){
+						window.setTimeout( function(){
+							$(msgElement).html("");
+						}, 5000 );
+					}
 				</script>
 			<% } else { %>
 				<% include admloginform %>
