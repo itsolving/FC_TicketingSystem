@@ -32,7 +32,7 @@ router.get('/events', function(req, res, next){
 		sLogin = sessData.userLogin;
 		
 		console.log('sLogin='+sLogin);
-		
+	}	
 		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 		console.log(sSQL);
 		db.db.any(sSQL)
@@ -53,17 +53,17 @@ router.get('/events', function(req, res, next){
 				console.log('sLogin='+sLogin);
 				console.log('events: '+ JSON.stringify(events));
 				//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
-				res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
+				res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events});
 			})
 			.catch(function(err){
 				//return next(err);
 				console.log('error of search actual events:');
 				console.log(err);
 			});
-	}
+	/*}
 	else {
 		res.redirect('/');
-	}
+	}*/
 })
 
 router.post('/events', function(req, res, next){
@@ -76,7 +76,7 @@ router.post('/events', function(req, res, next){
 		sLogin = sessData.userLogin;
 		
 		console.log('sLogin='+sLogin);
-		
+	
 		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 		console.log(sSQL);
 		db.db.any(sSQL)
@@ -174,17 +174,41 @@ router.get('/event/:id', function(req, res, next){
 	var sLogin = "";
 	var events = {};
 	var sessData = req.session;
+	var eventID = req.params.id;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
-		events = sessData.eventsList;
+		
 	}
-	else {
+	/*else {
 		res.redirect('/');
 		return;
-	}
-	var eventID = req.params.id;
-	console.log('sLogin='+sLogin+', eventID='+eventID);
-	res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+	}*/
+	//if (sessData.eventsList){
+		var sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+		console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(data){
+				console.log('events found:');
+				console.log(data);
+				sessData.eventsList = data;
+				events = data;
+				console.log('events: '+ JSON.stringify(events));
+				
+				
+				res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+				return;
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of search actual events:');
+				console.log(err);
+			});
+	/*}
+	else {
+		events = sessData.eventsList;
+	}*/
+	//console.log('sLogin='+sLogin+', eventID='+eventID);
+	//res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 })
 
 

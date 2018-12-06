@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--
-		<meta charset="utf-8">
-		<meta name="description" content="">
-
-		<title><%= title %></title>
-		<link rel='stylesheet' href='/stylesheets/style.css' />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		-->
 		<% include head_html %>
 	</head>
 	<body>
@@ -17,37 +8,17 @@
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<!--<div class="row">
-						<div class="divLoginName">Привет, администратор <strong><%= adminLogin %></strong></div>
-						<div class="divExitCmd"><strong><a href="/admin/exit">Выйти</a></strong></div>
-					</div>-->
 					<% include admheader %>
-					
-					<!--<div class="navbar navbar-expand-lg navbar-light bg-light">
-						<div class="navbar-brand"><a href="/admin/events">Мероприятия</a></div>
-						<div class="navbar-brand"><a href="#">Стадионы</a></div>
-						<div class="navbar-brand"><a href="#">Пользователи</a></div>
-					</div>-->
 					<% include admmnu %>
 					<div id="workArea">
 						Мероприятия
 						<div class="container">
-							<!--<table>
-								<th>ID</th>
-								<th>Наименование</th>
-								<th>Начало</th>
-								<th>Окончание</th>
-								<th>Стадион</th>
-								<% eventsList.forEach(function(eventRow) { %>
-									<tr>
-										<td><a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.ID %></a></td>
-										<td><a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Name %></a></td>
-										<td><%= eventRow.DateFrom %></td>
-										<td><%= eventRow.Dateto %></td>
-										<td><%= eventRow.Stadium %></td>
-									</tr>
-								<% }); %>
-							</table> -->
+							<div class="row">
+								<!--<form action="/admin/events/" method="POST">-->
+									<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
+								<!--</form>-->
+								<p id="resultCreateMsg"></p>
+							</div>
 							<div id="workArea" class="row">
 							<% if(eventsList) { %>
 								<% eventsList.forEach(function(eventRow) { %>
@@ -69,19 +40,27 @@
 							</div>
 						</div>
 					</div>
+					<script>
+						$("#btnCreateEvent").click(function(){
+							console.log("btnCreateEvent click");
+							$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+							
+							/*$.ajax({
+								url: "/admin/events/",
+								type: "POST",
+								data: {},
+								success: function(result){
+									console.log("success");
+								},
+								error: function(err){
+									console.log("btnCreateEvent GET /admin/event/id error:");
+									console.log(err);
+								}
+							});*/
+						});
+					</script>
 				</div>
 			<% } else{ %>
-				<!--<form action="/admin" method="post">
-					<div class="form-group">
-						<label for="txLogin">Логин</label>
-						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
-					</div>
-					<div class="form-group">
-						<label for="txPassword">Пароль</label>
-						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
-					</div>
-					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-				</form>-->
 				<% include admloginform %>
 			<% } %>
 		</div>

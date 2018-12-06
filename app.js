@@ -7,6 +7,7 @@ var logger = require('morgan');
 var mainRouter = require('./routes/main');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
+//var admModule = require('./express-admin-master/app');
 
 var app = express();
 
@@ -40,7 +41,8 @@ xAdmin.init(config, function (err, admin) {
     // web site
     //var app = express();
     // mount express-admin before any other middlewares
-    app.use('/admin', admin);
+    //app.use('/admin', admin);
+	app.use('/adm', admin);
     // site specific middlewares
     //app.use(express.bodyParser());
     // site routes
@@ -72,6 +74,7 @@ app.use('/', mainRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 //app.use('/admin', xAdmin.init); //попытка использовать готовую админку
+//app.use('/adm', xAdmin.init);
 
 
 

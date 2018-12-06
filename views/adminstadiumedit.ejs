@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--
-		<meta charset="utf-8">
-		<meta name="description" content="">
-
-		<title><%= title %></title>
-		<link rel='stylesheet' href='/stylesheets/style.css' />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		-->
 		<% include head_html %>
 	</head>
 	<body>
@@ -35,31 +26,46 @@
 										</div>
 										<div class="form-group">
 											<label for="citiesList">Город:</label>
+											<span id="stadiumCityID" hidden><%= stadiumRow.IDCity %></span>
 											<select name="citiesList" id="citiesList">
 												<option value="<%= stadiumRow.IDCity %>" selected><%= stadiumRow.CityName %></option>
+												<% cities.forEach(function(cityRow) { %>
+													<% if (cityRow.ID != stadiumRow.IDCity ){ %>
+														<option value="<%= cityRow.ID %>"><%= cityRow.Name %></option>
+													<% } %>
+												<% }); %>
 											</select>
 										</div>
 									</div>
 								<% }); %>
 							</form>
 							<script>
-								$(document).ready(){
+								$(document).ready(function(){
+									$('select#citiesList').empty();
 									$.ajax({
-										url: '/citiesJson',
+										url: '/admin/citiesJson',
 										type: "GET",
 										success: function(result){
 											$.each(result, function(index) {
-												if (restul[index].ID != $("#citiesList").val()) {
+												
+												if (result[index].ID == $("#stadiumCityID").val()) {
 													$('select#citiesList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
+															$('<option selected></option>')
+															.val(result[index].ID)
+															.html(result[index].Name)
+													);
+												}
+												else {
+													$('select#citiesList').append(
+															$('<option></option>')
+															.val(result[index].ID)
+															.html(result[index].Name)
 													);
 												}
 											});
 										}
 									});
-								}
+								});
 							</script>
 						</div>
 					</div>

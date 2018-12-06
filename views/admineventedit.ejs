@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--
-		<meta charset="utf-8">
-		<meta name="description" content="">
-
-		<title><%= title %></title>
-		<link rel='stylesheet' href='/stylesheets/style.css' />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		-->
 		<% include head_html %>
 	</head>
 	<body>
@@ -22,13 +13,17 @@
 					<div id="workArea">
 						Редактирование мероприятия
 						<div class="container">
-							<form action="/admin/event/<%= eventID %>" method="POST">
+							<form name="formEvent">
 								<div class="form-group">
-									<input type="submit" value="Сохранить" />
+									<button type="button" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+									<button type="button" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
+									<p id="txResultMsg"></p>
 								</div>
+								<%= eventData[0].ID %>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
-										<label>ID: <span id="eventID"><%= eventRow.ID %></span><//label>
+										<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
+										<p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p>
 										<div class="form-group">
 											<label for="eventName">Наименование:</label>
 											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
@@ -45,84 +40,275 @@
 										-->
 										<div class="form-group">
 											<label for="stadiumsList">Стадион:</label>
+											<span id="eventIDStadium" hidden><%= eventRow.IDStadium %></span>
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
+												<% stadiums.forEach(function(stadiumRow) { %>
+													<% if (stadiumRow.ID != eventRow.IDStadium ){ %>
+													<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
+													<% } %>
+												<% }); %>
 											</select>
 										</div>
 										<div class="form-group">
-											<button onclick="GenerateTickets();">Генерация билетов</button>
+											<% if (eventRow.ShowOnline) { %>
+												<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowOnline">Показать online</input>
+											<% } %>
 										</div>
+										<div class="form-group">
+											<% if (eventRow.ShowCasher) { %>
+												<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+											<% } %>
+										</div>
+										<div class="form-group">
+											<% if (eventRow.ShowAPI) { %>
+												<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+											<% } else { %>
+												<input type="checkbox" id="eventShowAPI">Показать для API</input>
+											<% } %>
+										</div>
+										<!--<div class="form-group">
+											<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
+											<p id="GenerateTicketsMSG"></p>
+										</div>-->
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="eventImage">Афиша:</label><button onclick="ClickNewImg();">Сменить</button>
-											<img id="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
+											<label for="eventImage">Афиша:</label>
+											<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
+											<button type="button" onclick="ClickNewImg();">Сменить</button>
+											<p id="eventImgMsg"></p>
+											<img id="eventImage" name="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
 										</div>
 									</div>
 								<% }); %>
 							</form>
-							<script>
-								$(document).ready(){
-									$.ajax({
-										url: '/stadiumsJson',
-										type: "GET",
-										success: function(result){
-											//$('select#stadiumsList').empty();
-											$.each(result, function(index) {
-												if (restul[index].ID != $("#stadiumsList").val()) {
-													$('select#stadiumsList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
-													);
-												}
-											});
-										}
-									});
-								}
-								function ClickNewImg(){
-									alert('test');
-									return;
-								}
-								function GenerateTickets(){
-									var sEventID = $("#eventID").val();
-									$.ajax({
-										url: '/generateTickets',
-										type: "POST",
-										data: {
-											eventID: sEventID
-										},
-										success: function(result){
-											alert('Генерация билетов завершена');
-											//$('select#stadiumsList').empty();
-											/*$.each(result, function(index) {
-												if (restul[index].ID != $("#stadiumsList").val()) {
-													$('select#stadiumsList').append(
-														$('<option></option>')
-															.val(restul[index].ID)
-															.html(restul[index].Name)
-													);
-												}
-											});*/
-										}
-									});
-								}
-							</script>
+						</div>
+						
+						<hr>
+						<div class="container">
+							<form name="formPrice">
+								<div class="col-md-1">
+									<select id="selSectorList" multiple>
+										<% if(sectors){ %>
+										<% sectors.forEach(function(seatRow) { %>
+											<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
+										<% }); %>
+										<% } %>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<table class="table table-bordered table-hover" id="rowsTable">
+									  <tr>
+										<th>Сектор</th>
+										<th>Ряд</th>
+									  </tr>
+									  <% if(rownums){ %>
+									  <% rownums.forEach(function(rownumRow) { %>
+									   <tr class="clickable-row">
+										<td><%= rownumRow.SectorName %></td>
+										<td><%= rownumRow.RowN %></td>
+									   </tr>
+									  <% }); %>
+									  <% } %>
+									</table>
+								</div>
+								<div class="col-md-2">
+									<input type="text" name="txPrice" value="0" />
+									<button type="button" id="savePrice">Сохранить цену</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-			<% } else{ %>
-				<!--<form action="/admin" method="post">
-					<div class="form-group">
-						<label for="txLogin">Логин</label>
-						<input type="text" class="form-control" name="txLogin" id="txLogin" placeholder="Логин">
-					</div>
-					<div class="form-group">
-						<label for="txPassword">Пароль</label>
-						<input type="password" class="form-control" name="txPassword" id="txPassword" placeholder="Пароль">
-					</div>
-					<button type="submit" id="btnLogin" class="btn btn-primary">Войти</button>
-				</form>-->
+				<script>
+					$(document).ready(function(){
+						GetStadiumList();
+					});
+					
+					function GetStadiumList(){
+						$.ajax({
+							url: '/admin/stadiumsJson',
+							type: "GET",
+							success: function(result){
+								$('select#stadiumsList').empty();
+								$.each(result, function(index) {
+									if (result[index].ID == $("#eventIDStadium").val()) {
+										$('select#stadiumsList').append(
+												$('<option selected></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
+										);
+									}
+									else {
+										$('select#stadiumsList').append(
+												$('<option></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
+										);
+									}
+								});
+							}
+						});
+					};
+					
+					$("#btnSaveEvent").on('click', function(){
+						var nEventID = 0;
+						nEventID = $("#eventID").data("value");
+						console.log("btnSaveEvent click: nEventID="+nEventID);
+						$.ajax({
+							url: "/admin/event/"+nEventID,
+							type: "POST",
+							data: {
+								postOperation: 'upd',
+								eventID: $("#eventID").val(),
+								eventName: $("#eventName").val(),
+								eventDateFrom: $("#eventDateFrom").val(),
+								stadiumID: $("select#stadiumsList").val(),
+								eventAfisha: $('#eventImage').attr('src')
+								},
+							success: function(result){
+									console.log("POST upd /admin/event/id success: result="+result);
+									$("#txResultMsg").html(result);
+									//--------------
+									//TODO: after develop this functional we must delete this command:
+									ClearMsg("#txResultMsg");
+									//--------------
+								},
+							error: function(err){
+								console.log("POST /admin/event/id error:");
+								console.log(err);
+							}
+						});
+					});
+					
+					$("#btnDeleteEvent").on('click', function(){
+						var nEventID = 0;
+						nEventID = $("#eventID").data("value");
+						console.log("btnDeleteEvent click: nEventID="+nEventID);
+						$.ajax({
+							url: "/admin/event/"+nEventID,
+							type: "POST",
+							data: {
+								postOperation: 'del',
+								eventID: $("#eventID").val(),
+								eventName: $("#eventName").val(),
+								eventDateFrom: $("#eventDateFrom").val(),
+								stadiumID: $("select#stadiumsList").val(),
+								eventAfisha: $('#eventImage').attr('src')
+								},
+							success: function(result){
+									console.log("POST del /admin/event/id success: result="+result);
+									$("#txResultMsg").html(result);
+									//--------------
+									//TODO: after development this functional we must delete this command:
+									ClearMsg("#txResultMsg");
+									//--------------
+									GetActualEventStatus();
+								},
+							error: function(err){
+								console.log("POST /admin/event/id error:");
+								console.log(err);
+							}
+						});
+					});
+					
+					$('#rowsTable').on('click', '.clickable-row', function(event) {
+					  //$(this).addClass('active').siblings().removeClass('active');
+					  if($(this).hasClass('active')){
+						$(this).removeClass('active'); 
+					  } else {
+						$(this).addClass('active').siblings().removeClass('active');
+					  }
+					});
+					
+					function GetActualEventStatus(){
+					console.log('GetActualEventStatus::');
+						var nEventID = $("#eventID").data("value");
+						$.ajax({
+							url: "/admin/eventGetStatus/"+nEventID,
+							type: "GET",
+							success: function(result){
+									console.log('GetActualEventStatus success:');
+									console.log(result);
+									$("#eventIDStatus").attr('data-value', result[0].IDStatus);
+									$("#eventIDStatus").html(result[0].StatusName);
+								},
+							error: function(err){
+								console.log("GET GetActualEventStatus /admin/eventGetStatus/id error:");
+								console.log(err);
+							}
+						});
+					}
+					
+					function ClickNewImg(){
+						$("input[id='eventImageFile']").click();
+						var sImgFileName = $('eventImageFile').val();
+						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						$("#eventImgMsg").html("Смена картинки - в разработке");
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						ClearMsg("#eventImgMsg");
+						//--------------
+						/*$.ajax({
+							url: "/admin/uploadeventimg",
+							method: "POST",
+							async: false,
+							data: {
+								uploadfilename: $('eventImageFile').val()
+								},
+							success: function(result){
+									console.log("POST del /admin/uploadeventimg/id success: result="+result);
+									$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
+								},
+							error: function(err){
+								console.log("POST /admin/uploadeventimg/id error:");
+								console.log(err);
+							}
+						});*/
+						//$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
+					};
+					$('eventImageFile').on('', function(){
+					
+					})
+					
+					/*function GenerateTickets(){
+						var sEventID = $("#eventID").val();
+						$.ajax({
+							url: '/admin/generateTickets',
+							type: "POST",
+							data: {
+								eventID: sEventID
+							},
+							success: function(result){
+								$("#GenerateTicketsMSG").html("Генерация билетов скоро будет разработана");
+								//--------------
+								//TODO: after development this functional we must delete this command:
+								ClearMsg("#GenerateTicketsMSG");
+								//--------------
+							},
+							error: function(err){
+								console.log("GenerateTickets error:");
+								console.log(err);
+								$("#GenerateTicketsMSG").html("Есть какая-та ошибка");
+								//--------------
+								//TODO: after development this functional we must delete this command:
+								ClearMsg("#GenerateTicketsMSG");
+								//--------------
+							}
+						});
+					};*/
+					function ClearMsg(msgElement){
+						window.setTimeout( function(){
+							$(msgElement).html("");
+						}, 5000 );
+					}
+				</script>
+			<% } else { %>
 				<% include admloginform %>
 			<% } %>
 		</div>

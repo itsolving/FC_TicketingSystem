@@ -6,9 +6,11 @@
   <body>
     <div class="Container">
 		<h1>Мероприятия</h1>
-		<% if(userLogin){ %>
+		
 			<div>
+				<% if(userLogin){ %>
 				<% include mainheader %>
+				<% } %>
 				<br />
 				<div id="workArea" class="row">
 					<% if(eventsList) { %>
@@ -29,9 +31,7 @@
 					<% } %>
 				</div>
 			</div>
-		<% } else{ %>
-			<% include loginform %>
-		<% } %>
+		
 	</div>
   </body>
 </html>

@@ -15,9 +15,13 @@
 						<div class="container">
 							<table>
 								<th>Логин</th>
+								<th>Роль</th>
+								<th>email</th>
 								<% usersList.forEach(function(userRow) { %>
 									<tr>
 										<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
+										<td><%= userRow.RoleName %></td>
+										<td><%= userRow.Email %></td>
 									</tr>
 								<% }); %>
 							</table>
