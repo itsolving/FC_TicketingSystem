@@ -9,22 +9,6 @@ var db = require('../queries');
 var passwordHash = require('password-hash');
 
 
-
-//-------------------
-//для админки использую "свой" коннект к БД. Потому что запарился с общим коннектом из файла "queries.js"
-/*const { Client } = require('pg');
-const conOptions = {
-	user: 'postgres', //local test on home-computer
-	//user: 'pgadmin', //test on dev-server
-	
-	password: 'qwe', //local test on home-computer
-	//password: 'UrdodON9zu83BvtI6L', //test on dev-server
-	
-	host: 'localhost',
-	database: 'postgres',
-	port: 5432,
-};*/
-//-------------------
 var conn = require('./conn');
 var Client = conn.connClient;
 var conOptions = conn.conOptions;
@@ -324,25 +308,34 @@ router.post('/event/:id', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
+	
+	if(!req.body){
+		console.log("req.body is null. Redirect to event/id...");
+		//res.redirect('/event/'+req.params.id);
+		res.send('req.body is null');
+		return;
+	}
+	
 	var nID = req.params.id;
 	//var nID = req.body.id;
 	var sEventName = req.body.eventName;
+	var sImgPath = req.body.eventAfisha;
 	
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);
 	client.connect();
-	res.send('функция находится в разработке. Скоро будет готова');
+	//res.send('функция находится в разработке. Скоро будет готова');
 	
 	//пока не готово
-	var sSQL = 'update public."tEvent" set "name"=\''+sEventName+'\' '+
+	var sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\' '+
 				'where "ID" = '+nID;
 	console.log(sSQL);
-	/*client.query(sSQL, (qerr, qres) => {
+	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
 			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
-		}
+		}/*
 		else {
 			//console.log(qerr ? qerr.stack : qres);
 			
@@ -357,11 +350,12 @@ router.post('/event/:id', function(req, res, next) {
 					rowEventData = qres.rows;
 				}
 			}
-		}
+		}*/
 		client.end();
-		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
-		res.redirect('event/:id');
-	});*/
+		res.send('saved');
+		//res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+		//res.redirect('/event/'+req.params.id);
+	});
 });
 
 
