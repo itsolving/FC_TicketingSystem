@@ -160,6 +160,37 @@ router.get('/events', function(req, res, next) {
 	});
 });
 
+router.post('/events', function(req, res, next) {
+	console.log("POST /admin/events");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	const client = new Client(conOptions);
+	var events = {};
+	client.connect()
+	var sSQL = 'insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium") values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1) RETURNING id';
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		var newEventID = 0;
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			newEventID = qres.rows[0].id;
+		}
+		client.end();
+		res.redirect('/admin/event/'+newEventID);
+	});
+});
+
+
 //открытие страницы редактирования одного мероприятия "localhost:3000/admin/event/123", где 123 это идентификатор мероприятия
 router.get('/event/:id', function(req, res, next) {
 	console.log("GET /admin/event/id");
@@ -202,6 +233,7 @@ router.get('/event/:id', function(req, res, next) {
 			else {
 				if (qres.rowCount == 0) {
 					console.log('res.rowCount='+qres.rowCount);
+					rowEventData = qres.rows;
 				}
 				else {
 					rowEventData = qres.rows;
@@ -228,6 +260,7 @@ router.get('/event/:id', function(req, res, next) {
 				else {
 					if (qresStadium.rowCount == 0) {
 						console.log('res.rowCount='+qresStadium.rowCount);
+						stadiumList = qresStadium.rows;
 					}
 					else {
 						stadiumList = qresStadium.rows;
@@ -239,7 +272,19 @@ router.get('/event/:id', function(req, res, next) {
 			var sectorList = {};
 			const clientSectors = new Client(conOptions);
 			clientSectors.connect();
-			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
+			var nIDStadiumEvent = 0;
+			if (qres.rowCount > 0) {
+				if(qres.rows[0].IDStadium === 'undefined'){
+					nIDStadiumEvent = 0;
+				}
+				else {
+					nIDStadiumEvent = qres.rows[0].IDStadium;
+				}
+			}
+			else {
+				nIDStadiumEvent = 0;
+			}
+			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
 			console.log(sSQLSectors);
 			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
 				if (qerrSectors) {
@@ -267,7 +312,17 @@ router.get('/event/:id', function(req, res, next) {
 				var rowList = {};
 				const clientRows = new Client(conOptions);
 				clientRows.connect();
-				var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ qres.rows[0].IDStadium +' ';
+				var nIDStadiumEvent = 0;
+				if (qres.rowCount > 0) {
+					if(qres.rows[0].IDStadium === 'undefined'){
+						nIDStadiumEvent = 0;
+					}
+					else {
+						nIDStadiumEvent = qres.rows[0].IDStadium;
+					}
+				}
+				else {nIDStadiumEvent = 0;}
+				var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
 				console.log(sSQLRows);
 				clientRows.query(sSQLRows, (qerrRow, qresRows) => {
 					if (qerrRow) {

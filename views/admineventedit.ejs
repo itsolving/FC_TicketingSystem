@@ -19,6 +19,7 @@
 									<button type="button" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
 									<p id="txResultMsg"></p>
 								</div>
+								<%= eventData[0].ID %>
 								<% eventData.forEach(function(eventRow) { %>
 									<div class="col-md-3">
 										<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>

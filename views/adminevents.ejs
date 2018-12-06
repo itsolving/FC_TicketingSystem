@@ -14,7 +14,9 @@
 						Мероприятия
 						<div class="container">
 							<div class="row">
-								<button id="btnCreateEvent" value='NewEvent'>Создать новое</button>
+								<!--<form action="/admin/events/" method="POST">-->
+									<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
+								<!--</form>-->
 								<p id="resultCreateMsg"></p>
 							</div>
 							<div id="workArea" class="row">
@@ -42,6 +44,19 @@
 						$("#btnCreateEvent").click(function(){
 							console.log("btnCreateEvent click");
 							$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+							
+							/*$.ajax({
+								url: "/admin/events/",
+								type: "POST",
+								data: {},
+								success: function(result){
+									console.log("success");
+								},
+								error: function(err){
+									console.log("btnCreateEvent GET /admin/event/id error:");
+									console.log(err);
+								}
+							});*/
 						});
 					</script>
 				</div>
