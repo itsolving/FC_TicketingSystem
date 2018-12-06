@@ -311,7 +311,8 @@ router.post('/event/:id', function(req, res, next) {
 	
 	if(!req.body){
 		console.log("req.body is null. Redirect to event/id...");
-		res.redirect('/event/'+req.params.id);
+		//res.redirect('/event/'+req.params.id);
+		res.send('req.body is null');
 		return;
 	}
 	
@@ -351,8 +352,9 @@ router.post('/event/:id', function(req, res, next) {
 			}
 		}
 		client.end();
+		res.send('saved');
 		//res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
-		res.redirect('/event/'+req.params.id);
+		//res.redirect('/event/'+req.params.id);
 	});
 });
 
