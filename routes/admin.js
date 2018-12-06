@@ -319,7 +319,7 @@ router.post('/event/:id', function(req, res, next) {
 	var nID = req.params.id;
 	//var nID = req.body.id;
 	var sEventName = req.body.eventName;
-	var sImgPath = req.body.eventImage;
+	var sImgPath = req.body.eventAfisha;
 	
 	var rowEventData = {};
 	var stadiumList = {};
@@ -335,7 +335,7 @@ router.post('/event/:id', function(req, res, next) {
 		if (qerr) {
 			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
-		}
+		}/*
 		else {
 			//console.log(qerr ? qerr.stack : qres);
 			
@@ -350,7 +350,7 @@ router.post('/event/:id', function(req, res, next) {
 					rowEventData = qres.rows;
 				}
 			}
-		}
+		}*/
 		client.end();
 		res.send('saved');
 		//res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
