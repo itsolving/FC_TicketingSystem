@@ -324,8 +324,8 @@ router.post('/event/:id', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
-	//var nID = req.params.id;
-	var nID = req.body.id;
+	var nID = req.params.id;
+	//var nID = req.body.id;
 	var sEventName = req.body.eventName;
 	
 	var rowEventData = {};
@@ -335,7 +335,7 @@ router.post('/event/:id', function(req, res, next) {
 	res.send('функция находится в разработке. Скоро будет готова');
 	
 	//пока не готово
-	var sSQL = 'update public."tEvent" set "name"='+sEventName+' '+
+	var sSQL = 'update public."tEvent" set "name"=\''+sEventName+'\' '+
 				'where "ID" = '+nID;
 	console.log(sSQL);
 	/*client.query(sSQL, (qerr, qres) => {
