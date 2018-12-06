@@ -80,7 +80,8 @@
 											<label for="eventImage">Афиша:</label>
 											<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
 											<button type="button" onclick="ClickNewImg();">Сменить</button>
-											<img id="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
+											<p id="eventImgMsg"></p>
+											<img id="eventImage" name="eventImage" src="../../images/events/<%= eventRow.ImgPath %>" alt="afisha" width="200" height="300" />
 										</div>
 									</div>
 								<% }); %>
@@ -92,9 +93,11 @@
 							<form name="formPrice">
 								<div class="col-md-1">
 									<select id="selSectorList" multiple>
+										<% if(sectors){ %>
 										<% sectors.forEach(function(seatRow) { %>
 											<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
 										<% }); %>
+										<% } %>
 									</select>
 								</div>
 								<div class="col-md-3">
@@ -103,12 +106,14 @@
 										<th>Сектор</th>
 										<th>Ряд</th>
 									  </tr>
+									  <% if(rownums){ %>
 									  <% rownums.forEach(function(rownumRow) { %>
 									   <tr class="clickable-row">
 										<td><%= rownumRow.SectorName %></td>
 										<td><%= rownumRow.RowN %></td>
 									   </tr>
 									  <% }); %>
+									  <% } %>
 									</table>
 								</div>
 								<div class="col-md-2">
@@ -163,7 +168,7 @@
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
-								eventAfisha: $("#eventImageFile").val()
+								eventAfisha: $('#eventImage').attr('src')
 								},
 							success: function(result){
 									console.log("POST upd /admin/event/id success: result="+result);
@@ -193,7 +198,7 @@
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
-								eventAfisha: $("#eventImage").val()
+								eventAfisha: $('#eventImage').attr('src')
 								},
 							success: function(result){
 									console.log("POST del /admin/event/id success: result="+result);
@@ -202,6 +207,7 @@
 									//TODO: after development this functional we must delete this command:
 									ClearMsg("#txResultMsg");
 									//--------------
+									GetActualEventStatus();
 								},
 							error: function(err){
 								console.log("POST /admin/event/id error:");
@@ -219,11 +225,55 @@
 					  }
 					});
 					
+					function GetActualEventStatus(){
+					console.log('GetActualEventStatus::');
+						var nEventID = $("#eventID").data("value");
+						$.ajax({
+							url: "/admin/eventGetStatus/"+nEventID,
+							type: "GET",
+							success: function(result){
+									console.log('GetActualEventStatus success:');
+									console.log(result);
+									$("#eventIDStatus").attr('data-value', result[0].IDStatus);
+									$("#eventIDStatus").html(result[0].StatusName);
+								},
+							error: function(err){
+								console.log("GET GetActualEventStatus /admin/eventGetStatus/id error:");
+								console.log(err);
+							}
+						});
+					}
+					
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
 						var sImgFileName = $('eventImageFile').val();
-						$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
+						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						$("#eventImgMsg").html("Смена картинки - в разработке");
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						ClearMsg("#eventImgMsg");
+						//--------------
+						/*$.ajax({
+							url: "/admin/uploadeventimg",
+							method: "POST",
+							async: false,
+							data: {
+								uploadfilename: $('eventImageFile').val()
+								},
+							success: function(result){
+									console.log("POST del /admin/uploadeventimg/id success: result="+result);
+									$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
+								},
+							error: function(err){
+								console.log("POST /admin/uploadeventimg/id error:");
+								console.log(err);
+							}
+						});*/
+						//$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
 					};
+					$('eventImageFile').on('', function(){
+					
+					})
 					
 					/*function GenerateTickets(){
 						var sEventID = $("#eventID").val();

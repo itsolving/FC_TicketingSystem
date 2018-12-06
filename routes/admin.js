@@ -7,6 +7,8 @@ var express = require('express');
 var router = express.Router();
 var db = require('../queries');
 var passwordHash = require('password-hash');
+var formidable = require('formidable');
+var fs = require('fs');
 
 
 var conn = require('./conn');
@@ -248,11 +250,12 @@ router.get('/event/:id', function(req, res, next) {
 					//console.log(qerrSectors ? qerrSectors.stack : qresSectors);
 					
 					if (typeof qresSectors.rowCount === 'undefined') {
-						console.log('res.rowCount not found');
+						console.log('sectorList res.rowCount not found');
 					}
 					else {
 						if (qresSectors.rowCount == 0) {
-							console.log('res.rowCount='+qresSectors.rowCount);
+							console.log('sectorList res.rowCount='+qresSectors.rowCount);
+							sectorList = qresSectors.rows;
 						}
 						else {
 							sectorList = qresSectors.rows;
@@ -275,11 +278,12 @@ router.get('/event/:id', function(req, res, next) {
 						//console.log(qerrRow ? qerrRow.stack : qresRows);
 						
 						if (typeof qresRows.rowCount === 'undefined') {
-							console.log('res.rowCount not found');
+							console.log('rowList res.rowCount not found');
 						}
 						else {
 							if (qresRows.rowCount == 0) {
-								console.log('res.rowCount='+qresRows.rowCount);
+								console.log('rowList res.rowCount='+qresRows.rowCount);
+								rowList = qresRows.rows;
 							}
 							else {
 								rowList = qresRows.rows;
@@ -318,24 +322,71 @@ router.post('/event/:id', function(req, res, next) {
 	
 	var nID = req.params.id;
 	//var nID = req.body.id;
+	var sPostOperation = req.body.postOperation;
 	var sEventName = req.body.eventName;
 	var sImgPath = req.body.eventAfisha;
+	var sDateFrom = req.body.eventDateFrom;
+	var nStadiumID = req.body.stadiumID;
 	
-	var rowEventData = {};
-	var stadiumList = {};
+
 	const client = new Client(conOptions);
 	client.connect();
 	//res.send('функция находится в разработке. Скоро будет готова');
-	
-	//пока не готово
-	var sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\' '+
+	var sSQL = "";
+	if (sPostOperation == "del") {
+		sSQL = 'update public."tEvent" set "IDStatus"=6 '+
 				'where "ID" = '+nID;
+	} else {
+		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', /*"ImgPath"=\''+sImgPath+'\',*/ '+
+				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+' '+
+				'where "ID" = '+nID;
+	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
 			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
-		}/*
+		}
+		client.end();
+		var sResMsg = "";
+		if (sPostOperation == "del") {
+			sResMsg = "Удалил";
+		}
+		else {
+			sResMsg = "Сохранил";
+		}
+		res.send(sResMsg);
+	});
+});
+
+router.post('/uploadeventimg', function(req, res, next){
+	var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+		var oldpath = files.filetoupload.path;
+		var newpath = '../../images/events/' + files.filetoupload.name;
+		fs.rename(oldpath, newpath, function (err) {
+			if (err) throw err;
+			res.send('File uploaded and saved!');
+		});
+	});
+});
+
+router.get('/eventGetStatus/:id', function(req, res, next){
+	var nID = req.params.id;
+	var rowEventData = {};
+	const client = new Client(conOptions);
+	client.connect();
+	var sSQL = 'SELECT ev."ID", ev."Name", ev."IDStatus", '+
+				's."Name" as "StatusName" '+
+				'FROM public."tEvent" ev '+
+				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
+				'where ev."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
 		else {
 			//console.log(qerr ? qerr.stack : qres);
 			
@@ -350,14 +401,11 @@ router.post('/event/:id', function(req, res, next) {
 					rowEventData = qres.rows;
 				}
 			}
-		}*/
+		}
 		client.end();
-		res.send('saved');
-		//res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
-		//res.redirect('/event/'+req.params.id);
+		res.json(rowEventData);
 	});
 });
-
 
 //это нужно для jquery чтобы проставить значения в выпадающий список поля "стадионы"
 router.get('/stadiumsJson', function(req, res, next) {
