@@ -160,8 +160,10 @@
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						console.log("btnSaveEvent click: nEventID="+nEventID);
+						var sURL = "/admin/event/"+nEventID;
+						console.log('img src='+$('#eventImage').attr('src'));
 						$.ajax({
-							url: "/admin/event/"+nEventID,
+							url: sURL,
 							type: "POST",
 							data: {
 								postOperation: 'upd',
