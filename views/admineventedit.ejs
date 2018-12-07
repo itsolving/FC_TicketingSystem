@@ -162,7 +162,8 @@
 						nEventID = $("#eventID").data("value");
 						console.log("btnSaveEvent click: nEventID="+nEventID);
 						var sURL = "/admin/event/"+nEventID;
-						console.log('img src='+$('#eventImage').attr('src'));
+						//console.log('img src='+$('#eventImage').attr('src'));
+						console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
 						$.ajax({
 							url: sURL,
 							type: "POST",
