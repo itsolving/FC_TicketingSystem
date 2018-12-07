@@ -359,14 +359,14 @@ router.get('/event/:id', function(req, res, next) {
 router.post('/event/:id', function(req, res, next) {
 	console.log("POST /admin/event/id");
 	var sAdminLogin = "";
-	var sessData = req.session;
+	/*var sessData = req.session;
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 	}
 	else {
 		res.redirect('/admin');
 		return;
-	}
+	}*/
 	
 	if(!req.body){
 		console.log("req.body is null. Redirect to event/id...");
