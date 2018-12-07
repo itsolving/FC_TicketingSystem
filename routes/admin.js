@@ -392,11 +392,11 @@ router.post('/event/:id', function(req, res, next) {
 		sSQL = 'update public."tEvent" set "IDStatus"=6 '+
 				'where "ID" = '+nID;
 	} else {
-		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
+		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
 				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+' '+
-				'where "ID" = '+nID;*/
-		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
 				'where "ID" = '+nID;
+		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
+				'where "ID" = '+nID;*/
 	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
