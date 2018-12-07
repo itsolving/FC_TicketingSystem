@@ -40,7 +40,7 @@
 										-->
 										<div class="form-group">
 											<label for="stadiumsList">Стадион:</label>
-											<span id="eventIDStadium" hidden><%= eventRow.IDStadium %></span>
+											<span id="eventIDStadium" data-value="<%= eventRow.IDStadium %>" hidden><%= eventRow.IDStadium %></span>
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 												<% stadiums.forEach(function(stadiumRow) { %>
@@ -136,8 +136,9 @@
 							type: "GET",
 							success: function(result){
 								$('select#stadiumsList').empty();
+								var nEvIDStadium = $("#eventIDStadium").data("value");
 								$.each(result, function(index) {
-									if (result[index].ID == $("#eventIDStadium").val()) {
+									if (result[index].ID == nEvIDStadium) {
 										$('select#stadiumsList').append(
 												$('<option selected></option>')
 												.val(result[index].ID)
