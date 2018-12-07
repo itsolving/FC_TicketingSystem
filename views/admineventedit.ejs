@@ -160,7 +160,7 @@
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
-						console.log("btnSaveEvent click: nEventID="+nEventID);
+						//console.log("btnSaveEvent click: nEventID="+nEventID);
 						var sURL = "/admin/event/"+nEventID;
 						//console.log('img src='+$('#eventImage').attr('src'));
 						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
@@ -168,7 +168,15 @@
 						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
 							sShowOnline = "false";
 						}
-						else {sShowOnline = "true";}
+						else
+						if ($("input[id='eventShowOnline']:checked").val() == "true") {
+							sShowOnline = "true";
+						}
+						else
+						if ($("input[id='eventShowOnline']:checked").val() == "on") {
+							sShowOnline = "true";
+						}
+						else {sShowOnline = "false";}
 						$.ajax({
 							url: sURL,
 							type: "POST",
