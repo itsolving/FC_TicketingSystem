@@ -392,8 +392,10 @@ router.post('/event/:id', function(req, res, next) {
 		sSQL = 'update public."tEvent" set "IDStatus"=6 '+
 				'where "ID" = '+nID;
 	} else {
-		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', /*"ImgPath"=\''+sImgPath+'\',*/ '+
+		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
 				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+' '+
+				'where "ID" = '+nID;*/
+		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
 				'where "ID" = '+nID;
 	}
 	console.log(sSQL);
@@ -408,7 +410,7 @@ router.post('/event/:id', function(req, res, next) {
 		if (qerr) {
 			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
-			sResMsg = "Ошибка выполнения";
+			sResMsg = "Ошибка выполнения: "+qerr;
 		}
 		client.end();
 		res.send(sResMsg);
