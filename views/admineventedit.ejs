@@ -172,7 +172,10 @@
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
-								eventAfisha: $('#eventImage').attr('src')
+								eventAfisha: $('#eventImage').attr('src'),
+								showOnline: $("input[id='eventShowOnline']:checked").val(),
+								showCasher: $("input[id='eventShowCasher']:checked").val(),
+								showAPI: $("input[id='eventShowAPI']:checked").val()
 								},
 							success: function(result){
 									console.log("POST upd /admin/event/id success: result="+result);
