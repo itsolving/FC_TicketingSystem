@@ -52,23 +52,23 @@
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowOnline) { %>
-												<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+												<input type="checkbox" id="eventShowOnline" value="true" checked>Показать online</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowOnline">Показать online</input>
+												<input type="checkbox" id="eventShowOnline" value="false">Показать online</input>
 											<% } %>
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowCasher) { %>
-												<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+												<input type="checkbox" id="eventShowCasher" value="true" checked>Показать кассиру</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+												<input type="checkbox" id="eventShowCasher" value="false">Показать кассиру</input>
 											<% } %>
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowAPI) { %>
-												<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+												<input type="checkbox" id="eventShowAPI" value="true" checked>Показать для API</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowAPI">Показать для API</input>
+												<input type="checkbox" id="eventShowAPI" value="false">Показать для API</input>
 											<% } %>
 										</div>
 										<!--<div class="form-group">
@@ -163,7 +163,12 @@
 						console.log("btnSaveEvent click: nEventID="+nEventID);
 						var sURL = "/admin/event/"+nEventID;
 						//console.log('img src='+$('#eventImage').attr('src'));
-						console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
+						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
+						var sShowOnline = "false";
+						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
+							sShowOnline = "false";
+						}
+						else {sShowOnline = "true";}
 						$.ajax({
 							url: sURL,
 							type: "POST",
@@ -174,7 +179,7 @@
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
 								eventAfisha: $('#eventImage').attr('src'),
-								showOnline: $("input[id='eventShowOnline']:checked").val(),
+								showOnline: sShowOnline,
 								showCasher: $("input[id='eventShowCasher']:checked").val(),
 								showAPI: $("input[id='eventShowAPI']:checked").val()
 								},
