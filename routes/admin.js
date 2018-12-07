@@ -398,13 +398,6 @@ router.post('/event/:id', function(req, res, next) {
 	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			client.end();
-			res.send("Ошибка выполнения");
-		}
-		client.end();
 		var sResMsg = "";
 		if (sPostOperation == "del") {
 			sResMsg = "Удалил";
@@ -412,6 +405,12 @@ router.post('/event/:id', function(req, res, next) {
 		else {
 			sResMsg = "Сохранил";
 		}
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+			sResMsg = "Ошибка выполнения";
+		}
+		client.end();
 		res.send(sResMsg);
 	});
 });
