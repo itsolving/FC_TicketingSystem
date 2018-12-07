@@ -8,8 +8,8 @@ var options = {
 }
 var pgp = require('pg-promise')(options)
 var connectString = 
-	'postgres://postgres:qwe@localhost:5432/postgres'; //local test on home-computer
-	//'postgres://pgadmin:UrdodON9zu83BvtI6L@localhost:5432/postgres'; //test on dev-server
+	//'postgres://postgres:qwe@localhost:5432/postgres'; //local test on home-computer
+	'postgres://pgadmin:UrdodON9zu83BvtI6L@localhost:5432/postgres'; //test on dev-server
 var db = pgp(connectString);
 
 
