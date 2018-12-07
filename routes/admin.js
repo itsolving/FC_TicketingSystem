@@ -401,6 +401,8 @@ router.post('/event/:id', function(req, res, next) {
 		if (qerr) {
 			console.log("qerr:");
 			console.log(qerr ? qerr.stack : qres);
+			client.end();
+			res.send("Ошибка выполнения");
 		}
 		client.end();
 		var sResMsg = "";
