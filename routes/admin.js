@@ -207,7 +207,6 @@ router.get('/event/:id', function(req, res, next) {
 	var rowEventData = {};
 	var stadiumList = {};
 	const client = new Client(conOptions);
-	//console.log('client.connect...');
 	client.connect();
 	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
 				'replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
@@ -274,15 +273,9 @@ router.get('/event/:id', function(req, res, next) {
 			clientSectors.connect();
 			var nIDStadiumEvent = 0;
 			if (qres.rowCount > 0) {
-				if(qres.rows[0].IDStadium === 'undefined'){
-					nIDStadiumEvent = 0;
-				}
-				else {
+				if(qres.rows[0].IDStadium !== 'undefined'){
 					nIDStadiumEvent = qres.rows[0].IDStadium;
 				}
-			}
-			else {
-				nIDStadiumEvent = 0;
 			}
 			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
 			console.log(sSQLSectors);
@@ -382,6 +375,9 @@ router.post('/event/:id', function(req, res, next) {
 	var sImgPath = req.body.eventAfisha;
 	var sDateFrom = req.body.eventDateFrom;
 	var nStadiumID = req.body.stadiumID;
+	var bshowOnline = req.body.showOnline;
+	var bshowCasher = req.body.showCasher;
+	var bshowAPI = req.body.showAPI;
 	
 
 	const client = new Client(conOptions);
@@ -393,7 +389,7 @@ router.post('/event/:id', function(req, res, next) {
 				'where "ID" = '+nID;
 	} else {
 		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
-				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+' '+
+				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+' '+
 				'where "ID" = '+nID;
 		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
 				'where "ID" = '+nID;*/
