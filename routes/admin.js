@@ -5,7 +5,7 @@
 
 var express = require('express');
 var router = express.Router();
-var db = require('../queries');
+//var db = require('../queries');
 var passwordHash = require('password-hash');
 var formidable = require('formidable');
 var fs = require('fs');
