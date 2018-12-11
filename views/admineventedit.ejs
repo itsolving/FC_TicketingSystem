@@ -40,7 +40,7 @@
 										-->
 										<div class="form-group">
 											<label for="stadiumsList">Стадион:</label>
-											<span id="eventIDStadium" hidden><%= eventRow.IDStadium %></span>
+											<span id="eventIDStadium" data-value="<%= eventRow.IDStadium %>" hidden><%= eventRow.IDStadium %></span>
 											<select name="stadiumsList" id="stadiumsList">
 												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 												<% stadiums.forEach(function(stadiumRow) { %>
@@ -52,23 +52,23 @@
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowOnline) { %>
-												<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+												<input type="checkbox" id="eventShowOnline" value="true" checked>Показать online</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowOnline">Показать online</input>
+												<input type="checkbox" id="eventShowOnline" value="false">Показать online</input>
 											<% } %>
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowCasher) { %>
-												<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+												<input type="checkbox" id="eventShowCasher" value="true" checked>Показать кассиру</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+												<input type="checkbox" id="eventShowCasher" value="false">Показать кассиру</input>
 											<% } %>
 										</div>
 										<div class="form-group">
 											<% if (eventRow.ShowAPI) { %>
-												<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+												<input type="checkbox" id="eventShowAPI" value="true" checked>Показать для API</input>
 											<% } else { %>
-												<input type="checkbox" id="eventShowAPI">Показать для API</input>
+												<input type="checkbox" id="eventShowAPI" value="false">Показать для API</input>
 											<% } %>
 										</div>
 										<!--<div class="form-group">
@@ -136,8 +136,9 @@
 							type: "GET",
 							success: function(result){
 								$('select#stadiumsList').empty();
+								var nEvIDStadium = $("#eventIDStadium").data("value");
 								$.each(result, function(index) {
-									if (result[index].ID == $("#eventIDStadium").val()) {
+									if (result[index].ID == nEvIDStadium) {
 										$('select#stadiumsList').append(
 												$('<option selected></option>')
 												.val(result[index].ID)
@@ -159,9 +160,25 @@
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
-						console.log("btnSaveEvent click: nEventID="+nEventID);
+						//console.log("btnSaveEvent click: nEventID="+nEventID);
+						var sURL = "/admin/event/"+nEventID;
+						//console.log('img src='+$('#eventImage').attr('src'));
+						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
+						var sShowOnline = "false";
+						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
+							sShowOnline = "false";
+						}
+						else
+						if ($("input[id='eventShowOnline']:checked").val() == "true") {
+							sShowOnline = "true";
+						}
+						else
+						if ($("input[id='eventShowOnline']:checked").val() == "on") {
+							sShowOnline = "true";
+						}
+						else {sShowOnline = "false";}
 						$.ajax({
-							url: "/admin/event/"+nEventID,
+							url: sURL,
 							type: "POST",
 							data: {
 								postOperation: 'upd',
@@ -169,7 +186,10 @@
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
-								eventAfisha: $('#eventImage').attr('src')
+								eventAfisha: $('#eventImage').attr('src'),
+								showOnline: sShowOnline,
+								showCasher: $("input[id='eventShowCasher']:checked").val(),
+								showAPI: $("input[id='eventShowAPI']:checked").val()
 								},
 							success: function(result){
 									console.log("POST upd /admin/event/id success: result="+result);
@@ -247,61 +267,43 @@
 					
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
-						var sImgFileName = $('eventImageFile').val();
-						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
-						$("#eventImgMsg").html("Смена картинки - в разработке");
+					};
+					$('#eventImageFile').on('change', function(evt) {
+						var sImgFileName = evt.target.files[0].name;
+						let file = $('#eventImageFile').get(0).files;
+						//console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						//$("#eventImgMsg").html("Смена картинки - в разработке");
 						//--------------
 						//TODO: after development this functional we must delete this command:
-						ClearMsg("#eventImgMsg");
+						//ClearMsg("#eventImgMsg");
 						//--------------
-						/*$.ajax({
-							url: "/admin/uploadeventimg",
-							method: "POST",
-							async: false,
-							data: {
-								uploadfilename: $('eventImageFile').val()
-								},
-							success: function(result){
-									console.log("POST del /admin/uploadeventimg/id success: result="+result);
-									$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
-								},
-							error: function(err){
-								console.log("POST /admin/uploadeventimg/id error:");
-								console.log(err);
-							}
-						});*/
-						//$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
-					};
-					$('eventImageFile').on('', function(){
-					
-					})
-					
-					/*function GenerateTickets(){
-						var sEventID = $("#eventID").val();
+						var nEventID = $("#eventID").data("value");
+						
+						var data = new FormData();
+						$.each($('#eventImageFile')[0].files, function(i, file) {
+							data.append('file-'+i, file);
+						});
 						$.ajax({
-							url: '/admin/generateTickets',
-							type: "POST",
-							data: {
-								eventID: sEventID
-							},
+							url: "/admin/uploadeventimg",
+							data: data,
+							cache: false,
+							contentType: false,
+							processData: false,
+							method: 'POST',
+							//type: 'POST', // For jQuery < 1.9
 							success: function(result){
-								$("#GenerateTicketsMSG").html("Генерация билетов скоро будет разработана");
-								//--------------
-								//TODO: after development this functional we must delete this command:
-								ClearMsg("#GenerateTicketsMSG");
-								//--------------
-							},
+									console.log("POST /admin/uploadeventimg success: result=");
+									console.log(result);
+									$('#eventImage').attr('src', '../public/images/events/' + sImgFileName);
+								},
 							error: function(err){
-								console.log("GenerateTickets error:");
+								console.log("POST /admin/uploadeventimg error:");
 								console.log(err);
-								$("#GenerateTicketsMSG").html("Есть какая-та ошибка");
-								//--------------
-								//TODO: after development this functional we must delete this command:
-								ClearMsg("#GenerateTicketsMSG");
-								//--------------
 							}
 						});
-					};*/
+						
+					});
+					
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){
 							$(msgElement).html("");
