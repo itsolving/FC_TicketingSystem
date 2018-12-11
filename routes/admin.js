@@ -5,15 +5,19 @@
 
 var express = require('express');
 var router = express.Router();
-//var db = require('../queries');
+var db = require('../queries');
 var passwordHash = require('password-hash');
 var formidable = require('formidable');
 var fs = require('fs');
 
+const multer = require('multer')
+const upload = multer({ storage: multer.memoryStorage() })
 
 var conn = require('./conn');
 var Client = conn.connClient;
 var conOptions = conn.conOptions;
+
+
 
 
 //при открытии страницы "localhost:3000/admin"
@@ -413,17 +417,24 @@ router.post('/event/:id', function(req, res, next) {
 	});
 });
 
+
 router.post('/uploadeventimg', function(req, res, next){
 	var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-		var oldpath = files.filetoupload.path;
-		var newpath = '../../images/events/' + files.filetoupload.name;
-		fs.rename(oldpath, newpath, function (err) {
-			if (err) throw err;
-			res.send('File uploaded and saved!');
-		});
+    form.parse(req);
+    form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/../public/images/events/' + file.name;
+    });
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
+	form.on('error', function(err) {
+		console.error(err);
+		return res.send('error: '+err);
 	});
-});
+    res.status(200);
+})
+
+
 
 router.get('/eventGetStatus/:id', function(req, res, next){
 	var nID = req.params.id;
@@ -855,5 +866,3 @@ router.get('/rolesJson', function(req, res, next) {
 
 
 module.exports = router;
-
-

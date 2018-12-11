@@ -267,61 +267,43 @@
 					
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
-						var sImgFileName = $('eventImageFile').val();
-						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
-						$("#eventImgMsg").html("Смена картинки - в разработке");
+					};
+					$('#eventImageFile').on('change', function(evt) {
+						var sImgFileName = evt.target.files[0].name;
+						let file = $('#eventImageFile').get(0).files;
+						//console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						//$("#eventImgMsg").html("Смена картинки - в разработке");
 						//--------------
 						//TODO: after development this functional we must delete this command:
-						ClearMsg("#eventImgMsg");
+						//ClearMsg("#eventImgMsg");
 						//--------------
-						/*$.ajax({
-							url: "/admin/uploadeventimg",
-							method: "POST",
-							async: false,
-							data: {
-								uploadfilename: $('eventImageFile').val()
-								},
-							success: function(result){
-									console.log("POST del /admin/uploadeventimg/id success: result="+result);
-									$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
-								},
-							error: function(err){
-								console.log("POST /admin/uploadeventimg/id error:");
-								console.log(err);
-							}
-						});*/
-						//$('#eventImage').attr('src', '../../images/events/' + sImgFileName);
-					};
-					$('eventImageFile').on('', function(){
-					
-					})
-					
-					/*function GenerateTickets(){
-						var sEventID = $("#eventID").val();
+						var nEventID = $("#eventID").data("value");
+						
+						var data = new FormData();
+						$.each($('#eventImageFile')[0].files, function(i, file) {
+							data.append('file-'+i, file);
+						});
 						$.ajax({
-							url: '/admin/generateTickets',
-							type: "POST",
-							data: {
-								eventID: sEventID
-							},
+							url: "/admin/uploadeventimg",
+							data: data,
+							cache: false,
+							contentType: false,
+							processData: false,
+							method: 'POST',
+							//type: 'POST', // For jQuery < 1.9
 							success: function(result){
-								$("#GenerateTicketsMSG").html("Генерация билетов скоро будет разработана");
-								//--------------
-								//TODO: after development this functional we must delete this command:
-								ClearMsg("#GenerateTicketsMSG");
-								//--------------
-							},
+									console.log("POST /admin/uploadeventimg success: result=");
+									console.log(result);
+									$('#eventImage').attr('src', '../public/images/events/' + sImgFileName);
+								},
 							error: function(err){
-								console.log("GenerateTickets error:");
+								console.log("POST /admin/uploadeventimg error:");
 								console.log(err);
-								$("#GenerateTicketsMSG").html("Есть какая-та ошибка");
-								//--------------
-								//TODO: after development this functional we must delete this command:
-								ClearMsg("#GenerateTicketsMSG");
-								//--------------
 							}
 						});
-					};*/
+						
+					});
+					
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){
 							$(msgElement).html("");
