@@ -136,7 +136,8 @@ router.get('/events', function(req, res, next) {
 				'sd."Name" as "Stadium" '+
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ ';
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+				'order by ev."DateFrom", ev."ID" ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -276,9 +277,11 @@ router.get('/event/:id', function(req, res, next) {
 			const clientSectors = new Client(conOptions);
 			clientSectors.connect();
 			var nIDStadiumEvent = 0;
-			if (qres.rowCount > 0) {
-				if(qres.rows[0].IDStadium !== 'undefined'){
-					nIDStadiumEvent = qres.rows[0].IDStadium;
+			if (typeof qres.rowCount !== 'undefined') {
+				if (qres.rowCount > 0) {
+					if(qres.rows[0].IDStadium !== 'undefined'){
+						nIDStadiumEvent = qres.rows[0].IDStadium;
+					}
 				}
 			}
 			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
@@ -310,12 +313,14 @@ router.get('/event/:id', function(req, res, next) {
 				const clientRows = new Client(conOptions);
 				clientRows.connect();
 				var nIDStadiumEvent = 0;
-				if (qres.rowCount > 0) {
-					if(qres.rows[0].IDStadium === 'undefined'){
-						nIDStadiumEvent = 0;
-					}
-					else {
-						nIDStadiumEvent = qres.rows[0].IDStadium;
+				if (typeof qres.rowCount === 'undefined') {
+					if (qres.rowCount > 0) {
+						if(qres.rows[0].IDStadium === 'undefined'){
+							nIDStadiumEvent = 0;
+						}
+						else {
+							nIDStadiumEvent = qres.rows[0].IDStadium;
+						}
 					}
 				}
 				else {nIDStadiumEvent = 0;}
@@ -356,18 +361,17 @@ router.get('/event/:id', function(req, res, next) {
 router.post('/event/:id', function(req, res, next) {
 	console.log("POST /admin/event/id");
 	var sAdminLogin = "";
-	/*var sessData = req.session;
+	var sessData = req.session;
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 	}
 	else {
 		res.redirect('/admin');
 		return;
-	}*/
+	}
 	
 	if(!req.body){
 		console.log("req.body is null. Redirect to event/id...");
-		//res.redirect('/event/'+req.params.id);
 		res.send('req.body is null');
 		return;
 	}
@@ -393,10 +397,9 @@ router.post('/event/:id', function(req, res, next) {
 				'where "ID" = '+nID;
 	} else {
 		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
-				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+' '+
+				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+
+				', "ShowCasher" = '+bshowCasher+', "ShowAPI" = '+bshowAPI+' '+
 				'where "ID" = '+nID;
-		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
-				'where "ID" = '+nID;*/
 	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
@@ -417,22 +420,32 @@ router.post('/event/:id', function(req, res, next) {
 	});
 });
 
+//картинки для афиши мероприятий отображаются только вот так:
+router.get('/images/events/:imgname', function(req, res, next){
+	var sImgName = req.params.imgname;
+	//res.send(__dirname + '../../images/events/' + sImgName);
+	res.send(sImgName);
+});
 
+//загрузка файла с картинкой афиши мероприятия (лишь копируем файл в спецпапку на сервере, но не сохраняем путь в БД)
 router.post('/uploadeventimg', function(req, res, next){
 	var form = new formidable.IncomingForm();
     form.parse(req);
     form.on('fileBegin', function (name, file){
         file.path = __dirname + '/../public/images/events/' + file.name;
+		sFilename = file.name;
     });
     form.on('file', function (name, file){
         console.log('Uploaded ' + file.name);
+		res.send(file.name);
+		return;
     });
 	form.on('error', function(err) {
 		console.error(err);
 		return res.send('error: '+err);
 	});
     res.status(200);
-})
+});
 
 
 
@@ -505,6 +518,8 @@ router.get('/stadiumsJson', function(req, res, next) {
 		res.json(stadiumList);
 	});
 });
+
+
 
 
 //открытие страницы со списком стадионов
@@ -712,6 +727,8 @@ router.get('/citiesJson', function(req, res, next) {
 });
 
 
+
+
 //открытие страницы со списком пользователей
 router.get('/users', function(req, res, next) {
 	console.log("GET /users");
@@ -829,6 +846,82 @@ router.get('/user/:id', function(req, res, next) {
 		});
 	});
 });
+
+//сохранение пользователя
+router.post('/user/:id', function(req, res, next) {
+	console.log("GET /user/id");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var nID = req.params.id;
+	//var sUserLogin = req.body.login;
+	//var nUserIDRole = req.body.IDRole;
+	var rowUserData = {};
+	var rolesList = {};
+	const client = new Client(conOptions);
+	//console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
+				'FROM public."tUser" u '+
+				'join public."tRole" r on r."ID" = u."IDRole" ' +
+				'where u."isLock" = false and u."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			//console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowUserData = qres.rows;
+				}
+			}
+		}
+		client.end();
+		
+		const clientRoles = new Client(conOptions);
+		clientRoles.connect();
+		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
+		console.log(sSQLRoles);
+		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
+			if (qerrRoles) {
+				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+			}
+			else {
+				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+				
+				if (typeof qresRoles.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qresRoles.rowCount == 0) {
+						console.log('res.rowCount='+qresRoles.rowCount);
+					}
+					else {
+						rolesList = qresRoles.rows;
+					}
+				}
+			}
+			clientRoles.end();
+			res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
+		});
+	});
+});
+
 
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/rolesJson', function(req, res, next) {
