@@ -137,7 +137,7 @@ router.get('/events', function(req, res, next) {
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
 				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
-				'order by ev."DateFrom" desc, ev."ID" ';
+				'order by ev."DateFrom", ev."ID" ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
