@@ -136,7 +136,8 @@ router.get('/events', function(req, res, next) {
 				'sd."Name" as "Stadium" '+
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ ';
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+				'order by ev."DateFrom" desc, ev."ID" ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -276,9 +277,11 @@ router.get('/event/:id', function(req, res, next) {
 			const clientSectors = new Client(conOptions);
 			clientSectors.connect();
 			var nIDStadiumEvent = 0;
-			if (qres.rowCount > 0) {
-				if(qres.rows[0].IDStadium !== 'undefined'){
-					nIDStadiumEvent = qres.rows[0].IDStadium;
+			if (typeof qres.rowCount !== 'undefined') {
+				if (qres.rowCount > 0) {
+					if(qres.rows[0].IDStadium !== 'undefined'){
+						nIDStadiumEvent = qres.rows[0].IDStadium;
+					}
 				}
 			}
 			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
@@ -310,12 +313,14 @@ router.get('/event/:id', function(req, res, next) {
 				const clientRows = new Client(conOptions);
 				clientRows.connect();
 				var nIDStadiumEvent = 0;
-				if (qres.rowCount > 0) {
-					if(qres.rows[0].IDStadium === 'undefined'){
-						nIDStadiumEvent = 0;
-					}
-					else {
-						nIDStadiumEvent = qres.rows[0].IDStadium;
+				if (typeof qres.rowCount === 'undefined') {
+					if (qres.rowCount > 0) {
+						if(qres.rows[0].IDStadium === 'undefined'){
+							nIDStadiumEvent = 0;
+						}
+						else {
+							nIDStadiumEvent = qres.rows[0].IDStadium;
+						}
 					}
 				}
 				else {nIDStadiumEvent = 0;}
@@ -356,18 +361,17 @@ router.get('/event/:id', function(req, res, next) {
 router.post('/event/:id', function(req, res, next) {
 	console.log("POST /admin/event/id");
 	var sAdminLogin = "";
-	/*var sessData = req.session;
+	var sessData = req.session;
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 	}
 	else {
 		res.redirect('/admin');
 		return;
-	}*/
+	}
 	
 	if(!req.body){
 		console.log("req.body is null. Redirect to event/id...");
-		//res.redirect('/event/'+req.params.id);
 		res.send('req.body is null');
 		return;
 	}
@@ -393,10 +397,9 @@ router.post('/event/:id', function(req, res, next) {
 				'where "ID" = '+nID;
 	} else {
 		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
-				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+' '+
+				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+
+				', "ShowCasher" = '+bshowCasher+', "ShowAPI" = '+bshowAPI+' '+
 				'where "ID" = '+nID;
-		/*sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "IDStadium"='+nStadiumID+' '+
-				'where "ID" = '+nID;*/
 	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
@@ -418,21 +421,30 @@ router.post('/event/:id', function(req, res, next) {
 });
 
 
+router.get('/images/events/:imgname', function(req, res, next){
+	var sImgName = req.params.imgname;
+	//res.send(__dirname + '../../images/events/' + sImgName);
+	res.send(sImgName);
+});
+
 router.post('/uploadeventimg', function(req, res, next){
 	var form = new formidable.IncomingForm();
     form.parse(req);
     form.on('fileBegin', function (name, file){
         file.path = __dirname + '/../public/images/events/' + file.name;
+		sFilename = file.name;
     });
     form.on('file', function (name, file){
         console.log('Uploaded ' + file.name);
+		res.send(file.name);
+		return;
     });
 	form.on('error', function(err) {
 		console.error(err);
 		return res.send('error: '+err);
 	});
     res.status(200);
-})
+});
 
 
 
