@@ -420,13 +420,14 @@ router.post('/event/:id', function(req, res, next) {
 	});
 });
 
-
+//картинки для афиши мероприятий отображаются только вот так:
 router.get('/images/events/:imgname', function(req, res, next){
 	var sImgName = req.params.imgname;
 	//res.send(__dirname + '../../images/events/' + sImgName);
 	res.send(sImgName);
 });
 
+//загрузка файла с картинкой афиши мероприятия (лишь копируем файл в спецпапку на сервере, но не сохраняем путь в БД)
 router.post('/uploadeventimg', function(req, res, next){
 	var form = new formidable.IncomingForm();
     form.parse(req);
@@ -517,6 +518,8 @@ router.get('/stadiumsJson', function(req, res, next) {
 		res.json(stadiumList);
 	});
 });
+
+
 
 
 //открытие страницы со списком стадионов
@@ -724,6 +727,8 @@ router.get('/citiesJson', function(req, res, next) {
 });
 
 
+
+
 //открытие страницы со списком пользователей
 router.get('/users', function(req, res, next) {
 	console.log("GET /users");
@@ -841,6 +846,82 @@ router.get('/user/:id', function(req, res, next) {
 		});
 	});
 });
+
+//сохранение пользователя
+router.post('/user/:id', function(req, res, next) {
+	console.log("GET /user/id");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var nID = req.params.id;
+	//var sUserLogin = req.body.login;
+	//var nUserIDRole = req.body.IDRole;
+	var rowUserData = {};
+	var rolesList = {};
+	const client = new Client(conOptions);
+	//console.log('client.connect...');
+	client.connect();
+	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
+				'FROM public."tUser" u '+
+				'join public."tRole" r on r."ID" = u."IDRole" ' +
+				'where u."isLock" = false and u."ID" = '+nID;
+	console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log(qerr ? qerr.stack : qres);
+		}
+		else {
+			//console.log(qerr ? qerr.stack : qres);
+			
+			if (typeof qres.rowCount === 'undefined') {
+				console.log('res.rowCount not found');
+			}
+			else {
+				if (qres.rowCount == 0) {
+					console.log('res.rowCount='+qres.rowCount);
+				}
+				else {
+					rowUserData = qres.rows;
+				}
+			}
+		}
+		client.end();
+		
+		const clientRoles = new Client(conOptions);
+		clientRoles.connect();
+		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
+		console.log(sSQLRoles);
+		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
+			if (qerrRoles) {
+				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+			}
+			else {
+				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+				
+				if (typeof qresRoles.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qresRoles.rowCount == 0) {
+						console.log('res.rowCount='+qresRoles.rowCount);
+					}
+					else {
+						rolesList = qresRoles.rows;
+					}
+				}
+			}
+			clientRoles.end();
+			res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
+		});
+	});
+});
+
 
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/rolesJson', function(req, res, next) {
