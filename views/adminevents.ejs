@@ -58,9 +58,9 @@
 									console.log("result="+result.ID);
 									console.log(result);
 									$("#resultCreateMsg").html("result.ID="+result.ID);
-									//window.location.replace("/admin/event/"+result.ID);
-									
-									
+									if(result.ID > 0){
+										window.location.replace("/admin/event/"+result.ID);
+									}
 								},
 								error: function(err){
 									console.log("btnCreateEvent POST /admin/events/ error:");
