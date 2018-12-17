@@ -44,7 +44,7 @@
 							$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
 							//--------------
 							//TODO: after development this functional we must delete this command:
-							ClearMsg("#resultCreateMsg");
+							//ClearMsg("#resultCreateMsg");
 							//--------------
 							
 							$.ajax({
@@ -57,8 +57,8 @@
 									console.log("POST /admin/events/ success");
 									console.log("result="+result.ID);
 									console.log(result);
-									
-									window.location.replace("/admin/event/"+result.ID);
+									$("#resultCreateMsg").html("result.ID="+result.ID);
+									//window.location.replace("/admin/event/"+result.ID);
 									
 									
 								},
