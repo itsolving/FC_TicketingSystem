@@ -182,22 +182,26 @@ router.post('/events', function(req, res, next) {
 	client.connect()
 	var sSQL = "";
 	if (postOperation == "ins") {
-		sSQL = 'insert into public."tEvent" ("Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") values(\'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"';
+		sSQL = 'insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") '+
+				' values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"';
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			var newEventID = 0;
+			var sResultMsg = "";
 			if (qerr) {
 				console.log("qerr:");
 				console.log(qerr ? qerr.stack : qres);
+				sResultMsg = qerr.stack;
 			}
 			else {
 				console.log(qres.rows);
 				newEventID = qres.rows[0].ID;
 				console.log("newEventID="+newEventID);
+				sResultMsg = "ok, new EventID="+newEventID;
 			}
 			client.end();
 			//res.redirect('/admin/event/'+newEventID);
-			res.send({ID: newEventID});
+			res.send({ResultMsg: sResultMsg, ID: newEventID});
 		});
 	}
 });

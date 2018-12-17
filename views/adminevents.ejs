@@ -55,7 +55,7 @@
 								},
 								success: function(result){
 									console.log("POST /admin/events/ success");
-									console.log("result="+result.ID);
+									console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
 									console.log(result);
 									//$("#resultCreateMsg").html("result.ID="+result.ID);
 									if(result.ID > 0){
@@ -69,6 +69,8 @@
 								error: function(err){
 									console.log("btnCreateEvent POST /admin/events/ error:");
 									console.log(err);
+									$("#resultCreateMsg").html('При создании нового мероприятия возникла ошибка: '+err);
+									//ClearMsg("#resultCreateMsg");
 								}
 							});
 						});
