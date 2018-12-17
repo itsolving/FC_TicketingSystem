@@ -17,14 +17,15 @@
 						<% eventsList.forEach(function(eventRow) { %>
 						<div class="col-sm-6 col-md-3">
 							<!--<div class="thumbnail">-->
-								<a href="/event/<%= eventRow.ID %>">
+								<a href="http://krvc77.myjino.ru/astana3/"><span hidden><%= eventRow.ID %></span>
 									<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
+									
+									<div class="caption">
+										<h3><%= eventRow.Name %></h3>
+										<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
+										<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
+									</div>
 								</a>
-								<div class="caption">
-									<h3><%= eventRow.Name %></h3>
-									<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
-									<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
-								</div>
 							<!--</div>-->
 						</div>
 						<% }); %>
