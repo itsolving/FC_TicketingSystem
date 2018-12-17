@@ -176,23 +176,30 @@ router.post('/events', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
+	var postOperation = req.body.postOperation;
 	const client = new Client(conOptions);
 	var events = {};
 	client.connect()
-	var sSQL = 'insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium") values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1) RETURNING id';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		var newEventID = 0;
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			newEventID = qres.rows[0].id;
-		}
-		client.end();
-		res.redirect('/admin/event/'+newEventID);
-	});
+	var sSQL = "";
+	if (postOperation == "ins") {
+		sSQL = 'insert into public."tEvent" ("Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") values(\'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"';
+		console.log(sSQL);
+		client.query(sSQL, (qerr, qres) => {
+			var newEventID = 0;
+			if (qerr) {
+				console.log("qerr:");
+				console.log(qerr ? qerr.stack : qres);
+			}
+			else {
+				console.log(qres.rows);
+				newEventID = qres.rows[0].ID;
+				console.log("newEventID="+newEventID);
+			}
+			client.end();
+			//res.redirect('/admin/event/'+newEventID);
+			res.send({ID: newEventID});
+		});
+	}
 });
 
 
@@ -748,7 +755,7 @@ router.get('/users', function(req, res, next) {
 	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
 				'FROM public."tUser" u '+
 				'join public."tRole" r on r."ID" = u."IDRole" ' +
-				'where u."isLock" = false ';
+				'where 1=1 order by u."isLock", u."ID" ';
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -795,7 +802,7 @@ router.get('/user/:id', function(req, res, next) {
 	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
 				'FROM public."tUser" u '+
 				'join public."tRole" r on r."ID" = u."IDRole" ' +
-				'where u."isLock" = false and u."ID" = '+nID;
+				'where u."ID" = '+nID;
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -849,7 +856,7 @@ router.get('/user/:id', function(req, res, next) {
 
 //сохранение пользователя
 router.post('/user/:id', function(req, res, next) {
-	console.log("GET /user/id");
+	console.log("POST /admin/user/id");
 	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
@@ -859,66 +866,61 @@ router.post('/user/:id', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
+	
+	if(!req.body){
+		console.log("req.body is null. Redirect to /admin/user/id...");
+		res.send('req.body is null');
+		return;
+	}
+	
 	var nID = req.params.id;
-	//var sUserLogin = req.body.login;
-	//var nUserIDRole = req.body.IDRole;
-	var rowUserData = {};
-	var rolesList = {};
+	var sPostOperation = req.body.postOperation;
+	var sLogin = req.body.userLogin;
+	//var sPwd = req.body.userPwd;
+	var nIDRole = req.body.roleID;
+	var bIsLock = req.body.userIsLock;
+	var sEmail = req.body.userEmail;
+	
+	//var hashedPassword = passwordHash.generate(sPwd);	
+	/*if (passwordHash.verify(req.body.txPassword, qres.rows[0].Pwd)) {
+		console.log('qres.rows[0].Login='+qres.rows[0].Login);
+		sAdminLogin = qres.rows[0].Login;
+		errMsg = "";
+	}
+	else {
+		console.log('wrong password');
+		errMsg = "Ошибка: неправильный пароль администратора";
+	}*/
+	
 	const client = new Client(conOptions);
-	//console.log('client.connect...');
 	client.connect();
-	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
-				'FROM public."tUser" u '+
-				'join public."tRole" r on r."ID" = u."IDRole" ' +
-				'where u."isLock" = false and u."ID" = '+nID;
+	//res.send('функция находится в разработке. Скоро будет готова');
+	var sSQL = "";
+	if (sPostOperation == "del") {
+		//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
+		sSQL = 'update public."tUser" set "IDStatus"=6 '+
+				'where "ID" = '+nID;
+	} else {
+		sSQL = 'update public."tUser" set "Login"=\''+sLogin+'\', '+
+				'"IDRole"='+nIDRole+', "isLock"='+bIsLock+', "Email" = \''+sEmail+'\' '+
+				'where "ID" = '+nID;
+	}
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
+		var sResMsg = "";
+		if (sPostOperation == "del") {
+			sResMsg = "Удалил";
 		}
 		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					rowUserData = qres.rows;
-				}
-			}
+			sResMsg = "Сохранил";
+		}
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+			sResMsg = "Ошибка выполнения: "+qerr;
 		}
 		client.end();
-		
-		const clientRoles = new Client(conOptions);
-		clientRoles.connect();
-		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
-		console.log(sSQLRoles);
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {
-				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						rolesList = qresRoles.rows;
-					}
-				}
-			}
-			clientRoles.end();
-			res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
-		});
+		res.send(sResMsg);
 	});
 });
 
