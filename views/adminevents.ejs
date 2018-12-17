@@ -57,9 +57,13 @@
 									console.log("POST /admin/events/ success");
 									console.log("result="+result.ID);
 									console.log(result);
-									$("#resultCreateMsg").html("result.ID="+result.ID);
+									//$("#resultCreateMsg").html("result.ID="+result.ID);
 									if(result.ID > 0){
 										window.location.replace("/admin/event/"+result.ID);
+									}
+									else {
+										$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+										ClearMsg("#resultCreateMsg");
 									}
 								},
 								error: function(err){
