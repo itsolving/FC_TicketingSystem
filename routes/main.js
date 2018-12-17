@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../queries');
 var passwordHash = require('password-hash');
-
+var fs = require('fs');
 
 
 
@@ -33,37 +33,32 @@ router.get('/events', function(req, res, next){
 		
 		console.log('sLogin='+sLogin);
 	}	
-		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
-		console.log(sSQL);
-		db.db.any(sSQL)
-			.then(function(data){
-				/*res.status(200)
-				.json({
-					status: 'success',
-					data: data,
-					message: 'Retrieved list'
-				});*/
-				console.log('events found:');
-				console.log(data);
-				sessData.eventsList = data;
-				events = data;
-				console.log('events: '+ JSON.stringify(events));
-				
-				console.log('rendering page...');
-				console.log('sLogin='+sLogin);
-				console.log('events: '+ JSON.stringify(events));
-				//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
-				res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events});
-			})
-			.catch(function(err){
-				//return next(err);
-				console.log('error of search actual events:');
-				console.log(err);
-			});
-	/*}
-	else {
-		res.redirect('/');
-	}*/
+	//sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."DateFrom", sd."Name" as "StadiumName" FROM public."tEvent" ev join public."tStadium" sd on sd."ID" = ev."IDStadium" where ev."IDStatus" = 1';
+	sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
+				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDStadium", '+
+				'sd."Name" as "Stadium" '+
+				'FROM public."tEvent" ev '+
+				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+				'order by ev."DateFrom", ev."ID" ';
+	console.log(sSQL);
+	db.db.any(sSQL)
+		.then(function(data){
+			console.log('events found:');
+			console.log(data);
+			sessData.eventsList = data;
+			events = data;
+			console.log('events: '+ JSON.stringify(events));
+			
+			console.log('rendering page...');
+			console.log('sLogin='+sLogin);
+			res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events});
+		})
+		.catch(function(err){
+			//return next(err);
+			console.log('error of search actual events:');
+			console.log(err);
+		});
 })
 
 router.post('/events', function(req, res, next){
@@ -77,16 +72,17 @@ router.post('/events', function(req, res, next){
 		
 		console.log('sLogin='+sLogin);
 	
-		sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
+		//sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."DateFrom", sd."Name" as "StadiumName" FROM public."tEvent" ev join public."tStadium" sd on sd."ID" = ev."IDStadium" where ev."IDStatus" = 1';
+		sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
+				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDStadium", '+
+				'sd."Name" as "Stadium" '+
+				'FROM public."tEvent" ev '+
+				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+				'order by ev."DateFrom", ev."ID" ';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
-				/*res.status(200)
-				.json({
-					status: 'success',
-					data: data,
-					message: 'Retrieved list'
-				});*/
 				console.log('events found:');
 				console.log(data);
 				sessData.eventsList = data;
@@ -95,8 +91,6 @@ router.post('/events', function(req, res, next){
 				
 				console.log('rendering page...');
 				console.log('sLogin='+sLogin);
-				console.log('events: '+ JSON.stringify(events));
-				//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
 				res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
 			})
 			.catch(function(err){
@@ -107,19 +101,11 @@ router.post('/events', function(req, res, next){
 	}
 	else {
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
-		//var hashedPassword = 'sha1$3I7HRwy7$cbfdac6008f9cab4083784cbd1874f76618d2a97'; if (passwordHash.verify('password123', hashedPassword)) {...};
 		console.log('req.body.txPassword='+req.body.txPassword+', hashedPassword = '+hashedPassword);
-		//sSQL = 'SELECT "Login" FROM public."tUser" where "isLock" = false and "IDRole" = 2 and "Login" = \''+req.body.txLogin+'\' and "Pwd" = \''+hashedPassword+'\'';
 		sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
-				/*res.status(200)
-				.json({
-					status: 'success',
-					data: data,
-					message: 'Retrieved list'
-				});*/
 				console.log('data[0].Login='+data[0].Login+', data[0].Pwd='+data[0].Pwd);
 				if (passwordHash.verify(req.body.txPassword, data[0].Pwd)) {
 					console.log('user found:');
@@ -132,12 +118,6 @@ router.post('/events', function(req, res, next){
 					console.log(sSQL);
 					db.db.any(sSQL)
 						.then(function(data){
-							/*res.status(200)
-							.json({
-								status: 'success',
-								data: data,
-								message: 'Retrieved list'
-							});*/
 							console.log('events found:');
 							console.log(data);
 							events = data;
@@ -146,8 +126,6 @@ router.post('/events', function(req, res, next){
 							
 							console.log('rendering page...');
 							console.log('sLogin='+sLogin);
-							console.log('events: '+ JSON.stringify(events));
-							//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
 							res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
 						})
 						.catch(function(err){
@@ -166,7 +144,7 @@ router.post('/events', function(req, res, next){
 				console.log(err);
 			});
 	}
-})
+});
 
 
 router.get('/event/:id', function(req, res, next){
@@ -211,6 +189,63 @@ router.get('/event/:id', function(req, res, next){
 	//res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 })
 
+router.get('/maps/:idevent', function(req, res, next){
+	console.log("get: /maps/idevent");
+	var sLogin = "";
+	var eventID = req.params.idevent;
+	var sessData = req.session;
+	if(sessData.userLogin){
+		sLogin = sessData.userLogin;
+	}
+	var sSQL = 'SELECT "ID", "Name", "MapPath" FROM public."tStadium" where "IDStatus" = 1 and "ID" in (select ev."IDStadium" from public."tEvent" ev where ev."ID" = '+eventID+') limit 1';
+	console.log(sSQL);
+	db.db.any(sSQL)
+		.then(function(data){
+			console.log('stadium found:');
+			console.log(data);
+			console.log('map: '+ JSON.stringify(data));
+			if(data !== 'undefined'){
+				console.log('data not undefined');
+				if(data.rowcount !== 'undefined'){
+					if(data.rowcount > 0){
+						if(data[0].MapPath !== 'undefined'){
+							console.log('data[0].MapPath not undefined');
+							responseFile = (fileName, response) => {
+								const filePath =  data[0].MapPath; //"/path/to/archive.rar" // or any file format
+								console.log('filePath='+filePath);
+								// Check if file specified by the filePath exists 
+								fs.exists(__dirname + '/../public'+filePath, function(exists){
+									if (exists) {
+										console.log('filePath exists');
+										// Content-type is very interesting part that guarantee that
+										// Web browser will handle response in an appropriate manner.
+										res.writeHead(200, {
+											"Content-Type": "application/octet-stream",
+											"Content-Disposition": "attachment; filename=" //+ fileName
+										});
+										fs.createReadStream(__dirname + '/../public'+filePath).pipe(res);
+									} else {
+										console.log('filePath not exists');
+										res.writeHead(400, {"Content-Type": "text/plain"});
+										res.end("ERROR File does not exist");
+									}
+								});
+								res.render(filePath.replace('.svg',''));
+							}
+							
+						}
+					}
+				}
+			}
+			//res.send(data);
+			//return;
+		})
+		.catch(function(err){
+			//return next(err);
+			console.log('error of search map:');
+			console.log(err);
+		});
+});
 
 router.get('/event/:id/tickets', function(req, res){
 	var sLogin = "";

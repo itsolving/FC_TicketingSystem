@@ -382,6 +382,22 @@
                 "editview": {
                     "show": true
                 }
+            },
+            {
+                "name": "MapPath",
+                "verbose": "MapPath",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(2000)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
             }
         ],
         "mainview": {

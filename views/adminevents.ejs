@@ -14,26 +14,24 @@
 						Мероприятия
 						<div class="container">
 							<div class="row">
-								<!--<form action="/admin/events/" method="POST">-->
-									<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
-								<!--</form>-->
+								<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
 								<p id="resultCreateMsg"></p>
 							</div>
 							<div id="workArea" class="row">
 							<% if(eventsList) { %>
 								<% eventsList.forEach(function(eventRow) { %>
 								<div class="col-sm-6 col-md-3">
-									<div class="thumbnail">
+									<!--<div class="thumbnail">-->
 										<a href="/admin/event/<%= eventRow.ID %>">
 											<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
 										</a>
 										<div class="caption">
-											<span><%= eventRow.ID %>: </span>
+											<span id="eventID" style="display: none;"><%= eventRow.ID %></span>
 											<h3><%= eventRow.Name %></h3>
 											<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
 											<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
 										</div>
-									</div>
+									<!--</div>-->
 								</div>
 								<% }); %>
 							<% } %>
@@ -44,20 +42,38 @@
 						$("#btnCreateEvent").click(function(){
 							console.log("btnCreateEvent click");
 							$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+							//--------------
+							//TODO: after development this functional we must delete this command:
+							ClearMsg("#resultCreateMsg");
+							//--------------
 							
-							/*$.ajax({
+							$.ajax({
 								url: "/admin/events/",
 								type: "POST",
-								data: {},
+								data: {
+									postOperation: "ins"
+								},
 								success: function(result){
-									console.log("success");
+									console.log("POST /admin/events/ success");
+									console.log("result="+result.ID);
+									console.log(result);
+									
+									window.location.replace("/admin/event/"+result.ID);
+									
+									
 								},
 								error: function(err){
-									console.log("btnCreateEvent GET /admin/event/id error:");
+									console.log("btnCreateEvent POST /admin/events/ error:");
 									console.log(err);
 								}
-							});*/
+							});
 						});
+						
+						function ClearMsg(msgElement){
+							window.setTimeout( function(){
+								$(msgElement).html("");
+							}, 5000 );
+						}
 					</script>
 				</div>
 			<% } else{ %>

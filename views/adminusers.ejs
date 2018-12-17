@@ -17,11 +17,20 @@
 								<th>Логин</th>
 								<th>Роль</th>
 								<th>email</th>
+								<th>Блок</th>
 								<% usersList.forEach(function(userRow) { %>
 									<tr>
 										<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
 										<td><%= userRow.RoleName %></td>
 										<td><%= userRow.Email %></td>
+										<td>
+											<% if (userRow.isLock) { %>
+												<span>Заблокирован</span>
+											<% } else { %>
+												<span>Активный</span>
+											<% } %>
+										</td>
+										
 									</tr>
 								<% }); %>
 							</table>
