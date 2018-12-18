@@ -247,7 +247,9 @@ router.get('/maps/:idevent', function(req, res, next){
 		});
 });
 
-router.get('/event/:id/tickets', function(req, res){
+
+router.post('/gettickets', function(req, res){
+//router.get('/event/:id/tickets', function(req, res){
 	var sLogin = "";
 	var events = {};
 	var sessData = req.session;
@@ -259,50 +261,48 @@ router.get('/event/:id/tickets', function(req, res){
 		res.redirect('/');
 		return;
 	}
-	var eventID = req.params.id;
+	
+	var eventID = req.body.IDEvent;
 	var ticketsList = {};
 	console.log('eventID='+eventID);
 	
 	if (eventID !== 'undefined') {
-	
-	sSQL = 'SELECT t."ID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", t."IDEvent", '
-			+'trim(s."SectorName") "SectorName", s."RowN", s."SeatN" FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
-			+' where t."IDEvent" = ' + eventID;
-	console.log(sSQL);
-	db.db.any(sSQL)
-		.then(function(data){
-			console.log('ticketsList: '+ JSON.stringify(data));
-			res.status(200)
-			res.json({
-				status: 'success',
-				data: data//,
-				//message: 'Retrieved list'
+		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", t."IDEvent", '
+				+'s."Tribune", trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
+				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'where t."IDEvent" = ' + eventID;
+		console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(data){
+				//console.log('ticketsList: '+ JSON.stringify(data));
+				console.log('tickets found:');
+				ticketsList = data;
+				res.status(200)
+					.json({
+						status: 'success',
+						message: 'tickets found',
+						tickets: data
+					});
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of search actual tickets:');
+				console.log(err);
+				res.status(err.status)
+					.json({
+						status: 'error',
+						message: 'tickets not found',
+						tickets: {}
+					});
 			});
-			/*
-			console.log('tickets found:');
-			console.log(data);
-			ticketsList = data;
-			sessData.ticketsList = data;
-			console.log('tickets: '+ JSON.stringify(ticketsList));
-			
-			console.log('rendering page...');
-			console.log('sLogin='+sLogin);
-			console.log('ticketsList: '+ JSON.stringify(ticketsList));
-			//res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: JSON.stringify(events)});
-			res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, ticketsList: ticketsList});
-			*/
-		})
-		.catch(function(err){
-			//return next(err);
-			console.log('error of search actual tickets:');
-			console.log(err);
-			res.status(err.status)
+	}
+	else {
+		res.status(404)
 			.json({
 				status: 'error',
-				data: {}//,
-				//message: 'Retrieved list'
+				message: 'event not found, so no tickets',
+				tickets: {}
 			});
-		});
 	}
 })
 
