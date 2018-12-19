@@ -187,6 +187,7 @@ router.get('/event/:id', function(req, res, next){
 	}*/
 	//console.log('sLogin='+sLogin+', eventID='+eventID);
 	//res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+	res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 })
 
 router.get('/maps/:idevent', function(req, res, next){

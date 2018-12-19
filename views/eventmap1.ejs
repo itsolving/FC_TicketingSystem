@@ -15,10 +15,12 @@
 				<br />
 				<p><a href="/events">Назад</a> в список мероприятий</p>
 				<div id="workArea" class="row">
-					<span id="eventID" hidden><%= eventsList[0].ID %></span>
-					<p><%= eventsList[0].Name %>, <%= eventsList[0].DateFrom %></p>
-					<div id="stadiumMap">здесь будет карта (схема зала) для выбора и покупки мест
-						
+					<% if(eventsList){ %>
+						<span id="eventID" style="display: none;"><%= eventsList[0].ID %></span>
+						<p><%= eventsList[0].Name %>, <%= eventsList[0].DateFrom %></p>
+					<% } %>
+					<div id="stadiumMap">
+						здесь будет карта (схема зала) для выбора и покупки мест
 					</div>
 					
 				</div>
@@ -31,23 +33,15 @@
 						console.log('doc ready, eventID='+eventID);
 						
 						//first run - get all tickets
-						//getNewData(eventID, 1);
+						getNewData(eventID);
 						
 						//every x seconds get only updated tickets
-						//setInterval(getNewData(eventID, 2), x);
+						//setInterval(getNewData(eventID), x);
 					});
 					
-					function getNewData(pEventID, pRunCount){
+					function getNewData(pEventID){
 						console.log('getNewData started, pEventID='+pEventID);
-						var sURL = "";
-						if (pRunCount == 1) {
-							//url for getting all tickets
-							sURL = "/event/"+pEventID+"/tickets";
-						}
-						else {
-							//url for getting only updated tickets
-							sURL = "/event/"+pEventID+"/getticketchanges"
-						}
+						var sURL = "/gettickets";
 						
 						$.ajax({
 							type: "GET",
@@ -55,7 +49,7 @@
 							dataType: "json",
 							contentType: "application/json",
 							success: function(ticketsData){
-								console.log(JSON.stringify(ticketsData));
+								//console.log(JSON.stringify(ticketsData));
 								//example ticketsData = {"status":"success","data":[{"ID":1,"Barcode":"123123123","Price":"1000.00","IDSeat":1,"IDEvent":1,"IDStatus":3,"SectorName":"A","RowN":1,"SeatN":1},{"ID":2,"Barcode":"123123222","Price":"1200.00","IDSeat":2,"IDEvent":1,"IDStatus":3,"SectorName":"A","RowN":1,"SeatN":2}]}
 								/*
 								ID - ticket ID
@@ -68,6 +62,8 @@
 								RowN - row of seat (line of seat)
 								SeatN - seat-number (place of seat)
 								*/
+								
+								//TODO: 
 								$("#stadiumMap").text(JSON.stringify(ticketsData));
 							},
 						});
@@ -76,11 +72,15 @@
 					/*
 					//TODO: write here a function to save saled or reserved tickets to the DB by using POST-request
 					function SaveTickets(pEventID){
-						var sURL = "/event/"+pEventID+"/save";
+						var sURL = "/event/"+pEventID+"/save"; //??? we must create URL
 						$.ajax({
 							type: "POST",
 							url: sURL,
-							data: {...}
+							data: {
+								IDEvent: pEventID,
+								IDSeat: ...
+								SalePrice: 
+							}
 						})
 						.done(function(result){
 							console.log('tickets saved');
@@ -90,7 +90,6 @@
 					*/
 				</script>
 			</div>
-			
 	</div>
   </body>
 </html>
