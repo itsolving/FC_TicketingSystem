@@ -59,7 +59,48 @@ router.get('/events', function(req, res, next){
 			console.log('error of search actual events:');
 			console.log(err);
 		});
-})
+});
+
+
+router.get('/getevents', function(req, res, next){
+	console.log("get: /getevents");
+	var sLogin = "";
+	var events = {};
+	var sSQL = "";
+	sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
+				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDStadium", '+
+				'sd."Name" as "Stadium" '+
+				'FROM public."tEvent" ev '+
+				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+				'order by ev."DateFrom", ev."ID" ';
+	//console.log(sSQL);
+	db.db.any(sSQL)
+		.then(function(data){
+			//console.log('ticketsList: '+ JSON.stringify(data));
+			console.log('events found:');
+			events = data; //why the fuck I do this?
+			res.status(200)
+				.json({
+					status: 'success',
+					message: 'events found',
+					events: events
+				});
+		})
+		.catch(function(err){
+			//return next(err);
+			console.log('error of search actual events:');
+			console.log(err);
+			res.status(err.status)
+				.json({
+					status: 'error',
+					message: 'events not found',
+					events: {}
+				});
+		});
+});
+
+
 
 router.post('/events', function(req, res, next){
 	console.log("post: /events");
@@ -253,7 +294,7 @@ router.post('/gettickets', function(req, res){
 //router.get('/event/:id/tickets', function(req, res){
 	var sLogin = "";
 	var events = {};
-	var sessData = req.session;
+	/*var sessData = req.session;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
 		events = sessData.eventsList;
@@ -261,7 +302,7 @@ router.post('/gettickets', function(req, res){
 	else {
 		res.redirect('/');
 		return;
-	}
+	}*/
 	
 	var eventID = req.body.IDEvent;
 	var ticketsList = {};
