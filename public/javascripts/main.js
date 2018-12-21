@@ -5,5 +5,11 @@ $(function () {
 });
 
 app.init = function () {
-	console.log("asd");
+	app.getEventsList();
+};
+
+app.getEventsList = function(){
+  $.get('/events', function(data){
+    console.log(data);
+  });
 };
