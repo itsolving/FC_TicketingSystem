@@ -64,7 +64,6 @@ router.get('/events', function(req, res, next){
 
 router.get('/getevents', function(req, res, next){
 	console.log("get: /getevents");
-	var sLogin = "";
 	var events = {};
 	var sSQL = "";
 	sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
@@ -79,7 +78,7 @@ router.get('/getevents', function(req, res, next){
 		.then(function(data){
 			//console.log('ticketsList: '+ JSON.stringify(data));
 			console.log('events found:');
-			events = data; //why the fuck I do this?
+			events = data;
 			res.status(200)
 				.json({
 					status: 'success',
@@ -99,7 +98,6 @@ router.get('/getevents', function(req, res, next){
 				});
 		});
 });
-
 
 
 router.post('/events', function(req, res, next){
@@ -213,7 +211,6 @@ router.get('/event/:id', function(req, res, next){
 				events = data;
 				console.log('events: '+ JSON.stringify(events));
 				
-				
 				res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 				return;
 			})
@@ -290,20 +287,54 @@ router.get('/maps/:idevent', function(req, res, next){
 });
 
 
-router.post('/gettickets', function(req, res){
-//router.get('/event/:id/tickets', function(req, res){
-	var sLogin = "";
-	var events = {};
-	/*var sessData = req.session;
-	if(sessData.userLogin){
-		sLogin = sessData.userLogin;
-		events = sessData.eventsList;
+router.get('/gettickets/:idevent', function(req, res){
+	console.log('get /gettickets/idevent');
+	var eventID = req.params.idevent;
+	var ticketsList = {};
+	console.log('eventID='+eventID);
+	
+	if (eventID !== 'undefined') {
+		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", t."IDEvent", '
+				+'s."Tribune", trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
+				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'where t."IDEvent" = ' + eventID;
+		console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(data){
+				//console.log('ticketsList: '+ JSON.stringify(data));
+				console.log('tickets found:');
+				ticketsList = data;
+				res.status(200)
+					.json({
+						status: 'success',
+						message: 'tickets found',
+						tickets: data
+					});
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of search actual tickets:');
+				console.log(err);
+				res.status(err.status)
+					.json({
+						status: 'error',
+						message: 'tickets not found',
+						tickets: {}
+					});
+			});
 	}
 	else {
-		res.redirect('/');
-		return;
-	}*/
-	
+		res.status(404)
+			.json({
+				status: 'error',
+				message: 'event not found, so no tickets',
+				tickets: {}
+			});
+	}
+});
+
+router.post('/gettickets', function(req, res){
+	console.log('post /gettickets');
 	var eventID = req.body.IDEvent;
 	var ticketsList = {};
 	console.log('eventID='+eventID);
@@ -346,7 +377,7 @@ router.post('/gettickets', function(req, res){
 				tickets: {}
 			});
 	}
-})
+});
 
 
 router.get('/exit', function(req, res){

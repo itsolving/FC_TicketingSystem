@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var mainRouter = require('./routes/main');
-var usersRouter = require('./routes/users');
+//var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 //var admModule = require('./express-admin-master/app');
 
@@ -71,7 +71,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 //app.use('/admin', xAdmin.init); //попытка использовать готовую админку
 //app.use('/adm', xAdmin.init);

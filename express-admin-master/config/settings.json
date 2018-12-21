@@ -498,6 +498,22 @@
                 "editview": {
                     "show": true
                 }
+            },
+            {
+                "name": "Tribune",
+                "verbose": "Tribune",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(50)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
             }
         ],
         "mainview": {
@@ -1458,6 +1474,58 @@
                     "text": true
                 },
                 "type": "integer",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            }
+        ],
+        "mainview": {
+            "show": true
+        },
+        "listview": {
+            "order": {},
+            "page": 25
+        },
+        "editview": {
+            "readonly": false
+        }
+    },
+    "tPriceCategory": {
+        "slug": "tPriceCategory",
+        "table": {
+            "name": "tPriceCategory",
+            "pk": "ID",
+            "verbose": "tPriceCategory"
+        },
+        "columns": [
+            {
+                "name": "ID",
+                "verbose": "ID",
+                "control": {
+                    "text": true
+                },
+                "type": "integer",
+                "allowNull": false,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "Name",
+                "verbose": "Name",
+                "control": {
+                    "text": true
+                },
+                "type": "varchar(255)",
                 "allowNull": true,
                 "defaultValue": null,
                 "listview": {
