@@ -9,7 +9,7 @@ app.init = function () {
 };
 
 app.getEventsList = function(){
-  $.get('/events', function(data){
+  $.post('/gettickets', {IDEvent: 1}, function(data){
     console.log(data);
   });
 };
