@@ -56,7 +56,8 @@ gulp.task('jsMain:min', function() {
 gulp.task('jsLibs:concat', function() {
   return gulp.src([
     options.sourcePathScripts + '/jquery-3.3.1.min.js',
-    options.sourcePathScripts + '/modernizr.min.js'
+    options.sourcePathScripts + '/modernizr.min.js',
+    options.sourcePathScripts + '/panzoom.min.js'
   ])
     .pipe(concat('libs.js'))
     .pipe(gulp.dest(options.sourcePathScripts));
