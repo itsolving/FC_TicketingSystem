@@ -295,7 +295,8 @@ router.get('/event/:id', function(req, res, next) {
 					}
 				}
 			}
-			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
+			var sSQLSectors = 'SELECT distinct s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
+							+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
 			console.log(sSQLSectors);
 			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
 				if (qerrSectors) {
