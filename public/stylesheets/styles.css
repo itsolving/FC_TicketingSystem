@@ -185,6 +185,9 @@ th {
 .font-face( 'GothamPro', 'GothamPro' );
 .font-face( 'GothamProMedium', 'GothamPro-Medium' );
 .font-face( 'GothamProBold', 'GothamPro-Bold' );*/
+html {
+  overflow: hidden;
+}
 body {
   overflow: hidden;
   padding: 0;
@@ -194,8 +197,35 @@ body {
 }
 body svg#Layer_1 {
   outline: none;
+  cursor: move;
   width: 100%;
   height: 100vh;
+}
+body svg#Layer_1 g[data-tribune] {
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+body svg#Layer_1 g[data-tribune]:hover {
+  cursor: pointer;
+  -webkit-transform: translateY(-5px);
+          transform: translateY(-5px);
+}
+.hide {
+  display: none;
+}
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  height: 100vh;
+  background: #fff url('../images/s-loader.gif') no-repeat center 50%;
+  background-size: 400px 300px;
 }
 
 /*# sourceMappingURL=styles.css.map */
