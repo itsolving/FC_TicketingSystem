@@ -94,20 +94,24 @@
 							<form name="formPrice">
 								<div class="col-md-3">
 									<table class="table table-bordered table-hover" id="rowsTable">
-										<tr>
-											<th>Сектор</th>
-											<th>Цена</th>
-										</tr>
-										<% if(sectors){ %>
-											<% sectors.forEach(function(seatRow) { %>
-												<tr class="clickable-row">
-													<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
-													<td class="cell-price-input">
-                                                        <input type="text" name="txPrice" value="0"	 />
-                                                    </td>
-												</tr>
-											<% }); %>
-										<% } %>
+                                        <thead>
+                                            <tr>
+                                                <th>Сектор</th>
+                                                <th>Цена</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(sectors){ %>
+                                                <% sectors.forEach(function(seatRow) { %>
+                                                    <tr class="clickable-row">
+										    			<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
+										    			<td class="cell-price-input">
+                                                            <input type="text" name="txPrice" value="0"	 />
+                                                        </td>
+										    		</tr>
+                                                <% }); %>
+                                            <% } %>
+                                        </tbody>
 									</table>
 								</div>
 								<div class="col-md-2">
