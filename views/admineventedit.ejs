@@ -92,33 +92,29 @@
 						<hr>
 						<div class="container">
 							<form name="formPrice">
-								<div class="col-md-1">
-									<select id="selSectorList" multiple>
-										<% if(sectors){ %>
-										<% sectors.forEach(function(seatRow) { %>
-											<option value="<%= seatRow.ID %>"><%= seatRow.SectorName %></option>
-										<% }); %>
-										<% } %>
-									</select>
-								</div>
 								<div class="col-md-3">
 									<table class="table table-bordered table-hover" id="rowsTable">
-										<tr>
-											<th>Сектор</th>
-											<th>Ряд</th>
-										</tr>
-										<% if(rownums){ %>
-											<% rownums.forEach(function(rownumRow) { %>
-												<tr class="clickable-row">
-													<td><%= rownumRow.SectorName %></td>
-													<td><%= rownumRow.RowN %></td>
-												</tr>
-											<% }); %>
-										<% } %>
+                                        <thead>
+                                            <tr>
+                                                <th>Сектор</th>
+                                                <th>Цена</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(sectors){ %>
+                                                <% sectors.forEach(function(seatRow) { %>
+                                                    <tr class="clickable-row">
+										    			<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
+										    			<td class="cell-price-input">
+                                                            <input type="text" name="txPrice" value="0"	 />
+                                                        </td>
+										    		</tr>
+                                                <% }); %>
+                                            <% } %>
+                                        </tbody>
 									</table>
 								</div>
 								<div class="col-md-2">
-									<input type="text" name="txPrice" value="0" />
 									<button type="button" id="savePrice">Сохранить цену</button>
 								</div>
 							</form>
