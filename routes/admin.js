@@ -459,6 +459,51 @@ router.post('/uploadeventimg', function(req, res, next){
 });
 
 
+//сохранение в БД назначенных цен по указанным секторам в рамках выбранного мероприятия
+router.post('/updateprices', function(req, res, next){
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	
+	if(!req.body){
+		console.log("req.body is null. Redirect to event/id...");
+		res.send('req.body is null');
+		return;
+	}
+	
+	//запомним параметры
+	var nEventID = req.body.eventId; //"eventId": 1
+	var sectors = req.body.sectors; //"sector": [ {"name": "N1", "price": 10}, {"name": "W7", "price": 25} ]
+	
+	
+	//подготовим поля для sql-запроса
+	const colset = new db.db.helpers.ColumnSet(['?"SectorName"', '"Price"'], {table: 'public."tTicket"'});
+	
+	//генерация sql-запроса
+	const updateSQL = db.db.helpers.update(sectors, colset) + ' WHERE v."name" = t."SectorName" and t."IDEvent" = ' + nEventID;
+	//=> UPDATE public."tTicket" AS t SET "Price"=v."price"
+	//   FROM (VALUES('N1',10),('W7',25))
+	//   AS v("name","price") WHERE v."name" = t."SectorName"
+	
+	// запуск запроса:
+	db.none(updateSQL)
+		.then(()=> {
+			// success;
+			res.json({"ok": "OK"});
+		})
+		.catch(error=> {
+			// error;
+			res.json({"ok": error});
+		});
+	
+});
+
 
 router.get('/eventGetStatus/:id', function(req, res, next){
 	var nID = req.params.id;
