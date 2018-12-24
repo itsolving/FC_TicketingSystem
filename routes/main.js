@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../queries');
+var db = require('./queries');
 var passwordHash = require('password-hash');
 var fs = require('fs');
 
@@ -294,8 +294,8 @@ router.get('/gettickets/:idevent', function(req, res){
 	console.log('eventID='+eventID);
 	
 	if (eventID !== 'undefined') {
-		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", t."IDEvent", '
-				+'s."Tribune", trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
+		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", '
+				+'s."Tribune" || trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
 				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
 				+'where t."IDEvent" = ' + eventID;
 		console.log(sSQL);
@@ -340,8 +340,8 @@ router.post('/gettickets', function(req, res){
 	console.log('eventID='+eventID);
 	
 	if (eventID !== 'undefined') {
-		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", t."IDEvent", '
-				+'s."Tribune", trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
+		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", '
+				+'s."Tribune" || trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
 				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
 				+'where t."IDEvent" = ' + eventID;
 		console.log(sSQL);
@@ -386,10 +386,6 @@ router.get('/exit', function(req, res){
 	});
 	res.redirect('/');
 });
-
-
-router.get('/api/events', db.getList);
-router.put('/api/events/:id', db.Edit);
 
 
 module.exports = router;
