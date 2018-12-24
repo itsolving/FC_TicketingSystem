@@ -294,10 +294,42 @@ router.get('/gettickets/:idevent', function(req, res){
 	console.log('eventID='+eventID);
 	
 	if (eventID !== 'undefined') {
-		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", '
-				+'s."Tribune" || trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
-				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'where t."IDEvent" = ' + eventID;
+		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(tick))) '
+				+'			from ( '
+				+'				select "Barcode", "TicketID", "IDSeat", "SeatN", "RowN", "Price", "IDStatus", "StatusName", "Tribune", "SectorName" '
+				+'				from ( '
+				+'					SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'						s."SeatN", s."RowN", '
+				+'						t."Price"::numeric "Price", '
+				+'						t."IDStatus", st."Name" "StatusName", '
+				+'						s."Tribune", trim(s."SectorName") "SectorName" '
+				+'					FROM public."tTicket" t '
+				+'					join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'					join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'					where t."IDEvent" = '+eventID+' '
+				+'					and t."IDStatus" in (3, 4, 5) '
+				+'				) tick_all '
+				+'				where "Tribune" || "SectorName" = tribunes."SectorName" '
+				+'			) tick '
+				+'		) as "tickets" '
+				+'	from ( '
+				+'			SELECT s."Tribune" || trim(s."SectorName") "SectorName", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(t."Price"::numeric) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" = 3 '
+				+'			group by s."Tribune" || trim(s."SectorName") '
+				+'		) tribunes '
+				+'	where 1=1 '
+				+') t';
+				
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -340,10 +372,41 @@ router.post('/gettickets', function(req, res){
 	console.log('eventID='+eventID);
 	
 	if (eventID !== 'undefined') {
-		sSQL = 'SELECT t."ID" as "TicketID", t."Barcode", t."Price"::numeric "Price", t."IDSeat", t."IDEvent", t."IDStatus", '
-				+'s."Tribune" || trim(s."SectorName") "SectorName", s."RowN", s."SeatN" '
-				+'FROM public."tTicket" t join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'where t."IDEvent" = ' + eventID;
+		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(tick))) '
+				+'			from ( '
+				+'				select "Barcode", "TicketID", "IDSeat", "SeatN", "RowN", "Price", "IDStatus", "StatusName", "Tribune", "SectorName" '
+				+'				from ( '
+				+'					SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'						s."SeatN", s."RowN", '
+				+'						t."Price"::numeric "Price", '
+				+'						t."IDStatus", st."Name" "StatusName", '
+				+'						s."Tribune", trim(s."SectorName") "SectorName" '
+				+'					FROM public."tTicket" t '
+				+'					join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'					join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'					where t."IDEvent" = '+eventID+' '
+				+'					and t."IDStatus" in (3, 4, 5) '
+				+'				) tick_all '
+				+'				where "Tribune" || "SectorName" = tribunes."SectorName" '
+				+'			) tick '
+				+'		) as "tickets" '
+				+'	from ( '
+				+'			SELECT s."Tribune" || trim(s."SectorName") "SectorName", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(t."Price"::numeric) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" = 3 '
+				+'			group by s."Tribune" || trim(s."SectorName") '
+				+'		) tribunes '
+				+'	where 1=1 '
+				+') t';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
