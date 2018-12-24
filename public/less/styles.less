@@ -1,0 +1,20 @@
+// CSS Reset
+@import "reset.less";
+// mixins
+@import "mixins.less";
+// variables
+@import "variables.less";
+// fonts
+@import "fonts.less";
+
+body{
+  overflow: hidden;
+  padding: 0;
+  font-family: @fRegular;
+  color: @black;
+  line-height: 1.4;
+  svg#Layer_1{
+    outline: none;
+    .size(100%, 100vh);
+  }
+}
