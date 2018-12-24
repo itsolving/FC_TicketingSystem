@@ -483,25 +483,30 @@ router.post('/updateprices', function(req, res, next){
 	var sectors = req.body.sectors; //"sector": [ {"name": "N1", "price": 10}, {"name": "W7", "price": 25} ]
 	
 	
-	//подготовим поля для sql-запроса
-	const colset = new db.db.helpers.ColumnSet(['?"SectorName"', '"Price"'], {table: 'public."tTicket"'});
+	var sSQL = "";
+	sectors.forEach(function(sector) {
+		var sectorName = sector.name;
+		var sectorPrice = sector.price;
+		var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\') and "IDEvent" = '+nEventID+';';
+		sSQL = sSQL + sUpdate;
+	});
 	
-	//генерация sql-запроса
-	const updateSQL = db.db.helpers.update(sectors, colset) + ' WHERE v."name" = t."SectorName" and t."IDEvent" = ' + nEventID;
-	//=> UPDATE public."tTicket" AS t SET "Price"=v."price"
-	//   FROM (VALUES('N1',10),('W7',25))
-	//   AS v("name","price") WHERE v."name" = t."SectorName"
 	
-	// запуск запроса:
-	db.none(updateSQL)
-		.then(()=> {
-			// success;
+	const client = new Client(conOptions);
+	client.connect();
+	//console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+			client.end();
+			res.json({"ok": qerr});
+		}
+		else {
+			client.end();
 			res.json({"ok": "OK"});
-		})
-		.catch(error=> {
-			// error;
-			res.json({"ok": error});
-		});
+		}
+	});
 });
 
 
