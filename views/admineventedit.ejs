@@ -88,7 +88,7 @@
 								<% }); %>
 							</form>
 						</div>
-						
+
 						<hr>
 						<div class="container">
 							<form name="formPrice">
@@ -103,18 +103,18 @@
 								</div>
 								<div class="col-md-3">
 									<table class="table table-bordered table-hover" id="rowsTable">
-									  <tr>
-										<th>Сектор</th>
-										<th>Ряд</th>
-									  </tr>
-									  <% if(rownums){ %>
-									  <% rownums.forEach(function(rownumRow) { %>
-									   <tr class="clickable-row">
-										<td><%= rownumRow.SectorName %></td>
-										<td><%= rownumRow.RowN %></td>
-									   </tr>
-									  <% }); %>
-									  <% } %>
+										<tr>
+											<th>Сектор</th>
+											<th>Ряд</th>
+										</tr>
+										<% if(rownums){ %>
+											<% rownums.forEach(function(rownumRow) { %>
+												<tr class="clickable-row">
+													<td><%= rownumRow.SectorName %></td>
+													<td><%= rownumRow.RowN %></td>
+												</tr>
+											<% }); %>
+										<% } %>
 									</table>
 								</div>
 								<div class="col-md-2">
@@ -129,7 +129,7 @@
 					$(document).ready(function(){
 						GetStadiumList();
 					});
-										
+
 					function GetStadiumList(){
 						$.ajax({
 							url: '/admin/stadiumsJson',
@@ -156,19 +156,19 @@
 							}
 						});
 					};
-					
+
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						//console.log("btnSaveEvent click: nEventID="+nEventID);
-						
+
 						var sURL = "/admin/event/"+nEventID;
-						
+
 						//console.log('img src='+$('#eventImage').attr('src'));
 						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
 						//console.log('eventShowCasher='+$("input[id='eventShowCasher']:checked").val());
 						//console.log('eventShowAPI='+$("input[id='eventShowAPI']:checked").val());
-						
+
 						//---------------
 						var sShowOnline = "false";
 						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
@@ -180,7 +180,7 @@
 							sShowOnline = "true";
 						}
 						else {sShowOnline = "false";}
-						
+
 						//---------------
 						var sShowCasher = "false";
 						if ($("input[id='eventShowCasher']:checked").val() === "undefined") {
@@ -192,7 +192,7 @@
 							sShowCasher = "true";
 						}
 						else {sShowCasher = "false";}
-						
+
 						//---------------
 						var sShowAPI = "false";
 						if (($("input[id='eventShowAPI']:checked").val() === "undefined")
@@ -204,7 +204,7 @@
 							sShowAPI = "true";
 						}
 						else {sShowAPI = "false";}
-						
+
 						//---------------
 						$.ajax({
 							url: sURL,
@@ -225,7 +225,7 @@
 								$("#txResultMsg").html(result);
 								ClearMsg("#txResultMsg");
 								//TODO: refresh page
-								
+
 							},
 							error: function(err){
 								console.log("POST /admin/event/id error:");
@@ -233,7 +233,7 @@
 							}
 						});
 					});
-					
+
 					$("#btnDeleteEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
@@ -264,16 +264,16 @@
 							}
 						});
 					});
-					
+
 					$('#rowsTable').on('click', '.clickable-row', function(event) {
 					  //$(this).addClass('active').siblings().removeClass('active');
 					  if($(this).hasClass('active')){
-						$(this).removeClass('active'); 
+						$(this).removeClass('active');
 					  } else {
 						$(this).addClass('active').siblings().removeClass('active');
 					  }
 					});
-					
+
 					function GetActualEventStatus(){
 						console.log('GetActualEventStatus::');
 						var nEventID = $("#eventID").data("value");
@@ -292,7 +292,7 @@
 							}
 						});
 					}
-					
+
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
 					};
@@ -306,7 +306,7 @@
 						//ClearMsg("#eventImgMsg");
 						//--------------
 						var nEventID = $("#eventID").data("value");
-						
+
 						var data = new FormData();
 						$.each($('#eventImageFile')[0].files, function(i, file) {
 							data.append('file-'+i, file);
@@ -331,7 +331,7 @@
 							}
 						});
 					});
-					
+
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){
 							$(msgElement).html("");
