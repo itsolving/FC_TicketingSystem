@@ -501,7 +501,6 @@ router.post('/updateprices', function(req, res, next){
 			// error;
 			res.json({"ok": error});
 		});
-	
 });
 
 
