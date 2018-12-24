@@ -1,8 +1,0 @@
-{
-    "postgres": {
-        "name": "postgres",
-        "admin": true,
-        "salt": "6Y5qz7iFmzgtW6HVp+D45hmZmH2SGiQfq6RRSYshSzuiML4I1xr/rw1DCtE++PeyRauNvwxicnfypkdwtrsp7OOkwc1W79LUM4ZsIw1g7xuLqTo1+KKtF15VcGJdeE3RgMpgKS4002T/lfWrXqZh3FiAeQiZcRemo90MFDDLYzY=",
-        "hash": "wYB3nUBkfHvnJYrs+YtScw2TjAO+HbAemT70bcAfZ+qZLDyWQm2nJ9pECPSbXMsSY8VmyN4IJVrGh/JQeZPtnNPkPu9b7NVrKHqCghhkI9tXHqw25iCopeqb+vCL3b4+gVDJ6Jcr9OGcjXh+ObLo3XNmGzyaRHagwkaw8pjxIBE="
-    }
-}
