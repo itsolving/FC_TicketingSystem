@@ -106,7 +106,7 @@
                                                     <tr class="clickable-row">
 										    			<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
 										    			<td class="cell-price-input">
-                                                            <input type="text" name="txPrice" value="0"	 />
+                                                            <input type="text" name="txPrice" value="<%= seatRow.Price %>"	 />
                                                         </td>
 										    		</tr>
                                                 <% }); %>
