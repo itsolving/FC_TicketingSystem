@@ -338,9 +338,9 @@ router.get('/gettickets/:idevent', function(req, res){
 				ticketsList = data;
 				res.status(200)
 					.json({
-						status: 'success',
-						message: 'tickets found',
-						tickets: data
+						ReqStatus: 'success',
+						Message: 'tickets found',
+						TicketData: data
 					});
 			})
 			.catch(function(err){
@@ -349,18 +349,18 @@ router.get('/gettickets/:idevent', function(req, res){
 				console.log(err);
 				res.status(err.status)
 					.json({
-						status: 'error',
-						message: 'tickets not found',
-						tickets: {}
+						ReqStatus: 'error',
+						Message: 'tickets not found',
+						TicketData: {}
 					});
 			});
 	}
 	else {
 		res.status(404)
 			.json({
-				status: 'error',
-				message: 'event not found, so no tickets',
-				tickets: {}
+				ReqStatus: 'error',
+				Message: 'event not found, so no tickets',
+				TicketData: {}
 			});
 	}
 });
@@ -415,9 +415,9 @@ router.post('/gettickets', function(req, res){
 				ticketsList = data;
 				res.status(200)
 					.json({
-						status: 'success',
-						message: 'tickets found',
-						tickets: data
+						ReqStatus: 'success',
+						Message: 'tickets found',
+						TicketData: data
 					});
 			})
 			.catch(function(err){
@@ -426,18 +426,18 @@ router.post('/gettickets', function(req, res){
 				console.log(err);
 				res.status(err.status)
 					.json({
-						status: 'error',
-						message: 'tickets not found',
-						tickets: {}
+						ReqStatus: 'error',
+						Message: 'tickets not found',
+						TicketData: {}
 					});
 			});
 	}
 	else {
 		res.status(404)
 			.json({
-				status: 'error',
-				message: 'event not found, so no tickets',
-				tickets: {}
+				ReqStatus: 'error',
+				Message: 'event not found, so no tickets',
+				TicketData: {}
 			});
 	}
 });
