@@ -295,7 +295,8 @@ router.get('/event/:id', function(req, res, next) {
 					}
 				}
 			}
-			var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
+			var sSQLSectors = 'SELECT distinct s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
+							+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
 			console.log(sSQLSectors);
 			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
 				if (qerrSectors) {
@@ -458,6 +459,55 @@ router.post('/uploadeventimg', function(req, res, next){
     res.status(200);
 });
 
+
+//сохранение в БД назначенных цен по указанным секторам в рамках выбранного мероприятия
+router.post('/updateprices', function(req, res, next){
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	
+	if(!req.body){
+		console.log("req.body is null. Redirect to event/id...");
+		res.send('req.body is null');
+		return;
+	}
+	
+	//запомним параметры
+	var nEventID = req.body.eventId; //"eventId": 1
+	var sectors = req.body.sectors; //"sector": [ {"name": "N1", "price": 10}, {"name": "W7", "price": 25} ]
+	
+	
+	var sSQL = "";
+	sectors.forEach(function(sector) {
+		var sectorName = sector.name;
+		var sectorPrice = sector.price;
+		var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\') and "IDEvent" = '+nEventID+';';
+		sSQL = sSQL + sUpdate;
+	});
+	
+	
+	const client = new Client(conOptions);
+	client.connect();
+	//console.log(sSQL);
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+			client.end();
+			res.json({"ok": qerr});
+		}
+		else {
+			client.end();
+			res.json({"ok": "OK"});
+		}
+	});
+});
 
 
 router.get('/eventGetStatus/:id', function(req, res, next){
