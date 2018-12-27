@@ -4,37 +4,39 @@
 		<% include head_html %>
 	</head>
 	<body>
-		<div class="container">
+		<div class="wrapper">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<% include admheader %>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
 					<% include admmnu %>
-					<div id="workArea">
-						Пользователи
-						<div class="container">
-							<table>
-								<th>Логин</th>
-								<th>Роль</th>
-								<th>email</th>
-								<th>Блок</th>
-								<% usersList.forEach(function(userRow) { %>
-									<tr>
-										<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
-										<td><%= userRow.RoleName %></td>
-										<td><%= userRow.Email %></td>
-										<td>
-											<% if (userRow.isLock) { %>
-												<span>Заблокирован</span>
-											<% } else { %>
-												<span>Активный</span>
-											<% } %>
-										</td>
-										
-									</tr>
-								<% }); %>
-							</table>
-						</div>
+				</div>
+				<div id="workArea" class="col-sm-10">
+					Пользователи
+					<div class="wrapper">
+						<table>
+							<th>Логин</th>
+							<th>Роль</th>
+							<th>email</th>
+							<th>Блок</th>
+							<% usersList.forEach(function(userRow) { %>
+								<tr>
+									<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
+									<td><%= userRow.RoleName %></td>
+									<td><%= userRow.Email %></td>
+									<td>
+										<% if (userRow.isLock) { %>
+											<span>Заблокирован</span>
+										<% } else { %>
+											<span>Активный</span>
+										<% } %>
+									</td>
+									
+								</tr>
+							<% }); %>
+						</table>
 					</div>
 				</div>
 			<% } else{ %>
