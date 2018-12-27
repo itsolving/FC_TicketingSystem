@@ -4,14 +4,16 @@
 		<% include head_html %>
 	</head>
 	<body>
-		<div class="container">
+		<div class="wraper">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<% include admheader %>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-3">
 					<% include admmnu %>
-					<div id="workArea">
-					</div>
+				</div>
+				<div id="workArea" class="col-sm-9">
 				</div>
 			<% } else{ %>
 				<% if (errorMsg) { %><p><%= errorMsg %></p><% } %>

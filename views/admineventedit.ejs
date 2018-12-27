@@ -4,121 +4,123 @@
 		<% include head_html %>
 	</head>
 	<body>
-		<div class="container">
+		<div class="wrapper">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<% include admheader %>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
 					<% include admmnu %>
-					<div id="workArea">
-						Редактирование мероприятия
-						<div class="container">
-							<form name="formEvent">
-								<div class="form-group">
-									<button type="button" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
-									<button type="button" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
-									<p id="txResultMsg"></p>
-								</div>
-								<!-- <%= eventData[0].ID %> -->
-								<% eventData.forEach(function(eventRow) { %>
-									<div class="col-md-3">
-										<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
-										<p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p>
-										<div class="form-group">
-											<label for="eventName">Наименование:</label>
-											<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
-										</div>
-										<div class="form-group">
-											<label for="eventDateFrom">Начало:</label>
-											<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало" />
-										</div>
-										<!--
-										<div class="form-group">
-											<label for="eventDateTo">Окончание:</label>
-											<input type="datetime-local" class="form-control" id="eventDateTo" value="<%= eventRow.Dateto %>" placeholder="конец">
-										</div>
-										-->
-										<div class="form-group">
-											<label for="stadiumsList">Стадион:</label>
-											<span id="eventIDStadium" data-value="<%= eventRow.IDStadium %>" hidden><%= eventRow.IDStadium %></span>
-											<select name="stadiumsList" id="stadiumsList">
-												<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
-												<% stadiums.forEach(function(stadiumRow) { %>
-													<% if (stadiumRow.ID != eventRow.IDStadium ){ %>
-													<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
-													<% } %>
-												<% }); %>
-											</select>
-										</div>
-										<div class="form-group">
-											<% if (eventRow.ShowOnline) { %>
-												<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
-											<% } else { %>
-												<input type="checkbox" id="eventShowOnline">Показать online</input>
-											<% } %>
-										</div>
-										<div class="form-group">
-											<% if (eventRow.ShowCasher) { %>
-												<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
-											<% } else { %>
-												<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
-											<% } %>
-										</div>
-										<div class="form-group">
-											<% if (eventRow.ShowAPI) { %>
-												<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
-											<% } else { %>
-												<input type="checkbox" id="eventShowAPI">Показать для API</input>
-											<% } %>
-										</div>
-										<!--<div class="form-group">
-											<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
-											<p id="GenerateTicketsMSG"></p>
-										</div>-->
-									</div>
-									<div class="col-sm-6 col-md-3">
-										<div class="form-group">
-											<label for="eventImage">Афиша:</label>
-											<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
-											<button type="button" onclick="ClickNewImg();">Сменить</button>
-											<p id="eventImgMsg"></p>
-											<img id="eventImage" name="eventImage" src="<%= eventRow.ImgPath %>" alt="afisha" width="250" height="350" />
-										</div>
-									</div>
-								<% }); %>
-							</form>
-						</div>
-
-						<hr>
-						<div class="container">
-							<form name="formPrice">
+				</div>
+				<div id="workArea" class="col-sm-10">
+					Редактирование мероприятия
+					<div class="wrapper">
+						<form name="formEvent">
+							<div class="form-group">
+								<button type="button" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+								<button type="button" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
+								<p id="txResultMsg"></p>
+							</div>
+							<!-- <%= eventData[0].ID %> -->
+							<% eventData.forEach(function(eventRow) { %>
 								<div class="col-md-3">
-									<table class="table table-bordered table-hover" id="rowsTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Сектор</th>
-                                                <th>Цена</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% if(sectors){ %>
-                                                <% sectors.forEach(function(seatRow) { %>
-                                                    <tr class="clickable-row">
-										    			<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
-										    			<td class="cell-price-input">
-                                                            <input type="text" name="txPrice" value="<%= seatRow.Price %>"	 />
-                                                        </td>
-										    		</tr>
-                                                <% }); %>
-                                            <% } %>
-                                        </tbody>
-									</table>
+									<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
+									<p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p>
+									<div class="form-group">
+										<label for="eventName">Наименование:</label>
+										<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
+									</div>
+									<div class="form-group">
+										<label for="eventDateFrom">Начало:</label>
+										<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало" />
+									</div>
+									<!--
+									<div class="form-group">
+										<label for="eventDateTo">Окончание:</label>
+										<input type="datetime-local" class="form-control" id="eventDateTo" value="<%= eventRow.Dateto %>" placeholder="конец">
+									</div>
+									-->
+									<div class="form-group">
+										<label for="stadiumsList">Стадион:</label>
+										<span id="eventIDStadium" data-value="<%= eventRow.IDStadium %>" hidden><%= eventRow.IDStadium %></span>
+										<select name="stadiumsList" id="stadiumsList">
+											<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
+											<% stadiums.forEach(function(stadiumRow) { %>
+												<% if (stadiumRow.ID != eventRow.IDStadium ){ %>
+												<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
+												<% } %>
+											<% }); %>
+										</select>
+									</div>
+									<div class="form-group">
+										<% if (eventRow.ShowOnline) { %>
+											<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+										<% } else { %>
+											<input type="checkbox" id="eventShowOnline">Показать online</input>
+										<% } %>
+									</div>
+									<div class="form-group">
+										<% if (eventRow.ShowCasher) { %>
+											<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+										<% } else { %>
+											<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+										<% } %>
+									</div>
+									<div class="form-group">
+										<% if (eventRow.ShowAPI) { %>
+											<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+										<% } else { %>
+											<input type="checkbox" id="eventShowAPI">Показать для API</input>
+										<% } %>
+									</div>
+									<!--<div class="form-group">
+										<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
+										<p id="GenerateTicketsMSG"></p>
+									</div>-->
 								</div>
-								<div class="col-md-2">
-									<button type="button" id="savePrice">Сохранить цену</button>
+								<div class="col-sm-6 col-md-4">
+									<div class="form-group">
+										<label for="eventImage">Афиша:</label>
+										<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
+										<button type="button" onclick="ClickNewImg();">Сменить</button>
+										<p id="eventImgMsg"></p>
+										<img id="eventImage" name="eventImage" src="<%= eventRow.ImgPath %>" alt="afisha" width="250" height="350" />
+									</div>
 								</div>
-							</form>
-						</div>
+							<% }); %>
+						</form>
+					</div>
+					<hr>
+					<hr>
+					<div class="wrapper">
+						<form name="formPrice">
+							<div class="col-md-4">
+								<table class="table table-bordered table-hover" id="rowsTable">
+									<thead>
+										<tr>
+											<th>Сектор</th>
+											<th>Цена</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% if(sectors){ %>
+											<% sectors.forEach(function(seatRow) { %>
+												<tr class="clickable-row">
+													<td data-id="<%= seatRow.ID %>"><%= seatRow.SectorName %></td>
+													<td class="cell-price-input">
+														<input type="text" name="txPrice" value="<%= seatRow.Price %>"	 />
+													</td>
+												</tr>
+											<% }); %>
+										<% } %>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-2">
+								<button type="button" id="savePrice">Сохранить цену</button>
+							</div>
+						</form>
 					</div>
 				</div>
 				<script>

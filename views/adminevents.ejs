@@ -4,23 +4,26 @@
 		<% include head_html %>
 	</head>
 	<body>
-		<div class="container">
+		<div class="wrapper">
 			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
 				<div>
-					<% include admheader %>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
 					<% include admmnu %>
-					<div id="workArea">
-						Мероприятия
-						<div class="container">
-							<div class="row">
-								<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
-								<p id="resultCreateMsg"></p>
-							</div>
-							<div id="workArea" class="row">
-							<% if(eventsList) { %>
-								<% eventsList.forEach(function(eventRow) { %>
-								<div class="col-sm-6 col-md-3">
+				</div>
+				<div id="workArea" class="col-sm-10">
+					Мероприятия
+					<div class="wrapper">
+						<div class="row">
+							<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
+							<p id="resultCreateMsg"></p>
+						</div>
+						<div id="workArea" class="row">
+						<% if(eventsList) { %>
+							<% eventsList.forEach(function(eventRow) { %>
+								<div class="col-sm-6 col-md-4">
 									<!--<div class="thumbnail">-->
 										<a href="/admin/event/<%= eventRow.ID %>">
 											<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
@@ -33,55 +36,54 @@
 										</div>
 									<!--</div>-->
 								</div>
-								<% }); %>
-							<% } %>
-							</div>
+							<% }); %>
+						<% } %>
 						</div>
 					</div>
-					<script>
-						$("#btnCreateEvent").click(function(){
-							console.log("btnCreateEvent click");
-							$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
-							//--------------
-							//TODO: after development this functional we must delete this command:
-							//ClearMsg("#resultCreateMsg");
-							//--------------
-							
-							$.ajax({
-								url: "/admin/events/",
-								type: "POST",
-								data: {
-									postOperation: "ins"
-								},
-								success: function(result){
-									console.log("POST /admin/events/ success");
-									console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
-									console.log(result);
-									//$("#resultCreateMsg").html("result.ID="+result.ID);
-									if(result.ID > 0){
-										window.location.replace("/admin/event/"+result.ID);
-									}
-									else {
-										$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
-										ClearMsg("#resultCreateMsg");
-									}
-								},
-								error: function(err){
-									console.log("btnCreateEvent POST /admin/events/ error:");
-									console.log(err);
-									$("#resultCreateMsg").html('При создании нового мероприятия возникла ошибка: '+err);
-									//ClearMsg("#resultCreateMsg");
-								}
-							});
-						});
-						
-						function ClearMsg(msgElement){
-							window.setTimeout( function(){
-								$(msgElement).html("");
-							}, 5000 );
-						}
-					</script>
 				</div>
+				<script>
+					$("#btnCreateEvent").click(function(){
+						console.log("btnCreateEvent click");
+						$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						//ClearMsg("#resultCreateMsg");
+						//--------------
+						
+						$.ajax({
+							url: "/admin/events/",
+							type: "POST",
+							data: {
+								postOperation: "ins"
+							},
+							success: function(result){
+								console.log("POST /admin/events/ success");
+								console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
+								console.log(result);
+								//$("#resultCreateMsg").html("result.ID="+result.ID);
+								if(result.ID > 0){
+									window.location.replace("/admin/event/"+result.ID);
+								}
+								else {
+									$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+									ClearMsg("#resultCreateMsg");
+								}
+							},
+							error: function(err){
+								console.log("btnCreateEvent POST /admin/events/ error:");
+								console.log(err);
+								$("#resultCreateMsg").html('При создании нового мероприятия возникла ошибка: '+err);
+								//ClearMsg("#resultCreateMsg");
+							}
+						});
+					});
+					
+					function ClearMsg(msgElement){
+						window.setTimeout( function(){
+							$(msgElement).html("");
+						}, 5000 );
+					}
+				</script>
 			<% } else{ %>
 				<% include admloginform %>
 			<% } %>
