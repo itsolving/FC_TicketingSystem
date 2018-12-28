@@ -17,7 +17,7 @@ var conn = require('./conn');
 var Client = conn.connClient;
 var conOptions = conn.conOptions;
 
-
+const sAdminPageTitle = 'Управление билетной системой';
 
 
 //при открытии страницы "localhost:3000/admin"
@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 	}
-	res.render('adminhome', {title: 'Админка', adminLogin: sAdminLogin, errorMsg: ""});
+	res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: ""});
 });
 
 //при нажатии кнопки на странице "localhost:3000/admin"
@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
 		console.log('showing adminhome with session data...');
-		res.render('adminhome', {title: 'Админка', adminLogin: sAdminLogin, errorMsg: ""});
+		res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: ""});
 	}
 	else {
 		const client = new Client(conOptions);
@@ -98,7 +98,7 @@ router.post('/', function(req, res, next) {
 			client.end();
 			console.log('save sAdminLogin to session and show adminhome...');
 			sessData.adminLogin = sAdminLogin;
-			res.render('adminhome', {title: 'Админка', adminLogin: sAdminLogin, errorMsg: errMsg});
+			res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
 		});
 	}
 });
@@ -160,8 +160,8 @@ router.get('/events', function(req, res, next) {
 			}
 		}
 		client.end();
-		//res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
-		res.render('adminevents', {title: 'Админка', adminLogin: sAdminLogin, eventsList: events});
+		//res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+		res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events});
 	});
 });
 
@@ -361,7 +361,7 @@ router.get('/event/:id', function(req, res, next) {
 					}
 					clientRows.end();
 					
-					res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
+					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
 				});
 			});
 		});
@@ -626,8 +626,8 @@ router.get('/stadiums', function(req, res, next) {
 			}
 		}
 		client.end();
-		//res.render('adminstadiums', {title: 'Админка', adminLogin: sAdminLogin, stadiumsList: JSON.stringify(stadiums)});
-		res.render('adminstadiums', {title: 'Админка', adminLogin: sAdminLogin, stadiumsList: stadiums});
+		//res.render('adminstadiums', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumsList: JSON.stringify(stadiums)});
+		res.render('adminstadiums', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumsList: stadiums});
 	});
 });
 
@@ -701,7 +701,7 @@ router.get('/stadium/:id', function(req, res, next) {
 				}
 			}
 			clientCity.end();
-			res.render('adminstadiumedit', {title: 'Админка', adminLogin: sAdminLogin, stadiumData: rowStadiumData, stadiumID: nID, cities: cityList});
+			res.render('adminstadiumedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumData: rowStadiumData, stadiumID: nID, cities: cityList});
 		});
 	});
 });
@@ -750,7 +750,7 @@ router.post('/stadium/:id', function(req, res, next) {
 			}
 		}
 		client.end();
-		res.render('admineventedit', {title: 'Админка', adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
+		res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList});
 	});*/
 });
 
@@ -831,7 +831,7 @@ router.get('/users', function(req, res, next) {
 			}
 		}
 		client.end();
-		res.render('adminusers', {title: 'Админка', adminLogin: sAdminLogin, usersList: users});
+		res.render('adminusers', {title: sAdminPageTitle, adminLogin: sAdminLogin, usersList: users});
 	});
 });
 
@@ -903,7 +903,7 @@ router.get('/user/:id', function(req, res, next) {
 				}
 			}
 			clientRoles.end();
-			res.render('adminuseredit', {title: 'Админка', adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
+			res.render('adminuseredit', {title: sAdminPageTitle, adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
 		});
 	});
 });
