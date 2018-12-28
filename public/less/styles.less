@@ -7,14 +7,47 @@
 // fonts
 @import "fonts.less";
 
+html{
+  overflow: hidden;
+}
+
 body{
   overflow: hidden;
   padding: 0;
   font-family: @fRegular;
   color: @black;
   line-height: 1.4;
-  svg#Layer_1{
-    outline: none;
-    .size(100%, 100vh);
+  #eventsSelect{
+    position: absolute;
+    top: 0;
+    left: 0;
   }
+  svg{
+    outline: none;
+    cursor: move;
+    .size(100%, 100vh);
+    g[data-tribune]{
+      transition: transform .2s linear;
+      &:hover{
+        cursor: pointer;
+        transform: translateY(-5px);
+      }
+    }
+  }
+}
+
+.hide{
+  display: none;
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  .size(100%, 100vh);
+  background: #fff url('@{pathToImg}s-loader.gif') no-repeat center 50%;
+  background-size: 400px 300px;
 }
