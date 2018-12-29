@@ -6,6 +6,8 @@
 @import "variables.less";
 // fonts
 @import "fonts.less";
+//libs
+@import (less) "libs/fancybox.min.css";
 
 html{
   overflow: hidden;
@@ -22,7 +24,7 @@ body{
     top: 0;
     left: 0;
   }
-  svg{
+  #main-svg{
     outline: none;
     cursor: move;
     .size(100%, 100vh);
@@ -38,6 +40,22 @@ body{
 
 .hide{
   display: none;
+}
+
+.popup{
+  position: relative;
+  background-color: #fff;
+  cursor: default !important;
+  svg.tribune{
+    .size(25rem, 19rem);
+  }
+}
+
+.seat{
+  transition: fill .3s ease-in-out;
+  &:hover{
+    fill: #000;
+  }
 }
 
 .preloader {

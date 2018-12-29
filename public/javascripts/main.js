@@ -11,6 +11,7 @@ app.init = function () {
 	app.checkEvent();
   app.getTickets(1); // 1 - временный id при загрузке страницы.
   // На проде передавать id динамически при выборе соответствующего мероприятия.
+  app.initPopup();
 };
 
 app.calibrateTribune = function(tribune){
@@ -74,6 +75,16 @@ app.getTickets = function(id){
     }
   });
   app.endPreloading();
+};
+
+app.initPopup = function(){
+  var $btn = $('[data-init-popup]'),
+      $popup = $('[data-popup]');
+
+  $btn.on('click', function(){
+    console.log('lol');
+    $.fancybox.open($popup);
+  });
 };
 
 app.endPreloading = function(){

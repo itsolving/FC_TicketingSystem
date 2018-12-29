@@ -6,9 +6,9 @@ const conOptions = {
 	user: 'pgadmin', //test on dev-server
 	//user: 'postgres', //local test on home-computer
 	
-	password: 'UrdodON9zu83BvtI6L', //test on dev-server
+	//password: 'UrdodON9zu83BvtI6L', //test on dev-server
 	//password: 'qwe', //local test on home-computer Kuanysh
-	//password: 'asd', //local test on home-computer Ivan
+	password: 'asd', //local test on home-computer Ivan
 	
 	host: 'localhost',
 	database: 'postgres',
