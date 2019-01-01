@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="113px" height="167px" viewBox="0 0 113 167" enable-background="new 0 0 113 167" xml:space="preserve">
+<g onclick="this.parentNode.sekt.push(this);this.a_name=&quot;E 1 (низ)&quot;;">
+	
+		<polygon onclick="this.parentNode.a_fon=this;" fill="#F1F3F4" stroke="#BCC8CE" stroke-width="0.4" stroke-linecap="round" stroke-miterlimit="10" points="
+		0.37,166.69 52.3,0.31 112.7,0.31 112.7,166.69 	"/>
+	<g onclick="this.parentNode.a_row=this;">
+		
+			<line onclick="this.a_par={beg_namb:1,quant:9};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="63.25" y1="9.37" x2="101.52" y2="9.37"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:9};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="63.25" y1="15.3" x2="101.52" y2="15.3"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:9};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="63.25" y1="21.23" x2="101.52" y2="21.23"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:9};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="63.25" y1="27.16" x2="101.52" y2="27.16"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:10};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.92" y1="33.09" x2="101.52" y2="33.09"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:11};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.59" y1="39.02" x2="101.52" y2="39.02"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:11};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.59" y1="44.95" x2="101.52" y2="44.95"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:11};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.59" y1="50.88" x2="101.52" y2="50.88"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:12};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="50.26" y1="56.81" x2="101.52" y2="56.81"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:12};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="50.26" y1="62.74" x2="101.52" y2="62.74"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:12};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="50.26" y1="68.68" x2="101.52" y2="68.68"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:13};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="45.93" y1="74.61" x2="101.52" y2="74.61"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:13};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="45.93" y1="80.54" x2="101.52" y2="80.54"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:14};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="41.6" y1="86.47" x2="101.52" y2="86.47"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:14};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="41.6" y1="92.4" x2="101.52" y2="92.4"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:14};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="41.6" y1="98.33" x2="101.52" y2="98.33"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:15};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="37.27" y1="104.26" x2="101.52" y2="104.26"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:15};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="37.27" y1="110.19" x2="101.52" y2="110.19"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:13};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="37.29" y1="116.12" x2="92.87" y2="116.12"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:14};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="32.96" y1="122.05" x2="92.87" y2="122.05"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:8};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.93" y1="127.98" x2="92.87" y2="127.98"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:8};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.93" y1="133.91" x2="92.87" y2="133.91"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:8};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.93" y1="139.85" x2="92.87" y2="139.85"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:10};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.92" y1="145.78" x2="101.52" y2="145.78"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:10};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.92" y1="151.71" x2="101.52" y2="151.71"/>
+		
+			<line onclick="this.a_par={beg_namb:1,quant:10};" fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="58.92" y1="157.64" x2="101.52" y2="157.64"/>
+	</g>
+	<g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.78" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.1" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="139.85" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="139.85" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.78" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.1" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="133.91" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="133.91" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.78" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.1" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="127.98" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="127.98" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="65.1" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.35" cy="27.16" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="27.16" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="65.1" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.35" cy="21.23" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="21.23" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="65.1" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.35" cy="15.3" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="15.3" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="65.1" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.42" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.74" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.06" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.38" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.71" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.35" cy="9.37" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="9.37" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.77" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.09" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.41" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.73" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.05" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.02" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="33.09" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="33.09" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.77" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.09" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.41" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.73" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.05" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.02" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="157.64" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="157.64" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.77" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.09" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.41" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.73" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.05" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.02" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="151.71" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="151.71" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="60.77" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.09" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.41" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.73" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.05" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.02" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="145.78" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="145.78" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="56.44" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.76" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.08" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.4" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.72" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.04" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.69" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="50.88" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="50.88" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="56.44" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.76" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.08" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.4" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.72" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.04" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.69" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="44.95" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="44.95" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="56.44" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.76" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.08" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.4" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.72" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.04" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.69" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="39.02" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="39.02" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="52.11" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.43" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.75" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.07" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.39" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.71" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.03" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.36" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="68.68" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="68.68" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="52.11" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.43" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.75" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.07" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.39" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.71" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.03" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.36" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="62.74" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="62.74" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="52.11" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.43" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.75" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.07" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.39" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.71" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.03" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.36" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="56.81" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="56.81" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="47.78" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.1" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.42" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.74" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.06" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.38" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.7" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="80.54" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="80.54" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="47.78" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.1" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.42" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.74" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.06" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.38" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.7" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="74.61" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="74.61" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="39.13" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="43.46" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.78" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.1" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.42" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.74" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.06" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.38" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.7" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.03" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="116.12" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="116.12" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="43.45" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.77" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.09" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.41" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.73" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.05" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.37" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.69" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="98.33" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="98.33" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="43.45" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.77" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.09" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.41" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.73" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.05" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.37" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.69" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="92.4" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="92.4" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="43.45" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.77" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.09" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.41" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.73" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.05" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.37" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.69" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="86.47" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="86.47" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="34.8" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="39.12" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="43.45" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.77" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.09" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.41" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.73" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.05" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.37" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.7" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.03" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.37" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.7" cy="122.05" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.03" cy="122.05" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="39.12" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="43.44" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.76" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.08" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.4" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.72" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.04" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.36" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.68" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="110.19" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="110.19" r="1.85"/>
+		</g>
+		<g>
+			<circle fill="#AEBDC4" cx="39.12" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="43.44" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="47.76" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="52.08" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="56.4" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="60.72" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="65.04" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="69.36" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="73.68" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="78.02" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="82.35" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="86.68" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="91.01" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="95.34" cy="104.26" r="1.85"/>
+			<circle fill="#AEBDC4" cx="99.67" cy="104.26" r="1.85"/>
+		</g>
+	</g>
+	<g onclick="this.parentNode.a_text=this;">
+		<text transform="matrix(0.9999 0 0 1 69.2889 66.9784)"><tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="6.3996px">E 1</tspan><tspan x="-3.72" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.3996px">(</tspan><tspan x="-1.68" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.3996px">н</tspan><tspan x="2.67" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.3996px">и</tspan><tspan x="7.23" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.3996px">з</tspan><tspan x="10.58" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.3996px">)</tspan></text>
+	</g>
+</g>
+</svg>

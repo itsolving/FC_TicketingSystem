@@ -82,7 +82,6 @@ app.initPopup = function(){
       $popup = $('[data-popup]');
 
   $btn.on('click', function(){
-    console.log('lol');
     $.fancybox.open($popup);
   });
 };
