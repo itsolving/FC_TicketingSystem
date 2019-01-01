@@ -16,7 +16,7 @@ router.get('/', function(req, res, next){
 		sLogin = sessData.userLogin;
 		events = sessData.eventsList;
 	}
-	
+
 	//var events = db.getList(req, res, next);
 	res.render('index', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
 })
@@ -30,9 +30,9 @@ router.get('/events', function(req, res, next){
 	var sessData = req.session;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
-		
+
 		console.log('sLogin='+sLogin);
-	}	
+	}
 	//sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."DateFrom", sd."Name" as "StadiumName" FROM public."tEvent" ev join public."tStadium" sd on sd."ID" = ev."IDStadium" where ev."IDStatus" = 1';
 	sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
 				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDStadium", '+
@@ -49,7 +49,7 @@ router.get('/events', function(req, res, next){
 			sessData.eventsList = data;
 			events = data;
 			console.log('events: '+ JSON.stringify(events));
-			
+
 			console.log('rendering page...');
 			console.log('sLogin='+sLogin);
 			res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events});
@@ -108,9 +108,9 @@ router.post('/events', function(req, res, next){
 	var sessData = req.session;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
-		
+
 		console.log('sLogin='+sLogin);
-	
+
 		//sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."DateFrom", sd."Name" as "StadiumName" FROM public."tEvent" ev join public."tStadium" sd on sd."ID" = ev."IDStadium" where ev."IDStatus" = 1';
 		sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
 				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDStadium", '+
@@ -127,7 +127,7 @@ router.post('/events', function(req, res, next){
 				sessData.eventsList = data;
 				events = data;
 				console.log('events: '+ JSON.stringify(events));
-				
+
 				console.log('rendering page...');
 				console.log('sLogin='+sLogin);
 				res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
@@ -152,7 +152,7 @@ router.post('/events', function(req, res, next){
 					sLogin = data[0].Login;
 					sessData.userLogin = data[0].Login;
 					console.log('sLogin='+sLogin);
-					
+
 					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
 					console.log(sSQL);
 					db.db.any(sSQL)
@@ -162,7 +162,7 @@ router.post('/events', function(req, res, next){
 							events = data;
 							sessData.eventsList = data;
 							console.log('events: '+ JSON.stringify(events));
-							
+
 							console.log('rendering page...');
 							console.log('sLogin='+sLogin);
 							res.render('events', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
@@ -194,7 +194,7 @@ router.get('/event/:id', function(req, res, next){
 	var eventID = req.params.id;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
-		
+
 	}
 	/*else {
 		res.redirect('/');
@@ -210,7 +210,7 @@ router.get('/event/:id', function(req, res, next){
 				sessData.eventsList = data;
 				events = data;
 				console.log('events: '+ JSON.stringify(events));
-				
+
 				res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 				return;
 			})
@@ -252,7 +252,7 @@ router.get('/maps/:idevent', function(req, res, next){
 							responseFile = (fileName, response) => {
 								const filePath =  data[0].MapPath; //"/path/to/archive.rar" // or any file format
 								console.log('filePath='+filePath);
-								// Check if file specified by the filePath exists 
+								// Check if file specified by the filePath exists
 								fs.exists(__dirname + '/../public'+filePath, function(exists){
 									if (exists) {
 										console.log('filePath exists');
@@ -271,7 +271,7 @@ router.get('/maps/:idevent', function(req, res, next){
 								});
 								res.render(filePath.replace('.svg',''));
 							}
-							
+
 						}
 					}
 				}
@@ -292,7 +292,7 @@ router.get('/gettickets/:idevent', function(req, res){
 	var eventID = req.params.idevent;
 	var ticketsList = {};
 	console.log('eventID='+eventID);
-	
+
 	if (eventID !== 'undefined') {
 		sSQL = 'select row_to_json(t) '
 				+'from ( '
@@ -329,7 +329,7 @@ router.get('/gettickets/:idevent', function(req, res){
 				+'		) tribunes '
 				+'	where 1=1 '
 				+') t';
-				
+
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -370,7 +370,7 @@ router.post('/gettickets', function(req, res){
 	var eventID = req.body.IDEvent;
 	var ticketsList = {};
 	console.log('eventID='+eventID);
-	
+
 	if (eventID !== 'undefined') {
 		sSQL = 'select row_to_json(t) '
 				+'from ( '
@@ -398,11 +398,11 @@ router.post('/gettickets', function(req, res){
 				+'			SELECT s."Tribune" || trim(s."SectorName") "SectorName", '
 				+'				min(t."Price"::numeric) "minPrice", '
 				+'				max(t."Price"::numeric) "maxPrice", '
-				+'				count(t."Price"::numeric) "seatsLeft" '
+				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
 				+'			FROM public."tTicket" t '
 				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
 				+'			where t."IDEvent" = '+eventID+' '
-				+'			and t."IDStatus" = 3 '
+				+'			and t."IDStatus" in (3, 4, 5) '
 				+'			group by s."Tribune" || trim(s."SectorName") '
 				+'		) tribunes '
 				+'	where 1=1 '
@@ -438,6 +438,136 @@ router.post('/gettickets', function(req, res){
 				ReqStatus: 'error',
 				Message: 'event not found, so no tickets',
 				TicketData: {}
+			});
+	}
+});
+
+router.post('/getsectortickets', function(req, res){
+//получение json-списка билетов по указанному сектору
+	console.log('post /getsectortickets');
+	var eventID = req.body.IDEvent;
+	var sectorName = req.body.SectorName;
+	var ticketsList = {};
+	console.log('eventID='+eventID);
+
+	if (eventID !== 'undefined') {
+		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(tick))) '
+				+'			from ( '
+				+'				select "Barcode", "TicketID", "IDSeat", "SeatN", "RowN", "Price", "IDStatus", "StatusName", "Tribune", "SectorName" '
+				+'				from ( '
+				+'					SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'						s."SeatN", s."RowN", '
+				+'						t."Price"::numeric "Price", '
+				+'						t."IDStatus", st."Name" "StatusName", '
+				+'						s."Tribune", trim(s."SectorName") "SectorName" '
+				+'					FROM public."tTicket" t '
+				+'					join public."tSeat" s on t."IDSeat" = s."ID" and s."Tribune" || trim(s."SectorName") = \''+sectorName+'\' '
+				+'					join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'					where t."IDEvent" = '+eventID+' '
+				+'					and t."IDStatus" in (3, 4, 5) '
+				+'				) tick_all '
+				+'				where "Tribune" || "SectorName" = tribunes."SectorName" '
+				+'			) tick '
+				+'		) as "tickets" '
+				+'	from ( '
+				+'			SELECT s."Tribune" || trim(s."SectorName") "SectorName", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" and s."Tribune" || trim(s."SectorName") = \''+sectorName+'\' '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" in (3, 4, 5) '
+				+'			group by s."Tribune" || trim(s."SectorName") '
+				+'		) tribunes '
+				+'	where 1=1 '
+				+') t';
+		console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(data){
+				//console.log('ticketsList: '+ JSON.stringify(data));
+				console.log('tickets found:');
+				ticketsList = data;
+				res.status(200)
+					.json({
+						ReqStatus: 'success',
+						Message: 'tickets found',
+						TicketData: data
+					});
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of search actual tickets:');
+				console.log(err);
+				res.status(err.status)
+					.json({
+						ReqStatus: 'error',
+						Message: 'tickets not found',
+						TicketData: {}
+					});
+			});
+	}
+	else {
+		res.status(404)
+			.json({
+				ReqStatus: 'error',
+				Message: 'event not found, so no tickets',
+				TicketData: {}
+			});
+	}
+});
+
+router.post('/sendsaledtickets', function(req, res){
+//сохренение факта продаж билетов на мероприятие
+	console.log('post /sendsaledtickets');
+	var eventID = req.body.IDEvent;
+	var sectorName = req.body.SectorName;
+	var checkedSeats = req.body.CheckedSeats;
+	var ticketsList = {};
+	console.log('eventID='+eventID+', sectorName='+sectorName);
+	console.log(checkedSeats);
+	var sSQL = "";
+
+	if (eventID !== 'undefined') {
+		sSQL = "";
+		checkedSeats.forEach(function(seat) {
+			var rowN = seat.RowN;
+			var seatN = seat.SeatN;
+			var seatPrice = seat.Price;
+			var sUpdate = 'update public."tTicket" set "IDStatus" = 5 where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
+			sSQL = sSQL + sUpdate;
+		});
+		//console.log(sSQL);
+		db.db.any(sSQL)
+			.then(function(){
+				//console.log('ticketsList: '+ JSON.stringify(data));
+				console.log('saled tickets statuses updated:');
+				res.status(200)
+					.json({
+						ReqStatus: 'success',
+						Message: 'saled tickets saved'
+					});
+			})
+			.catch(function(err){
+				//return next(err);
+				console.log('error of update saled tickets:');
+				console.log(err);
+				res.status(err.status)
+					.json({
+						ReqStatus: 'error',
+						Message: 'saling tickets not saved'
+					});
+			});
+	}
+	else {
+		res.status(404)
+			.json({
+				ReqStatus: 'error',
+				Message: 'event not found, so no tickets updated'
 			});
 	}
 });
