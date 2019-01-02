@@ -18,6 +18,7 @@
 					<div class="wrapper">
 						<table class="table">
 							<th scope="col">Дата покупки</th>
+							<th scope="col">Название МП</th>
 							<th scope="col">Трибуна и сектор</th>
 							<th scope="col">Ряд</th>
 							<th scope="col">Место</th>
@@ -26,6 +27,7 @@
 							<% transList.forEach(function(transRow) { %>
 								<tr>
 									<td scope="row"><%= transRow.Saledate %></td>
+									<td><%= transRow.Name %></td>
 									<td><%= transRow.SectorName %></td>
 									<td><%= transRow.RowN %></td>
 									<td><%= transRow.SeatN %></td>

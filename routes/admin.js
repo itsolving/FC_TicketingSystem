@@ -1051,6 +1051,7 @@ router.get('/reports/trans', function(req, res, next) {
 	var sSQL = 'SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  ' +	
 				'tic."Price", ' +
 				' st."ID", st."SectorName", st."RowN", st."SeatN", st."Tribune" ,' + 
+				' ev."Name", ' + 
 				' us."Email" ' +	
 				'FROM public."tTrans" tr ' + 
 				' join public."tTicket" tic on tr."IDTicket" = tic."ID" ' + 
