@@ -1012,6 +1012,82 @@ router.get('/rolesJson', function(req, res, next) {
 	});
 });
 
+//при открытии страницы "localhost:3000/admin/reports"
+
+router.get('/reports', function(req, res, next){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	res.render('adminReports', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+})
+
+//при открытии страницы "localhost:3000/admin/reports/trans"
+router.get('/reports/trans', function(req, res, next) {
+	console.log("GET /admin/reports/trans");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	
+	var trans = {};
+
+	const client = new Client(conOptions);
+	client.connect();
+
+
+	var sSQL = 'SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  ' +	
+				'tic."Price", ' +
+				' st."ID", st."SectorName", st."RowN", st."SeatN", st."Tribune" ,' + 
+				' us."Email" ' +	
+				'FROM public."tTrans" tr ' + 
+				' join public."tTicket" tic on tr."IDTicket" = tic."ID" ' + 
+				' join public."tSeat" st on tic."IDSeat" = st."ID" ' +
+				' join public."tEvent" ev on tic."IDEvent" = ev."ID" ' + 
+				' join public."tUser" us on tr."IDUserSaler" = us."ID" ';
+
+
+	console.log(sSQL);
+
+
+
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		if (typeof qres.rowCount === 'undefined') {
+			console.log('res.rowCount not found');
+		}
+		else {
+			if (qres.rowCount == 0) {
+				console.log('res.rowCount='+qres.rowCount);
+			}
+			else {
+				trans = qres.rows;
+			}
+		}
+		res.render('adminTrans', {title: sAdminPageTitle, adminLogin: sAdminLogin, transList: trans});
+		client.end();
+	});
+	
+
+
+	//res.json({status: 'ok'})
+});
+
 
 
 module.exports = router;
