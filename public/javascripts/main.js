@@ -68,7 +68,16 @@ app.getTickets = function(id){
     var _self = $(this);
     _self.on('click', function(){
       $.post('/getsectortickets', {IDEvent: id, SectorName: _self.data('tribune')}, function(data){
-        console.log(data);
+        if(data.TicketData.length > 0){
+          var $secInfo = data.TicketData[0].row_to_json;
+          console.log($secInfo);
+          $.fancybox.open({
+            src: '/public/images/sectors/' + _self.data('tribune') + '.svg',
+            type: 'ajax'
+          });
+        }else{
+          console.log('Билетов нет!');
+        }
       });
     });
   });
