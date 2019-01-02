@@ -7,11 +7,10 @@ $(function () {
 app.init = function () {
   var zoom = panzoom(document.getElementById('stadiumSVG'), {smoothScroll: false});
   app.zoomTribune(zoom);
-	app.getEventsList();
-	app.checkEvent();
-  app.getTickets(1); // 1 - временный id при загрузке страницы.
-  // На проде передавать id динамически при выборе соответствующего мероприятия.
-  app.initPopup();
+	app.getEventsList(); //Temp
+	app.checkEvent(); //Temp
+  app.getTickets(1);
+  app.endPreloading();
 };
 
 app.calibrateTribune = function(tribune){
@@ -63,26 +62,15 @@ app.checkEvent = function(){
 };
 
 app.getTickets = function(id){
-  $.post('/gettickets', {IDEvent: id}, function(data){
-    if(data.ReqStatus === "success") {
-      console.log(data);
-      data.TicketData.forEach(function(tribune){
-        tribune.row_to_json.tickets.forEach(function(ticket){
-          //console.log(ticket.RowN);
-          //$('[data-seat]').clone().appendTo($('[data-tribune-line]').filter('[data-tribune-line="' + ticket.RowN + '"]'));
-        });
+  var $tribune = $('[data-tribune]');
+  id = id !== 'undefined' ? id : 1;
+  $tribune.each(function(){
+    var _self = $(this);
+    _self.on('click', function(){
+      $.post('/getsectortickets', {IDEvent: id, SectorName: _self.data('tribune')}, function(data){
+        console.log(data);
       });
-    }
-  });
-  app.endPreloading();
-};
-
-app.initPopup = function(){
-  var $btn = $('[data-init-popup]'),
-      $popup = $('[data-popup]');
-
-  $btn.on('click', function(){
-    $.fancybox.open($popup);
+    });
   });
 };
 
