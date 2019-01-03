@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="col-sm-10">
+					<h3>Список отчетов</h3>
+					<a href="/admin/reports/trans">Отчет по продажам</a><br>
+					
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

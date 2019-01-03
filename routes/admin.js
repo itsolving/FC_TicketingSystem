@@ -1012,6 +1012,277 @@ router.get('/rolesJson', function(req, res, next) {
 	});
 });
 
+//при открытии страницы "localhost:3000/admin/reports"
+
+router.get('/reports', function(req, res, next){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	res.render('adminReports', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+})
+
+//при открытии страницы "localhost:3000/admin/reports/trans"
+router.get('/reports/trans', function(req, res, next) {
+	console.log("GET /admin/reports/trans");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	
+	var trans = {};
+
+	const client = new Client(conOptions);
+	client.connect();
+
+
+	var sSQL = 'SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  ' +	
+				'tic."Price", ' +
+				' st."ID", st."SectorName", st."RowN", st."SeatN", st."Tribune" ,' + 
+				' ev."Name", ' + 
+				' us."Email" ' +	
+				'FROM public."tTrans" tr ' + 
+				' join public."tTicket" tic on tr."IDTicket" = tic."ID" ' + 
+				' join public."tSeat" st on tic."IDSeat" = st."ID" ' +
+				' join public."tEvent" ev on tic."IDEvent" = ev."ID" ' + 
+				' join public."tUser" us on tr."IDUserSaler" = us."ID" ';
+
+
+	console.log(sSQL);
+
+
+
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		if (typeof qres.rowCount === 'undefined') {
+			console.log('res.rowCount not found');
+		}
+		else {
+			if (qres.rowCount == 0) {
+				console.log('res.rowCount='+qres.rowCount);
+			}
+			else {
+				trans = qres.rows;
+			}
+		}
+		res.render('adminTrans', {title: sAdminPageTitle, adminLogin: sAdminLogin, transList: trans});
+		client.end();
+	});
+	
+
+
+	//res.json({status: 'ok'})
+});
+
+//при открытии страницы "localhost:3000/admin/abonements"
+
+router.get('/abonements', function(req, res, next){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	var abonements = {};
+
+	const client = new Client(conOptions);
+	client.connect();
+
+
+	var sSQL = 'SELECT * ' +	
+				'FROM public."tAbonement" ';
+
+
+	console.log(sSQL);
+
+
+
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		if (typeof qres.rowCount === 'undefined') {
+			console.log('res.rowCount not found');
+		}
+		else {
+			if (qres.rowCount == 0) {
+				console.log('res.rowCount='+qres.rowCount);
+			}
+			else {
+				abonements = qres.rows;
+			}
+		}
+		res.render('adminAbonements', {title: sAdminPageTitle, adminLogin: sAdminLogin, abonList: abonements});
+		client.end();
+	});
+})
+
+//при открытии страницы "localhost:3000/admin/reports/add"
+
+router.get('/abonements/add', function(req, res, next){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	const client = new Client(conOptions);
+	client.connect();
+
+	var sSQL = 'SELECT ev."ID", ev."Name" from public."tEvent" ev ';
+
+
+	console.log(sSQL);
+
+	var evens = {};
+
+
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		if (typeof qres.rowCount === 'undefined') {
+			console.log('res.rowCount not found');
+		}
+		else {
+			if (qres.rowCount == 0) {
+				console.log('res.rowCount='+qres.rowCount);
+			}
+			else {
+				evens = qres.rows;
+			}
+		}
+		res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: evens});
+		client.end();
+	});
+
+})
+
+//создание абонемента
+
+router.post('/abonements/add', function(req, res, next){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	var formData = req.body;
+
+	var seatData = {
+		seatID: null,
+		SectorName: (formData.tribune + formData.sector).toUpperCase(),
+		RowN: formData.row,
+		SeatN: formData.seat
+	};
+
+	var sSQL = 'SELECT st."ID" '+
+				'FROM public."tSeat" st '+
+				'where st."SectorName" = '+ "'" + seatData.SectorName + "'" +
+				'and st."RowN" = '+ "'" + seatData.RowN + "'" + 
+				'and st."SeatN" = '+ "'" + seatData.SeatN + "'";
+	console.log(sSQL)
+	const client = new Client(conOptions);
+	client.connect();
+
+
+	client.query(sSQL, (qerr, qres) => {
+		if (qerr) {
+			console.log("qerr:");
+			console.log(qerr ? qerr.stack : qres);
+		}
+		if (typeof qres.rowCount === 'undefined') {
+			console.log('res.rowCount not found');
+		}
+		else {
+			if (qres.rowCount == 0) {
+				console.log('res.rowCount='+qres.rowCount);
+			}
+			else {
+				seatData.seatID = qres.rows[0].ID;
+			}
+		}
+		console.log(seatData);
+		client.end();
+
+		var itemData = {
+			Price: formData.price,
+			SectorName: seatData.SectorName,
+			SeatID: seatData.seatID,
+			RowN: seatData.RowN,
+			SeatN: seatData.SeatN,
+			evensIDs: formData.evens.join()
+		};
+
+		console.log(itemData);
+
+
+		const clientRoles = new Client(conOptions);
+		clientRoles.connect();
+		var sSQLRoles = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
+		values(nextval(\'"tEvent_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
+		'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
+		console.log(sSQLRoles);
+		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
+			if (qerrRoles) {
+				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+			}
+			else {
+				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
+				
+				if (typeof qresRoles.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qresRoles.rowCount == 0) {
+						console.log('res.rowCount='+qresRoles.rowCount);
+					}
+					else {
+						console.log(qresRoles.rows)
+					}
+				}
+			}
+			clientRoles.end();
+			res.redirect('/admin/abonements/add');
+		});
+	});
+
+	
+
+})
+
 
 
 module.exports = router;

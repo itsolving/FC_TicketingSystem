@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="/javascripts/filter.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="col-sm-10">
+					Отчет продаж
+					<div class="wrapper">
+						<table class="table trans">
+							<thead>
+								<th scope="col">Дата покупки</th>
+								<th scope="col">Название МП</th>
+								<th scope="col">Трибуна и сектор</th>
+								<th scope="col">Ряд</th>
+								<th scope="col">Место</th>
+								<th scope="col">Email</th>
+								<th scope="col">Цена</th>
+							</thead>
+							<tbody>
+								<% transList.forEach(function(transRow) { %>
+									<tr>
+										<td scope="row"><%= transRow.Saledate %></td>
+										<td><%= transRow.Name %></td>
+										<td><%= transRow.SectorName %></td>
+										<td><%= transRow.RowN %></td>
+										<td><%= transRow.SeatN %></td>
+										<td><%= transRow.Email %></td>
+										<td><%= transRow.Price %></td>
+										
+										
+									</tr>
+								<% }); %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

@@ -7,12 +7,12 @@ var options = {
 	promiseLib : promise
 }
 var pgp = require('pg-promise')(options)
-var connectString =
+var connectString = 
 	'postgres://pgadmin:UrdodON9zu83BvtI6L@localhost:5432/postgres'; //version for server
 	//'postgres://pgadmin:UrdodON9zu83BvtI6L@185.22.64.26:5432/postgres'; //local test on home by connect to dev-server
 	//'postgres://postgres:qwe@localhost:5432/postgres'; //local test on home-computer Kuanysh
 	//'postgres://postgres:asd@localhost:5432/postgres'; //local test on home-computer Ivan
-
+	
 var db = pgp(connectString);
 
 
@@ -66,3 +66,4 @@ module.exports = {
 	//getUser: getUser,
 	db: db
 }
+
