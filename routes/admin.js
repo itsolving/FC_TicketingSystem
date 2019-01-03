@@ -167,74 +167,7 @@ router.get('/event/:id', function(req, res, next) {
 	var stadiumList = {};
 
 	dbUtils.Event.getById(nID, (rowEventData, qres) => {
-
-	/*var rowEventData = {};
-	const client = new Client(conOptions);
-	client.connect();
-	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
-				'replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
-				'replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
-				'sd."Name" as "Stadium", s."Name" as "StatusName", '+
-				'ev."ShowOnline", ev."ShowCasher", ev."ShowAPI" ' +
-				'FROM public."tEvent" ev '+
-				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
-				'where ev."IDStatus" = 1  and ev."ID" = '+nID;
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-					rowEventData = qres.rows;
-				}
-				else {
-					rowEventData = qres.rows;
-				}
-			}
-		}
-		client.end();*/
-
-		
-		const clientStadiums = new Client(conOptions);
-		clientStadiums.connect();
-		var sSQLStadiums = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
-		console.log(sSQLStadiums);
-		clientStadiums.query(sSQLStadiums, (qerrStadium, qresStadium) => {
-			if (qerrStadium) {
-				console.log("qerrStadium:");
-				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
-			}
-			else {
-				//console.log(qerrStadium ? qerrStadium.stack : qresStadium);
-				
-				if (typeof qresStadium.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresStadium.rowCount == 0) {
-						console.log('res.rowCount='+qresStadium.rowCount);
-						stadiumList = qresStadium.rows;
-					}
-					else {
-						stadiumList = qresStadium.rows;
-					}
-				}
-			}
-			clientStadiums.end();
-			
-			var sectorList = {};
-			const clientSectors = new Client(conOptions);
-			clientSectors.connect();
+		dbUtils.Stadium.getNameID((stadiumList) => {
 			var nIDStadiumEvent = 0;
 			if (typeof qres.rowCount !== 'undefined') {
 				if (qres.rowCount > 0) {
@@ -243,35 +176,7 @@ router.get('/event/:id', function(req, res, next) {
 					}
 				}
 			}
-			var sSQLSectors = 'SELECT distinct s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
-							+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
-			console.log(sSQLSectors);
-			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
-				if (qerrSectors) {
-					console.log("qerrSectors:");
-					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
-				}
-				else {
-					//console.log(qerrSectors ? qerrSectors.stack : qresSectors);
-					
-					if (typeof qresSectors.rowCount === 'undefined') {
-						console.log('sectorList res.rowCount not found');
-					}
-					else {
-						if (qresSectors.rowCount == 0) {
-							console.log('sectorList res.rowCount='+qresSectors.rowCount);
-							sectorList = qresSectors.rows;
-						}
-						else {
-							sectorList = qresSectors.rows;
-						}
-					}
-				}
-				clientSectors.end();
-				
-				var rowList = {};
-				const clientRows = new Client(conOptions);
-				clientRows.connect();
+			dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
 				var nIDStadiumEvent = 0;
 				if (typeof qres.rowCount === 'undefined') {
 					if (qres.rowCount > 0) {
@@ -284,31 +189,7 @@ router.get('/event/:id', function(req, res, next) {
 					}
 				}
 				else {nIDStadiumEvent = 0;}
-				var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
-				console.log(sSQLRows);
-				clientRows.query(sSQLRows, (qerrRow, qresRows) => {
-					if (qerrRow) {
-						console.log("qerrRow:");
-						console.log(qerrRow ? qerrRow.stack : qresRows);
-					}
-					else {
-						//console.log(qerrRow ? qerrRow.stack : qresRows);
-						
-						if (typeof qresRows.rowCount === 'undefined') {
-							console.log('rowList res.rowCount not found');
-						}
-						else {
-							if (qresRows.rowCount == 0) {
-								console.log('rowList res.rowCount='+qresRows.rowCount);
-								rowList = qresRows.rows;
-							}
-							else {
-								rowList = qresRows.rows;
-							}
-						}
-					}
-					clientRows.end();
-					
+				dbUtils.Seat.getByStadiumID(nIDStadiumEvent, (rowList) => {
 					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
 				});
 			});
@@ -595,56 +476,20 @@ router.post('/user/:id', function(req, res, next) {
 		res.send('req.body is null');
 		return;
 	}
+
+	let userData = {
+		nID: 			req.params.id,
+		sPostOperation: req.body.postOperation,
+		sLogin: 		req.body.userLogin,
+		nIDRole: 		req.body.roleID,
+		bIsLock: 		req.body.userIsLock,
+		sEmail: 		req.body.userEmail
+	};
 	
-	var nID = req.params.id;
-	var sPostOperation = req.body.postOperation;
-	var sLogin = req.body.userLogin;
-	//var sPwd = req.body.userPwd;
-	var nIDRole = req.body.roleID;
-	var bIsLock = req.body.userIsLock;
-	var sEmail = req.body.userEmail;
-	
-	//var hashedPassword = passwordHash.generate(sPwd);	
-	/*if (passwordHash.verify(req.body.txPassword, qres.rows[0].Pwd)) {
-		console.log('qres.rows[0].Login='+qres.rows[0].Login);
-		sAdminLogin = qres.rows[0].Login;
-		errMsg = "";
-	}
-	else {
-		console.log('wrong password');
-		errMsg = "Ошибка: неправильный пароль администратора";
-	}*/
-	
-	const client = new Client(conOptions);
-	client.connect();
-	//res.send('функция находится в разработке. Скоро будет готова');
-	var sSQL = "";
-	if (sPostOperation == "del") {
-		//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
-		sSQL = 'update public."tUser" set "IDStatus"=6 '+
-				'where "ID" = '+nID;
-	} else {
-		sSQL = 'update public."tUser" set "Login"=\''+sLogin+'\', '+
-				'"IDRole"='+nIDRole+', "isLock"='+bIsLock+', "Email" = \''+sEmail+'\' '+
-				'where "ID" = '+nID;
-	}
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		var sResMsg = "";
-		if (sPostOperation == "del") {
-			sResMsg = "Удалил";
-		}
-		else {
-			sResMsg = "Сохранил";
-		}
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			sResMsg = "Ошибка выполнения: "+qerr;
-		}
-		client.end();
+
+	dbUtils.Users.updateStatus(userData, (sResMsg) => {
 		res.send(sResMsg);
-	});
+	})
 });
 
 

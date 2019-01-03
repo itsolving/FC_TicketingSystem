@@ -78,6 +78,38 @@ class UserUtils{
 			next(qerr, qres);
 		})
 	}
+	updateStatus(userData, next){
+		const client = new this.Client(this.conOptions);
+		client.connect();
+		//res.send('функция находится в разработке. Скоро будет готова');
+		var sSQL = "";
+		if (userData.sPostOperation == "del") {
+			//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
+			sSQL = 'update public."tUser" set "IDStatus"=6 '+
+					'where "ID" = '+userData.nID;
+		} else {
+			sSQL = 'update public."tUser" set "Login"=\''+userData.sLogin+'\', '+
+					'"IDRole"='+userData.nIDRole+', "isLock"='+userData.bIsLock+', "Email" = \''+userData.sEmail+'\' '+
+					'where "ID" = '+userData.nID;
+		}
+		console.log(sSQL);
+		client.query(sSQL, (qerr, qres) => {
+			var sResMsg = "";
+			if (userData.sPostOperation == "del") {
+				sResMsg = "Удалил";
+			}
+			else {
+				sResMsg = "Сохранил";
+			}
+			if (qerr) {
+				console.log("qerr:");
+				console.log(qerr ? qerr.stack : qres);
+				sResMsg = "Ошибка выполнения: "+qerr;
+			}
+			client.end();
+			next(sResMsg);
+		});
+	}
 }
 
 module.exports = UserUtils;
