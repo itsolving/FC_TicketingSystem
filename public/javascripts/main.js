@@ -72,7 +72,7 @@ app.getTickets = function(id){
           var $secInfo = data.TicketData[0].row_to_json;
           console.log($secInfo);
           $.fancybox.open({
-            src: '/public/images/sectors/' + _self.data('tribune') + '.svg',
+            src: './images/sectors/' + _self.data('tribune') + '.svg',
             type: 'ajax'
           });
         }else{
