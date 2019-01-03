@@ -1,0 +1,1243 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="main-svg">
+    <g id="stadiumSVG">
+        <g data-tribune="NEbottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2155.48 1602.43l-113.26-48.17-81.66 81.66 48.19 113.24z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2102.65 1639.44l37.65-37.65"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2008.12 1733.97l33.82-33.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2049.85 1692.25l45.3-45.31"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2097.41 1634.2l30-30" />
+                <path class="ln" stroke="#BCC8CE"  d="M2008.8 1722.81l30.01-30.01"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2044.6 1687.01l45.31-45.31" />
+                <path class="ln" stroke="#BCC8CE"  d="M2092.17 1628.96l26.18-26.19" />
+                <path class="ln" stroke="#BCC8CE"  d="M2007.38 1713.74l26.18-26.18"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2039.36 1681.76l45.31-45.31" />
+                <path class="ln" stroke="#BCC8CE"  d="M2086.92 1623.72l26.19-26.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2002.14 1708.5l26.18-26.18"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2081.68 1618.47l22.37-22.36M2076.44 1613.23l22.36-22.36"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2000.71 1699.44l22.37-22.36M1995.47 1694.2l22.37-22.37"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2071.2 1607.99l18.54-18.55"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1994.02 1685.17l18.57-18.58"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2065.95 1602.75l14.73-14.73M2060.71 1597.5l14.72-14.72"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2055.47 1592.26l10.9-10.9"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2050.23 1587.02l7.08-7.09M2044.98 1581.78l7.09-7.09M2039.74 1576.53l7.09-7.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1992.63 1676.07l14.72-14.72M1987.39 1670.83l14.72-14.72"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1985.96 1661.77l10.91-10.91"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1984.54 1652.7l7.08-7.08M1979.3 1647.46l7.08-7.08M1974.05 1642.22l7.09-7.08"/>
+            </g>
+            <g>
+                <text transform="rotate(-45.001 2992.51 -1636.758)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">N E</tspan><tspan x="-3.66" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-1.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="9.82" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.94" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="NEtop">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2013.69 1761.47l20.49 54.82 188.44-188.44-54.82-20.48z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2156.89 1674.48l45.31-45.31" />
+                <path class="ln" stroke="#BCC8CE"  d="M2035.49 1795.89l45.38-45.38"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2036.18 1784.71l41.48-41.48"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2149.93 1670.96l41.48-41.48" />
+                <path class="ln" stroke="#BCC8CE"  d="M2086.66 1744.71l64.45-64.45" />
+                <path class="ln" stroke="#BCC8CE"  d="M2087.35 1733.54l52.97-52.97" />
+                <path class="ln" stroke="#BCC8CE"  d="M2036.49 1773.92l41.48-41.48"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2138.78 1671.63l41.48-41.48" />
+                <path class="ln" stroke="#BCC8CE"  d="M2083.83 1726.57l49.14-49.13" />
+                <path class="ln" stroke="#BCC8CE"  d="M2033.42 1766.5l37.65-37.65"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2135.63 1664.3l37.65-37.66" />
+                <path class="ln" stroke="#BCC8CE"  d="M2076.87 1723.05l52.96-52.96" />
+            </g>
+            <g>
+                <text transform="rotate(-45.001 3112.909 -1686.626)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">N E</tspan><tspan x="-5.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-3.4" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="1.68" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="6.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.16" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="NWtop">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2167.38 587.83l54.81-20.48-188.44-188.45-20.48 54.83z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2196.58 560.84l-156.33-156.33" />
+                <path class="ln" stroke="#BCC8CE"  d="M2181.59 556.33L2044.4 419.14M2176.34 561.57l-137.18-137.18" />
+                <path class="ln" stroke="#BCC8CE"  d="M2167.27 562.98l-129.53-129.53" />
+            </g>
+            <g>
+                <text transform="rotate(45.001 467.403 2783.444)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">N W</tspan><tspan x="-4.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-1.85" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="3.23" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="8.07" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="17.71" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="NWbottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2008.73 445.65l-48.17 113.26 81.66 81.66 113.24-48.19z"/>
+            <text transform="rotate(45.001 347.982 2733.993)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">N W</tspan><tspan x="-2.11" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x=".37" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="5.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="11.37" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="15.49" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+            </text>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2129.91 585.46L2015.65 471.2" />
+                <path class="ln" stroke="#BCC8CE"  d="M2120.81 586.85l-106.56-106.56" />
+                <path class="ln" stroke="#BCC8CE"  d="M2113.82 590.35l-102.73-102.73" />
+                <path class="ln" stroke="#BCC8CE"  d="M2035.85 522.87l-26.18-26.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2030.61 528.11l-22.36-22.37M2025.37 533.35L2003 510.99"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2020.13 538.59l-18.55-18.54"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2014.88 543.84l-14.72-14.73"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2009.64 549.08l-10.9-10.91"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2108.52 595.54l-30-30.01"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2099.46 596.96l-26.18-26.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2090.4 598.38l-22.37-22.36"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2085.16 603.62l-22.37-22.36"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2076.09 605.05l-18.54-18.55"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2070.85 610.29l-18.54-18.55"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2004.4 554.32l-10.91-10.9M1999.16 559.56l-10.91-10.9"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1993.91 564.81l-7.08-7.09M1988.67 570.05l-7.08-7.09"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2043.66 614.56l-7.08-7.09M2038.42 619.8l-7.08-7.09"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2052.73 613.13l-10.91-10.9"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2061.79 611.71l-14.73-14.72"/>
+            </g>
+        </g>
+        <g data-tribune="E1bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M439.68 1846.51l64.92-208h75.52v208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M518.3 1649.84h47.83M518.3 1657.25h47.83M518.3 1664.66h47.83M518.3 1672.08h47.83"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M512.88 1679.49h53.25"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M507.47 1686.91h58.66M507.47 1694.32h58.66M507.47 1701.73h58.66"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M502.06 1709.15h64.07M502.06 1716.56h64.07M502.06 1723.98h64.07"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M496.64 1731.39h69.49M496.64 1738.8h69.49"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M491.23 1746.22h74.9M491.23 1753.63h74.9M491.23 1761.05h74.9"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M485.81 1768.46h80.32M485.81 1775.87h80.32"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M485.84 1783.29h69.49"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M480.42 1790.7h74.91"/>
+                <path class="ln" stroke="#BCC8CE"  d="M512.9 1798.12h42.43M512.9 1805.53h42.43M512.9 1812.94h42.43"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M512.88 1820.36h53.25M512.88 1827.77h53.25M512.88 1835.19h53.25"/>
+            </g>
+            <g>
+                <text transform="translate(525.844 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 1</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E1top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M504.79 1969l75.33 32v-146.5h-75.33z"/>
+            <g>
+                <path  class="ln" stroke="#BCC8CE"  d="M515.78 1865.84h53.25M515.78 1873.25h53.25M515.78 1880.66h53.25M515.78 1888.08h53.25M515.78 1895.49h53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M515.78 1902.91h42.43M515.78 1910.32h42.43M515.78 1917.73h42.43M515.78 1925.15h42.43M515.78 1932.56h42.43"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M515.78 1939.98h53.25M515.78 1947.39h53.25M515.78 1954.8h53.25M515.78 1962.22h53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M537.43 1969.63h31.63"/>
+                <path class="ln" stroke="#BCC8CE"  d="M553.68 1977.05h15.42"/>
+            </g>
+            <g>
+                <text transform="translate(531.902 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 1</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E2top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M765.63 2068l-167.88-61v-152.5h167.88z"/>
+            <g>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 1865.84H611.75M751.63 1873.25H611.75M751.63 1880.66H611.75M751.63 1888.08H611.75M751.63 1895.49H611.75"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M740.8 1902.91H622.58M740.8 1910.32H622.58M740.8 1917.73H622.58M740.8 1925.15H622.58M740.8 1932.56H622.58"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 1939.98H611.75M751.63 1947.39H611.75M751.63 1954.8H611.75M751.63 1962.22H611.75M751.63 1969.63H611.75M751.63 1977.05H611.75M751.63 1984.46H611.75M751.63 1991.88H611.75"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 1999.29H628"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 2006.7H644.24"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 2014.12h-85.74"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M751.63 2021.53h-64.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M751.63 2028.94h-47.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M751.63 2036.36H720"/>
+            </g>
+            <g>
+                <text transform="translate(676.135 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 2</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E3top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M783.18 2072v-217.5h162.45V2106z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 1865.84H794.47M934.34 1873.25H794.47M934.34 1880.66H794.47M934.34 1888.08H794.47M934.34 1895.49H794.47"/>
+                <path class="ln" stroke="#BCC8CE"  d="M923.51 1902.91H805.3M923.51 1910.32H805.3M923.51 1917.73H805.3M923.51 1925.15H805.3M923.51 1932.56H805.3"/>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 1939.98H794.47M934.34 1947.39H794.47M934.34 1954.8H794.47M934.34 1962.22H794.47M934.34 1969.63H794.47M934.34 1977.05H794.47M934.34 1984.46H794.47M934.34 1991.88H794.47M934.34 1999.29H794.47M934.34 2006.7H794.47M934.34 2014.12H794.47M934.34 2021.53H794.47M934.34 2028.94H794.47M934.34 2036.36H794.47M934.34 2043.77H794.47M934.34 2051.19H794.47"/>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 2058.6H805.3"/>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 2066.01H826.95"/>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 2073.43h-69.49"/>
+                <path class="ln" stroke="#BCC8CE"  d="M934.34 2080.84h-31.63"/>
+            </g>
+            <g>
+                <text transform="translate(858.852 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 3</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E4top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M962.94 1854.5h162.45v252H962.94z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 1865.84H974.23M1114.1 1873.25H974.23M1114.1 1880.66H974.23M1114.1 1888.08H974.23M1114.1 1895.49H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 1902.91H985.06M1114.1 1910.32H985.06M1114.1 1917.73H985.06M1114.1 1925.15H985.06M1114.1 1932.56H985.06"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 1939.98H974.23M1114.1 1947.39H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1092.44 1954.8H974.23M1092.44 1962.22H974.23M1092.44 1969.63H974.23M1092.44 1977.05H974.23M1092.44 1984.46H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 1991.88H974.23M1114.1 1999.29H974.23M1114.1 2006.7H974.23M1114.1 2014.12H974.23M1114.1 2021.53H974.23M1114.1 2028.94H974.23M1114.1 2036.36H974.23M1114.1 2043.77H974.23M1114.1 2051.19H974.23M1114.1 2058.6H974.23M1114.1 2066.01H974.23M1114.1 2073.43H974.23M1114.1 2080.84H974.23M1114.1 2088.26H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 2095.67h-107.39"/>
+            </g>
+            <g>
+                <text transform="translate(1038.61 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 4</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E5top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1142.69 1854.5h162.45v252h-162.45z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1153.98 1865.84h139.88M1153.98 1873.25h139.88M1153.98 1880.66h139.88M1153.98 1888.08h139.88M1153.98 1895.49h139.88M1153.98 1902.91h139.88M1153.98 1910.32h139.88M1153.98 1917.73h139.88M1153.98 1925.15h139.88M1153.98 1932.56h139.88M1153.98 1939.98h139.88M1153.98 1947.39h139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1164.8 1954.8h118.24M1164.81 1962.22h118.22M1164.81 1969.63h118.22M1164.81 1977.05h118.22M1164.81 1984.46h118.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1153.98 1991.88h139.88M1153.98 1999.29h139.88M1153.98 2006.7h139.88M1153.98 2014.12h139.88M1153.98 2021.53h139.88M1153.98 2028.94h139.88M1153.98 2036.36h139.88M1153.98 2043.77h139.88M1153.98 2051.19h139.88M1153.98 2058.6h139.88M1153.98 2066.01h139.88M1153.98 2073.43h139.88M1153.98 2080.84h139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1153.98 2088.26h47.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1153.98 2095.67h53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1240.61 2088.26h53.25M1240.61 2095.67h53.25"/>
+            </g>
+            <g>
+                <text transform="translate(1218.365 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 5</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E6top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1322.45 1854.5h162.45v252h-162.45z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1333.74 1865.84h139.87M1333.74 1873.25h139.87M1333.74 1880.66h139.87M1333.74 1888.08h139.87M1333.74 1895.49h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1333.74 1902.91h129.04M1333.74 1910.32h129.04M1333.74 1917.73h129.04M1333.74 1925.15h129.04M1333.74 1932.56h129.04"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1333.74 1939.98h139.87M1333.74 1947.39h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1344.57 1954.8h129.04M1344.57 1962.22h129.04M1344.57 1969.63h129.04M1344.57 1977.05h129.04M1344.57 1984.46h129.04"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1333.74 1991.88h139.87M1333.74 1999.29h139.87M1333.74 2006.7h139.87M1333.74 2014.12h139.87M1333.74 2021.53h139.87M1333.74 2028.94h139.87M1333.74 2036.36h139.87M1333.74 2043.77h139.87M1333.74 2051.19h139.87M1333.74 2058.6h139.87M1333.74 2066.01h139.87M1333.74 2073.43h139.87M1333.74 2080.84h139.87M1333.74 2088.26h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1333.74 2095.67h107.39"/>
+            </g>
+            <g>
+                <text transform="translate(1398.123 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 6</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E7top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1502.21 1854.5l162.45.01V2072l-162.45 34z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 1865.84h139.87M1513.5 1873.25h139.87M1513.5 1880.67h139.87M1513.5 1888.08h139.87M1513.5 1895.5h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1524.33 1902.91h118.21M1524.33 1910.32h118.21M1524.33 1917.74h118.21M1524.33 1925.15h118.21M1524.33 1932.57h118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 1939.98h139.87M1513.5 1947.39h139.87M1513.5 1954.81h139.87M1513.5 1962.22h139.87M1513.5 1969.64h139.87M1513.5 1977.05h139.87M1513.5 1984.46h139.87M1513.5 1991.88h139.87M1513.5 1999.29h139.87M1513.5 2006.71h139.87M1513.5 2014.12h139.87M1513.5 2021.53h139.87M1513.5 2028.95h139.87M1513.5 2036.36h139.87M1513.5 2043.78h139.87M1513.5 2051.19h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 2058.6h129.04"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 2066.02h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 2073.43h69.49"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1513.5 2080.85h31.63"/>
+            </g>
+            <g>
+                <text transform="translate(1577.879 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 7</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E8top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1682.05 1854.5h161.87V2007l-161.87 61z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 1865.84h139.87M1693.05 1873.25h139.87M1693.05 1880.66h139.87M1693.05 1888.08h139.87M1693.05 1895.49h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1703.88 1902.91h118.21M1703.88 1910.32h118.21M1703.88 1917.73h118.21M1703.88 1925.15h118.21M1703.88 1932.56h118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 1939.98h139.87M1693.05 1947.39h139.87M1693.05 1954.8h139.87M1693.05 1962.22h139.87M1693.05 1969.63h139.87M1693.05 1977.05h139.87M1693.05 1984.46h139.87M1693.05 1991.88h139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 1999.29h123.63"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 2006.7h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 2014.12h85.73"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 2021.53h64.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 2028.94h47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1693.05 2036.36h31.63"/>
+            </g>
+            <g>
+                <text transform="translate(1757.43 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 8</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E9top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1861.21 1854.5h78.77V1969l-78.77 32z"/>
+            <g>
+                <path  class="ln" stroke="#BCC8CE"  d="M1925.96 1865.84h-53.25M1925.96 1873.25h-53.25M1925.96 1880.66h-53.25M1925.96 1888.08h-53.25M1925.96 1895.49h-53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1925.96 1902.91h-42.43M1925.96 1910.32h-42.43M1925.96 1917.73h-42.43M1925.96 1925.15h-42.43M1925.96 1932.56h-42.43"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1925.96 1939.98h-53.25M1925.96 1947.39h-53.25M1925.96 1954.8h-53.25M1925.96 1962.22h-53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1904.34 1969.63h-31.63"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1888.14 1977.05h-15.43"/>
+            </g>
+            <g>
+                <text transform="translate(1895.037 1912.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 9</tspan><tspan x="-6.73" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".83" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.31" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E2bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M765.628 1638.509v208h-167.87v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M617.16 1649.84h129.05M617.16 1657.25h129.05M617.16 1664.66h129.05M617.16 1672.08h129.05M617.16 1679.49h129.05M617.16 1686.91h129.05M617.16 1694.32h129.05M617.16 1701.73h129.05M617.16 1709.15h129.05M617.16 1716.56h129.05M617.16 1723.98h129.05M617.16 1731.39h129.05M617.16 1738.8h129.05M617.16 1746.22h129.05M617.16 1753.63h129.05M617.16 1761.05h129.05M617.16 1768.46h129.05M617.16 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M627.99 1783.29h107.39M627.99 1790.7h107.39M627.99 1798.12h107.39M627.99 1805.53h107.39M627.99 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M617.16 1820.36h129.05M617.16 1827.77h129.05M617.16 1835.19h129.05M617.16 1649.84h129.05M617.16 1657.25h129.05M617.16 1664.66h129.05M617.16 1672.08h129.05M617.16 1679.49h129.05M617.16 1686.91h129.05M617.16 1694.32h129.05M617.16 1701.73h129.05M617.16 1709.15h129.05M617.16 1716.56h129.05M617.16 1723.98h129.05M617.16 1731.39h129.05M617.16 1738.8h129.05M617.16 1746.22h129.05M617.16 1753.63h129.05M617.16 1761.05h129.05M617.16 1768.46h129.05M617.16 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M627.99 1783.29h107.39M627.99 1790.7h107.39M627.99 1798.12h107.39M627.99 1805.53h107.39M627.99 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M617.16 1820.36h129.05M617.16 1827.77h129.05M617.16 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(676.137 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 2</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E3bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M945.635 1638.511v208h-162.45v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M832.37 1649.84h96.56M832.37 1657.25h96.56"/>
+                <path class="ln" stroke="#BCC8CE"  d="M799.88 1664.66h129.05M799.88 1672.08h129.05M799.88 1679.49h129.05M799.88 1686.91h129.05M799.88 1694.32h129.05M799.88 1701.73h129.05M799.88 1709.15h129.05M799.88 1716.56h129.05M799.88 1723.98h129.05M799.88 1731.39h129.05M799.88 1738.8h129.05M799.88 1746.22h129.05M799.88 1753.63h129.05M799.88 1761.05h129.05M799.88 1768.46h129.05M799.88 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M810.71 1783.29H918.1M810.71 1790.7H918.1M810.71 1798.12H918.1M810.71 1805.53H918.1M810.71 1812.94H918.1"/>
+                <path class="ln" stroke="#BCC8CE"  d="M799.88 1820.36h129.05M799.88 1827.77h129.05M799.88 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(858.854 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 3</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E4bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1125.392 1638.505v208h-162.45v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M979.64 1649.84h129.05M979.64 1657.25h129.05M979.64 1664.66h129.05M979.64 1672.08h129.05M979.64 1679.49h129.05M979.64 1686.91h129.05M979.64 1694.32h129.05M979.64 1701.73h129.05M979.64 1709.15h129.05M979.64 1716.56h129.05M979.64 1723.98h129.05M979.64 1731.39h129.05M979.64 1738.8h129.05M979.64 1746.22h129.05M979.64 1753.63h129.05M979.64 1761.05h129.05M979.64 1768.46h129.05M979.64 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M990.47 1783.29h107.39M990.47 1790.7h107.39M990.47 1798.12h107.39M990.47 1805.53h107.39M990.47 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M979.64 1820.36h129.05M979.64 1827.77h129.05M979.64 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(1038.61 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 4</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E5bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1305.148 1638.508v208h-162.45v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1159.4 1649.84h129.04M1159.4 1657.25h129.04M1159.4 1664.66h129.04M1159.4 1672.08h129.04M1159.4 1679.49h129.04M1159.4 1686.91h129.04M1159.4 1694.32h129.04M1159.4 1701.73h129.04M1159.4 1709.15h129.04M1159.4 1716.56h129.04M1159.4 1723.98h129.04M1159.4 1731.39h129.04M1159.4 1738.8h129.04M1159.4 1746.22h129.04M1159.4 1753.63h129.04M1159.4 1761.05h129.04M1159.4 1768.46h129.04M1159.4 1775.87h129.04"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1170.23 1783.29h107.38M1170.23 1790.7h107.38M1170.23 1798.12h107.38M1170.23 1805.53h107.38M1170.23 1812.94h107.38"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1159.4 1820.36h129.04"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1159.4 1827.77h47.83M1159.4 1835.19h47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1240.61 1827.77h47.83M1240.61 1835.19h47.83"/>
+            </g>
+            <g>
+                <text transform="translate(1218.365 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 5</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E6bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1484.905 1638.511v208h-162.45v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1339.15 1649.84h129.05M1339.15 1657.25h129.05M1339.15 1664.66h129.05M1339.15 1672.08h129.05M1339.15 1679.49h129.05M1339.15 1686.91h129.05M1339.15 1694.32h129.05M1339.15 1701.73h129.05M1339.15 1709.15h129.05M1339.15 1716.56h129.05M1339.15 1723.98h129.05M1339.15 1731.39h129.05M1339.15 1738.8h129.05M1339.15 1746.22h129.05M1339.15 1753.63h129.05M1339.15 1761.05h129.05M1339.15 1768.46h129.05M1339.15 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1349.98 1783.29h107.39M1349.98 1790.7h107.39M1349.98 1798.12h107.39M1349.98 1805.53h107.39M1349.98 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1339.15 1820.36h129.05M1339.15 1827.77h129.05M1339.15 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(1398.121 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 6</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E7bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1664.662 1638.505v208h-162.45v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1518.91 1649.84h96.56M1518.91 1657.25h96.56"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1518.91 1664.66h129.05M1518.91 1672.08h129.05M1518.91 1679.49h129.05M1518.91 1686.91h129.05M1518.91 1694.32h129.05M1518.91 1701.73h129.05M1518.91 1709.15h129.05M1518.91 1716.56h129.05M1518.91 1723.98h129.05M1518.91 1731.39h129.05M1518.91 1738.8h129.05M1518.91 1746.22h129.05M1518.91 1753.63h129.05M1518.91 1761.05h129.05M1518.91 1768.46h129.05M1518.91 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1529.74 1783.29h107.39M1529.74 1790.7h107.39M1529.74 1798.12h107.39M1529.74 1805.53h107.39M1529.74 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1518.91 1820.36h129.05M1518.91 1827.77h129.05M1518.91 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(1577.879 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 7</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E8bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1843.915 1638.512v208h-161.87v-208z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1698.46 1649.84h129.05M1698.46 1657.25h129.05M1698.46 1664.66h129.05M1698.46 1672.08h129.05M1698.46 1679.49h129.05M1698.46 1686.91h129.05M1698.46 1694.32h129.05M1698.46 1701.73h129.05M1698.46 1709.15h129.05M1698.46 1716.56h129.05M1698.46 1723.98h129.05M1698.46 1731.39h129.05M1698.46 1738.8h129.05M1698.46 1746.22h129.05M1698.46 1753.63h129.05M1698.46 1761.05h129.05M1698.46 1768.46h129.05M1698.46 1775.87h129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1709.29 1783.29h107.39M1709.29 1790.7h107.39M1709.29 1798.12h107.39M1709.29 1805.53h107.39M1709.29 1812.94h107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1698.46 1820.36h129.05M1698.46 1827.77h129.05M1698.46 1835.19h129.05"/>
+            </g>
+            <g>
+                <text transform="translate(1757.434 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 8</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="E9bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1861.21 1845.51v-207h73.61l60.83 207z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1875.2 1649.84h47.83M1875.2 1657.25h47.83M1875.2 1664.66h47.83"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1672.08h53.24M1875.2 1679.49h53.24"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1686.91h58.66M1875.2 1694.32h58.66"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1701.73h64.07M1875.2 1709.15h64.07"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1716.56h69.49M1875.2 1723.98h69.49"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1731.39h74.9M1875.2 1738.8h74.9M1875.2 1746.22h74.9M1875.2 1753.63h74.9M1875.2 1761.05h74.9"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1768.46h80.31M1875.2 1775.87h80.31"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1886.01 1783.29h74.91M1886.01 1790.7h74.91"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1886.01 1798.12h42.43M1886.01 1805.53h42.43M1886.01 1812.94h42.43"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M1875.2 1820.36h53.24M1875.2 1827.77h53.24M1875.2 1835.19h53.24"/>
+            </g>
+            <g>
+                <text transform="translate(1909.207 1721.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">E 9</tspan><tspan x="-4.51" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.03" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.97" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13.09" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N7">
+            <g>
+                <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2298.02 577.01l-237.98 81.3H2327z"/>
+            </g>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2294.01 653.01v-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2286.59 653.01v-58.66M2279.18 653.01v-58.66" />
+                <path class="ln" stroke="#BCC8CE"  d="M2271.76 653.01v-53.24M2264.35 653.01v-53.24" />
+                <path class="ln" stroke="#BCC8CE"  d="M2256.94 653.01v-47.83M2249.52 653.01v-47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2242.11 653.01v-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2234.69 653.01v-31.68"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2227.28 653.01v-26.22M2219.87 653.01v-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2212.45 653.01v-20.85M2205.04 653.01v-20.85"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2197.62 653.01v-26.22M2190.21 653.01v-26.22M2182.8 653.01v-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2175.38 653.01v-20.82M2167.97 653.01v-20.82M2160.55 653.01v-20.82M2153.14 653.01v-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2145.73 653.01V643M2138.31 653.01V643M2130.9 653.01V643"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1431.287 -790.569)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 7
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N6">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2059.08 830.88V667.3H2328l22 163.58z"/>
+            <g>
+                <path  class="ln" stroke="#BCC8CE"  d="M2070.39 818.86V678.99M2077.8 818.86V678.99M2085.22 818.86V678.99M2092.63 818.86V678.99M2100.05 818.86V678.99M2107.46 818.86V678.99M2114.87 818.86V678.99M2122.29 818.86V678.99M2129.7 818.86V678.99M2137.11 818.86V678.99M2144.53 818.86V678.99M2151.94 818.86V678.99M2159.36 818.86V678.99M2166.77 818.86V678.99M2174.19 818.86V678.99M2181.6 818.86V678.99M2189.01 818.86V678.99M2196.43 818.86V678.99"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M2203.84 808.02V689.81M2211.26 808.02V689.81M2218.67 808.02V689.81M2226.08 808.02V689.81M2233.5 808.02V689.81"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M2240.91 818.86V678.99M2248.32 818.86V678.99M2255.74 818.86V678.99M2263.15 818.86V678.99M2270.57 818.86V678.99M2277.98 818.86V678.99M2285.4 818.86V678.99M2292.81 818.86V678.99M2300.22 818.86V678.99M2307.64 818.86V678.99"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M2315.05 818.86V711.47"/>
+                <path  class="ln" stroke="#BCC8CE"  d="M2322.47 818.86v-64.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2329.88 818.86v-31.63"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1488.7 -733.155)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 6
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N5">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2059.08 1003.71V839.87H2351l10 163.84z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2070.39 991.71V851.84M2077.8 991.71V851.84M2085.22 991.71V851.84M2092.63 991.71V851.84M2100.05 991.71V851.84M2107.46 991.71V851.84M2114.87 991.71V851.84M2122.29 991.71V851.84M2129.7 991.71V851.84M2137.11 991.71V851.84M2144.53 991.71V851.84M2151.94 991.71V851.84M2159.36 991.71V851.84M2166.77 991.71V851.84M2174.19 991.71V851.84M2181.6 991.71V851.84M2189.01 991.71V851.84M2196.43 991.71V851.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2203.84 980.88V862.66M2211.26 980.88V862.66M2218.67 980.88V862.66M2226.08 980.88V862.66M2233.5 980.88V862.66"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2240.91 991.71V851.84M2248.32 991.71V851.84M2255.74 991.71V851.84M2263.15 991.71V851.84M2270.57 991.71V851.84M2277.98 991.71V851.84M2285.4 991.71V851.84M2292.81 991.71V851.84M2300.22 991.71V851.84M2307.64 991.71V851.84M2315.05 991.71V851.84M2322.47 991.71V851.84M2329.88 991.71V851.84M2337.29 991.71V851.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2344.71 991.71v-85.73"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1575.052 -646.804)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 5
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N4">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2059.08 1012.71h305.46v163.89h-305.46z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2070.39 1167.3v-139.87M2077.8 1167.3v-139.87M2085.22 1167.3v-139.87M2092.63 1167.3v-139.87M2100.05 1167.3v-139.87M2107.46 1167.3v-139.87M2114.87 1167.3v-139.87M2122.29 1167.3v-139.87M2129.7 1167.3v-139.87M2137.11 1167.3v-139.87M2144.53 1167.3v-139.87M2151.94 1167.3v-139.87M2159.36 1167.3v-139.87M2166.77 1167.3v-139.87M2174.19 1167.3v-139.87M2181.6 1167.3v-139.87M2189.01 1167.3v-139.87M2196.43 1167.3v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2203.84 1156.46v-118.21M2211.26 1156.46v-118.21M2218.67 1156.46v-118.21M2226.08 1156.46v-118.21M2233.5 1156.46v-118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2240.91 1167.3v-139.87M2248.32 1167.3v-139.87M2255.74 1167.3v-139.87M2263.15 1167.3v-139.87M2270.57 1167.3v-139.87M2277.98 1167.3v-139.87M2285.4 1167.3v-139.87M2292.81 1167.3v-139.87M2300.22 1167.3v-139.87M2307.64 1167.3v-139.87M2315.05 1167.3v-139.87M2322.47 1167.3v-139.87M2329.88 1167.3v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2337.29 1080.68v-58.66M2344.71 1080.68v-58.66"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2344.71 1167.3v-47.83M2337.29 1167.3v-47.83"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1661.482 -560.374)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 4
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N3">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2059.08 1349.44v-163.85H2361l-10 163.85z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2070.39 1337.46v-139.87M2077.8 1337.46v-139.87M2085.22 1337.46v-139.87M2092.63 1337.46v-139.87M2100.05 1337.46v-139.87M2107.46 1337.46v-139.87M2114.87 1337.46v-139.87M2122.29 1337.46v-139.87M2129.7 1337.46v-139.87M2137.11 1337.46v-139.87M2144.53 1337.46v-139.87M2151.94 1337.46v-139.87M2159.36 1337.46v-139.87M2166.77 1337.46v-139.87M2174.19 1337.46v-139.87M2181.6 1337.46v-139.87M2189.01 1337.46v-139.87M2196.43 1337.46v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2203.84 1326.63v-118.21M2211.26 1326.63v-118.21M2218.67 1326.63v-118.21M2226.08 1326.63v-118.21M2233.5 1326.63v-118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2240.91 1337.46v-139.87M2248.32 1337.46v-139.87M2255.74 1337.46v-139.87M2263.15 1337.46v-139.87M2270.57 1337.46v-139.87M2277.98 1337.46v-139.87M2285.4 1337.46v-139.87M2292.81 1337.46v-139.87M2300.22 1337.46v-139.87M2307.64 1337.46v-139.87M2315.05 1337.46v-139.87M2322.47 1337.46v-139.87M2329.88 1337.46v-139.87M2337.29 1337.46v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2344.71 1261.66v-64.07"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1747.912 -473.943)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 3
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N2">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2059.08 1522v-163.57H2350L2328 1522z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2077.8 1510.33v-139.87M2070.39 1510.33v-139.87M2085.22 1510.33v-139.87M2092.63 1510.33v-139.87M2100.05 1510.33v-139.87M2107.46 1510.33v-139.87M2114.87 1510.33v-139.87M2122.29 1510.33v-139.87M2129.7 1510.33v-139.87M2137.11 1510.33v-139.87M2144.53 1510.33v-139.87M2151.94 1510.33v-139.87M2159.36 1510.33v-139.87M2166.77 1510.33v-139.87M2174.19 1510.33v-139.87M2181.6 1510.33v-139.87M2189.01 1510.33v-139.87M2196.43 1510.33v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2203.84 1499.5v-118.21M2211.26 1499.5v-118.21M2218.67 1499.5v-118.21M2226.08 1499.5v-118.21M2233.5 1499.5v-118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2240.91 1510.33v-139.87M2248.32 1510.33v-139.87M2255.74 1510.33v-139.87M2263.15 1510.33v-139.87M2270.57 1510.33v-139.87M2277.98 1510.33v-139.87M2285.4 1510.33v-139.87M2292.81 1510.33v-139.87M2300.22 1510.33v-139.87M2307.64 1510.33v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2315.05 1477.85v-107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2322.47 1434.53v-64.07"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2329.88 1402.09v-31.63"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1834.264 -387.592)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 2
+                </text>
+            </g>
+        </g>
+        <g data-tribune="N1">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2298.1 1612.29l-237.98-81.3H2327z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M2296.09 1548.01v-10.02"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2288.67 1569.62v-31.63"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2281.26 1591.24v-53.25M2273.85 1591.24v-53.25M2266.43 1591.24v-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M2259.02 1585.83v-47.84M2251.6 1585.83v-47.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2244.19 1580.43v-42.44M2236.78 1580.43v-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2229.36 1564.22v-26.23M2221.95 1564.22v-26.23M2214.53 1564.22v-26.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2207.12 1558.82v-20.83M2199.71 1558.82v-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2192.29 1564.22v-26.23M2184.88 1564.22v-26.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2177.46 1558.82v-20.83M2170.05 1558.82v-20.83M2162.64 1558.82v-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2155.22 1553.42v-15.43M2147.81 1553.42v-15.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M2140.39 1548.01v-10.02M2132.98 1548.01v-10.02M2125.57 1548.01v-10.02"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 1890.148 -331.708)" font-family="'OpenSans-Semibold'" font-size="8">
+                    N 1
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S6">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M104 1522l-18-163.57h295.46V1522z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M370.15 1510.34v-139.88M362.73 1510.34v-139.88M355.32 1510.34v-139.88M347.91 1510.34v-139.88M340.49 1510.34v-139.88M333.08 1510.34v-139.88M325.66 1510.34v-139.88M318.25 1510.34v-139.88M310.84 1510.34v-139.88M303.42 1510.34v-139.88M296.01 1510.34v-139.88M288.59 1510.34v-139.88M281.18 1510.34v-139.88M273.77 1510.34v-139.88M266.35 1510.34v-139.88M258.94 1510.34v-139.88M251.52 1510.34v-139.88M244.11 1510.34v-139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M236.7 1499.5v-118.21M229.28 1499.5v-118.21M221.87 1499.5v-118.21M214.45 1499.5v-118.21M207.04 1499.5v-118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M199.63 1510.34v-139.88M192.21 1510.34v-139.88M184.8 1510.34v-139.88M177.38 1510.34v-139.88M169.97 1510.34v-139.88M162.56 1510.34v-139.88M155.14 1510.34v-139.88M147.73 1510.34v-139.88M140.31 1510.34v-139.88M132.9 1510.34v-139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M125.49 1477.84v-107.39" />
+                <path class="ln" stroke="#BCC8CE"  d="M118.07 1434.53v-64.08" />
+                <path class="ln" stroke="#BCC8CE"  d="M110.66 1402.08v-31.63"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 834.797 610.942)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 6
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S7">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M145.51 1611.99l234.98-81H106z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M149.93 1553.27v-15.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M157.35 1580.28v-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M164.76 1596.51v-58.67" />
+                <path class="ln" stroke="#BCC8CE"  d="M172.18 1591.09v-53.25M179.59 1591.09v-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M187 1585.68v-47.84M194.42 1585.68v-47.84"/>
+                <path class="ln" stroke="#BCC8CE"  d="M201.83 1580.28v-42.44M209.25 1580.28v-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M216.66 1564.07v-26.23M224.07 1564.07v-26.23M231.49 1564.07v-26.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M238.9 1558.67v-20.83M246.32 1558.67v-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M253.73 1564.07v-26.23M261.14 1564.07v-26.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M275.97 1558.67v-20.83M268.56 1558.67v-20.83M283.39 1558.67v-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M290.8 1553.27v-15.43M298.21 1553.27v-15.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M305.63 1547.86v-10.02M313.04 1547.86v-10.02M320.46 1547.86v-10.02"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 891.216 667.36)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 7
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S1">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M142.22 577.01l237.98 81.3H106z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M144.23 652.01V642"/>
+                <path class="ln" stroke="#BCC8CE"  d="M151.65 652.01v-31.62"/>
+                <path class="ln" stroke="#BCC8CE"  d="M159.06 652.01v-53.24M166.47 652.01v-53.24M173.89 652.01v-53.24" />
+                <path class="ln" stroke="#BCC8CE"  d="M181.3 652.01v-47.83M188.72 652.01v-47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M196.13 652.01v-42.43M203.54 652.01v-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M210.96 652.01v-26.22M218.37 652.01v-26.22M225.79 652.01v-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M233.2 652.01v-20.82M240.61 652.01v-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M248.03 652.01v-26.22M255.44 652.01v-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M262.86 652.01v-20.82M270.27 652.01v-20.82M277.68 652.01v-20.82M285.1 652.01v-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M292.51 652.01v-15.42M299.93 652.01v-15.42"/>
+                <path class="ln" stroke="#BCC8CE"  d="M307.34 652.01V642M314.75 652.01V642"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 434.487 210.631)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 1
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S2">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M86 830.88l18-163.58h277.46v163.58z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M370.15 819.03V679.16M362.73 819.03V679.16M355.32 819.03V679.16M347.91 819.03V679.16M340.49 819.03V679.16M333.08 819.03V679.16M325.66 819.03V679.16M318.25 819.03V679.16M310.84 819.03V679.16M303.42 819.03V679.16M296.01 819.03V679.16M288.59 819.03V679.16M281.18 819.03V679.16M273.77 819.03V679.16M266.35 819.03V679.16M258.94 819.03V679.16M251.52 819.03V679.16M244.11 819.03V679.16"/>
+                <path class="ln" stroke="#BCC8CE"  d="M236.7 808.21V690M229.28 808.21V690M221.87 808.21V690M214.45 808.21V690M207.04 808.21V690"/>
+                <path class="ln" stroke="#BCC8CE"  d="M199.63 819.03V679.16M192.21 819.03V679.16M184.8 819.03V679.16M177.38 819.03V679.16M169.97 819.03V679.16M162.56 819.03V679.16M155.14 819.03V679.16M147.73 819.03V679.16M140.31 819.03V679.16M132.9 819.03V679.16"/>
+                <path class="ln" stroke="#BCC8CE"  d="M125.49 819.03V733.3" />
+                <path class="ln" stroke="#BCC8CE"  d="M118.07 819.03v-64.08" />
+                <path class="ln" stroke="#BCC8CE"  d="M110.66 819.03V787.4"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 489.234 265.379)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 2
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S3">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M75.96 1003.71L85 839.87h296.46v163.84z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M370.15 991.73V851.86M362.73 991.73V851.86M355.32 991.73V851.86M347.91 991.73V851.86M340.49 991.73V851.86M333.08 991.73V851.86M325.66 991.73V851.86M318.25 991.73V851.86M310.84 991.73V851.86M303.42 991.73V851.86M296.01 991.73V851.86M288.59 991.73V851.86M281.18 991.73V851.86M273.77 991.73V851.86M266.35 991.73V851.86M258.94 991.73V851.86M251.52 991.73V851.86M244.11 991.73V851.86"/>
+                <path class="ln" stroke="#BCC8CE"  d="M236.7 980.91V862.7M229.28 980.91V862.7M221.87 980.91V862.7M214.45 980.91V862.7M207.04 980.91V862.7"/>
+                <path class="ln" stroke="#BCC8CE"  d="M199.63 991.73V851.86M192.21 991.73V851.86M184.8 991.73V851.86M177.38 991.73V851.86M169.97 991.73V851.86M162.56 991.73V851.86M155.14 991.73V851.86M147.73 991.73V851.86M140.31 991.73V851.86M132.9 991.73V851.86M125.49 991.73V851.86M118.07 991.73V851.86M110.66 991.73V851.86M103.24 991.73V851.86"/>
+                <path class="ln" stroke="#BCC8CE"  d="M95.83 991.73v-64.08"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 575.585 351.73)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 3
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S4">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M76 1012.71h305.46v163.89H76z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M370.15 1164.59v-139.87M362.73 1164.59v-139.87M355.32 1164.59v-139.87M347.91 1164.59v-139.87M340.49 1164.59v-139.87M333.08 1164.59v-139.87M325.66 1164.59v-139.87M318.25 1164.59v-139.87M310.84 1164.59v-139.87M303.42 1164.59v-139.87M296.01 1164.59v-139.87M288.59 1164.59v-139.87M281.18 1164.59v-139.87M273.77 1164.59v-139.87M266.35 1164.59v-139.87M258.94 1164.59v-139.87M251.52 1164.59v-139.87M244.11 1164.59v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M236.7 1153.77v-118.21M229.28 1153.77v-118.21M221.87 1153.77v-118.21M214.45 1153.77v-118.21M207.04 1153.77v-118.21"/>
+                <path class="ln" stroke="#BCC8CE"  d="M199.63 1164.59v-139.87M192.21 1164.59v-139.87M184.8 1164.59v-139.87M177.38 1164.59v-139.87M169.97 1164.59v-139.87M162.56 1164.59v-139.87M155.14 1164.59v-139.87M147.73 1164.59v-139.87M140.31 1164.59v-139.87M132.9 1164.59v-139.87M125.49 1164.59v-139.87M118.07 1164.59v-139.87M110.66 1164.59v-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M103.24 1164.59v-53.25M95.83 1164.59v-53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M103.24 1077.97v-53.25M95.83 1077.97v-53.25" />
+            </g>
+            <g>
+                <text transform="rotate(-90 662.016 438.16)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 4
+                </text>
+            </g>
+        </g>
+        <g data-tribune="S5">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M85 1349.44l-9.04-163.85h305.5v163.85z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M370.15 1337.47v-139.88M362.73 1337.47v-139.88M355.32 1337.47v-139.88M347.91 1337.47v-139.88M340.49 1337.47v-139.88M333.08 1337.47v-139.88M325.66 1337.47v-139.88M318.25 1337.47v-139.88M310.84 1337.47v-139.88M303.42 1337.47v-139.88M296.01 1337.47v-139.88M288.59 1337.47v-139.88M281.18 1337.47v-139.88M273.77 1337.47v-139.88M266.35 1337.47v-139.88M258.94 1337.47v-139.88M251.52 1337.47v-139.88M244.11 1337.47v-139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M236.7 1326.65v-118.22M229.28 1326.65v-118.22M221.87 1326.65v-118.22M214.45 1326.65v-118.22M207.04 1326.65v-118.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M199.63 1337.47v-139.88M192.21 1337.47v-139.88M184.8 1337.47v-139.88M177.38 1337.47v-139.88M169.97 1337.47v-139.88M162.56 1337.47v-139.88M155.14 1337.47v-139.88M147.73 1337.47v-139.88M140.31 1337.47v-139.88M132.9 1337.47v-139.88M125.49 1337.47v-139.88M118.07 1337.47v-139.88M110.66 1337.47v-139.88M103.24 1337.47v-139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M95.83 1261.67v-64.08"/>
+            </g>
+            <g>
+                <text transform="rotate(-90 748.446 524.59)" font-family="'OpenSans-Semibold'" font-size="8">
+                    S 5
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W6bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1125.39 483.113v74.52H962.94v-74.52z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1108.59 546.31H979.52M1108.59 538.9H979.52M1108.59 531.49H979.52M1108.59 524.07H979.52M1108.59 516.66H979.52M1108.59 509.24H979.52M1108.59 501.83H979.52M1108.59 494.42H979.52"/>
+            </g>
+            <g>
+                <text transform="translate(1037.059 503.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 6</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W7bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M945.634 483.11v74.52h-162.45v-74.52z"/>
+            <g >
+                <path class="ln" stroke="#BCC8CE"  d="M926.51 546.31h-96.56M926.51 538.9h-96.56"/>
+                <path class="ln" stroke="#BCC8CE"  d="M926.51 531.49H797.47M926.51 524.07H797.47M926.51 516.66H797.47M926.51 509.24H797.47M926.51 501.83H797.47M926.51 494.42H797.47"/>
+            </g>
+            <g>
+                <text transform="translate(857.303 503.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 7</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W5bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1250.07 557.62v-41.06h-52.3v41.06h-55.08v-74.51h162.46v74.51z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 546.31h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 546.31h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 538.9h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 538.9h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 531.49h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 531.49h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 524.07h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 524.07h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 516.66h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 516.66h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 509.24h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 509.24h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1185.62 501.83h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 501.83h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1288.44 494.42H1159.4"/>
+            </g>
+            <g>
+                <text transform="translate(1216.816 503.799)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 5</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W4bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1484.904 483.11v74.52h-162.45v-74.52z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1468.2 546.31h-129.04M1468.2 538.9h-129.04M1468.2 531.49h-129.04M1468.2 524.07h-129.04M1468.2 516.66h-129.04M1468.2 509.24h-129.04M1468.2 501.83h-129.04M1468.2 494.42h-129.04"/>
+            </g>
+            <g>
+                <text transform="translate(1396.57 503.798)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 4</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W2bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1843.923 394.15v163.48h-161.87V394.15z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1827.56 546.31h-129.05M1827.56 538.9h-129.05M1827.56 531.49h-129.05M1827.56 524.07h-129.05M1827.56 516.66h-129.05M1827.56 509.24h-129.05M1827.56 501.83h-129.05M1827.56 494.42h-129.05M1827.56 487h-129.05M1827.56 479.59h-129.05M1827.56 472.17h-129.05M1827.56 464.76h-129.05M1827.56 457.35h-129.05M1827.56 449.93h-129.05M1827.56 442.52h-129.05M1827.56 435.1h-129.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1816.73 427.69h-107.39M1816.73 420.28h-107.39M1816.73 412.86h-107.39M1816.73 405.45h-107.39"/>
+            </g>
+            <g>
+                <text transform="translate(1755.883 503.799)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 2</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W1bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1861.21 557.62V394.1h126.85l-48.37 163.52z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1920.06 546.31h-47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1925.48 538.9h-53.25M1925.48 531.49h-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M1930.89 524.07h-58.66M1930.89 516.66h-58.66" />
+                <path class="ln" stroke="#BCC8CE"  d="M1936.3 509.24h-64.07M1936.3 501.83h-64.07M1936.3 494.42h-64.07" />
+                <path class="ln" stroke="#BCC8CE"  d="M1941.72 487h-69.49M1941.72 479.59h-69.49" />
+                <path class="ln" stroke="#BCC8CE"  d="M1947.13 472.17h-74.9M1947.13 464.76h-74.9M1947.13 457.35h-74.9" />
+                <path class="ln" stroke="#BCC8CE"  d="M1952.55 449.93h-80.32" />
+                <path class="ln" stroke="#BCC8CE"  d="M1957.96 435.1h-85.73" />
+                <path class="ln" stroke="#BCC8CE"  d="M1957.94 427.69h-74.91" />
+                <path class="ln" stroke="#BCC8CE"  d="M1963.35 420.28h-80.32M1963.35 412.86h-80.32M1963.35 405.45h-80.32M1952.55 442.52h-80.32" />
+            </g>
+            <g>
+                <text transform="translate(1897.742 503.798)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 1</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W3bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1664.66 483.113v74.52h-162.45v-74.52z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1615.47 546.31h-96.56M1615.47 538.9h-96.56"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1647.96 531.49h-129.05M1647.96 524.07h-129.05M1647.96 516.66h-129.05M1647.96 509.24h-129.05M1647.96 501.83h-129.05M1647.96 494.42h-129.05"/>
+            </g>
+            <g>
+                <text transform="translate(1576.33 503.798)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 3</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W7soft">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M945.631 370.028v104.1h-162.45v-104.1z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M931.64 462.85H797.18M931.64 455.44H797.18M931.64 448.02H797.18M931.64 440.61H797.18M931.64 433.2H797.18M931.64 425.78H797.18M931.64 418.37H797.18M931.64 410.95H797.18"/>
+                <path class="ln" stroke="#BCC8CE"  d="M920.81 403.54h-112.8M920.81 396.13h-112.8M920.81 388.71h-112.8M920.81 381.3h-112.8"/>
+            </g>
+            <g>
+                <text transform="translate(857.303 418.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 7</tspan><tspan x="-10.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-8.02" y="9" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="-1.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">я</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">г</tspan><tspan x="7.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="11.99" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="17.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W6soft">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1125.387 370.02v104.1h-162.45v-104.1z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1111.4 462.85H976.95M1111.4 455.44H976.95M1111.4 448.02H976.95M1111.4 440.61H976.95M1111.4 433.2H976.95M1111.4 425.78H976.95M1111.4 418.37H976.95M1111.4 410.95H976.95"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1100.58 403.54H987.77M1100.58 396.13H987.77M1100.58 388.71H987.77M1100.58 381.3H987.77"/>
+            </g>
+            <g>
+                <text transform="translate(1037.057 418.798)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 6</tspan><tspan x="-10.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-8.02" y="9" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="-1.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">я</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">г</tspan><tspan x="7.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="11.99" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="17.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W5soft">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1305.145 370.024v104.1h-162.45v-104.1z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1291.15 462.88h-134.46M1291.15 455.47h-134.46M1291.15 448.05h-134.46M1291.15 440.64h-134.46M1291.15 433.22h-134.46M1291.15 425.81h-134.46M1291.15 418.4h-134.46M1291.15 410.98h-134.46"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1280.32 403.57h-112.8M1280.32 396.15h-112.8M1280.32 388.74h-112.8M1280.32 381.33h-112.8"/>
+            </g>
+            <g>
+                <text transform="translate(1216.816 418.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 5</tspan><tspan x="-10.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-8.02" y="9" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="-1.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">я</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">г</tspan><tspan x="7.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="11.99" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="17.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W4soft">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1484.902 370.028v104.1h-162.45v-104.1z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1470.92 462.88h-134.46M1470.92 455.47h-134.46M1470.92 448.05h-134.46M1470.92 440.64h-134.46M1470.92 433.22h-134.46M1470.92 425.81h-134.46M1470.92 418.4h-134.46M1470.92 410.98h-134.46" />
+                <path class="ln" stroke="#BCC8CE"  d="M1460.09 403.57h-112.8M1460.09 396.15h-112.8M1460.09 388.74h-112.8M1460.09 381.33h-112.8"/>
+            </g>
+            <g>
+                <text transform="translate(1396.57 418.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 4</tspan><tspan x="-10.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-8.02" y="9" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="-1.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">я</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">г</tspan><tspan x="7.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="11.99" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="17.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W3soft">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1664.658 370.021v104.1h-162.45v-104.1z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1642.52 462.88H1524.3M1642.52 455.47H1524.3M1642.52 448.05H1524.3M1642.52 440.64H1524.3"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1545.13 433.22h-20.83M1545.13 425.81h-20.83M1545.13 418.4h-20.83M1545.13 410.98h-20.83M1545.13 403.57h-20.83M1545.13 396.15h-20.83M1545.13 388.74h-20.83M1545.13 381.33h-20.83" />
+                <path class="ln" stroke="#BCC8CE"  d="M1599.22 433.22h-20.83M1599.22 425.81h-20.83M1599.22 418.4h-20.83M1599.22 410.98h-20.83M1599.22 403.57h-20.83M1599.22 396.15h-20.83M1599.22 388.74h-20.83M1599.22 381.33h-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1626.29 433.22h-20.83M1626.29 425.81h-20.83M1626.29 418.4h-20.83M1626.29 410.98h-20.83M1626.29 403.57h-20.83M1626.29 396.15h-20.83M1626.29 388.74h-20.83M1626.29 381.33h-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1572.15 433.22h-20.83M1572.15 425.81h-20.83M1572.15 418.4h-20.83M1572.15 410.98h-20.83M1572.15 403.57h-20.83M1572.15 396.15h-20.83M1572.15 388.74h-20.83M1572.15 381.33h-20.83"/>
+            </g>
+            <g>
+                <text transform="translate(1576.33 418.798)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 3</tspan><tspan x="-10.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-8.02" y="9" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="-1.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">я</tspan><tspan x="3.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">г</tspan><tspan x="7.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="11.99" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="17.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.17" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W2top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1682.05 385.15V147l161.87 69.11v169.04z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1832.92 373.84h-139.87M1832.92 366.42h-139.87M1832.92 359.01h-139.87M1832.92 351.6h-139.87M1832.92 344.18h-139.87" />
+                <path class="ln" stroke="#BCC8CE"  d="M1822.09 336.77h-118.21M1822.09 329.35h-118.21M1822.09 321.94h-118.21M1822.09 314.53h-118.21M1822.09 307.11h-118.21" />
+                <path class="ln" stroke="#BCC8CE"  d="M1832.92 299.7h-139.87M1832.92 292.28h-139.87M1832.92 284.87h-139.87M1832.92 277.46h-139.87M1832.92 270.04h-139.87M1832.92 262.63h-139.87M1832.92 255.21h-139.87M1832.92 247.8h-139.87M1832.92 240.39h-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1816.68 232.97h-123.63" />
+                <path class="ln" stroke="#BCC8CE"  d="M1800.44 225.56h-107.39" />
+                <path class="ln" stroke="#BCC8CE"  d="M1767.95 218.14h-74.9" />
+                <path class="ln" stroke="#BCC8CE"  d="M1757.13 210.73h-64.08" />
+                <path class="ln" stroke="#BCC8CE"  d="M1740.88 203.32h-47.83"/>
+            </g>
+            <g>
+                <text transform="translate(1755.88 328.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 2</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W1top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1861.21 385.15V222l75.27 31.55v131.6z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1893.05 373.85h-20.82M1893.05 366.44h-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1925.48 359.02h-53.25M1925.48 351.61h-53.25M1925.48 344.2h-53.25"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1925.48 336.78h-42.45M1925.48 329.37h-42.45M1925.48 321.95h-42.45M1925.48 314.54h-42.45M1925.48 307.13h-42.45M1925.48 299.71h-42.45M1925.48 292.3h-42.45M1925.48 284.88h-42.45M1925.48 277.47h-42.45M1914.66 270.06h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1903.86 262.64h-31.63"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1887.65 255.23h-15.42"/>
+            </g>
+            <g>
+                <text transform="translate(1891.736 328.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 1</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W9bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M505.48 557.62l-54.04-163.48h128.68v163.48z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 546.31h-47.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 538.9h-53.25M566.12 531.49h-53.25M566.12 524.07h-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 516.66h-58.66M566.12 509.24h-58.66" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 501.83h-64.08M566.12 494.42h-64.08M566.12 487h-64.08" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 479.59h-69.49M566.12 472.17h-69.49" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 464.76h-74.9M566.12 457.35h-74.9M566.12 449.93h-74.9M566.12 442.52h-74.9M566.12 435.1h-74.9" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 427.69h-69.49M566.12 420.28h-69.49" />
+                <path class="ln" stroke="#BCC8CE"  d="M566.12 412.86h-74.9M566.12 405.45h-74.9" />
+            </g>
+            <g>
+                <text transform="translate(526.352 503.799)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 9</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W8bottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M765.623 394.144v163.48h-167.87v-163.48z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M746.24 546.31H617.19M746.24 538.9H617.19M746.24 531.49H617.19M746.24 524.07H617.19M746.24 516.66H617.19M746.24 509.24H617.19M746.24 501.83H617.19M746.24 494.42H617.19M746.24 487H617.19M746.24 479.59H617.19M746.24 472.17H617.19M746.24 464.76H617.19M746.24 457.35H617.19M746.24 449.93H617.19M746.24 442.52H617.19M746.24 435.1H617.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M746.24 427.69H638.85M746.24 420.28H638.85M746.24 412.86H638.85M746.24 405.45H638.85"/>
+            </g>
+            <g>
+                <text transform="translate(674.586 503.8)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 8</tspan><tspan x="-2.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.48" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.88" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.52" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.64" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W9top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M498.77 385.15V246.3l81.35-29.3v168.15z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M566.03 359.01h-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M533.6 366.43h-20.82M533.6 373.84h-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M566.03 351.6h-53.25M566.03 344.19h-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M555.21 336.77h-42.43M555.21 329.36h-42.43M555.21 321.94h-42.43M555.21 314.53h-42.43M555.21 307.12h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M566.03 299.7h-53.25M566.03 292.29h-53.25M566.03 284.87h-53.25M566.03 277.46h-53.25" />
+                <path class="ln" stroke="#BCC8CE"  d="M555.21 270.05h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M539 262.63h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M528.22 255.22h-15.44"/>
+            </g>
+            <g>
+                <text transform="translate(532.342 328.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 9</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W8top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M597.75 385.15V211.67L765.63 147v238.15z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 373.84H611.75M751.62 366.43H611.75M751.62 359.01H611.75M751.62 351.6H611.75M751.62 344.18H611.75"/>
+                <path class="ln" stroke="#BCC8CE"  d="M740.8 336.77H622.58M740.8 329.36H622.58M740.8 321.94H622.58M740.8 314.53H622.58M740.8 307.11H622.58"/>
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 299.7H611.75M751.62 292.29H611.75M751.62 284.87H611.75M751.62 277.46H611.75M751.62 270.04H611.75M751.62 262.63H611.75M751.62 255.22H611.75M751.62 247.8H611.75M751.62 240.39H611.75"/>
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 232.97H627.99" />
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 225.56H644.24" />
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 218.15h-74.9" />
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 210.73h-64.07" />
+                <path class="ln" stroke="#BCC8CE"  d="M751.62 203.32h-47.83"/>
+            </g>
+            <g>
+                <text transform="translate(674.584 328.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 8</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="vip1">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M853.679 317.028v44h-70.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M851.47 353.73h-64.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M851.47 346.31h-64.08" />
+                <path class="ln" stroke="#BCC8CE"  d="M851.47 338.9h-64.08" />
+            </g>
+            <text transform="translate(810.202 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 1</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip2">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M925.063 317.023v44h-68.49v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M922.85 353.73h-64.07"/>
+                <path class="ln" stroke="#BCC8CE"  d="M922.85 346.31h-64.07" />
+                <path class="ln" stroke="#BCC8CE"  d="M922.85 338.9h-64.07" />
+            </g>
+            <text transform="translate(881.587 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 2</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip3">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M974.575 317.032v44h-46.51v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M972.31 353.73h-42.44" />
+                <path class="ln" stroke="#BCC8CE"  d="M972.31 346.31h-42.44" />
+                <path class="ln" stroke="#BCC8CE"  d="M972.31 338.9h-42.44" />
+            </g>
+            <text transform="translate(942.085 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 3</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip4">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1024.084 317.032v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1021.83 353.73h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1021.83 346.31h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1021.83 338.9h-42.44" />
+            </g>
+            <text transform="translate(991.606 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 4</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip5">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1073.584 317.032v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1071.33 353.73h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1071.33 346.31h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1071.33 338.9h-42.44" />
+            </g>
+            <text transform="translate(1041.106 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 5</tspan>
+            </text>
+        </g>
+        <g data-tribune="president-center">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1249.169 317.028v44h-50.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1231.63 353.73h-15.42"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1231.63 346.31h-15.42"/>
+            </g>
+            <text transform="translate(1201.54 328.804)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">п</tspan><tspan x="5.27" y="0" font-family="'OpenSans-Semibold'" font-size="8">р</tspan><tspan x="10.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="15.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="19.68" y="0" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="25.33" y="0" font-family="'OpenSans-Semibold'" font-size="8">д</tspan><tspan x="30.46" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="35.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="40.69" y="0" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="9.91" y="9" font-family="'OpenSans-Semibold'" font-size="8">ц</tspan><tspan x="15.36" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="20.19" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="25.59" y="9" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="29.87" y="9" font-family="'OpenSans-Semibold'" font-size="8">р</tspan>
+            </text>
+        </g>
+        <g data-tribune="president-left">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1195.669 317.028v44h-69.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1192.96 353.73h-64.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1192.96 346.31h-64.08" />
+            </g>
+            <text transform="translate(1138.538 328.799)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">п</tspan><tspan x="5.27" y="0" font-family="'OpenSans-Semibold'" font-size="8">р</tspan><tspan x="10.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="15.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="19.68" y="0" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="25.33" y="0" font-family="'OpenSans-Semibold'" font-size="8">д</tspan><tspan x="30.46" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="35.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="40.69" y="0" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="8.85" y="9" font-family="'OpenSans-Semibold'" font-size="8">л</tspan><tspan x="13.91" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="18.75" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="23.83" y="9" font-family="'OpenSans-Semibold'" font-size="8">ы</tspan><tspan x="30.5" y="9" font-family="'OpenSans-Semibold'" font-size="8">й</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip6">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1123.084 317.032v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1120.83 353.73h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1120.83 346.31h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1120.83 338.9h-42.44" />
+            </g>
+            <text transform="translate(1090.604 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 6</tspan>
+            </text>
+        </g>
+        <g data-tribune="president-right">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1324.669 317.028v44h-72.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1323.21 353.73h-69.58"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1320.46 346.31h-64.08" />
+            </g>
+            <text transform="translate(1266.042 328.804)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">п</tspan><tspan x="5.27" y="0" font-family="'OpenSans-Semibold'" font-size="8">р</tspan><tspan x="10.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="15.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="19.68" y="0" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="25.33" y="0" font-family="'OpenSans-Semibold'" font-size="8">д</tspan><tspan x="30.46" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="35.29" y="0" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="40.69" y="0" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="6.15" y="9" font-family="'OpenSans-Semibold'" font-size="8">п</tspan><tspan x="11.42" y="9" font-family="'OpenSans-Semibold'" font-size="8">р</tspan><tspan x="16.62" y="9" font-family="'OpenSans-Semibold'" font-size="8">а</tspan><tspan x="21.45" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="26.54" y="9" font-family="'OpenSans-Semibold'" font-size="8">ы</tspan><tspan x="33.2" y="9" font-family="'OpenSans-Semibold'" font-size="8">й</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip7">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1374.169 317.028v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1371.91 353.73h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1371.91 346.31h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1371.91 338.9h-42.43" />
+            </g>
+            <text transform="translate(1341.698 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 7</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip8">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1423.669 317.028v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1421.45 353.73h-42.51"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1421.45 346.31h-42.51"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1421.45 338.9h-42.51" />
+            </g>
+            <text transform="translate(1391.196 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 8</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip9">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1473.169 317.028v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1470.91 353.73h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1470.91 346.31h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1470.91 338.9h-42.43" />
+            </g>
+            <text transform="translate(1440.694 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p 9</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip10">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1522.822 317.025v44h-46.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1520.56 353.73h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1520.56 346.31h-42.43"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1520.56 338.9h-42.43" />
+            </g>
+            <text transform="translate(1488.126 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p </tspan><tspan x="13.89" y="0" font-family="'OpenSans-Semibold'" font-size="8">1</tspan><tspan x="18.33" y="0" font-family="'OpenSans-Semibold'" font-size="8">0</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip11">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1552.322 317.025v44h-26.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1549.48 353.73h-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1549.48 346.31h-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1549.48 338.9h-20.82"/>
+            </g>
+            <text transform="translate(1527.763 329.299)" >
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p </tspan><tspan x="13.89" y="0" font-family="'OpenSans-Semibold'" font-size="8">1</tspan><tspan x="18.06" y="0" font-family="'OpenSans-Semibold'" font-size="8">1</tspan>
+            </text>
+        </g>
+        <g data-tribune="vip12">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1581.822 317.025v44h-26.5v-44z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1573.58 353.73h-15.42"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1573.58 346.31h-15.42"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1578.98 338.9h-20.82"/>
+            </g>
+            <text transform="translate(1557.203 329.299)">
+                <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">v</tspan><tspan x="4.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">i</tspan><tspan x="6.83" y="0" font-family="'OpenSans-Semibold'" font-size="8">p </tspan><tspan x="13.89" y="0" font-family="'OpenSans-Semibold'" font-size="8">1</tspan><tspan x="18.18" y="0" font-family="'OpenSans-Semibold'" font-size="8">2</tspan>
+            </text>
+        </g>
+        <g data-tribune="W7top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M783.18 307.78V84l162.45-33v256.78z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 74.06h-26.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 81.47h-64.07" />
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 88.88H829.37" />
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 96.3H802.3" />
+                <path class="ln" stroke="#BCC8CE"  d="M936.76 103.71H791.47" />
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 111.13H791.47M931.34 118.54H791.47M931.34 125.95H791.47M931.34 133.37H791.47M931.34 140.78H791.47M931.34 148.2H791.47M931.34 155.61H791.47M931.34 163.02H791.47M931.34 170.44H791.47M931.34 177.85H791.47M931.34 185.27H791.47M931.34 192.68H791.47M931.34 200.09H791.47M931.34 207.51H791.47M931.34 214.92H791.47M931.34 222.34H791.47"/>
+                <path class="ln" stroke="#BCC8CE"  d="M920.52 229.75H802.3M920.52 237.16H802.3M920.52 244.58H802.3M920.52 251.99H802.3M920.52 259.41H802.3"/>
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 266.82H791.47M931.34 274.23H791.47M931.34 281.65H791.47"/>
+                <path class="ln" stroke="#BCC8CE"  d="M931.34 289.06H823.96M931.34 296.48H823.96"/>
+            </g>
+            <g>
+                <text transform="translate(854.303 151.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 7</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W6top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M962.94 307.78V48l162.45-13v272.78z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 60.23h-107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 67.64H974.23M1114.1 75.06H974.23M1114.1 82.47H974.23M1114.1 89.88H974.23M1114.1 97.3H974.23M1114.1 104.71H974.23M1114.1 112.13H974.23M1114.1 119.54H974.23M1114.1 126.95H974.23M1114.1 134.37H974.23M1114.1 141.78H974.23M1114.1 149.2H974.23M1114.1 156.61H974.23M1114.1 164.02H974.23M1114.1 171.44H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1103.27 178.85H974.23M1103.27 186.27H974.23M1103.27 193.68H974.23M1103.27 201.09H974.23M1103.27 208.51H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 215.92H974.23M1114.1 223.34H974.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 230.75H985.05M1114.1 238.16H985.05M1114.1 245.58H985.05M1114.1 252.99H985.05M1114.1 260.41H985.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1114.1 267.82H974.23M1114.1 275.23H974.23M1114.1 282.65H974.23M1114.1 289.06H974.23M1114.1 296.48H974.23"/>
+            </g>
+            <g>
+                <text transform="translate(1037.059 151.855)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 6</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W5top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1142.69 35h162.45v174.16h-162.45z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1293.84 56.99h-20.82M1293.84 64.4h-20.82M1293.84 71.81h-20.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1174.8 56.99h-20.83M1174.8 64.4h-20.83M1174.8 71.81h-20.83"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1293.84 79.23h-139.87M1293.84 86.64h-139.87M1293.84 94.06h-139.87M1293.84 101.47h-139.87M1293.84 108.88h-139.87M1293.84 116.3h-139.87M1293.84 123.71h-139.87M1293.84 131.13h-139.87M1293.84 138.54h-139.87M1293.84 145.95h-139.87M1293.84 153.37h-139.87M1293.84 160.78h-139.87M1293.84 168.2h-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1283.02 175.61H1164.8M1283.02 183.02H1164.8M1283.02 190.44H1164.8M1283.02 197.85H1164.8" />
+            </g>
+            <g>
+                <text transform="translate(1216.816 151.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 5</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W4top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1322.45 307.78V35l162.45 13v259.78z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1441.13 59.23h-107.39"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1473.62 66.64h-42.44M1473.62 74.06h-42.44"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1473.62 81.47h-139.88M1473.62 88.88h-139.88M1473.62 96.3h-139.88M1473.62 103.71h-139.88M1473.62 111.13h-139.88M1473.62 118.54h-139.88M1473.62 125.95h-139.88M1473.62 133.37h-139.88M1473.62 140.78h-139.88M1473.62 148.2h-139.88M1473.62 155.61h-139.88M1473.62 163.02h-139.88M1473.62 170.44h-139.88"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1473.62 177.85h-129.05M1473.62 185.27h-129.05M1473.62 192.68h-129.05M1473.62 200.09h-129.05M1473.62 207.51h-129.05" />
+                <path class="ln" stroke="#BCC8CE"  d="M1473.62 214.92h-139.88M1473.62 222.34h-139.88" />
+                <path class="ln" stroke="#BCC8CE"  d="M1462.79 229.75h-129.05M1462.79 237.16h-129.05M1462.79 244.58h-129.05M1462.79 251.99h-129.05M1462.79 259.41h-129.05" />
+                <path class="ln" stroke="#BCC8CE"  d="M1473.62 266.82h-139.88M1473.62 274.23h-139.88M1473.62 281.65h-139.88M1473.62 289.06h-139.88M1473.62 296.48h-139.88" />
+            </g>
+            <g>
+                <text transform="translate(1396.57 151.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 4</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="W3top">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1502.21 305.78V51l162.45 33v221.78z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M1582.98 81.47h-69.49" />
+                <path class="ln" stroke="#BCC8CE"  d="M1539.72 74.06h-26.23"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1620.88 88.88h-107.39" />
+                <path class="ln" stroke="#BCC8CE"  d="M1642.54 96.3h-129.05" />
+                <path class="ln" stroke="#BCC8CE"  d="M1653.36 103.71h-139.87M1653.36 111.13h-139.87M1653.36 118.54h-139.87M1653.36 125.95h-139.87M1653.36 133.37h-139.87M1653.36 140.78h-139.87M1653.36 148.2h-139.87M1653.36 155.61h-139.87M1653.36 163.02h-139.87M1653.36 170.44h-139.87M1653.36 177.85h-139.87M1653.36 185.27h-139.87M1653.36 192.68h-139.87M1653.36 200.09h-139.87M1653.36 207.51h-139.87M1653.36 214.92h-139.87M1653.36 222.34h-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1642.54 229.75h-118.22M1642.54 237.16h-118.22M1642.54 244.58h-118.22M1642.54 251.99h-118.22M1642.54 259.41h-118.22"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1653.36 266.82h-139.87M1653.36 274.23h-139.87M1653.36 281.65h-139.87"/>
+                <path class="ln" stroke="#BCC8CE"  d="M1620.88 289.06h-107.39M1620.88 296.48h-107.39" />
+            </g>
+            <g>
+                <text transform="translate(1576.33 151.856)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">W 3</tspan><tspan x="-5.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.7" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.86" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <path fill="#FAFBFB" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1142.69 222.34h162.45v85.44h-162.45z"/>
+        <text transform="translate(1210.585 262.857)">
+            <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">м</tspan><tspan x="6.51" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="11.37" y="0" font-family="'OpenSans-Semibold'" font-size="8">с</tspan><tspan x="15.73" y="0" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="19.95" y="0" font-family="'OpenSans-Semibold'" font-size="8">а </tspan><tspan x="-10.35" y="9" font-family="'OpenSans-Semibold'" font-size="8">д</tspan><tspan x="-4.89" y="9" font-family="'OpenSans-Semibold'" font-size="8">л</tspan><tspan x=".23" y="9" font-family="'OpenSans-Semibold'" font-size="8">я </tspan><tspan x="6.91" y="9" font-family="'OpenSans-Semibold'" font-size="8">п</tspan><tspan x="12.18" y="9" font-family="'OpenSans-Semibold'" font-size="8">р</tspan><tspan x="17.4" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="22.26" y="9" font-family="'OpenSans-Semibold'" font-size="8">с</tspan><tspan x="26.4" y="9" font-family="'OpenSans-Semibold'" font-size="8">с</tspan><tspan x="30.54" y="9" font-family="'OpenSans-Semibold'" font-size="8">ы</tspan>
+        </text>
+        <path fill="#FAFBFB" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M1584.82 317.03h79.84v44h-79.84z"/>
+        <text transform="translate(1597.137 336.799)">
+            <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">т</tspan><tspan x="4.25" y="0" font-family="'OpenSans-Semibold'" font-size="8">ех</tspan><tspan x="13.75" y="0" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="19.12" y="0" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="24.66" y="0" font-family="'OpenSans-Semibold'" font-size="8">ч</tspan><tspan x="29.91" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="34.77" y="0" font-family="'OpenSans-Semibold'" font-size="8">с</tspan><tspan x="38.92" y="0" font-family="'OpenSans-Semibold'" font-size="8">к</tspan><tspan x="43.49" y="0" font-family="'OpenSans-Semibold'" font-size="8">о</tspan><tspan x="48.6" y="0" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="1.67" y="9" font-family="'OpenSans-Semibold'" font-size="8">пом</tspan><tspan x="18.55" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="23.38" y="9" font-family="'OpenSans-Semibold'" font-size="8">щ</tspan><tspan x="31.12" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="35.96" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="41.32" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="46.93" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan>
+        </text>
+        <g>
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M430.58 1749.18l48.18-113.24-81.68-81.68-113.23 48.19z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M422.52 1728.56l-118.05-118.05"/>
+                <path class="ln" stroke="#BCC8CE"  d="M421.98 1717.54l-106.56-106.56"/>
+                <path class="ln" stroke="#BCC8CE"  d="M425.14 1710.21l-102.73-102.73"/>
+                <path class="ln" stroke="#BCC8CE"  d="M426.56 1701.15l-95.08-95.08M431.8 1695.91l-95.07-95.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M433.22 1686.83l-87.42-87.41"/>
+                <path class="ln" stroke="#BCC8CE"  d="M434.63 1677.76L354.87 1598"/>
+                <path class="ln" stroke="#BCC8CE"  d="M438.13 1670.78l-75.93-75.93"/>
+                <path class="ln" stroke="#BCC8CE"  d="M441.29 1663.45l-72.11-72.11"/>
+                <path class="ln" stroke="#BCC8CE"  d="M440.96 1652.64l-60.62-60.62"/>
+                <path class="ln" stroke="#BCC8CE"  d="M444.12 1645.31l-56.8-56.79"/>
+                <path class="ln" stroke="#BCC8CE"  d="M443.79 1634.5l-45.31-45.31M449.03 1629.26l-45.31-45.31"/>
+                <path class="ln" stroke="#BCC8CE"  d="M452.36 1622.1l-41.48-41.48"/>
+            </g>
+            <g data-tribune="SEbottom">
+                <text transform="rotate(45.001 -1762.28 1295.368)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">S E</tspan><tspan x="-4.6" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.12" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="3.25" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="8.89" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="13" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="SEtop">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M271.54 1607.38l-54.81 20.49 188.43 188.44 20.46-54.85z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M400.07 1789.3l-156.33-156.33"/>
+                <path class="ln" stroke="#BCC8CE"  d="M395.94 1774.67l-137.21-137.2"/>
+                <path class="ln" stroke="#BCC8CE"  d="M399.1 1767.35l-133.39-133.38"/>
+                <path class="ln" stroke="#BCC8CE"  d="M402.59 1760.36l-129.53-129.53"/>
+            </g>
+            <g>
+                <text transform="rotate(45.001 -1884.83 1244.617)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">S E</tspan><tspan x="-6.81" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-4.33" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x=".75" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="5.58" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="15.22" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g stroke-miterlimit="10">
+            <path fill="#D8EDD9" stroke="#C8E6C9" stroke-width=".5" stroke-linecap="round" d="M468.54 643.32h1503.48v909.5H468.54z"/>
+            <path fill="none" stroke="#FFF" stroke-width="3" d="M1220.28 670.23v855.68"/>
+            <ellipse fill="none" stroke="#FFF" stroke-width="3" cx="1220.28" cy="1098.07" rx="109.91" ry="109.95"/>
+            <path fill="none" stroke="#FFF" stroke-width="3" d="M495.44 670.23H1945.1v855.68H495.44z"/>
+            <g fill="none" stroke="#FFF" stroke-width="3">
+                <path d="M495.44 864.21h225.2v467.72h-225.2z"/>
+                <path d="M495.44 976.15h83.75v243.84h-83.75zM720.65 998.36v199.42c37.53-17.49 63.56-55.56 63.56-99.71s-26.03-82.22-63.56-99.71z"/>
+            </g>
+            <g fill="none" stroke="#FFF" stroke-width="3">
+                <path d="M1719.9 864.21h225.2v467.72h-225.2z"/>
+                <path d="M1945.103 1219.985h-83.75v-243.84h83.75zM1719.9 998.36v199.42c-37.53-17.49-63.56-55.56-63.56-99.71s26.03-82.22 63.56-99.71z"/>
+            </g>
+        </g>
+        <g data-tribune="SWtop">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M283.87 592.37l113.28 48.2 81.66-81.66-48.21-113.27z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M339.21 558.3l-33.82 33.83" />
+                <path class="ln" stroke="#BCC8CE"  d="M344.46 563.54l-26.19 26.19" />
+                <path class="ln" stroke="#BCC8CE"  d="M353.53 564.96l-26.19 26.18" />
+                <path class="ln" stroke="#BCC8CE"  d="M390.29 507.23l-45.31 45.31" />
+                <path class="ln" stroke="#BCC8CE"  d="M395.53 512.47l-45.31 45.31" />
+                <path class="ln" stroke="#BCC8CE"  d="M396.94 521.54l-37.65 37.65" />
+                <path class="ln" stroke="#BCC8CE"  d="M429.91 467.61l-33.83 33.82"/>
+                <path class="ln" stroke="#BCC8CE"  d="M427.51 480.49l-26.18 26.18M428.93 489.56l-26.19 26.18"/>
+                <path class="ln" stroke="#BCC8CE"  d="M358.77 570.2l-26.19 26.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M364.01 575.44l-22.36 22.37"/>
+                <path class="ln" stroke="#BCC8CE"  d="M369.25 580.69l-22.36 22.36"/>
+                <path class="ln" stroke="#BCC8CE"  d="M374.5 585.93l-22.37 22.36"/>
+                <path class="ln" stroke="#BCC8CE"  d="M379.74 591.17l-18.55 18.55"/>
+                <path class="ln" stroke="#BCC8CE"  d="M384.98 596.41l-14.72 14.73"/>
+                <path class="ln" stroke="#BCC8CE"  d="M390.22 601.66l-10.9 10.9"/>
+                <path class="ln" stroke="#BCC8CE"  d="M395.47 606.9l-7.09 7.08"/>
+                <path class="ln" stroke="#BCC8CE"  d="M400.71 612.14l-7.09 7.09M405.95 617.38l-7.08 7.09"/>
+                <path class="ln" stroke="#BCC8CE"  d="M434.17 494.8l-26.19 26.19"/>
+                <path class="ln" stroke="#BCC8CE"  d="M435.59 503.86l-22.36 22.37"/>
+                <path class="ln" stroke="#BCC8CE"  d="M437.01 512.93l-18.54 18.54"/>
+                <path class="ln" stroke="#BCC8CE"  d="M438.44 521.99l-14.73 14.72M443.68 527.23l-14.73 14.73M448.92 532.47L434.2 547.2"/>
+                <path class="ln" stroke="#BCC8CE"  d="M450.34 541.54l-10.9 10.9M455.59 546.78l-10.91 10.9M460.83 552.02l-10.91 10.91"/>
+                <path class="ln" stroke="#BCC8CE"  d="M462.25 561.08l-7.08 7.09"/>
+            </g>
+            <g>
+                <text transform="rotate(-45.001 878.953 -194.106)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">S W</tspan><tspan x="-5.26" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-2.78" y="9" font-family="'OpenSans-Semibold'" font-size="8">в</tspan><tspan x="2.3" y="9" font-family="'OpenSans-Semibold'" font-size="8">е</tspan><tspan x="7.13" y="9" font-family="'OpenSans-Semibold'" font-size="8">рх</tspan><tspan x="16.77" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+        <g data-tribune="SWbottom">
+            <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M425.65 433.33l-20.48-54.82-188.44 188.44 54.82 20.48z"/>
+            <g>
+                <path class="ln" stroke="#BCC8CE"  d="M282.45 520.33l-45.31 45.3" />
+                <path class="ln" stroke="#BCC8CE"  d="M352.68 450.1l-64.45 64.45" />
+                <path class="ln" stroke="#BCC8CE"  d="M293.26 520l-41.48 41.48M298.5 525.24l-41.48 41.48" />
+                <path class="ln" stroke="#BCC8CE"  d="M303.74 530.49l-37.65 37.65" />
+                <path class="ln" stroke="#BCC8CE"  d="M351.99 461.27l-52.97 52.97M357.23 466.51l-52.97 52.97" />
+                <path class="ln" stroke="#BCC8CE"  d="M362.47 471.76l-52.96 52.96" />
+                <path class="ln" stroke="#BCC8CE"  d="M399.26 413.99l-41.48 41.48M404.51 419.24l-41.48 41.48"/>
+                <path class="ln" stroke="#BCC8CE"  d="M405.92 428.31l-37.65 37.65"/>
+                <path class="ln" stroke="#BCC8CE"  d="M403.78 398.99l-45.31 45.31"/>
+            </g>
+            <g>
+                <text transform="rotate(-45.001 757.276 -143.713)">
+                    <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="8">S W</tspan><tspan x="-3.05" y="9" font-family="'OpenSans-Semibold'" font-size="8">(</tspan><tspan x="-.56" y="9" font-family="'OpenSans-Semibold'" font-size="8">н</tspan><tspan x="4.8" y="9" font-family="'OpenSans-Semibold'" font-size="8">и</tspan><tspan x="10.44" y="9" font-family="'OpenSans-Semibold'" font-size="8">з</tspan><tspan x="14.55" y="9" font-family="'OpenSans-Semibold'" font-size="8">)</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1><%= title %></h1>
+			<% if(adminLogin){ %>
+				<div>
+				<% include admheader %>
+				</div>
+				<div class="col-sm-2">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="col-sm-10">
+					<h3>Добавление абонемента</h3>
+					<small><a href="/admin/abonements">Список абонементов</a></small>
+					<form method="POST">
+						<div class="row" style="height: 200px; overflow-y: auto; width: 400px; border: 1px solid #ccc;; margin-left: 0px;">
+						<% evensList.forEach(function(evenRow) { %>
+							<div class="col-12" style="margin-left: 5px;">
+								<label class="custom-control custom-checkbox">
+								    <input type="checkbox" name="evens" value="<%= evenRow.ID %>" class="custom-control-input">
+								    <span class="custom-control-indicator"></span>
+								    <span class="custom-control-description"><%= evenRow.Name %></span>
+							    </label>
+							</div>
+						<% }); %>
+						</div>
+						<hr>
+						<div>
+							<div style="display flex; justify-content: space-between; align-items: center;">
+								<label>Цена: </label>
+								<input type="text" name="price" style="margin-left: 19px;">
+							</div>
+						</div>
+						<div style="display flex; justify-content: space-between; align-items: center;">
+							<label>Трибуна</label>
+							<input type="text" name="tribune">
+							<label>Сектор</label>
+							<input type="text" name="sector">
+							<label>Ряд</label>
+							<input type="text" name="row">
+							<label>Место</label>
+							<input type="text" name="seat">
+						</div>	
+						<hr>
+						<button type="submit" class="btn btn-success">Создать абонемент</button>
+					</form>
+					
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

@@ -17,6 +17,7 @@ body{
   overflow: hidden;
   padding: 0;
   font-family: @fRegular;
+  font-size: 1.4rem;
   color: @black;
   line-height: 1.4;
   #eventsSelect{
@@ -42,13 +43,34 @@ body{
   display: none;
 }
 
+.t-a-c{
+  text-align: center;
+}
+
+.fancybox-close-small{
+  padding: 0;
+}
+
 .popup{
   position: relative;
   background-color: #fff;
   cursor: default !important;
-  width: 32rem;
+  &__title{
+    text-align: center;
+  }
   &__svg{
-
+    .size(120rem, 65rem);
+    svg{
+      position: relative;
+      top: 0;
+      left: 0;
+      .size(100%, 100%);
+      g[data-tribune]{
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
   }
 }
 

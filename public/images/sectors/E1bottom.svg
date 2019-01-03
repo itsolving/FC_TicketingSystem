@@ -1,5 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 172">
     <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".4" stroke-linecap="round" stroke-miterlimit="10" d="M.37 166.69L52.3.31h60.4v166.38H.37z"/>
+    <g>
+        <path class="ln" stroke="#BCC8CE"  d="M518.3 1649.84h47.83M518.3 1657.25h47.83M518.3 1664.66h47.83M518.3 1672.08h47.83"/>
+        <path class="ln" stroke="#BCC8CE"  d="M512.88 1679.49h53.25"/>
+        <path class="ln" stroke="#BCC8CE"  d="M507.47 1686.91h58.66M507.47 1694.32h58.66M507.47 1701.73h58.66"/>
+        <path class="ln" stroke="#BCC8CE"  d="M502.06 1709.15h64.07M502.06 1716.56h64.07M502.06 1723.98h64.07"/>
+        <path class="ln" stroke="#BCC8CE"  d="M496.64 1731.39h69.49M496.64 1738.8h69.49"/>
+        <path class="ln" stroke="#BCC8CE"  d="M491.23 1746.22h74.9M491.23 1753.63h74.9M491.23 1761.05h74.9"/>
+        <path class="ln" stroke="#BCC8CE"  d="M485.81 1768.46h80.32M485.81 1775.87h80.32"/>
+        <path class="ln" stroke="#BCC8CE"  d="M485.84 1783.29h69.49"/>
+        <path class="ln" stroke="#BCC8CE"  d="M480.42 1790.7h74.91"/>
+        <path class="ln" stroke="#BCC8CE"  d="M512.9 1798.12h42.43M512.9 1805.53h42.43M512.9 1812.94h42.43"/>
+        <path class="ln" stroke="#BCC8CE"  d="M512.88 1820.36h53.25M512.88 1827.77h53.25M512.88 1835.19h53.25"/>
+    </g>
     <g fill="#AEBDC4">
         <circle cx="60.78" cy="139.85" r="1.85"/>
         <circle cx="65.1" cy="139.85" r="1.85"/>
