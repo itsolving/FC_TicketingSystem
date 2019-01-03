@@ -164,8 +164,11 @@ router.get('/event/:id', function(req, res, next) {
 		return;
 	}
 	var nID = req.params.id;
-	var rowEventData = {};
 	var stadiumList = {};
+
+	dbUtils.Event.getById(nID, (rowEventData, qres) => {
+
+	/*var rowEventData = {};
 	const client = new Client(conOptions);
 	client.connect();
 	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
@@ -176,7 +179,7 @@ router.get('/event/:id', function(req, res, next) {
 				'FROM public."tEvent" ev '+
 				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
 				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
-				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = '+nID;
+				'where ev."IDStatus" = 1  and ev."ID" = '+nID;
 	console.log(sSQL);
 	client.query(sSQL, (qerr, qres) => {
 		if (qerr) {
@@ -199,7 +202,8 @@ router.get('/event/:id', function(req, res, next) {
 				}
 			}
 		}
-		client.end();
+		client.end();*/
+
 		
 		const clientStadiums = new Client(conOptions);
 		clientStadiums.connect();
@@ -400,7 +404,8 @@ router.post('/updateprices', function(req, res, next){
 	var nEventID = req.body.eventId; //"eventId": 1
 	var sectors = req.body.sectors; //"sector": [ {"name": "N1", "price": 10}, {"name": "W7", "price": 25} ]
 	
-	db.Ticket.updatePrice(nEventID, sectors, (ans) => {
+	dbUtils.Ticket.updatePrice(nEventID, sectors, (ans) => {
+		console.log(ans)
 		if ( ans == "OK" ){
 			res.json({"ok": "OK"});
 		}
@@ -408,31 +413,6 @@ router.post('/updateprices', function(req, res, next){
 			res.json({"ok": ans});
 		}
 	})
-	
-	/*var sSQL = "";
-	sectors.forEach(function(sector) {
-		var sectorName = sector.name;
-		var sectorPrice = sector.price;
-		var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\') and "IDEvent" = '+nEventID+';';
-		sSQL = sSQL + sUpdate;
-	});
-	
-	
-	const client = new Client(conOptions);
-	client.connect();
-	//console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			client.end();
-			res.json({"ok": qerr});
-		}
-		else {
-			client.end();
-			res.json({"ok": "OK"});
-		}
-	});*/
 });
 
 

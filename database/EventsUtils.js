@@ -163,6 +163,45 @@ class EventsUtils{
 			next(sResMsg);
 		});
 	}
+	getById(nID, next){
+		var rowEventData = {};
+		const client = new this.Client(this.conOptions);
+		client.connect();
+		var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
+					'replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
+					'replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
+					'sd."Name" as "Stadium", s."Name" as "StatusName", '+
+					'ev."ShowOnline", ev."ShowCasher", ev."ShowAPI" ' +
+					'FROM public."tEvent" ev '+
+					'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
+					'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
+					'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = '+nID;
+		console.log(sSQL);
+		client.query(sSQL, (qerr, qres) => {
+			if (qerr) {
+				console.log("qerr:");
+				console.log(qerr ? qerr.stack : qres);
+			}
+			else {
+				//console.log(qerr ? qerr.stack : qres);
+				
+				if (typeof qres.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qres.rowCount == 0) {
+						console.log('res.rowCount='+qres.rowCount);
+						rowEventData = qres.rows;
+					}
+					else {
+						rowEventData = qres.rows;
+					}
+				}
+			}
+			client.end();
+			next(rowEventData, qres);
+		})
+	}
 }
 
 module.exports = EventsUtils;

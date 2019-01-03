@@ -13,7 +13,7 @@ class TicketUtils{
 		});
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		//console.log(sSQL);
+		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
 				console.log("qerr:");
