@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="61" height="118">
-    <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".4" stroke-linecap="round" stroke-miterlimit="10" d="M.37 91.95l60.26 25.59V.35H.37z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 172">
+    <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".4" stroke-linecap="round" stroke-miterlimit="10" d="M.37 91.95l60.26 25.59V.35H.37v91.6z"/>
     <g fill="#AEBDC4">
         <circle cx="41.32" cy="98.38" r="1.85"/>
         <circle cx="45.64" cy="98.38" r="1.85"/>
@@ -18,58 +18,48 @@
         <circle cx="32.61" cy="39.07" r="1.85"/>
         <circle cx="36.93" cy="39.07" r="1.85"/>
         <circle cx="41.25" cy="39.07" r="1.85"/>
-        <g>
-            <circle cx="11.01" cy="45.01" r="1.85"/>
-            <circle cx="15.33" cy="45.01" r="1.85"/>
-            <circle cx="19.65" cy="45.01" r="1.85"/>
-            <circle cx="23.97" cy="45.01" r="1.85"/>
-            <circle cx="28.29" cy="45.01" r="1.85"/>
-            <circle cx="32.61" cy="45.01" r="1.85"/>
-            <circle cx="36.93" cy="45.01" r="1.85"/>
-            <circle cx="41.25" cy="45.01" r="1.85"/>
-        </g>
-        <g>
-            <circle cx="11.01" cy="50.94" r="1.85"/>
-            <circle cx="15.33" cy="50.94" r="1.85"/>
-            <circle cx="19.65" cy="50.94" r="1.85"/>
-            <circle cx="23.97" cy="50.94" r="1.85"/>
-            <circle cx="28.29" cy="50.94" r="1.85"/>
-            <circle cx="32.61" cy="50.94" r="1.85"/>
-            <circle cx="36.93" cy="50.94" r="1.85"/>
-            <circle cx="41.25" cy="50.94" r="1.85"/>
-        </g>
-        <g>
-            <circle cx="11.01" cy="62.8" r="1.85"/>
-            <circle cx="15.33" cy="62.8" r="1.85"/>
-            <circle cx="19.65" cy="62.8" r="1.85"/>
-            <circle cx="23.97" cy="62.8" r="1.85"/>
-            <circle cx="28.29" cy="62.8" r="1.85"/>
-            <circle cx="32.61" cy="62.8" r="1.85"/>
-            <circle cx="36.93" cy="62.8" r="1.85"/>
-            <circle cx="41.25" cy="62.8" r="1.85"/>
-        </g>
-        <g>
-            <circle cx="11.01" cy="56.87" r="1.85"/>
-            <circle cx="15.33" cy="56.87" r="1.85"/>
-            <circle cx="19.65" cy="56.87" r="1.85"/>
-            <circle cx="23.97" cy="56.87" r="1.85"/>
-            <circle cx="28.29" cy="56.87" r="1.85"/>
-            <circle cx="32.61" cy="56.87" r="1.85"/>
-            <circle cx="36.93" cy="56.87" r="1.85"/>
-            <circle cx="41.25" cy="56.87" r="1.85"/>
-        </g>
-        <g>
-            <circle cx="11.01" cy="9.42" r="1.85"/>
-            <circle cx="15.33" cy="9.42" r="1.85"/>
-            <circle cx="19.65" cy="9.42" r="1.85"/>
-            <circle cx="23.97" cy="9.42" r="1.85"/>
-            <circle cx="28.29" cy="9.42" r="1.85"/>
-            <circle cx="32.61" cy="9.42" r="1.85"/>
-            <circle cx="36.93" cy="9.42" r="1.85"/>
-            <circle cx="41.25" cy="9.42" r="1.85"/>
-            <circle cx="45.58" cy="9.42" r="1.85"/>
-            <circle cx="49.91" cy="9.42" r="1.85"/>
-        </g>
+        <circle cx="11.01" cy="45.01" r="1.85"/>
+        <circle cx="15.33" cy="45.01" r="1.85"/>
+        <circle cx="19.65" cy="45.01" r="1.85"/>
+        <circle cx="23.97" cy="45.01" r="1.85"/>
+        <circle cx="28.29" cy="45.01" r="1.85"/>
+        <circle cx="32.61" cy="45.01" r="1.85"/>
+        <circle cx="36.93" cy="45.01" r="1.85"/>
+        <circle cx="41.25" cy="45.01" r="1.85"/>
+        <circle cx="11.01" cy="50.94" r="1.85"/>
+        <circle cx="15.33" cy="50.94" r="1.85"/>
+        <circle cx="19.65" cy="50.94" r="1.85"/>
+        <circle cx="23.97" cy="50.94" r="1.85"/>
+        <circle cx="28.29" cy="50.94" r="1.85"/>
+        <circle cx="32.61" cy="50.94" r="1.85"/>
+        <circle cx="36.93" cy="50.94" r="1.85"/>
+        <circle cx="41.25" cy="50.94" r="1.85"/>
+        <circle cx="11.01" cy="62.8" r="1.85"/>
+        <circle cx="15.33" cy="62.8" r="1.85"/>
+        <circle cx="19.65" cy="62.8" r="1.85"/>
+        <circle cx="23.97" cy="62.8" r="1.85"/>
+        <circle cx="28.29" cy="62.8" r="1.85"/>
+        <circle cx="32.61" cy="62.8" r="1.85"/>
+        <circle cx="36.93" cy="62.8" r="1.85"/>
+        <circle cx="41.25" cy="62.8" r="1.85"/>
+        <circle cx="11.01" cy="56.87" r="1.85"/>
+        <circle cx="15.33" cy="56.87" r="1.85"/>
+        <circle cx="19.65" cy="56.87" r="1.85"/>
+        <circle cx="23.97" cy="56.87" r="1.85"/>
+        <circle cx="28.29" cy="56.87" r="1.85"/>
+        <circle cx="32.61" cy="56.87" r="1.85"/>
+        <circle cx="36.93" cy="56.87" r="1.85"/>
+        <circle cx="41.25" cy="56.87" r="1.85"/>
+        <circle cx="11.01" cy="9.42" r="1.85"/>
+        <circle cx="15.33" cy="9.42" r="1.85"/>
+        <circle cx="19.65" cy="9.42" r="1.85"/>
+        <circle cx="23.97" cy="9.42" r="1.85"/>
+        <circle cx="28.29" cy="9.42" r="1.85"/>
+        <circle cx="32.61" cy="9.42" r="1.85"/>
+        <circle cx="36.93" cy="9.42" r="1.85"/>
+        <circle cx="41.25" cy="9.42" r="1.85"/>
+        <circle cx="45.58" cy="9.42" r="1.85"/>
+        <circle cx="49.91" cy="9.42" r="1.85"/>
         <g>
             <circle cx="11.01" cy="15.35" r="1.85"/>
             <circle cx="15.33" cy="15.35" r="1.85"/>
@@ -167,7 +157,4 @@
             <circle cx="49.91" cy="86.52" r="1.85"/>
         </g>
     </g>
-    <text transform="matrix(.9999 0 0 1 22.058 47.033)">
-        <tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="6.4">E 1</tspan><tspan x="-5.52" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.4">(</tspan><tspan x="-3.48" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.4">в</tspan><tspan x=".64" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.4">е</tspan><tspan x="4.56" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.4">рх</tspan><tspan x="12.38" y="7.2" font-family="'OpenSans-Semibold'" font-size="6.4">)</tspan>
-    </text>
 </svg>

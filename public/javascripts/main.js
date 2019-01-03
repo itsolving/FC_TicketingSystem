@@ -71,10 +71,11 @@ app.getTickets = function(id){
         if(data.TicketData.length > 0){
           var $secInfo = data.TicketData[0].row_to_json;
           console.log($secInfo);
-          $.fancybox.open({
-            src: '/public/images/sectors/' + _self.data('tribune') + '.svg',
-            type: 'ajax'
-          });
+          /*$.fancybox.open($('[data-popup]'), {
+            afterShow: function(){
+              new Swiper($('[data-popup-swiper]'));
+            }
+          });*/
         }else{
           console.log('Билетов нет!');
         }
