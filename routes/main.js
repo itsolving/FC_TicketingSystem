@@ -6,22 +6,24 @@ var fs = require('fs');
 
 
 
-/* GET home page. */
+//страница авторизации кассира
 router.get('/', function(req, res, next){
 	console.log("get: /");
 	var sLogin = "";
+	var nUserID = 0;
 	var events = {};
 	var sessData = req.session;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
+		nUserID = sessData.userID;
 		events = sessData.eventsList;
 	}
 
 	//var events = db.getList(req, res, next);
-	res.render('index', {title: 'Учет билетов', userLogin: sLogin, eventsList: events});
+	res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events});
 })
 
-
+//открытие страницы со список актуальных мероприятий (для кассира и для онлайн посетителей)
 router.get('/events', function(req, res, next){
 	console.log("get: /events");
 	var sLogin = "";
@@ -61,7 +63,7 @@ router.get('/events', function(req, res, next){
 		});
 });
 
-
+//получение список актуальных мероприятий в формате json
 router.get('/getevents', function(req, res, next){
 	console.log("get: /getevents");
 	var events = {};
@@ -99,15 +101,19 @@ router.get('/getevents', function(req, res, next){
 		});
 });
 
-
+//авторизация кассира и открытие страницы со списом мероприятий
 router.post('/events', function(req, res, next){
+	//наверное это должна была быть "router.post('/', ...)"
+	
 	console.log("post: /events");
 	var sLogin = "";
+	var nUserID = 0;
 	var events = {};
 	var sSQL = "";
 	var sessData = req.session;
 	if(sessData.userLogin){
 		sLogin = sessData.userLogin;
+		nUserID = sessData.userID;
 
 		console.log('sLogin='+sLogin);
 
@@ -141,7 +147,7 @@ router.post('/events', function(req, res, next){
 	else {
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
 		console.log('req.body.txPassword='+req.body.txPassword+', hashedPassword = '+hashedPassword);
-		sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
+		sSQL = 'SELECT "ID", "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -150,7 +156,9 @@ router.post('/events', function(req, res, next){
 					console.log('user found:');
 					console.log(data);
 					sLogin = data[0].Login;
+					nUserID = data[0].ID;
 					sessData.userLogin = data[0].Login;
+					sessData.userID = data[0].ID;
 					console.log('sLogin='+sLogin);
 
 					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
@@ -185,7 +193,7 @@ router.post('/events', function(req, res, next){
 	}
 });
 
-
+//вход на страницу выбранного мероприятия
 router.get('/event/:id', function(req, res, next){
 	console.log("get: /event/id");
 	var sLogin = "";
@@ -228,6 +236,9 @@ router.get('/event/:id', function(req, res, next){
 	res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 })
 
+
+
+//эта функция не используется, создавал для работы со схемой зала
 router.get('/maps/:idevent', function(req, res, next){
 	console.log("get: /maps/idevent");
 	var sLogin = "";
@@ -286,7 +297,7 @@ router.get('/maps/:idevent', function(req, res, next){
 		});
 });
 
-
+//эта функция не используется, создавалась для вебстраницы со схемой зала
 router.get('/gettickets/:idevent', function(req, res){
 	console.log('get /gettickets/idevent');
 	var eventID = req.params.idevent;
@@ -295,6 +306,58 @@ router.get('/gettickets/:idevent', function(req, res){
 
 	if (eventID !== 'undefined') {
 		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(rw))) '
+				+'			from '
+				+'			( '
+				+'				select "RowN", '
+				+'					( '
+				+'						select array_to_json(array_agg(row_to_json(tick))) '
+				+'						from '
+				+'						( '
+				+'							select "IDSeat", "SeatN", "RowN", "SectorName", "SectorRu", "Tribune", "TicketID", "Barcode", "Price", "IDStatus", "StatusName" '
+				+'							from ( '
+				+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'									s."SeatN", s."RowN", '
+				+'									t."Price"::numeric "Price", '
+				+'									t."IDStatus", st."Name" "StatusName", '
+				+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'								FROM public."tTicket" t '
+				+'								join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'								join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'								where t."IDEvent" = '+eventID+' '
+				+'								and t."IDStatus" in (3, 4, 5) '
+				+'							) tick_all '
+				+'							where "SectorName" = sectors."SectorName" and "RowN" = row_all."RowN" '
+				+'						) tick '
+				+'					) as "tickets" '
+				+'				from '
+				+'				( '
+				+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'					FROM public."tSeat" s '
+				+'					where 1=1 '
+				+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
+				+'				) row_all '
+				+'				where "SectorName" = sectors."SectorName" '
+				+'			) rw '
+				+'		) as "sector_rows" '
+				+'	from ( '
+				+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" in (3, 4, 5) '
+				+'			group by trim(s."SectorName"), trim(s."SectorRu") '
+				+'		) sectors '
+				+'	where 1=1 '
+				+') t ';
+				
+				/*'select row_to_json(t) '
 				+'from ( '
 				+'	select "SectorName", "minPrice", "maxPrice", "seatsLeft", '
 				+'		( '
@@ -328,7 +391,7 @@ router.get('/gettickets/:idevent', function(req, res){
 				+'			group by s."Tribune" || trim(s."SectorName") '
 				+'		) tribunes '
 				+'	where 1=1 '
-				+') t';
+				+') t';*/
 
 		console.log(sSQL);
 		db.db.any(sSQL)
@@ -365,6 +428,7 @@ router.get('/gettickets/:idevent', function(req, res){
 	}
 });
 
+//(старая)получение всех билетов по указанному мероприятию, используется в схеме зала
 router.post('/gettickets', function(req, res){
 	console.log('post /gettickets');
 	var eventID = req.body.IDEvent;
@@ -373,6 +437,58 @@ router.post('/gettickets', function(req, res){
 
 	if (eventID !== 'undefined') {
 		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(rw))) '
+				+'			from '
+				+'			( '
+				+'				select "RowN", '
+				+'					( '
+				+'						select array_to_json(array_agg(row_to_json(tick))) '
+				+'						from '
+				+'						( '
+				+'							select "IDSeat", "SeatN", "RowN", "SectorName", "SectorRu", "Tribune", "TicketID", "Barcode", "Price", "IDStatus", "StatusName" '
+				+'							from ( '
+				+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'									s."SeatN", s."RowN", '
+				+'									t."Price"::numeric "Price", '
+				+'									t."IDStatus", st."Name" "StatusName", '
+				+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'								FROM public."tTicket" t '
+				+'								join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'								join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'								where t."IDEvent" = '+eventID+' '
+				+'								and t."IDStatus" in (3, 4, 5) '
+				+'							) tick_all '
+				+'							where "SectorName" = sectors."SectorName" and "RowN" = row_all."RowN" '
+				+'						) tick '
+				+'					) as "tickets" '
+				+'				from '
+				+'				( '
+				+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'					FROM public."tSeat" s '
+				+'					where 1=1 '
+				+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
+				+'				) row_all '
+				+'				where "SectorName" = sectors."SectorName" '
+				+'			) rw '
+				+'		) as "sector_rows" '
+				+'	from ( '
+				+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" in (3, 4, 5) '
+				+'			group by trim(s."SectorName"), trim(s."SectorRu") '
+				+'		) sectors '
+				+'	where 1=1 '
+				+') t ';
+				
+				/*'select row_to_json(t) '
 				+'from ( '
 				+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
 				+'		( '
@@ -406,7 +522,7 @@ router.post('/gettickets', function(req, res){
 				+'			group by trim(s."SectorName"), trim("SectorRu") '
 				+'		) tribunes '
 				+'	where 1=1 '
-				+') t';
+				+') t';*/
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -442,6 +558,9 @@ router.post('/gettickets', function(req, res){
 	}
 });
 
+
+
+//(новая)получение всех билетов по указанному мероприятию, используется в схеме зала
 router.post('/getsectortickets', function(req, res){
 //получение json-списка билетов по указанному сектору
 	console.log('post /getsectortickets');
@@ -451,57 +570,57 @@ router.post('/getsectortickets', function(req, res){
 	console.log('eventID='+eventID);
 
 	if (eventID !== 'undefined') {
-		sSQL = +'select row_to_json(t) '
-+'from ( '
-+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
-+'		( '
-+'			select array_to_json(array_agg(row_to_json(rw))) '
-+'			from '
-+'			( '
-+'				select "RowN", '
-+'					( '
-+'						select array_to_json(array_agg(row_to_json(tick))) '
-+'						from '
-+'						( '
-+'							select "IDSeat", "SeatN", "RowN", "SectorName", "SectorRu", "Tribune", "TicketID", "Barcode", "Price", "IDStatus", "StatusName" '
-+'							from ( '
-+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
-+'									s."SeatN", s."RowN", '
-+'									t."Price"::numeric "Price", '
-+'									t."IDStatus", st."Name" "StatusName", '
-+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-+'								FROM public."tTicket" t '
-+'								join public."tSeat" s on t."IDSeat" = s."ID" and trim(s."SectorName") = \''+sectorName+'\' '
-+'								join public."tStatus" st on t."IDStatus" = st."ID" '
-+'								where t."IDEvent" = '+eventID+' '
-+'								and t."IDStatus" in (3, 4, 5) '
-+'							) tick_all '
-+'							where "SectorName" = sectors."SectorName" and "RowN" = row_all."RowN" '
-+'						) tick '
-+'					) as "tickets" '
-+'				from '
-+'				( '
-+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-+'					FROM public."tSeat" s '
-+'					where trim(s."SectorName") = \''+sectorName+'\' '
-+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
-+'				) row_all '
-+'				where "SectorName" = sectors."SectorName" '
-+'			) rw '
-+'		) as "sector_rows" '
-+'	from ( '
-+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
-+'				min(t."Price"::numeric) "minPrice", '
-+'				max(t."Price"::numeric) "maxPrice", '
-+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
-+'			FROM public."tTicket" t '
-+'			join public."tSeat" s on t."IDSeat" = s."ID" and trim(s."SectorName") = \''+sectorName+'\' '
-+'			where t."IDEvent" = '+eventID+' '
-+'			and t."IDStatus" in (3, 4, 5) '
-+'			group by trim(s."SectorName"), trim(s."SectorRu") '
-+'		) sectors '
-+'	where 1=1 '
-+') t ';
+		sSQL = 'select row_to_json(t) '
+				+'from ( '
+				+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
+				+'		( '
+				+'			select array_to_json(array_agg(row_to_json(rw))) '
+				+'			from '
+				+'			( '
+				+'				select "RowN", '
+				+'					( '
+				+'						select array_to_json(array_agg(row_to_json(tick))) '
+				+'						from '
+				+'						( '
+				+'							select "IDSeat", "SeatN", "RowN", "SectorName", "SectorRu", "Tribune", "TicketID", "Barcode", "Price", "IDStatus", "StatusName" '
+				+'							from ( '
+				+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
+				+'									s."SeatN", s."RowN", '
+				+'									t."Price"::numeric "Price", '
+				+'									t."IDStatus", st."Name" "StatusName", '
+				+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'								FROM public."tTicket" t '
+				+'								join public."tSeat" s on t."IDSeat" = s."ID" and trim(s."SectorName") = \''+sectorName+'\' '
+				+'								join public."tStatus" st on t."IDStatus" = st."ID" '
+				+'								where t."IDEvent" = '+eventID+' '
+				+'								and t."IDStatus" in (3, 4, 5) '
+				+'							) tick_all '
+				+'							where "SectorName" = sectors."SectorName" and "RowN" = row_all."RowN" '
+				+'						) tick '
+				+'					) as "tickets" '
+				+'				from '
+				+'				( '
+				+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
+				+'					FROM public."tSeat" s '
+				+'					where trim(s."SectorName") = \''+sectorName+'\' '
+				+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
+				+'				) row_all '
+				+'				where "SectorName" = sectors."SectorName" '
+				+'			) rw '
+				+'		) as "sector_rows" '
+				+'	from ( '
+				+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
+				+'				min(t."Price"::numeric) "minPrice", '
+				+'				max(t."Price"::numeric) "maxPrice", '
+				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
+				+'			FROM public."tTicket" t '
+				+'			join public."tSeat" s on t."IDSeat" = s."ID" and trim(s."SectorName") = \''+sectorName+'\' '
+				+'			where t."IDEvent" = '+eventID+' '
+				+'			and t."IDStatus" in (3, 4, 5) '
+				+'			group by trim(s."SectorName"), trim(s."SectorRu") '
+				+'		) sectors '
+				+'	where 1=1 '
+				+') t ';
 		/*'select row_to_json(t) '
 				+'from ( '
 				+'	select "SectorName", "SectorRu", "minPrice", "maxPrice", "seatsLeft", '
@@ -572,17 +691,33 @@ router.post('/getsectortickets', function(req, res){
 	}
 });
 
+//сохранение факта продажи билетов из схемы зала по указанному мероприятию
 router.post('/sendsaledtickets', function(req, res){
-//сохренение факта продаж билетов на мероприятие
 	console.log('post /sendsaledtickets');
+	
+	//данные из сессии
+	var sLogin = "";
+	var nUserID = 0;
+	var events = {};
+	var sessData = req.session;
+	if(sessData.userLogin){
+		sLogin = sessData.userLogin;
+		nUserID = sessData.userID;
+		events = sessData.eventsList;
+	}
+	
 	var eventID = req.body.IDEvent;
 	var sectorName = req.body.SectorName;
 	var checkedSeats = req.body.CheckedSeats;
+	
 	var ticketsList = {};
+	var sSQL = "";
+	var sSQLTrans = "";
+	var sSQLTickets = "";
+	
 	console.log('eventID='+eventID+', sectorName='+sectorName);
 	console.log(checkedSeats);
-	var sSQL = "";
-
+	
 	if (eventID !== 'undefined') {
 		sSQL = "";
 		checkedSeats.forEach(function(seat) {
@@ -592,16 +727,56 @@ router.post('/sendsaledtickets', function(req, res){
 			var sUpdate = 'update public."tTicket" set "IDStatus" = 5 where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
 			sSQL = sSQL + sUpdate;
 		});
+		
 		//console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(){
 				//console.log('ticketsList: '+ JSON.stringify(data));
-				console.log('saled tickets statuses updated:');
-				res.status(200)
-					.json({
-						ReqStatus: 'success',
-						Message: 'saled tickets saved'
+				console.log('saled tickets statuses updated');
+				
+				sSQLTickets = 'select "ID", "IDStatus", "IDSeat", "IDEvent" from public."tTicket" where "IDStatus" = 5 and "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
+				db.db.any(sSQLTickets)
+					.then(function(tickets){
+						sSQLTrans = "";
+						tickets.forEach(function(tick) {
+							var ticketID = tick.ID;
+							
+							// TODO: how to get value of idticket?
+							var sTransInsert = 'insert into public."tTrans" ( "IDTicket", "Saledate", "IDUserSaler" ) values '
+												+'( '+ticketID+', now(), '+nUserID+' ); ';
+							sSQLTrans = sSQLTrans + sTransInsert;
+						});
+						db.db.any(sSQLTrans)
+							.then(function(){
+								console.log('transactions inserted');
+								res.status(200)
+									.json({
+										ReqStatus: 'success',
+										Message: 'saled tickets saved and transactions created'
+									});
+							})
+							.catch(function(errInsTr){
+								console.log('error of insert transactions of saled tickets:');
+								console.log(errInsTr);
+								res.status(errInsTr.status)
+									.json({
+										ReqStatus: 'error',
+										Message: 'cannot create transactions for saled tickets, event '+nEventID
+									});
+							});
+					})
+					.catch(function(errSrchTick){
+						console.log('error of search saled tickets:');
+						console.log(errSrchTick);
+						res.status(errSrchTick.status)
+							.json({
+								ReqStatus: 'error',
+								Message: 'cannot find saled tickets for event '+nEventID
+							});
 					});
+				
+				
+				
 			})
 			.catch(function(err){
 				//return next(err);
@@ -624,12 +799,15 @@ router.post('/sendsaledtickets', function(req, res){
 });
 
 
+//выход из сессии
 router.get('/exit', function(req, res){
 	req.session.destroy(function(err) {
 		if(err){throw err;}
 	});
 	res.redirect('/');
 });
+
+
 
 
 module.exports = router;
