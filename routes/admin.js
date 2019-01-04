@@ -663,7 +663,7 @@ router.post('/abonements/add', function(req, res, next){
 
 router.post('/ticket/changeprice/', function(req, res){
 	console.log("GET /admin/reports");
-	/*var sAdminLogin = "";
+	var sAdminLogin = "";
 	var sessData = req.session;
 	if(sessData.adminLogin){
 		sAdminLogin = sessData.adminLogin;
@@ -671,7 +671,7 @@ router.post('/ticket/changeprice/', function(req, res){
 	else {
 		res.redirect('/admin');
 		return;
-	}*/
+	}
 
 	let data = {
 		nEventID: 		req.body.nEventID,
@@ -686,6 +686,43 @@ router.post('/ticket/changeprice/', function(req, res){
 	})
 })
 
+// страница /admin/templates
+
+router.get('/templates', function(req, res){
+	console.log("GET /admin/templates");
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+})
+
+router.get('/template/:id', function(req, res){
+	console.log("GET /admin/templates");
+
+	var nID = req.params.id;
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	// разработка
+
+	res.json({templateID: nID});
+})
 
 
 module.exports = router;
