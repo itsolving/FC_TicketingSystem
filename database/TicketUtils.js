@@ -8,7 +8,9 @@ class TicketUtils{
 		sectors.forEach(function(sector) {
 			var sectorName = sector.name;
 			var sectorPrice = sector.price;
-			var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\') and "IDEvent" = '+nEventID+';';
+			var RowN = sector.RowN;
+			console.log("RowN" + RowN)
+			var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' AND s."RowN" = ' + RowN + ') and "IDEvent" = '+nEventID+';';
 			sSQL = sSQL + sUpdate;
 		});
 		const client = new this.Client(this.conOptions);
@@ -24,6 +26,7 @@ class TicketUtils{
 			}
 			else {
 				client.end();
+				console.log(qres)
 				next("OK")
 				/*res.json({"ok": "OK"});*/
 			}

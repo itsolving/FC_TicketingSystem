@@ -177,20 +177,27 @@ router.get('/event/:id', function(req, res, next) {
 				}
 			}
 			dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
-				var nIDStadiumEvent = 0;
-				if (typeof qres.rowCount === 'undefined') {
-					if (qres.rowCount > 0) {
-						if(qres.rows[0].IDStadium === 'undefined'){
-							nIDStadiumEvent = 0;
-						}
-						else {
-							nIDStadiumEvent = qres.rows[0].IDStadium;
-						}
-					}
-				}
-				else {nIDStadiumEvent = 0;}
-				dbUtils.Seat.getByStadiumID(nIDStadiumEvent, (rowList) => {
-					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
+
+				console.log(sectorList)
+				console.log("nIDStadiumEvent =" + nIDStadiumEvent)
+				dbUtils.Seat.getByStadiumID(nID, nIDStadiumEvent, (rowList) => {
+					//console.log(rowList);
+					let mainPrices = Object;
+					sectorList.forEach((item, i, array) => {
+						mainPrices[item.SectorName] = [];
+					})
+					rowList.forEach((item, i, array) => {
+						sectorList.forEach((sector, i, array) => {
+							if ( sector.SectorName == item.SectorName ){
+								mainPrices[sector.SectorName].push({
+									RowN: item.RowN,
+									Price: item.Price
+								});
+							}
+						})
+					})
+					//console.log(mainPrices);
+					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: mainPrices});
 				});
 			});
 		});
@@ -624,6 +631,33 @@ router.post('/abonements/add', function(req, res, next){
 
 	
 
+})
+
+// изменение прайса на билетах ( NEW BETA )
+
+router.post('/ticket/changeprice/', function(req, res){
+	console.log("GET /admin/reports");
+	/*var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}*/
+
+	let data = {
+		nEventID: 		req.body.nEventID,
+		newPrice: 		req.body.newPrice,
+		rowN: 			req.body.rowN,
+		sector: 		req.body.sector
+	};
+	console.log(data);
+
+	dbUtils.Ticket.updatePrice(data.nEventID, [{name: data.sector, price: data.newPrice, RowN: data.rowN}], (ans) => {
+		console.log(ans);
+	})
 })
 
 

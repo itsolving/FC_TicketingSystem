@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<% include head_html %>
+		<script src="/javascripts/priceEditor.js"></script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -101,6 +102,7 @@
 										<tr>
 											<th>Сектор</th>
 											<th>Цена</th>
+											<th>Ряд</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -109,7 +111,15 @@
 												<tr class="clickable-row">
 													<td data-id="<%= seatRow.SectorName %>"><%= seatRow.SectorName %></td>
 													<td class="cell-price-input">
-														<input type="text" name="txPrice" value="<%= seatRow.Price %>"	 />
+														<input type="text" name="txPrice" class="priceInput" value="<%= seatRow.Price %>"	 />
+													</td>
+													<td>
+														<select name="rowN" class="select-rowN">
+															<% rownums[seatRow.SectorName].forEach(function(Row) { %>
+																<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price %>}'><%= Row.RowN %> ( <%= Row.Price %> )</option>
+															<% }); %>
+														    
+														</select>
 													</td>
 												</tr>
 											<% }); %>

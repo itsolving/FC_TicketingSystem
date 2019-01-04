@@ -35,11 +35,14 @@ class SeatUtils{
 		})
 		
 	}
-	getByStadiumID(nIDStadiumEvent, next){
+	getByStadiumID(nID, nIDStadiumEvent, next){
 		var rowList = {};
 		const clientRows = new this.Client(this.conOptions);
 		clientRows.connect();
-		var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
+		var sSQLRows = 'SELECT distinct s."RowN", s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
+						+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
+		//var sSQLRows = 'SELECT distinct s."RowN" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ORDER BY s."RowN" ';
+
 			console.log(sSQLRows);
 			clientRows.query(sSQLRows, (qerrRow, qresRows) => {
 				if (qerrRow) {
@@ -72,8 +75,7 @@ class SeatUtils{
 		var sectorList = {};
 		const clientSectors = new this.Client(this.conOptions);
 		clientSectors.connect();
-		var sSQLSectors = 'SELECT distinct s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
-						+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
+		var sSQLSectors = 'SELECT distinct s."SectorName" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ORDER BY s."SectorName"';
 		console.log(sSQLSectors);
 		clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
 			if (qerrSectors) {
