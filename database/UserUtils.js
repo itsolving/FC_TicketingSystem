@@ -78,6 +78,35 @@ class UserUtils{
 			next(qerr, qres);
 		})
 	}
+	insert(UserData, postOperation, next){
+		const client = new this.Client(this.conOptions);
+		var users = {};
+		client.connect()
+		var sSQL = "";
+		if (postOperation == "ins") {
+			sSQL = 'insert into public."tUser" ("ID", "Login", "Pwd", "IDRole", "isLock", "Email") '+
+					' values(nextval(\'"tUser_ID_seq"\'::regclass), \''+UserData.login+'\'||nextval(\'"tUserLogin_ID_seq"\'::regclass), \''+UserData.password+'\', '+UserData.IDRole+', '+UserData.isLock+', \''+UserData.email+'\') RETURNING "ID"';
+			console.log(sSQL);
+			client.query(sSQL, (qerr, qres) => {
+				var newUserID = 0;
+				var sResultMsg = "";
+				if (qerr) {
+					console.log("qerr:");
+					console.log(qerr ? qerr.stack : qres);
+					sResultMsg = qerr.stack;
+				}
+				else {
+					console.log(qres.rows);
+					newUserID = qres.rows[0].ID;
+					console.log("newUserID="+newUserID);
+					sResultMsg = "ok, new UserID="+newUserID;
+				}
+				client.end();
+				//res.redirect('/admin/user/'+newUserID);
+				next({ResultMsg: sResultMsg, ID: newUserID});
+			});
+		}
+	}
 	updateStatus(userData, next){
 		const client = new this.Client(this.conOptions);
 		client.connect();
@@ -88,7 +117,7 @@ class UserUtils{
 			sSQL = 'update public."tUser" set "IDStatus"=6 '+
 					'where "ID" = '+userData.nID;
 		} else {
-			sSQL = 'update public."tUser" set "Login"=\''+userData.sLogin+'\', '+
+			sSQL = 'update public."tUser" set "Login"=\''+userData.sLogin+'\', "Pwd"=\''+userData.sPwd+'\', '+
 					'"IDRole"='+userData.nIDRole+', "isLock"='+userData.bIsLock+', "Email" = \''+userData.sEmail+'\' '+
 					'where "ID" = '+userData.nID;
 		}

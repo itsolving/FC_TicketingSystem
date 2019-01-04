@@ -442,6 +442,31 @@ router.get('/users', function(req, res, next) {
 	
 });
 
+router.post('/users', function(req, res, next) {
+	console.log("POST /admin/users");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var postOperation = req.body.postOperation;
+	let UserData = {
+		login: "newuser",
+		password: passwordHash.generate("12345678"),
+		email: "",
+		isLock: false,
+		IDRole: 2
+	};
+	dbUtils.Users.insert(UserData, postOperation, (ans) => {
+		res.send(ans);
+	})
+});
+
+
 //если зашли на адрес "localhost:3000/admin/user/123" где 123 это идентификатор пользователя
 router.get('/user/:id', function(req, res, next) {
 	console.log("GET /user/id");
@@ -488,6 +513,7 @@ router.post('/user/:id', function(req, res, next) {
 		nID: 			req.params.id,
 		sPostOperation: req.body.postOperation,
 		sLogin: 		req.body.userLogin,
+		sPwd:			req.body.userPwd,
 		nIDRole: 		req.body.roleID,
 		bIsLock: 		req.body.userIsLock,
 		sEmail: 		req.body.userEmail
