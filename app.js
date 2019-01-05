@@ -6,8 +6,13 @@ var logger = require('morgan');
 
 var mainRouter = require('./routes/main');
 var adminRouter = require('./routes/admin');
+var fileUpload = require('express-fileupload');
 
 var app = express();
+
+app.use(fileUpload());
+
+
 
 var session = require('express-session');
 app.use(session({

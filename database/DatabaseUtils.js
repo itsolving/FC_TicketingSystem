@@ -11,7 +11,8 @@ let abonement = require('./AbonementUtils.js'),
 	role      = require('./RoleUtils.js'),
 	city      = require("./CityUtils.js"),
 	stadium   = require('./StadiumUtils.js'),
-	ticket    = require('./TicketUtils.js');
+	ticket    = require('./TicketUtils.js'),
+	template  = require('./TemplateUtils.js');
 // для всех
 
 let db = {
@@ -23,7 +24,8 @@ let db = {
 	Role:      new role(Client, conOptions),
 	City:      new city(Client, conOptions),
 	Stadium:   new stadium(Client, conOptions),
-	Ticket:    new ticket(Client, conOptions)
+	Ticket:    new ticket(Client, conOptions),
+	Template:  new template(Client, conOptions)
 }
 
 module.exports = db;

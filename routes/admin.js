@@ -701,7 +701,35 @@ router.get('/templates', function(req, res){
 		return;
 	}
 
-	res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+	dbUtils.Template.getAll((templates) => {
+		res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin, templates: templates});
+	})
+
+})
+
+// создание и загрузка нового шаблона
+
+let fileUploader = require('./../helpers/fileUploader.js');
+
+router.post('/templates', function(req, res){
+	console.log("POST /admin/templates");
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	var filesURL = `/../templates/${req.body.name}`;
+	fileUploader(req.files, filesURL);
+	dbUtils.Template.insert({templateName: req.body.name,fileURL: filesURL}, (ans) => {
+		res.redirect('/admin/templates');
+	})
+
 })
 
 router.get('/template/:id', function(req, res){

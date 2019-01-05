@@ -1,4 +1,4 @@
-class AbonementUtils{
+class TemplateUtils{
 	constructor(Client, conOptions){
 		this.Client = Client;
 		this.conOptions = conOptions;
@@ -6,9 +6,8 @@ class AbonementUtils{
 	insert(itemData, next){
 		const clientRoles = new this.Client(this.conOptions);
 		clientRoles.connect();
-		let sSQLRoles = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
-						values(nextval(\'"tAbonement_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
-						'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
+		let sSQLRoles = `insert into public."tTemplate" ("ID", "templateName", "templateUrl")  
+						values(nextval(\'"tTemplate_ID_seq"\'::regclass), '${itemData.templateName}', '${itemData.fileURL}') RETURNING "ID"`;
 		console.log(sSQLRoles);
 
 		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
@@ -34,11 +33,11 @@ class AbonementUtils{
 	}
 	getAll(next){
 
-		var abonements = {};
+		var templates = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
 
-		var sSQL = 'SELECT * FROM public."tAbonement" ';
+		var sSQL = 'SELECT * FROM public."tTemplate" ';
 		console.log(sSQL);
 
 		client.query(sSQL, (qerr, qres) => {
@@ -54,13 +53,42 @@ class AbonementUtils{
 					console.log('res.rowCount='+qres.rowCount);
 				}
 				else {
-					abonements = qres.rows;
+					templates = qres.rows;
 				}
 			}
 			client.end();
-			next(abonements);
+			next(templates);
+		});
+	}
+	getByID(nID, next){
+		const client = new this.Client(this.conOptions);
+		let rowTemplateData = {};
+		client.connect();
+		var sSQL = `SELECT * FROM public."tTemplate" t where t."ID" = ${nID}`;
+		console.log(sSQL);
+		client.query(sSQL, (qerr, qres) => {
+			if (qerr) {
+				console.log(qerr ? qerr.stack : qres);
+			}
+			else {
+				//console.log(qerr ? qerr.stack : qres);
+				
+				if (typeof qres.rowCount === 'undefined') {
+					console.log('res.rowCount not found');
+				}
+				else {
+					if (qres.rowCount == 0) {
+						console.log('res.rowCount='+qres.rowCount);
+					}
+					else {
+						rowTemplateData = qres.rows;
+					}
+				}
+			}
+			client.end();
+			next(rowTemplateData);
 		});
 	}
 }
 
-module.exports = AbonementUtils;
+module.exports = TemplateUtils;
