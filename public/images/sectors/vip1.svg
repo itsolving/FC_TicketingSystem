@@ -1,67 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="57px" height="36px" viewBox="0 0 57 36" enable-background="new 0 0 57 36" xml:space="preserve">
-<g onclick="this.parentNode.sekt.push(this);this.a_name=&quot;vip 1&quot;;">
-	
-		<rect x="10.9" y="-10.2" onclick="this.parentNode.a_fon=this;" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 46.5 -10.5)" fill="#F1F3F4" stroke="#BCC8CE" stroke-width="0.4" stroke-linecap="round" stroke-miterlimit="10" width="35.2" height="56.39"/>
-	<g onclick="this.parentNode.a_row=this;">
-		<g onclick="this.a_par={beg_namb:1,quant:12};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.93" y1="29.76" x2="3.67" y2="29.76"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:13,quant:12};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.93" y1="23.83" x2="3.67" y2="23.83"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:25,quant:12};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="54.93" y1="17.9" x2="3.67" y2="17.9"/>
-		</g>
-	</g>
-	<g onclick="this.parentNode.a_text=this;">
-		<text transform="matrix(0.9999 0 0 1 21.8711 10.2163)"><tspan x="0" y="0" font-family="'OpenSans-Semibold'" font-size="6.3996px">v</tspan><tspan x="3.64" y="0" font-family="'OpenSans-Semibold'" font-size="6.3996px">i</tspan><tspan x="5.56" y="0" font-family="'OpenSans-Semibold'" font-size="6.3996px">p 1</tspan></text>
-	</g>
-	<g>
-		<g>
-			<circle fill="#AEBDC4" cx="5.52" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="9.84" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="14.16" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="18.48" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="22.8" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="27.13" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="31.45" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="35.77" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="40.09" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="44.42" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="48.75" cy="17.9" r="1.85"/>
-			<circle fill="#AEBDC4" cx="53.08" cy="17.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="5.52" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="9.84" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="14.16" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="18.48" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="22.8" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="27.13" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="31.45" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="35.77" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="40.09" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="44.42" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="48.75" cy="23.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="53.08" cy="23.83" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="5.52" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="9.84" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="14.16" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="18.48" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="22.8" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="27.13" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="31.45" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="35.77" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="40.09" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="44.42" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="48.75" cy="29.76" r="1.85"/>
-			<circle fill="#AEBDC4" cx="53.08" cy="29.76" r="1.85"/>
-		</g>
-	</g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 172">
+    <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".4" stroke-linecap="round" stroke-miterlimit="10" d="M56.7.4v35.2H.31V.4H56.7z"/>
+    <g fill="#AEBDC4">
+        <circle cx="5.52" cy="17.9" r="1.85"/>
+        <circle cx="9.84" cy="17.9" r="1.85"/>
+        <circle cx="14.16" cy="17.9" r="1.85"/>
+        <circle cx="18.48" cy="17.9" r="1.85"/>
+        <circle cx="22.8" cy="17.9" r="1.85"/>
+        <circle cx="27.13" cy="17.9" r="1.85"/>
+        <circle cx="31.45" cy="17.9" r="1.85"/>
+        <circle cx="35.77" cy="17.9" r="1.85"/>
+        <circle cx="40.09" cy="17.9" r="1.85"/>
+        <circle cx="44.42" cy="17.9" r="1.85"/>
+        <circle cx="48.75" cy="17.9" r="1.85"/>
+        <circle cx="53.08" cy="17.9" r="1.85"/>
+        <circle cx="5.52" cy="23.83" r="1.85"/>
+        <circle cx="9.84" cy="23.83" r="1.85"/>
+        <circle cx="14.16" cy="23.83" r="1.85"/>
+        <circle cx="18.48" cy="23.83" r="1.85"/>
+        <circle cx="22.8" cy="23.83" r="1.85"/>
+        <circle cx="27.13" cy="23.83" r="1.85"/>
+        <circle cx="31.45" cy="23.83" r="1.85"/>
+        <circle cx="35.77" cy="23.83" r="1.85"/>
+        <circle cx="40.09" cy="23.83" r="1.85"/>
+        <circle cx="44.42" cy="23.83" r="1.85"/>
+        <circle cx="48.75" cy="23.83" r="1.85"/>
+        <circle cx="53.08" cy="23.83" r="1.85"/>
+        <circle cx="5.52" cy="29.76" r="1.85"/>
+        <circle cx="9.84" cy="29.76" r="1.85"/>
+        <circle cx="14.16" cy="29.76" r="1.85"/>
+        <circle cx="18.48" cy="29.76" r="1.85"/>
+        <circle cx="22.8" cy="29.76" r="1.85"/>
+        <circle cx="27.13" cy="29.76" r="1.85"/>
+        <circle cx="31.45" cy="29.76" r="1.85"/>
+        <circle cx="35.77" cy="29.76" r="1.85"/>
+        <circle cx="40.09" cy="29.76" r="1.85"/>
+        <circle cx="44.42" cy="29.76" r="1.85"/>
+        <circle cx="48.75" cy="29.76" r="1.85"/>
+        <circle cx="53.08" cy="29.76" r="1.85"/>
+    </g>
 </svg>

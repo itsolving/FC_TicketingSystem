@@ -15,6 +15,10 @@
 				</div>
 				<div id="workArea" class="col-sm-10">
 					Пользователи
+					<div class="row">
+						<button id="btnCreateUser" value='NewUser' type="button">Новый</button>
+						<p id="resultCreateMsg"></p>
+					</div>
 					<div class="wrapper">
 						<table>
 							<th>Логин</th>
@@ -38,6 +42,49 @@
 							<% }); %>
 						</table>
 					</div>
+					<script>
+						$("#btnCreateUser").click(function(){
+							console.log("btnCreateUser click");
+							$("#resultCreateMsg").html('Функционал создания нового пользователя находится в разработке');
+							//--------------
+							//TODO: after development this functional we must delete this command:
+							//ClearMsg("#resultCreateMsg");
+							//--------------
+							
+							$.ajax({
+								url: "/admin/users/",
+								type: "POST",
+								data: {
+									postOperation: "ins"
+								},
+								success: function(result){
+									console.log("POST /admin/users/ success");
+									console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
+									console.log(result);
+									//$("#resultCreateMsg").html("result.ID="+result.ID);
+									if(result.ID > 0){
+										window.location.replace("/admin/user/"+result.ID);
+									}
+									else {
+										$("#resultCreateMsg").html('Функционал создания нового пользователя находится в разработке');
+										ClearMsg("#resultCreateMsg");
+									}
+								},
+								error: function(err){
+									console.log("btnCreateUser POST /admin/users/ error:");
+									console.log(err);
+									$("#resultCreateMsg").html('При создании нового пользователя возникла ошибка: '+err);
+									//ClearMsg("#resultCreateMsg");
+								}
+							});
+						});
+						
+						function ClearMsg(msgElement){
+							window.setTimeout( function(){
+								$(msgElement).html("");
+							}, 5000 );
+						}
+					</script>
 				</div>
 			<% } else{ %>
 				<% include admloginform %>

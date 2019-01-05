@@ -19,6 +19,8 @@ var conOptions = conn.conOptions;
 
 const sAdminPageTitle = 'Управление билетной системой';
 
+let dbUtils = require('./../database/DatabaseUtils.js');		// Управление бд
+
 
 //при открытии страницы "localhost:3000/admin"
 router.get('/', function(req, res, next) {
@@ -42,15 +44,14 @@ router.post('/', function(req, res, next) {
 		res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: ""});
 	}
 	else {
-		const client = new Client(conOptions);
+		let clientData = {
+			login: req.body.txLogin,
+			password: passwordHash.generate(req.body.txPassword)
+		};
 
-		//console.log('client.connect...');
-		client.connect()
-		
-		var hashedPassword = passwordHash.generate(req.body.txPassword);
-		var sSQL = 'SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = \''+req.body.txLogin+'\'';
-		console.log(sSQL);
-		client.query(sSQL, (qerr, qres) => {
+		// основная логика авторизации осталась здесь, sql запрос вынес
+		dbUtils.Users.getByLogin(clientData, (qerr, qres) =>{
+
 			var errMsg = "";
 			if (qerr) {
 				console.log('qerr:');
@@ -95,7 +96,6 @@ router.post('/', function(req, res, next) {
 					}
 				}
 			}
-			client.end();
 			console.log('save sAdminLogin to session and show adminhome...');
 			sessData.adminLogin = sAdminLogin;
 			res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
@@ -127,42 +127,10 @@ router.get('/events', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
-	const client = new Client(conOptions);
-	var events = {};
-	//console.log('client.connect...');
-	client.connect()
-	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
-				'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
-				'sd."Name" as "Stadium" '+
-				'FROM public."tEvent" ev '+
-				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
-				'order by ev."DateFrom", ev."ID" ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					events = qres.rows;
-				}
-			}
-		}
-		client.end();
-		//res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: JSON.stringify(events)});
+
+	dbUtils.Event.getAll((events) => {
 		res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events});
-	});
+	})
 });
 
 router.post('/events', function(req, res, next) {
@@ -177,33 +145,9 @@ router.post('/events', function(req, res, next) {
 		return;
 	}
 	var postOperation = req.body.postOperation;
-	const client = new Client(conOptions);
-	var events = {};
-	client.connect()
-	var sSQL = "";
-	if (postOperation == "ins") {
-		sSQL = 'insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") '+
-				' values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"';
-		console.log(sSQL);
-		client.query(sSQL, (qerr, qres) => {
-			var newEventID = 0;
-			var sResultMsg = "";
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-				sResultMsg = qerr.stack;
-			}
-			else {
-				console.log(qres.rows);
-				newEventID = qres.rows[0].ID;
-				console.log("newEventID="+newEventID);
-				sResultMsg = "ok, new EventID="+newEventID;
-			}
-			client.end();
-			//res.redirect('/admin/event/'+newEventID);
-			res.send({ResultMsg: sResultMsg, ID: newEventID});
-		});
-	}
+	dbUtils.Event.insert(postOperation, (ans) => {
+		res.send(ans);
+	})
 });
 
 
@@ -220,73 +164,10 @@ router.get('/event/:id', function(req, res, next) {
 		return;
 	}
 	var nID = req.params.id;
-	var rowEventData = {};
 	var stadiumList = {};
-	const client = new Client(conOptions);
-	client.connect();
-	var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", '+
-				'replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom", '+
-				'replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
-				'sd."Name" as "Stadium", s."Name" as "StatusName", '+
-				'ev."ShowOnline", ev."ShowCasher", ev."ShowAPI" ' +
-				'FROM public."tEvent" ev '+
-				'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
-				'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = '+nID;
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-					rowEventData = qres.rows;
-				}
-				else {
-					rowEventData = qres.rows;
-				}
-			}
-		}
-		client.end();
-		
-		const clientStadiums = new Client(conOptions);
-		clientStadiums.connect();
-		var sSQLStadiums = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
-		console.log(sSQLStadiums);
-		clientStadiums.query(sSQLStadiums, (qerrStadium, qresStadium) => {
-			if (qerrStadium) {
-				console.log("qerrStadium:");
-				console.log(qerrStadium ? qerrStadium.stack : qresStadium);
-			}
-			else {
-				//console.log(qerrStadium ? qerrStadium.stack : qresStadium);
-				
-				if (typeof qresStadium.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresStadium.rowCount == 0) {
-						console.log('res.rowCount='+qresStadium.rowCount);
-						stadiumList = qresStadium.rows;
-					}
-					else {
-						stadiumList = qresStadium.rows;
-					}
-				}
-			}
-			clientStadiums.end();
-			
-			var sectorList = {};
-			const clientSectors = new Client(conOptions);
-			clientSectors.connect();
+
+	dbUtils.Event.getById(nID, (rowEventData, qres) => {
+		dbUtils.Stadium.getNameID((stadiumList) => {
 			var nIDStadiumEvent = 0;
 			if (typeof qres.rowCount !== 'undefined') {
 				if (qres.rowCount > 0) {
@@ -295,73 +176,28 @@ router.get('/event/:id', function(req, res, next) {
 					}
 				}
 			}
-			var sSQLSectors = 'SELECT distinct s."SectorName", (select max(t."Price") from public."tTicket" t where t."IDEvent" = '+nID
-							+' and t."IDSeat" = s."ID") "Price" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
-			console.log(sSQLSectors);
-			clientSectors.query(sSQLSectors, (qerrSectors, qresSectors) => {
-				if (qerrSectors) {
-					console.log("qerrSectors:");
-					console.log(qerrSectors ? qerrSectors.stack : qresSectors);
-				}
-				else {
-					//console.log(qerrSectors ? qerrSectors.stack : qresSectors);
-					
-					if (typeof qresSectors.rowCount === 'undefined') {
-						console.log('sectorList res.rowCount not found');
-					}
-					else {
-						if (qresSectors.rowCount == 0) {
-							console.log('sectorList res.rowCount='+qresSectors.rowCount);
-							sectorList = qresSectors.rows;
-						}
-						else {
-							sectorList = qresSectors.rows;
-						}
-					}
-				}
-				clientSectors.end();
-				
-				var rowList = {};
-				const clientRows = new Client(conOptions);
-				clientRows.connect();
-				var nIDStadiumEvent = 0;
-				if (typeof qres.rowCount === 'undefined') {
-					if (qres.rowCount > 0) {
-						if(qres.rows[0].IDStadium === 'undefined'){
-							nIDStadiumEvent = 0;
-						}
-						else {
-							nIDStadiumEvent = qres.rows[0].IDStadium;
-						}
-					}
-				}
-				else {nIDStadiumEvent = 0;}
-				var sSQLRows = 'SELECT distinct s."SectorName", s."RowN" from public."tSeat" s where s."IDStadium" = '+ nIDStadiumEvent +' ';
-				console.log(sSQLRows);
-				clientRows.query(sSQLRows, (qerrRow, qresRows) => {
-					if (qerrRow) {
-						console.log("qerrRow:");
-						console.log(qerrRow ? qerrRow.stack : qresRows);
-					}
-					else {
-						//console.log(qerrRow ? qerrRow.stack : qresRows);
-						
-						if (typeof qresRows.rowCount === 'undefined') {
-							console.log('rowList res.rowCount not found');
-						}
-						else {
-							if (qresRows.rowCount == 0) {
-								console.log('rowList res.rowCount='+qresRows.rowCount);
-								rowList = qresRows.rows;
+			dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
+
+				console.log(sectorList)
+				console.log("nIDStadiumEvent =" + nIDStadiumEvent)
+				dbUtils.Seat.getByStadiumID(nID, nIDStadiumEvent, (rowList) => {
+					//console.log(rowList);
+					let mainPrices = Object;
+					sectorList.forEach((item, i, array) => {
+						mainPrices[item.SectorName] = [];
+					})
+					rowList.forEach((item, i, array) => {
+						sectorList.forEach((sector, i, array) => {
+							if ( sector.SectorName == item.SectorName ){
+								mainPrices[sector.SectorName].push({
+									RowN: item.RowN,
+									Price: item.Price
+								});
 							}
-							else {
-								rowList = qresRows.rows;
-							}
-						}
-					}
-					clientRows.end();
-					
-					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: rowList});
+						})
+					})
+					//console.log(mainPrices);
+					res.render('admineventedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventData: rowEventData, eventID: nID, stadiums: stadiumList, sectors: sectorList, rownums: mainPrices});
 				});
 			});
 		});
@@ -387,49 +223,23 @@ router.post('/event/:id', function(req, res, next) {
 		res.send('req.body is null');
 		return;
 	}
-	
-	var nID = req.params.id;
-	//var nID = req.body.id;
-	var sPostOperation = req.body.postOperation;
-	var sEventName = req.body.eventName;
-	var sImgPath = req.body.eventAfisha;
-	var sDateFrom = req.body.eventDateFrom;
-	var nStadiumID = req.body.stadiumID;
-	var bshowOnline = req.body.showOnline;
-	var bshowCasher = req.body.showCasher;
-	var bshowAPI = req.body.showAPI;
-	
 
-	const client = new Client(conOptions);
-	client.connect();
-	//res.send('функция находится в разработке. Скоро будет готова');
-	var sSQL = "";
-	if (sPostOperation == "del") {
-		sSQL = 'update public."tEvent" set "IDStatus"=6 '+
-				'where "ID" = '+nID;
-	} else {
-		sSQL = 'update public."tEvent" set "Name"=\''+sEventName+'\', "ImgPath"=\''+sImgPath+'\', '+
-				'"DateFrom"=\''+sDateFrom+'\', "IDStadium"='+nStadiumID+', "ShowOnline" = '+bshowOnline+
-				', "ShowCasher" = '+bshowCasher+', "ShowAPI" = '+bshowAPI+' '+
-				'where "ID" = '+nID;
-	}
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		var sResMsg = "";
-		if (sPostOperation == "del") {
-			sResMsg = "Удалил";
-		}
-		else {
-			sResMsg = "Сохранил";
-		}
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			sResMsg = "Ошибка выполнения: "+qerr;
-		}
-		client.end();
+	let eventData = {
+		nID: 			req.params.id,
+		sPostOperation: req.body.postOperation,
+		sEventName: 	req.body.eventName,
+		sImgPath: 		req.body.eventAfisha,
+		sDateFrom: 		req.body.eventDateFrom,
+		nStadiumID: 	req.body.stadiumID,
+		bshowOnline: 	req.body.showOnline,
+		bshowCasher: 	req.body.showCasher,
+		bshowAPI: 		req.body.showAPI
+	};
+
+	dbUtils.Event.update(eventData, (sResMsg) => {
 		res.send(sResMsg);
-	});
+	})
+	// код в database/EventsUtils.js -> update ( разработка )
 });
 
 //картинки для афиши мероприятий отображаются только вот так:
@@ -482,106 +292,36 @@ router.post('/updateprices', function(req, res, next){
 	var nEventID = req.body.eventId; //"eventId": 1
 	var sectors = req.body.sectors; //"sector": [ {"name": "N1", "price": 10}, {"name": "W7", "price": 25} ]
 	
-	
-	var sSQL = "";
-	sectors.forEach(function(sector) {
-		var sectorName = sector.name;
-		var sectorPrice = sector.price;
-		var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\') and "IDEvent" = '+nEventID+';';
-		sSQL = sSQL + sUpdate;
-	});
-	
-	
-	const client = new Client(conOptions);
-	client.connect();
-	//console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			client.end();
-			res.json({"ok": qerr});
-		}
-		else {
-			client.end();
+	dbUtils.Ticket.updatePrice(nEventID, sectors, (ans) => {
+		console.log(ans)
+		if ( ans == "OK" ){
 			res.json({"ok": "OK"});
 		}
-	});
+		else {
+			res.json({"ok": ans});
+		}
+	})
 });
 
 
 router.get('/eventGetStatus/:id', function(req, res, next){
 	var nID = req.params.id;
-	var rowEventData = {};
-	const client = new Client(conOptions);
-	client.connect();
-	var sSQL = 'SELECT ev."ID", ev."Name", ev."IDStatus", '+
-				's."Name" as "StatusName" '+
-				'FROM public."tEvent" ev '+
-				'left join public."tStatus" s on s."ID" = ev."IDStatus" ' +
-				'where ev."ID" = '+nID;
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					rowEventData = qres.rows;
-				}
-			}
-		}
-		client.end();
+
+	dbUtils.Event.getStatus(nID, (rowEventData) => {
 		res.json(rowEventData);
-	});
+	})
+	
 });
 
 //это нужно для jquery чтобы проставить значения в выпадающий список поля "стадионы"
 router.get('/stadiumsJson', function(req, res, next) {
 	console.log("GET /admin/stadiumsjson");
-	var stadiumList = {};
-	const client = new Client(conOptions);
-	//console.log('client.connect...');
-	client.connect();
-	var sSQL = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					stadiumList = qres.rows;
-				}
-			}
-		}
-		client.end();
+
+	dbUtils.Stadium.getNameID((stadiumList) => {
 		res.json(stadiumList);
-	});
+	})
+	
 });
-
-
-
 
 //открытие страницы со списком стадионов
 router.get('/stadiums', function(req, res, next) {
@@ -595,40 +335,10 @@ router.get('/stadiums', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
-	const client = new Client(conOptions);
-	var stadiums = {};
-	client.connect()
-	var sSQL = 'SELECT sd."ID", sd."Name", sd."IDStatus", '+
-				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
-				'ct."Name" as "CityName", \'\' as "ImgPath" '+
-				'FROM public."tStadium" sd '+
-				'join public."tCity" ct on ct."ID" = sd."IDCity" '+
-				'where sd."IDStatus" = 1 ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					stadiums = qres.rows;
-				}
-			}
-		}
-		client.end();
-		//res.render('adminstadiums', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumsList: JSON.stringify(stadiums)});
+	dbUtils.Stadium.getAll((stadiums) => {
 		res.render('adminstadiums', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumsList: stadiums});
-	});
+	})
+	
 });
 
 //если зашли на адрес "localhost:3000/admin/stadium/123" где 123 это идентификатор стадиона
@@ -644,65 +354,12 @@ router.get('/stadium/:id', function(req, res, next) {
 		return;
 	}
 	var nID = req.params.id;
-	var rowStadiumData = {};
-	var cityList = {};
-	const client = new Client(conOptions);
-	//console.log('client.connect...');
-	client.connect();
-	var sSQL = 'SELECT sd."ID", sd."Name", \'\' as "ImgPath", sd."IDStatus", '+
-				'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
-				'ct."Name" as "CityName" '+
-				'FROM public."tStadium" sd '+
-				'join public."tCity" ct on ct."ID" = sd."IDCity" '+
-				'where sd."IDStatus" = 1 and sd."ID" = '+nID;
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					rowStadiumData = qres.rows;
-				}
-			}
-		}
-		client.end();
-		const clientCity = new Client(conOptions);
-		//console.log('client.connect...');
-		clientCity.connect();
-		var sSQLCity = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
-		console.log(sSQLCity);
-		clientCity.query(sSQLCity, (qerrCity, qresCity) => {
-			if (qerrCity) {
-				console.log(qerrCity ? qerrCity.stack : qresCity);
-			}
-			else {
-				//console.log(qerrCity ? qerrCity.stack : qresCity);
-				
-				if (typeof qresCity.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresCity.rowCount == 0) {
-						console.log('res.rowCount='+qresCity.rowCount);
-					}
-					else {
-						cityList = qresCity.rows;
-					}
-				}
-			}
-			clientCity.end();
+	dbUtils.Stadium.getByID(nID, (rowStadiumData) => {
+
+		dbUtils.City.getNameID((cityList => {
 			res.render('adminstadiumedit', {title: sAdminPageTitle, adminLogin: sAdminLogin, stadiumData: rowStadiumData, stadiumID: nID, cities: cityList});
-		});
+		}))
+		
 	});
 });
 
@@ -757,34 +414,9 @@ router.post('/stadium/:id', function(req, res, next) {
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/citiesJson', function(req, res, next) {
 	console.log("GET /admin/citiesjson");
-	var cityList = {};
-	const client = new Client(conOptions);
-	//console.log('client.connect...');
-	client.connect();
-	var sSQL = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					cityList = qres.rows;
-				}
-			}
-		}
-		client.end();
+	dbUtils.City.getNameID((cityList) => {
 		res.json(cityList);
-	});
+	})
 });
 
 
@@ -802,38 +434,38 @@ router.get('/users', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
-	const client = new Client(conOptions);
-	var users = {};
 	console.log('client.connect...');
-	client.connect()
-	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
-				'FROM public."tUser" u '+
-				'join public."tRole" r on r."ID" = u."IDRole" ' +
-				'where 1=1 order by u."isLock", u."ID" ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					users = qres.rows;
-				}
-			}
-		}
-		client.end();
+
+	dbUtils.Users.getAll((users) => {
 		res.render('adminusers', {title: sAdminPageTitle, adminLogin: sAdminLogin, usersList: users});
-	});
+	})
+	
 });
+
+router.post('/users', function(req, res, next) {
+	console.log("POST /admin/users");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+	var postOperation = req.body.postOperation;
+	let UserData = {
+		login: "newuser",
+		password: passwordHash.generate("12345678"),
+		email: "",
+		isLock: false,
+		IDRole: 2
+	};
+	dbUtils.Users.insert(UserData, postOperation, (ans) => {
+		res.send(ans);
+	})
+});
+
 
 //если зашли на адрес "localhost:3000/admin/user/123" где 123 это идентификатор пользователя
 router.get('/user/:id', function(req, res, next) {
@@ -848,63 +480,13 @@ router.get('/user/:id', function(req, res, next) {
 		return;
 	}
 	var nID = req.params.id;
-	var rowUserData = {};
 	var rolesList = {};
-	const client = new Client(conOptions);
-	//console.log('client.connect...');
-	client.connect();
-	var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
-				'FROM public."tUser" u '+
-				'join public."tRole" r on r."ID" = u."IDRole" ' +
-				'where u."ID" = '+nID;
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					rowUserData = qres.rows;
-				}
-			}
-		}
-		client.end();
-		
-		const clientRoles = new Client(conOptions);
-		clientRoles.connect();
-		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
-		console.log(sSQLRoles);
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {
-				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						rolesList = qresRoles.rows;
-					}
-				}
-			}
-			clientRoles.end();
+	dbUtils.Users.getByID(nID, (rowUserData) => {
+
+		dbUtils.Role.getNameID((rolesList) => {
 			res.render('adminuseredit', {title: sAdminPageTitle, adminLogin: sAdminLogin, userData: rowUserData, userID: nID, roles: rolesList});
-		});
+		})
+		
 	});
 });
 
@@ -926,90 +508,31 @@ router.post('/user/:id', function(req, res, next) {
 		res.send('req.body is null');
 		return;
 	}
+
+	let userData = {
+		nID: 			req.params.id,
+		sPostOperation: req.body.postOperation,
+		sLogin: 		req.body.userLogin,
+		sPwd:			req.body.userPwd,
+		nIDRole: 		req.body.roleID,
+		bIsLock: 		req.body.userIsLock,
+		sEmail: 		req.body.userEmail
+	};
 	
-	var nID = req.params.id;
-	var sPostOperation = req.body.postOperation;
-	var sLogin = req.body.userLogin;
-	//var sPwd = req.body.userPwd;
-	var nIDRole = req.body.roleID;
-	var bIsLock = req.body.userIsLock;
-	var sEmail = req.body.userEmail;
-	
-	//var hashedPassword = passwordHash.generate(sPwd);	
-	/*if (passwordHash.verify(req.body.txPassword, qres.rows[0].Pwd)) {
-		console.log('qres.rows[0].Login='+qres.rows[0].Login);
-		sAdminLogin = qres.rows[0].Login;
-		errMsg = "";
-	}
-	else {
-		console.log('wrong password');
-		errMsg = "Ошибка: неправильный пароль администратора";
-	}*/
-	
-	const client = new Client(conOptions);
-	client.connect();
-	//res.send('функция находится в разработке. Скоро будет готова');
-	var sSQL = "";
-	if (sPostOperation == "del") {
-		//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
-		sSQL = 'update public."tUser" set "IDStatus"=6 '+
-				'where "ID" = '+nID;
-	} else {
-		sSQL = 'update public."tUser" set "Login"=\''+sLogin+'\', '+
-				'"IDRole"='+nIDRole+', "isLock"='+bIsLock+', "Email" = \''+sEmail+'\' '+
-				'where "ID" = '+nID;
-	}
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		var sResMsg = "";
-		if (sPostOperation == "del") {
-			sResMsg = "Удалил";
-		}
-		else {
-			sResMsg = "Сохранил";
-		}
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-			sResMsg = "Ошибка выполнения: "+qerr;
-		}
-		client.end();
+
+	dbUtils.Users.updateStatus(userData, (sResMsg) => {
 		res.send(sResMsg);
-	});
+	})
 });
 
 
 //для загрузки списка городов для отображения в выпадающем списке на вебстранице (вызываем в jquery)
 router.get('/rolesJson', function(req, res, next) {
 	console.log("GET /rolesjson");
-	var roleList = {};
-	const client = new Client(conOptions);
-	//console.log('client.connect...');
-	client.connect();
-	var sSQL = 'SELECT r."ID", r."Name" from public."tRole" r ';
-	console.log(sSQL);
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log(qerr ? qerr.stack : qres);
-		}
-		else {
-			//console.log(qerr ? qerr.stack : qres);
-			
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					roleList = qres.rows;
-				}
-			}
-		}
-		client.end();
+	dbUtils.Role.getNameID((roleList) => {
 		res.json(roleList);
-	});
+	})
+	
 });
 
 //при открытии страницы "localhost:3000/admin/reports"
@@ -1041,52 +564,11 @@ router.get('/reports/trans', function(req, res, next) {
 		res.redirect('/admin');
 		return;
 	}
-	
-	var trans = {};
 
-	const client = new Client(conOptions);
-	client.connect();
-
-
-	var sSQL = 'SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  ' +	
-				'tic."Price", ' +
-				' st."ID", st."SectorName", st."RowN", st."SeatN", st."Tribune" ,' + 
-				' ev."Name", ' + 
-				' us."Email" ' +	
-				'FROM public."tTrans" tr ' + 
-				' join public."tTicket" tic on tr."IDTicket" = tic."ID" ' + 
-				' join public."tSeat" st on tic."IDSeat" = st."ID" ' +
-				' join public."tEvent" ev on tic."IDEvent" = ev."ID" ' + 
-				' join public."tUser" us on tr."IDUserSaler" = us."ID" ';
-
-
-	console.log(sSQL);
-
-
-
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		if (typeof qres.rowCount === 'undefined') {
-			console.log('res.rowCount not found');
-		}
-		else {
-			if (qres.rowCount == 0) {
-				console.log('res.rowCount='+qres.rowCount);
-			}
-			else {
-				trans = qres.rows;
-			}
-		}
+	dbUtils.Trans.getAll((trans) => {
 		res.render('adminTrans', {title: sAdminPageTitle, adminLogin: sAdminLogin, transList: trans});
-		client.end();
-	});
-	
+	})
 
-
-	//res.json({status: 'ok'})
 });
 
 //при открытии страницы "localhost:3000/admin/abonements"
@@ -1103,39 +585,10 @@ router.get('/abonements', function(req, res, next){
 		return;
 	}
 
-	var abonements = {};
-
-	const client = new Client(conOptions);
-	client.connect();
-
-
-	var sSQL = 'SELECT * ' +	
-				'FROM public."tAbonement" ';
-
-
-	console.log(sSQL);
-
-
-
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		if (typeof qres.rowCount === 'undefined') {
-			console.log('res.rowCount not found');
-		}
-		else {
-			if (qres.rowCount == 0) {
-				console.log('res.rowCount='+qres.rowCount);
-			}
-			else {
-				abonements = qres.rows;
-			}
-		}
+	dbUtils.Abonement.getAll((abonements) => {
 		res.render('adminAbonements', {title: sAdminPageTitle, adminLogin: sAdminLogin, abonList: abonements});
-		client.end();
-	});
+	})
+
 })
 
 //при открытии страницы "localhost:3000/admin/reports/add"
@@ -1152,36 +605,10 @@ router.get('/abonements/add', function(req, res, next){
 		return;
 	}
 
-	const client = new Client(conOptions);
-	client.connect();
+	dbUtils.Event.getNameId((events) => { 
+		res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events}); 
+	})
 
-	var sSQL = 'SELECT ev."ID", ev."Name" from public."tEvent" ev ';
-
-
-	console.log(sSQL);
-
-	var evens = {};
-
-
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		if (typeof qres.rowCount === 'undefined') {
-			console.log('res.rowCount not found');
-		}
-		else {
-			if (qres.rowCount == 0) {
-				console.log('res.rowCount='+qres.rowCount);
-			}
-			else {
-				evens = qres.rows;
-			}
-		}
-		res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: evens});
-		client.end();
-	});
 
 })
 
@@ -1208,81 +635,94 @@ router.post('/abonements/add', function(req, res, next){
 		SeatN: formData.seat
 	};
 
-	var sSQL = 'SELECT st."ID" '+
-				'FROM public."tSeat" st '+
-				'where st."SectorName" = '+ "'" + seatData.SectorName + "'" +
-				'and st."RowN" = '+ "'" + seatData.RowN + "'" + 
-				'and st."SeatN" = '+ "'" + seatData.SeatN + "'";
-	console.log(sSQL)
-	const client = new Client(conOptions);
-	client.connect();
-
-
-	client.query(sSQL, (qerr, qres) => {
-		if (qerr) {
-			console.log("qerr:");
-			console.log(qerr ? qerr.stack : qres);
-		}
-		if (typeof qres.rowCount === 'undefined') {
-			console.log('res.rowCount not found');
-		}
-		else {
-			if (qres.rowCount == 0) {
-				console.log('res.rowCount='+qres.rowCount);
-			}
-			else {
-				seatData.seatID = qres.rows[0].ID;
-			}
-		}
-		console.log(seatData);
-		client.end();
+	dbUtils.Seat.getByPosition(seatData, (data) => {
 
 		var itemData = {
 			Price: formData.price,
-			SectorName: seatData.SectorName,
-			SeatID: seatData.seatID,
-			RowN: seatData.RowN,
-			SeatN: seatData.SeatN,
-			evensIDs: formData.evens.join()
+			SectorName: data.SectorName,
+			SeatID: data.seatID,
+			RowN: data.RowN,
+			SeatN: data.SeatN,
+			evensIDs: null
 		};
+		console.log(typeof(formData.evens))
+		if ( typeof(formData.evens) == 'string' ) itemData.evensIDs = formData.evens;
+		else itemData.evensIDs = formData.evens.join()
 
 		console.log(itemData);
 
+		dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
 
-		const clientRoles = new Client(conOptions);
-		clientRoles.connect();
-		var sSQLRoles = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
-		values(nextval(\'"tEvent_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
-		'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
-		console.log(sSQLRoles);
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {
-				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						console.log(qresRoles.rows)
-					}
-				}
-			}
-			clientRoles.end();
-			res.redirect('/admin/abonements/add');
-		});
 	});
 
 	
 
 })
 
+// изменение прайса на билетах ( NEW BETA )
+
+router.post('/ticket/changeprice/', function(req, res){
+	console.log("GET /admin/reports");
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	let data = {
+		nEventID: 		req.body.nEventID,
+		newPrice: 		req.body.newPrice,
+		rowN: 			req.body.rowN,
+		sector: 		req.body.sector
+	};
+	console.log(data);
+
+	dbUtils.Ticket.updatePrice(data.nEventID, [{name: data.sector, price: data.newPrice, RowN: data.rowN}], (ans) => {
+		console.log(ans);
+	})
+})
+
+// страница /admin/templates
+
+router.get('/templates', function(req, res){
+	console.log("GET /admin/templates");
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+})
+
+router.get('/template/:id', function(req, res){
+	console.log("GET /admin/templates");
+
+	var nID = req.params.id;
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	// разработка
+
+	res.json({templateID: nID});
+})
 
 
 module.exports = router;

@@ -1,266 +1,150 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="215px" height="66px" viewBox="0 0 215 66" enable-background="new 0 0 215 66" xml:space="preserve">
-<g onclick="this.parentNode.sekt.push(this);this.a_name=&quot;N 1&quot;;">
-	
-		<polygon onclick="this.parentNode.a_fon=this;" fill="#F1F3F4" stroke="#BCC8CE" stroke-width="0.4" stroke-linecap="round" stroke-miterlimit="10" points="
-		191.58,65.49 1.22,0.45 214.7,0.45 	"/>
-	<g onclick="this.parentNode.a_row=this;">
-		<g onclick="this.a_par={beg_namb:1,quant:2};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="189.97" y1="14.07" x2="189.97" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:6};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="184.04" y1="31.36" x2="184.04" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:10};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="178.11" y1="48.65" x2="178.11" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:10};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="172.18" y1="48.65" x2="172.18" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:10};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="166.25" y1="48.65" x2="166.25" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:9};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="160.32" y1="44.32" x2="160.32" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:9};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="154.39" y1="44.32" x2="154.39" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:8};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="148.46" y1="40" x2="148.46" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:8};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="142.53" y1="40" x2="142.53" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:5};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="136.6" y1="27.04" x2="136.6" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:5};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="130.67" y1="27.04" x2="130.67" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:5};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="124.74" y1="27.04" x2="124.74" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:4};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="118.81" y1="22.71" x2="118.81" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:4};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="112.88" y1="22.71" x2="112.88" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:5};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="106.95" y1="27.04" x2="106.95" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:5};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="101.02" y1="27.04" x2="101.02" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:4};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="95.09" y1="22.71" x2="95.09" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:4};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="89.16" y1="22.71" x2="89.16" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:4};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="83.22" y1="22.71" x2="83.22" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:3};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="77.29" y1="18.39" x2="77.29" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:3};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="71.36" y1="18.39" x2="71.36" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:2};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="65.43" y1="14.07" x2="65.43" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:2};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="59.5" y1="14.07" x2="59.5" y2="6.06"/>
-		</g>
-		<g onclick="this.a_par={beg_namb:1,quant:2};">
-			<line fill="none" stroke="#D3DBDF" stroke-width="0.4" stroke-miterlimit="10" x1="53.57" y1="14.07" x2="53.57" y2="6.06"/>
-		</g>
-	</g>
-	<g>
-		<g>
-			<circle fill="#AEBDC4" cx="189.97" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="189.97" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="53.57" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="53.57" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="59.5" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="59.5" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="65.43" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="65.43" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="71.36" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="71.36" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="71.36" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="77.29" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="77.29" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="77.29" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="83.22" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="83.22" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="83.22" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="83.22" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="89.16" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="89.16" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="89.16" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="89.16" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="95.09" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="95.09" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="95.09" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="95.09" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="112.88" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="112.88" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="112.88" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="112.88" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="118.81" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="118.81" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="118.81" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="118.81" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="106.95" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="106.95" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="106.95" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="106.95" cy="12.22" r="1.85"/>
-			<circle fill="#AEBDC4" cx="106.95" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="124.74" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="124.74" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="124.74" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="124.74" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="124.74" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="130.67" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="130.67" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="130.67" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="130.67" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="130.67" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="136.6" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="136.6" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="136.6" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="136.6" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="136.6" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="101.02" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="101.02" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="101.02" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="101.02" cy="12.22" r="1.85"/>
-			<circle fill="#AEBDC4" cx="101.02" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="184.04" cy="29.51" r="1.85"/>
-			<circle fill="#AEBDC4" cx="184.04" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="184.04" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="184.04" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="184.04" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="184.04" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="142.53" cy="38.15" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="33.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="29.51" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="142.53" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="148.46" cy="38.15" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="33.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="29.51" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="148.46" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="154.39" cy="42.48" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="38.15" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="33.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="29.51" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="154.39" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="160.32" cy="42.48" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="38.15" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="33.83" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="29.51" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="25.19" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="20.87" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="16.55" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="160.32" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="178.11" cy="46.81" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="42.48" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="38.16" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="33.84" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="29.52" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="25.2" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="20.88" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="16.56" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="178.11" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="172.18" cy="46.81" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="42.48" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="38.16" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="33.84" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="29.52" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="25.2" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="20.88" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="16.56" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="172.18" cy="7.9" r="1.85"/>
-		</g>
-		<g>
-			<circle fill="#AEBDC4" cx="166.25" cy="46.81" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="42.48" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="38.16" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="33.84" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="29.52" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="25.2" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="20.88" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="16.56" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="12.23" r="1.85"/>
-			<circle fill="#AEBDC4" cx="166.25" cy="7.9" r="1.85"/>
-		</g>
-	</g>
-	<g onclick="this.parentNode.a_text=this;">
-		<text transform="matrix(0 -1.0001 1 0 130.5949 22.4125)" font-family="'OpenSans-Semibold'" font-size="6.3992px">N 1</text>
-	</g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 172">
+    <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".4" stroke-linecap="round" stroke-miterlimit="10" d="M191.58 65.49L1.22.45H214.7l-23.12 65.04z"/>
+    <g fill="#AEBDC4">
+        <circle cx="189.97" cy="12.23" r="1.85"/>
+        <circle cx="189.97" cy="7.9" r="1.85"/>
+        <circle cx="53.57" cy="12.23" r="1.85"/>
+        <circle cx="53.57" cy="7.9" r="1.85"/>
+        <circle cx="59.5" cy="12.23" r="1.85"/>
+        <circle cx="59.5" cy="7.9" r="1.85"/>
+        <circle cx="65.43" cy="12.23" r="1.85"/>
+        <circle cx="65.43" cy="7.9" r="1.85"/>
+        <circle cx="71.36" cy="16.55" r="1.85"/>
+        <circle cx="71.36" cy="12.23" r="1.85"/>
+        <circle cx="71.36" cy="7.9" r="1.85"/>
+        <circle cx="77.29" cy="16.55" r="1.85"/>
+        <circle cx="77.29" cy="12.23" r="1.85"/>
+        <circle cx="77.29" cy="7.9" r="1.85"/>
+        <circle cx="83.22" cy="20.87" r="1.85"/>
+        <circle cx="83.22" cy="16.55" r="1.85"/>
+        <circle cx="83.22" cy="12.23" r="1.85"/>
+        <circle cx="83.22" cy="7.9" r="1.85"/>
+        <circle cx="89.16" cy="20.87" r="1.85"/>
+        <circle cx="89.16" cy="16.55" r="1.85"/>
+        <circle cx="89.16" cy="12.23" r="1.85"/>
+        <circle cx="89.16" cy="7.9" r="1.85"/>
+        <circle cx="95.09" cy="20.87" r="1.85"/>
+        <circle cx="95.09" cy="16.55" r="1.85"/>
+        <circle cx="95.09" cy="12.23" r="1.85"/>
+        <circle cx="95.09" cy="7.9" r="1.85"/>
+        <circle cx="112.88" cy="20.87" r="1.85"/>
+        <circle cx="112.88" cy="16.55" r="1.85"/>
+        <circle cx="112.88" cy="12.23" r="1.85"/>
+        <circle cx="112.88" cy="7.9" r="1.85"/>
+        <circle cx="118.81" cy="20.87" r="1.85"/>
+        <circle cx="118.81" cy="16.55" r="1.85"/>
+        <circle cx="118.81" cy="12.23" r="1.85"/>
+        <circle cx="118.81" cy="7.9" r="1.85"/>
+        <circle cx="106.95" cy="25.19" r="1.85"/>
+        <circle cx="106.95" cy="20.87" r="1.85"/>
+        <circle cx="106.95" cy="16.55" r="1.85"/>
+        <circle cx="106.95" cy="12.22" r="1.85"/>
+        <circle cx="106.95" cy="7.9" r="1.85"/>
+        <circle cx="124.74" cy="25.19" r="1.85"/>
+        <circle cx="124.74" cy="20.87" r="1.85"/>
+        <circle cx="124.74" cy="16.55" r="1.85"/>
+        <circle cx="124.74" cy="12.23" r="1.85"/>
+        <circle cx="124.74" cy="7.9" r="1.85"/>
+        <circle cx="130.67" cy="25.19" r="1.85"/>
+        <circle cx="130.67" cy="20.87" r="1.85"/>
+        <circle cx="130.67" cy="16.55" r="1.85"/>
+        <circle cx="130.67" cy="12.23" r="1.85"/>
+        <circle cx="130.67" cy="7.9" r="1.85"/>
+        <circle cx="136.6" cy="25.19" r="1.85"/>
+        <circle cx="136.6" cy="20.87" r="1.85"/>
+        <circle cx="136.6" cy="16.55" r="1.85"/>
+        <circle cx="136.6" cy="12.23" r="1.85"/>
+        <circle cx="136.6" cy="7.9" r="1.85"/>
+        <circle cx="101.02" cy="25.19" r="1.85"/>
+        <circle cx="101.02" cy="20.87" r="1.85"/>
+        <circle cx="101.02" cy="16.55" r="1.85"/>
+        <circle cx="101.02" cy="12.22" r="1.85"/>
+        <circle cx="101.02" cy="7.9" r="1.85"/>
+        <g>
+            <circle cx="184.04" cy="29.51" r="1.85"/>
+            <circle cx="184.04" cy="25.19" r="1.85"/>
+            <circle cx="184.04" cy="20.87" r="1.85"/>
+            <circle cx="184.04" cy="16.55" r="1.85"/>
+            <circle cx="184.04" cy="12.23" r="1.85"/>
+            <circle cx="184.04" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="142.53" cy="38.15" r="1.85"/>
+            <circle cx="142.53" cy="33.83" r="1.85"/>
+            <circle cx="142.53" cy="29.51" r="1.85"/>
+            <circle cx="142.53" cy="25.19" r="1.85"/>
+            <circle cx="142.53" cy="20.87" r="1.85"/>
+            <circle cx="142.53" cy="16.55" r="1.85"/>
+            <circle cx="142.53" cy="12.23" r="1.85"/>
+            <circle cx="142.53" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="148.46" cy="38.15" r="1.85"/>
+            <circle cx="148.46" cy="33.83" r="1.85"/>
+            <circle cx="148.46" cy="29.51" r="1.85"/>
+            <circle cx="148.46" cy="25.19" r="1.85"/>
+            <circle cx="148.46" cy="20.87" r="1.85"/>
+            <circle cx="148.46" cy="16.55" r="1.85"/>
+            <circle cx="148.46" cy="12.23" r="1.85"/>
+            <circle cx="148.46" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="154.39" cy="42.48" r="1.85"/>
+            <circle cx="154.39" cy="38.15" r="1.85"/>
+            <circle cx="154.39" cy="33.83" r="1.85"/>
+            <circle cx="154.39" cy="29.51" r="1.85"/>
+            <circle cx="154.39" cy="25.19" r="1.85"/>
+            <circle cx="154.39" cy="20.87" r="1.85"/>
+            <circle cx="154.39" cy="16.55" r="1.85"/>
+            <circle cx="154.39" cy="12.23" r="1.85"/>
+            <circle cx="154.39" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="160.32" cy="42.48" r="1.85"/>
+            <circle cx="160.32" cy="38.15" r="1.85"/>
+            <circle cx="160.32" cy="33.83" r="1.85"/>
+            <circle cx="160.32" cy="29.51" r="1.85"/>
+            <circle cx="160.32" cy="25.19" r="1.85"/>
+            <circle cx="160.32" cy="20.87" r="1.85"/>
+            <circle cx="160.32" cy="16.55" r="1.85"/>
+            <circle cx="160.32" cy="12.23" r="1.85"/>
+            <circle cx="160.32" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="178.11" cy="46.81" r="1.85"/>
+            <circle cx="178.11" cy="42.48" r="1.85"/>
+            <circle cx="178.11" cy="38.16" r="1.85"/>
+            <circle cx="178.11" cy="33.84" r="1.85"/>
+            <circle cx="178.11" cy="29.52" r="1.85"/>
+            <circle cx="178.11" cy="25.2" r="1.85"/>
+            <circle cx="178.11" cy="20.88" r="1.85"/>
+            <circle cx="178.11" cy="16.56" r="1.85"/>
+            <circle cx="178.11" cy="12.23" r="1.85"/>
+            <circle cx="178.11" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="172.18" cy="46.81" r="1.85"/>
+            <circle cx="172.18" cy="42.48" r="1.85"/>
+            <circle cx="172.18" cy="38.16" r="1.85"/>
+            <circle cx="172.18" cy="33.84" r="1.85"/>
+            <circle cx="172.18" cy="29.52" r="1.85"/>
+            <circle cx="172.18" cy="25.2" r="1.85"/>
+            <circle cx="172.18" cy="20.88" r="1.85"/>
+            <circle cx="172.18" cy="16.56" r="1.85"/>
+            <circle cx="172.18" cy="12.23" r="1.85"/>
+            <circle cx="172.18" cy="7.9" r="1.85"/>
+        </g>
+        <g>
+            <circle cx="166.25" cy="46.81" r="1.85"/>
+            <circle cx="166.25" cy="42.48" r="1.85"/>
+            <circle cx="166.25" cy="38.16" r="1.85"/>
+            <circle cx="166.25" cy="33.84" r="1.85"/>
+            <circle cx="166.25" cy="29.52" r="1.85"/>
+            <circle cx="166.25" cy="25.2" r="1.85"/>
+            <circle cx="166.25" cy="20.88" r="1.85"/>
+            <circle cx="166.25" cy="16.56" r="1.85"/>
+            <circle cx="166.25" cy="12.23" r="1.85"/>
+            <circle cx="166.25" cy="7.9" r="1.85"/>
+        </g>
+    </g>
 </svg>

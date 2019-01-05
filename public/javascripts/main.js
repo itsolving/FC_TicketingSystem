@@ -5,12 +5,32 @@ $(function () {
 });
 
 app.init = function () {
+  app.initFluid();
   var zoom = panzoom(document.getElementById('stadiumSVG'), {smoothScroll: false});
   app.zoomTribune(zoom);
 	app.getEventsList(); //Temp
 	app.checkEvent(); //Temp
   app.getTickets(1);
   app.endPreloading();
+};
+
+app.initFluid = function(){
+  var baseWidth = 1920,
+    baseSize = 10;
+
+  _helper();
+  $(window).on('resize', _helper);
+
+  function _helper() {
+    if(device.tablet()){
+      baseWidth = 768;
+    }
+    if(device.mobile()){
+      baseWidth = 375;
+    }
+
+    $('html').css({'font-size': Math.min($(window).width()/baseWidth*baseSize, 10)+'px'});
+  }
 };
 
 app.calibrateTribune = function(tribune){
@@ -66,19 +86,26 @@ app.getTickets = function(id){
   id = id !== 'undefined' ? id : 1;
   $tribune.each(function(){
     var _self = $(this);
-    _self.on('click', function(){
+    _self.on('click touchstart', function(){
       $.post('/getsectortickets', {IDEvent: id, SectorName: _self.data('tribune')}, function(data){
         if(data.TicketData.length > 0){
           var $secInfo = data.TicketData[0].row_to_json;
           console.log($secInfo);
-          $.fancybox.open({
-            src: '../images/sectors/' + _self.data('tribune') + '.svg',
-            type: 'ajax'
+          $.fancybox.open($('[data-popup]'), {
+            beforeShow: function(){
+              $('[data-popup-title]').text($secInfo.SectorRu);
+              $.get('../images/sectors/' + _self.data('tribune') + '.svg', null, function(data){
+                $("svg", data).prependTo($('[data-popup-svg]'));
+              },'xml');
+            },
+            afterClose: function(){
+              $('[data-popup-svg]').html('');
+            }
           });
         }else{
-          console.log('Билетов нет!');
+          $.fancybox.open('<div class="popup t-a-c"><h2>Билетов в данной трибуне нет!</h2></div>');
         }
-      });
+      }, 'json');
     });
   });
 };
