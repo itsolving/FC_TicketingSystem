@@ -25,20 +25,15 @@
 							<div class="wrapper">
 							<table class="table trans">
 								<thead>
-									<th scope="col">Афиша</th>
 									<th scope="col">ID</th>
 									<th scope="col">Название</th>
 									<th scope="col">Дата и время</th>
-									<th scope="col">Место:</th>
+									<th scope="col">Статус</th>
+									<th scope="col">Афиша</th>
 								</thead>
 								<tbody>
 							<% eventsList.forEach(function(eventRow) { %>
 									<tr>
-										<td scope="row">
-											<a href="/admin/event/<%= eventRow.ID %>">
-												<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
-											</a>
-										</td>
 										<td scope="row">
 											<a href="/admin/event/<%= eventRow.ID %>"><span id="eventID<%= eventRow.ID %>"><%= eventRow.ID %></span></a>
 										</td>
@@ -49,7 +44,12 @@
 											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.DateFrom %></a>
 										</td>
 										<td>
-											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Stadium %></a>
+											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
+										</td>
+										<td>
+											<a href="/admin/event/<%= eventRow.ID %>">
+												<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
+											</a>
 										</td>
 									</tr>
 							<% }); %>
