@@ -22,21 +22,40 @@
 						</div>
 						<div id="workArea" class="row">
 						<% if(eventsList) { %>
+							<div class="wrapper">
+							<table class="table trans">
+								<thead>
+									<th scope="col">Афиша</th>
+									<th scope="col">ID</th>
+									<th scope="col">Название</th>
+									<th scope="col">Дата и время</th>
+									<th scope="col">Место:</th>
+								</thead>
+								<tbody>
 							<% eventsList.forEach(function(eventRow) { %>
-								<div class="col-sm-6 col-md-4">
-									<!--<div class="thumbnail">-->
-										<a href="/admin/event/<%= eventRow.ID %>">
-											<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
-										</a>
-										<div class="caption">
-											<span id="eventID" style="display: none;"><%= eventRow.ID %></span>
-											<h3><%= eventRow.Name %></h3>
-											<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
-											<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
-										</div>
-									<!--</div>-->
-								</div>
+									<tr>
+										<td scope="row">
+											<a href="/admin/event/<%= eventRow.ID %>">
+												<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
+											</a>
+										</td>
+										<td scope="row">
+											<a href="/admin/event/<%= eventRow.ID %>"><span id="eventID<%= eventRow.ID %>"><%= eventRow.ID %></span></a>
+										</td>
+										<td>
+											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Name %></a>
+										</td>
+										<td>
+											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.DateFrom %></a>
+										</td>
+										<td>
+											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Stadium %></a>
+										</td>
+									</tr>
 							<% }); %>
+								</tbody>
+							</table>
+							</div>
 						<% } %>
 						</div>
 					</div>
