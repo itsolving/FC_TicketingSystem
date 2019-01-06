@@ -9,6 +9,7 @@ var db = require('./queries');
 var passwordHash = require('password-hash');
 var formidable = require('formidable');
 var fs = require('fs');
+var qr = require('qr-image');
 
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage() })
@@ -20,6 +21,7 @@ var conOptions = conn.conOptions;
 const sAdminPageTitle = 'Управление билетной системой';
 
 let dbUtils = require('./../database/DatabaseUtils.js');		// Управление бд
+
 
 
 //при открытии страницы "localhost:3000/admin"
@@ -751,6 +753,15 @@ router.get('/template/:id', function(req, res){
 
 	res.json({templateID: nID});
 })
+
+
+//testing variant Kuanysh Tuktubayev 2019-01-06
+router.get('/qr/:text', function(req,res){
+   var code = qr.image(req.params.text, { type: 'png', ec_level: 'H', size: 10, margin: 0 });
+   res.setHeader('Content-type', 'image/png');
+   code.pipe(res);
+})
+
 
 
 module.exports = router;
