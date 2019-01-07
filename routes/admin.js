@@ -763,6 +763,32 @@ router.get('/qr/:text', function(req,res){
    code.pipe(res);
 })
 
+//testing variant Vladimir
+router.get('/qrtest/:ticketID', function(req,res){
+	let data = { 
+		ticketID: req.params.ticketID
+	};
+
+	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
+		console.log(ticket)
+		var code = qr.image(`http://localhost:3000/api/ticket/approve/${ticket.IDEvent}/${data.ticketID}`, { type: 'png' });
+
+		res.setHeader('Content-type', 'image/png');
+   		code.pipe(res);
+	})
+})
+
+router.get('/api/ticket/approve/:eventID/:ticketID', function(req,res){
+	let data = { 
+		ticketID: req.params.ticketID,
+		eventID: req.params.eventID
+	};
+
+	res.json(data);
+
+	// разработка апрува билета
+})
+
 
 
 

@@ -38,7 +38,7 @@ class TicketUtils{
 		const client = new this.Client(this.conOptions);
 		client.connect();
 
-		var sSQL = 'SELECT tic."Price", tic."ID", ' +
+		var sSQL = 'SELECT tic."Price", tic."ID", tic."IDEvent", ' +
 					' st."SectorName", st."RowN", st."SeatN",' + 
 					' ev."Name" ' + 	
 					' From public."tTicket" tic' + 
