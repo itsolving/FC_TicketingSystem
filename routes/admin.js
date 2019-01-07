@@ -764,4 +764,22 @@ router.get('/qr/:text', function(req,res){
 
 
 
+
+// тесты шаблонов
+let Templator = require('./../helpers/Templator.js'),
+	templator = new Templator();
+
+router.get('/tmp/download/:ticketID', function(req, res){
+	let data = {
+		ticketID: req.params.ticketID
+	}
+	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
+		templator.htmlToPdf(ticket, (file) => {
+			res.sendFile(file.filename);
+		});
+	})
+	
+})
+
+
 module.exports = router;
