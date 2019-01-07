@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html_for_map %>
+	</head>
+	<body>
+		<h1><%= title %></h1>
+		<div class="Container">
+			<form id="PaymentForm" action="/savePayment" method="POST">
+				
+				<% if (userLogin) { %>
+					<p id="userLogin" data-value="<%= userLogin %>" hidden>
+						<%= userLogin %>
+					</p>
+				<% } else { %>
+					<p id="userLogin" data-value="onlineClient" hidden>
+						onlineClient
+					</p>
+				<% } %>
+
+				<p id="eventID" data-value="<%= eventID %>" hidden><%= eventID %></p>
+				<h3><%= eventName %></h3>
+				<p><%= eventDate %></p>
+				<p><%= stadiumName %></p>
+				<p>Места:
+					<% if (ticketList) { %>
+					<ul>
+						<% ticketList.forEach(function(ticketRow) { %>
+							<li id="ticket<%= ticketRow.ID %>">
+								сектор "<%= ticketRow.SectorName %>", ряд <%= ticketRow.RowN %>, место <%= ticketRow.SeatN %>, цена <%= ticketRow.Price %> тг;
+							</li>
+						<% }); %>
+					</ul>
+					<% } else { %>
+						<span>нет выбранных билетов!</span>
+					<% } %>
+				</p>
+				<p>Итого к оплате: <strong><%= payTotal %> тенге</strong></p>
+				<div class="form-group">
+					<label for="txEmail">Ваш e-mail:</label>
+					<input type="text" class="form-control" id="txEmail" placeholder="email" />
+				</div>
+				<div class="form-group">
+					<label for="txMobile">Ваш e-mail:</label>
+					<input type="text" class="form-control" id="txMobile" placeholder="+77000000000" />
+				</div>
+				<div class="form-group">
+					<label for="selPaytype">Ваш e-mail:</label>
+					<input type="text" class="form-control" id="selPaytype" /> <!-- здесь мы добавим значения в выпадающий список, а пока делаю как текст -->
+				</div>
+				<div class="form-group">
+					<label for="chAgreeTerms">Я согласен с условиями <a href="#">соглашения</a></label>
+					<input type="checkbox" class="form-control" id="chAgreeTerms" /> <!-- здесь мы добавим значения в выпадающий список, а пока делаю как текст -->
+				</div>
+				
+				<div class="form-group">
+					<button type="button" class="btn btn-primary" id="btnSavePayment" name="btnSavePayment" value="SavePaymentClick">Оплатить</button>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
