@@ -34,44 +34,60 @@
 								<div class="col-md-12">
 									<h2>Список шаблонов</h2>
 								</div>
-								<form method="POST" enctype="multipart/form-data" >
-									<hr>
-									<div>
-										<div>
-											<label>Название</label>
-											<input type="text" name="name" required><br>
-											<input type="file" name="page" required>
-										</div>	
-										<button>Добавить</button>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<form method="POST" enctype="multipart/form-data" >
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group bmd-form-group">
+															<label class="bmd-label-floating">Название</label>
+															<input type="text" name="name" required class="form-control">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group bmd-form-group">
+															<input class="form-control-file" type="file" name="page" required>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<button class="btn btn-primary">Добавить</button>
+													</div>
+												</div>
+											</form>
+										</div>
 									</div>
-									
-									<hr>
-								</form>
-								<div class="wrapper">
-									<table class="table trans">
-										<thead>
-											<th scope="col">ID</th>
-											<th scope="col">Название</th>
-											<th scope="col">Местоположение</th>
-										</thead>
-										<tbody>
-											<% if(templates.length > 0){ %>
-												<% templates.forEach(function(template) { %>
-													<tr>
-														<td scope="row"><%= template.ID %></td>
-														<td scope="row"><a href="/admin/tmp/download/<%= template.ID %>/5348" target="_blank"><%= template.templateName %></a></td>
-														<td scope="row"><%= template.templateUrl %></td>
-													</tr>
-												<% }); %>
-											<% } else{ %>  
-												<p>Шаблонов еще нет</p>
-											<% } %>
-										</tbody>
-									</table>
 								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead>
+														<th scope="col">ID</th>
+														<th scope="col">Название</th>
+														<th scope="col">Местоположение</th>
+													</thead>
+													<tbody>
+														<% if(templates.length > 0){ %>
+															<% templates.forEach(function(template) { %>
+																<tr>
+																	<td scope="row"><%= template.ID %></td>
+																	<td scope="row"><a href="/admin/tmp/download/<%= template.ID %>/5348" target="_blank"><%= template.templateName %></a></td>
+																	<td scope="row"><%= template.templateUrl %></td>
+																</tr>
+															<% }); %>
+														<% } else{ %>  
+															<p>Шаблонов еще нет</p>
+														<% } %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
->>>>>>> feature/frontend
 					</div>
 				</div>
 			<% } else{ %>

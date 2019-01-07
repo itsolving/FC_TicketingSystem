@@ -28,34 +28,45 @@
 					<div class="content">
 						<div class="container-fluid">
 							<div class="row">
-								<h2>Пользователи</h2>
-								<div class="row">
-									<button id="btnCreateUser" value='NewUser' type="button">Новый</button>
+								<div class="col-md-12">
+									<h2>Пользователи</h2>
+								</div>
+								<div class="col-md-12">
+									<button id="btnCreateUser" class="btn btn-primary btn-create-event" value='NewUser' type="button">Новый</button>
 									<p id="resultCreateMsg"></p>
 								</div>
-								<div class="wrapper">
-									<table>
-										<th>Логин</th>
-										<th>Роль</th>
-										<th>email</th>
-										<th>Блок</th>
-										<% usersList.forEach(function(userRow) { %>
-											<tr>
-												<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
-												<td><%= userRow.RoleName %></td>
-												<td><%= userRow.Email %></td>
-												<td>
-													<% if (userRow.isLock) { %>
-														<span>Заблокирован</span>
-													<% } else { %>
-														<span>Активный</span>
-													<% } %>
-												</td>
-												
-											</tr>
-										<% }); %>
-									</table>
-								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead class="text-primary">
+														<th>Логин</th>
+														<th>Роль</th>
+														<th>email</th>
+														<th>Блок</th>
+													</thead>
+													<tbody>
+														<% usersList.forEach(function(userRow) { %>
+															<tr>
+																<td><a href="/admin/user/<%= userRow.ID %>"><%= userRow.Login %></a></td>
+																<td><%= userRow.RoleName %></td>
+																<td><%= userRow.Email %></td>
+																<td>
+																	<% if (userRow.isLock) { %>
+																		<span>Заблокирован</span>
+																	<% } else { %>
+																		<span>Активный</span>
+																	<% } %>
+																</td>
+															</tr>
+														<% }); %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
 					</div>
