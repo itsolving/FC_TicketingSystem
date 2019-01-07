@@ -12,8 +12,18 @@ module.exports = async function upload(files, url){
 
 
 	let pageFile = files.page;
-	let assetsFiles = files.assets;
-	await mkdirp(`${__dirname}${url}/assets`, async (err) => { 
+
+
+	mkdirp(`${__dirname}${url}`, async (err) => { 
+		pageFile.mv(`${__dirname}${url}/${pageFile.name}`, function(err) {
+		    if (err){
+		    	console.log(err);
+		    	return false;
+		    }
+		})
+	})
+	//let assetsFiles = files.assets;
+	/*await mkdirp(`${__dirname}${url}/assets`, async (err) => { 
 		if ( err ) console.log(`Trying to create dir after save, but dir already exist!`)
 			await pageFile.mv(`${__dirname}${url}/${pageFile.name}`, function(err) {
 		    if (err){
@@ -31,7 +41,7 @@ module.exports = async function upload(files, url){
 			    }
 			})
 		});
-	});
+	});*/
 
 	return true;
 }

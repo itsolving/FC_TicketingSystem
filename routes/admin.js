@@ -727,8 +727,9 @@ router.post('/templates', function(req, res){
 	}
 
 	var filesURL = `/../templates/${req.body.name}`;
+	var dbURL = `templates/${req.body.name}`;
 	fileUploader(req.files, filesURL);
-	dbUtils.Template.insert({templateName: req.body.name,fileURL: filesURL}, (ans) => {
+	dbUtils.Template.insert({templateName: req.body.name,fileURL: dbURL}, (ans) => {
 		res.redirect('/admin/templates');
 	})
 
@@ -769,14 +770,18 @@ router.get('/qr/:text', function(req,res){
 let Templator = require('./../helpers/Templator.js'),
 	templator = new Templator();
 
-router.get('/tmp/download/:ticketID', function(req, res){
+router.get('/tmp/download/:templateID/:ticketID', function(req, res){
 	let data = {
-		ticketID: req.params.ticketID
+		ticketID: req.params.ticketID,
+		templateID: req.params.templateID
 	}
 	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
-		templator.htmlToPdf(ticket, (file) => {
-			res.sendFile(file.filename);
-		});
+		dbUtils.Template.getByID(data.templateID, (template) => {
+			console.log(template)
+			templator.htmlToPdf(ticket, { name: template.templateName, link: template.templateUrl }, (file) => {
+				res.sendFile(file.filename);
+			});
+		})
 	})
 	
 })

@@ -81,7 +81,7 @@ class TemplateUtils{
 						console.log('res.rowCount='+qres.rowCount);
 					}
 					else {
-						rowTemplateData = qres.rows;
+						rowTemplateData = qres.rows[0];
 					}
 				}
 			}

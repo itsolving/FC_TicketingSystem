@@ -23,11 +23,9 @@
 						<div>
 							<div style="display: flex; justify-content: space-between; align-items: center;">
 								<label>Название</label>
-								<input type="text" name="name">
+								<input type="text" name="name" required>
 								<label>index.html</label>
-								<input type="file" name="page">
-								<label>assets</label>
-								<input type="file" multiple name="assets">
+								<input type="file" name="page" required>
 							</div>	
 							<button>Добавить</button>
 						</div>
@@ -43,13 +41,17 @@
 								<th scope="col">Местоположение</th>
 							</thead>
 							<tbody>
-								<% templates.forEach(function(template) { %>
-									<tr>
-										<td scope="row"><%= template.ID %></td>
-										<td scope="row"><%= template.templateName %></td>
-										<td scope="row"><%= template.templateUrl %></td>
-									</tr>
-								<% }); %>
+								<% if(templates.length > 0){ %>
+									<% templates.forEach(function(template) { %>
+										<tr>
+											<td scope="row"><%= template.ID %></td>
+											<td scope="row"><%= template.templateName %></td>
+											<td scope="row"><%= template.templateUrl %></td>
+										</tr>
+									<% }); %>
+								<% } else{ %>  
+								    <p>Шаблонов еще нет</p>
+								<% } %>
 							</tbody>
 						</table>
 					</div>

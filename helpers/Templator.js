@@ -20,9 +20,9 @@ class Templator{
 
 
 	// конверт из html в pdf
-	htmlToPdf(ticket, next){
-		let htmlLink = `${__dirname}./../templates/Template1/index.html`;
-		let templateName = 'Template1';
+	htmlToPdf(ticket, fileData, next){
+		let htmlLink = `${__dirname}./../${fileData.link}/index.html`;
+		let templateName = fileData.name;
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
 		var options = { 
@@ -36,13 +36,6 @@ class Templator{
 		  console.log(res);
 		  next(res);
 		});
-
-		/*pdf.create(newHTML, options).toBuffer((err, buffer) => {
-			console.log(buffer)
-		  	next(buffer);
-		});*/
-		 
-		// return pdfLink; возвращает ссылку на pdf
 	}
 }
 
