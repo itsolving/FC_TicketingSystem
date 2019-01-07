@@ -769,7 +769,7 @@ router.get('/qr/:text', function(req,res){
 // тесты шаблонов
 let Templator = require('./../helpers/Templator.js'),
 	templator = new Templator();
-
+// /admin/tmp/download/5/5348 или /admin/tmp/download/4/5348 для теста
 router.get('/tmp/download/:templateID/:ticketID', function(req, res){
 	let data = {
 		ticketID: req.params.ticketID,
