@@ -5,7 +5,7 @@ let fs  = require('fs'),
 class Templator{
 	constructor(){
 		this.replaceList = [
-			'{{ticketID}}', '{{eventName}}', '{{ticketPrice}}', '{{SectorName}}', '{{RowN}}', '{{SeatN}}'
+			'{{ticketID}}', '{{eventName}}', '{{ticketPrice}}', '{{SectorName}}', '{{RowN}}', '{{SeatN}}', '{{ticID}}'
 		]
 	}
 
@@ -29,7 +29,7 @@ class Templator{
 			format: 'Letter'      
 		};
 
-		var newHTML = this.template(html, [ticket.ID, ticket.Name, ticket.Price, ticket.SectorName, ticket.RowN, ticket.SeatN]);
+		var newHTML = this.template(html, [ticket.ID, ticket.Name, ticket.Price, ticket.SectorName, ticket.RowN, ticket.SeatN, ticket.ID]);
 
 
 		pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
