@@ -21,7 +21,7 @@ class Templator{
 
 	// конверт из html в pdf
 	htmlToPdf(ticket, fileData, next){
-		let htmlLink = `${__dirname}./../${fileData.link}/index.html`;
+		let htmlLink = `${__dirname}./../${fileData.link}`;
 		let templateName = fileData.name;
 
 		var html = fs.readFileSync(htmlLink, 'utf8');

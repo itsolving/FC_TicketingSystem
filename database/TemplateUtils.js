@@ -6,8 +6,8 @@ class TemplateUtils{
 	insert(itemData, next){
 		const clientRoles = new this.Client(this.conOptions);
 		clientRoles.connect();
-		let sSQLRoles = `insert into public."tTemplate" ("ID", "templateName", "templateUrl")  
-						values(nextval(\'"tTemplate_ID_seq"\'::regclass), '${itemData.templateName}', '${itemData.fileURL}') RETURNING "ID"`;
+		let sSQLRoles = `insert into public."tTemplate" ("ID", "templateName", "templateUrl", "fileName")  
+						values(nextval(\'"tTemplate_ID_seq"\'::regclass), '${itemData.templateName}', '${itemData.fileURL}', '${itemData.fileName}') RETURNING "ID"`;
 		console.log(sSQLRoles);
 
 		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
