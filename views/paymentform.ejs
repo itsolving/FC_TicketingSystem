@@ -4,59 +4,84 @@
 		<% include head_html %>
 	</head>
 	<body>
-		<h1><%= title %></h1>
 		<div class="Container">
-			<form id="PaymentForm" action="/savePayment" method="POST">
-				
-				<% if (userLogin) { %>
-					<p id="userLogin" data-value="<%= userLogin %>" hidden>
-						<%= userLogin %>
-					</p>
-				<% } else { %>
-					<p id="userLogin" data-value="onlineClient" hidden>
-						onlineClient
-					</p>
-				<% } %>
-
-				<p id="eventID" data-value="<%= eventID %>" hidden><%= eventID %></p>
-				<h3><%= eventName %></h3>
-				<p><%= eventDate %></p>
-				<p><%= stadiumName %></p>
-				<p>Места:
-					<% if (ticketList) { %>
-					<ul>
-						<% ticketList.forEach(function(ticketRow) { %>
-							<li id="ticket<%= ticketRow.ID %>">
-								сектор "<%= ticketRow.SectorName %>", ряд <%= ticketRow.RowN %>, место <%= ticketRow.SeatN %>, цена <%= ticketRow.Price %> тг;
-							</li>
-						<% }); %>
-					</ul>
-					<% } else { %>
-						<span>нет выбранных билетов!</span>
-					<% } %>
-				</p>
-				<p>Итого к оплате: <strong><%= payTotal %> тенге</strong></p>
-				<div class="form-group">
-					<label for="txEmail">Ваш e-mail:</label>
-					<input type="text" class="form-control" id="txEmail" placeholder="email" />
+			<h1>Оплата билетов</h1>
+			<div id="workArea" class="main-panel events">
+				<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+					<div class="container-fluid">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="navbar-toggler-icon icon-bar"></span>
+						<span class="navbar-toggler-icon icon-bar"></span>
+						<span class="navbar-toggler-icon icon-bar"></span>
+						</button>
+						<div class="collapse navbar-collapse justify-content-end">
+							<ul class="navbar-nav">
+								<% if(userLogin){ %>
+									<% include mainheader %>
+								<% } %>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<div id="workArea" class="content container">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="col-md-6">
+									<form id="PaymentForm" action="/savePayment" method="POST">
+										<div class="form-group">
+											<% if (ticketList) { %>
+												<select class="form-control form-control-sm">
+													<option>Small select</option>
+												</select>
+											<% } else { %>
+												<span>нет выбранных билетов!</span>
+											<% } %>
+										</div>
+										<div class="form-group">
+											<input type="checkbox" id="userIsLock" checked>Блокировка</input>
+										</div>
+										<div class="form-group">
+											<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary" >Оплатить</button>
+										</div>
+									</form>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1" ticket="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" ticket="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Оплата</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">
+													<label for="exampleInputEmail1">Email address</label>
+													<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+												</div>
+												<div class="form-group">
+													<label for="exampleInputPassword1">Password</label>
+													<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+												</div>
+											</div>
+											<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+											<button type="button" class="btn btn-primary">Оплатить</button>
+											</div>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="txMobile">Ваш e-mail:</label>
-					<input type="text" class="form-control" id="txMobile" placeholder="+77000000000" />
-				</div>
-				<div class="form-group">
-					<label for="selPaytype">Ваш e-mail:</label>
-					<input type="text" class="form-control" id="selPaytype" /> <!-- здесь мы добавим значения в выпадающий список, а пока делаю как текст -->
-				</div>
-				<div class="form-group">
-					<label for="chAgreeTerms">Я согласен с условиями <a href="#">соглашения</a></label>
-					<input type="checkbox" class="form-control" id="chAgreeTerms" /> <!-- здесь мы добавим значения в выпадающий список, а пока делаю как текст -->
-				</div>
-				
-				<div class="form-group">
-					<button type="button" class="btn btn-primary" id="btnSavePayment" name="btnSavePayment" value="SavePaymentClick">Оплатить</button>
-				</div>
-			</form>
+			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
 </html>
