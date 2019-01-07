@@ -23,3 +23,11 @@
 .btn-create-event {
 	margin-bottom: 15px;
 }
+
+.main-panel>.content.container {
+	width: 100%;
+}
+
+.main-panel.events {
+	width: 100%;
+}
