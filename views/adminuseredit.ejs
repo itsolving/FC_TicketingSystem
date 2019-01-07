@@ -5,218 +5,235 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
-				<div>
-				<% include admheader %>
-				</div>
-				<div class="col-sm-2">
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 					<% include admmnu %>
 				</div>
-				<div id="workArea" class="col-sm-10">
-					Редактирование пользователя
-					<div class="wrapper">
-						<form name="formUser">
-							<div class="form-group">
-								<button type="button" id="btnSaveUser" name="btnSaveUser" value="SaveUserClick">Сохранить</button>
-								<!--<button type="button" id="btnDeleteUser" name="btnDeleteUser" value="DeleteUserClick">Удалить</button>-->
-								<p id="txResultMsg"></p>
-							</div>
-							<!-- <%= userData[0].ID %> -->
-							<% userData.forEach(function(userRow) { %>
-								<div class="col-md-3">
-									<p><label>ID: </label> <span id="userID" data-value="<%= userRow.ID %>"><%= userRow.ID %></span></p>
-									<p><label>Текущий статус: </label> <span id="userIDStatus" data-value="<%= userRow.IDStatus %>"><%= userRow.RoleName %></span></p>
-									<div class="form-group">
-										<label for="userLogin">Логин:</label>
-										<input type="text" class="form-control" id="userLogin" value="<%= userRow.Login %>" placeholder="логин" />
-									</div>
-									<div class="form-group">
-										<label for="userLogin">Пароль:</label>
-										<input type="password" class="form-control" id="userPwd" value="<%= userRow.Pwd %>" placeholder="пароль" />
-									</div>
-									<div class="form-group">
-										<label for="userEmail">Email:</label>
-										<input type="text" class="form-control" id="userEmail" value="<%= userRow.Email %>" placeholder="email" />
-									</div>
-									<div class="form-group">
-										<label for="rolesList">Роль:</label>
-										<span id="userRoleID" data-value="<%= userRow.IDRole %>" hidden><%= userRow.IDRole %></span>
-										<select name="rolesList" id="rolesList">
-											<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
-											<% roles.forEach(function(roleRow) { %>
-												<% if (roleRow.ID != roleRow.IDRole ){ %>
-												<option value="<%= roleRow.ID %>"><%= roleRow.Name %></option>
-												<% } %>
-											<% }); %>
-										</select>
-									</div>
-									<div class="form-group">
-										<% if (userRow.isLock) { %>
-											<input type="checkbox" id="userIsLock" checked>Блокировка</input>
-										<% } else { %>
-											<input type="checkbox" id="userIsLock">Блокировка</input>
-										<% } %>
-									</div>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
 								</div>
-							<% }); %>
-						</form>
-						<script>
-							/*
-							$(document).ready(function(){
-								$('select#rolesList').empty();
-								$.ajax({
-									url: '/admin/rolesJson',
-									type: "GET",
-									success: function(result){
-										$.each(result, function(index) {
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<h2>Редактирование пользователя</h2>
+								<div class="wrapper">
+									<form name="formUser">
+										<div class="form-group">
+											<button type="button" id="btnSaveUser" name="btnSaveUser" value="SaveUserClick">Сохранить</button>
+											<!--<button type="button" id="btnDeleteUser" name="btnDeleteUser" value="DeleteUserClick">Удалить</button>-->
+											<p id="txResultMsg"></p>
+										</div>
+										<!-- <%= userData[0].ID %> -->
+										<% userData.forEach(function(userRow) { %>
+											<div class="col-md-3">
+												<p><label>ID: </label> <span id="userID" data-value="<%= userRow.ID %>"><%= userRow.ID %></span></p>
+												<p><label>Текущий статус: </label> <span id="userIDStatus" data-value="<%= userRow.IDStatus %>"><%= userRow.RoleName %></span></p>
+												<div class="form-group">
+													<label for="userLogin">Логин:</label>
+													<input type="text" class="form-control" id="userLogin" value="<%= userRow.Login %>" placeholder="логин" />
+												</div>
+												<div class="form-group">
+													<label for="userLogin">Пароль:</label>
+													<input type="password" class="form-control" id="userPwd" value="<%= userRow.Pwd %>" placeholder="пароль" />
+												</div>
+												<div class="form-group">
+													<label for="userEmail">Email:</label>
+													<input type="text" class="form-control" id="userEmail" value="<%= userRow.Email %>" placeholder="email" />
+												</div>
+												<div class="form-group">
+													<label for="rolesList">Роль:</label>
+													<span id="userRoleID" data-value="<%= userRow.IDRole %>" hidden><%= userRow.IDRole %></span>
+													<select name="rolesList" id="rolesList">
+														<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
+														<% roles.forEach(function(roleRow) { %>
+															<% if (roleRow.ID != roleRow.IDRole ){ %>
+															<option value="<%= roleRow.ID %>"><%= roleRow.Name %></option>
+															<% } %>
+														<% }); %>
+													</select>
+												</div>
+												<div class="form-group">
+													<% if (userRow.isLock) { %>
+														<input type="checkbox" id="userIsLock" checked>Блокировка</input>
+													<% } else { %>
+														<input type="checkbox" id="userIsLock">Блокировка</input>
+													<% } %>
+												</div>
+											</div>
+										<% }); %>
+									</form>
+									<script>
+											/*
+											$(document).ready(function(){
+												$('select#rolesList').empty();
+												$.ajax({
+													url: '/admin/rolesJson',
+													type: "GET",
+													success: function(result){
+														$.each(result, function(index) {
+															
+															if (result[index].ID == $("#userRoleID").val()) {
+																$('select#rolesList').append(
+																		$('<option selected></option>')
+																		.val(result[index].ID)
+																		.html(result[index].Name)
+																);
+															}
+															else {
+																$('select#rolesList').append(
+																		$('<option></option>')
+																		.val(result[index].ID)
+																		.html(result[index].Name)
+																);
+															}
+														});
+													}
+												});
+											});
+											*/
 											
-											if (result[index].ID == $("#userRoleID").val()) {
-												$('select#rolesList').append(
-														$('<option selected></option>')
-														.val(result[index].ID)
-														.html(result[index].Name)
-												);
-											}
-											else {
-												$('select#rolesList').append(
-														$('<option></option>')
-														.val(result[index].ID)
-														.html(result[index].Name)
-												);
-											}
-										});
-									}
-								});
-							});
-							*/
-							
-							$(document).ready(function(){
-								GetRoleList();
-							});
+											$(document).ready(function(){
+												GetRoleList();
+											});
+																
+											function GetRoleList(){
+												$.ajax({
+													url: '/admin/rolesJson',
+													type: "GET",
+													success: function(result){
+														$('select#rolesList').empty();
+														var nUsrIDRole = $("#userRoleID").data("value");
+														$.each(result, function(index) {
+															if (result[index].ID == nUsrIDRole) {
+																$('select#rolesList').append(
+																		$('<option selected></option>')
+																		.val(result[index].ID)
+																		.html(result[index].Name)
+																);
+															}
+															else {
+																$('select#rolesList').append(
+																		$('<option></option>')
+																		.val(result[index].ID)
+																		.html(result[index].Name)
+																);
+															}
+														});
+													}
+												});
+											};
+											
+											
+											$("#btnSaveUser").on('click', function(){
+												var nUserID = $("#userID").data("value");
+												//console.log("btnSaveUser click: nUserID="+nUserID);
 												
-							function GetRoleList(){
-								$.ajax({
-									url: '/admin/rolesJson',
-									type: "GET",
-									success: function(result){
-										$('select#rolesList').empty();
-										var nUsrIDRole = $("#userRoleID").data("value");
-										$.each(result, function(index) {
-											if (result[index].ID == nUsrIDRole) {
-												$('select#rolesList').append(
-														$('<option selected></option>')
-														.val(result[index].ID)
-														.html(result[index].Name)
-												);
-											}
-											else {
-												$('select#rolesList').append(
-														$('<option></option>')
-														.val(result[index].ID)
-														.html(result[index].Name)
-												);
-											}
-										});
-									}
-								});
-							};
-							
-							
-							$("#btnSaveUser").on('click', function(){
-								var nUserID = $("#userID").data("value");
-								//console.log("btnSaveUser click: nUserID="+nUserID);
-								
-								var sURL = "/admin/user/"+nUserID;
-								
-								var sIsLock = "false";
-								if ($("input[id='userIsLock']:checked").val() === "undefined") {
-									sIsLock = "false";
-								}
-								else
-								if (($("input[id='userIsLock']:checked").val() == "true")
-									|| ($("input[id='userIsLock']:checked").val() == "on")) {
-									sIsLock = "true";
-								}
-								else {sIsLock = "false";}
-								
-								$.ajax({
-									url: sURL,
-									type: "POST",
-									data: {
-										postOperation: 'upd',
-										userID: $("#userID").val(),
-										userLogin: $("#userLogin").val(),
-										userPwd: $("#userPwd").val(),
-										userEmail: $("#userEmail").val(),
-										roleID: $("select#rolesList").val(),
-										userIsLock: sIsLock
-									},
-									success: function(result){
-										console.log("POST upd /admin/user/id success: result="+result);
-										$("#txResultMsg").html(result);
-										ClearMsg("#txResultMsg");
-										//TODO: refresh page
-										
-									},
-									error: function(err){
-										console.log("POST /admin/user/id error:");
-										console.log(err);
-									}
-								});
-							});
-							
-							/*удаление нам не нужно, потому что пользователи будут либо блокированными, либо разблокируются (для этого есть галочка)
-							$("#btnDeleteUser").on('click', function(){
-								var nUserID = 0;
-								nEventID = $("#userID").data("value");
-								console.log("btnDeleteUser click: nUserID="+nUserID);
-								$.ajax({
-									url: "/admin/user/"+nEventID,
-									type: "POST",
-									data: {
-										postOperation: 'del',
-										userID: $("#userID").val(),
-										userLogin: $("#userLogin").val(),
-										userPwd: $("#userPwd").val(),
-										userEmail: $("#userEmail").val(),
-										roleID: $("select#rolesList").val(),
-										userIsLock: $("#userIsLock").val()
-										},
-									success: function(result){
-											console.log("POST del /admin/user/id success: result="+result);
-											$("#txResultMsg").html(result);
-											//--------------
-											//TODO: after development this functional we must delete this command:
-											ClearMsg("#txResultMsg");
-											//--------------
-											//GetActualUserStatus();
-										},
-									error: function(err){
-										console.log("POST /admin/user/id error:");
-										console.log(err);
-									}
-								});
-							});
-							function GetActualUserStatus(){
-								console.log('GetActualUserStatus::');
-								var nUserID = $("#userID").data("value");
-								$.ajax({
-									url: "/admin/userGetStatus/"+nUserID,
-									type: "GET",
-									success: function(result){
-											console.log('GetActualUserStatus success:');
-											console.log(result);
-											$("#userIDStatus").attr('data-value', result[0].IDStatus);
-											$("#userIDStatus").html(result[0].StatusName);
-										},
-									error: function(err){
-										console.log("GET GetActualUserStatus /admin/userGetStatus/id error:");
-										console.log(err);
-									}
-								});
-							}*/
-						</script>
+												var sURL = "/admin/user/"+nUserID;
+												
+												var sIsLock = "false";
+												if ($("input[id='userIsLock']:checked").val() === "undefined") {
+													sIsLock = "false";
+												}
+												else
+												if (($("input[id='userIsLock']:checked").val() == "true")
+													|| ($("input[id='userIsLock']:checked").val() == "on")) {
+													sIsLock = "true";
+												}
+												else {sIsLock = "false";}
+												
+												$.ajax({
+													url: sURL,
+													type: "POST",
+													data: {
+														postOperation: 'upd',
+														userID: $("#userID").val(),
+														userLogin: $("#userLogin").val(),
+														userPwd: $("#userPwd").val(),
+														userEmail: $("#userEmail").val(),
+														roleID: $("select#rolesList").val(),
+														userIsLock: sIsLock
+													},
+													success: function(result){
+														console.log("POST upd /admin/user/id success: result="+result);
+														$("#txResultMsg").html(result);
+														ClearMsg("#txResultMsg");
+														//TODO: refresh page
+														
+													},
+													error: function(err){
+														console.log("POST /admin/user/id error:");
+														console.log(err);
+													}
+												});
+											});
+											
+											/*удаление нам не нужно, потому что пользователи будут либо блокированными, либо разблокируются (для этого есть галочка)
+											$("#btnDeleteUser").on('click', function(){
+												var nUserID = 0;
+												nEventID = $("#userID").data("value");
+												console.log("btnDeleteUser click: nUserID="+nUserID);
+												$.ajax({
+													url: "/admin/user/"+nEventID,
+													type: "POST",
+													data: {
+														postOperation: 'del',
+														userID: $("#userID").val(),
+														userLogin: $("#userLogin").val(),
+														userPwd: $("#userPwd").val(),
+														userEmail: $("#userEmail").val(),
+														roleID: $("select#rolesList").val(),
+														userIsLock: $("#userIsLock").val()
+														},
+													success: function(result){
+															console.log("POST del /admin/user/id success: result="+result);
+															$("#txResultMsg").html(result);
+															//--------------
+															//TODO: after development this functional we must delete this command:
+															ClearMsg("#txResultMsg");
+															//--------------
+															//GetActualUserStatus();
+														},
+													error: function(err){
+														console.log("POST /admin/user/id error:");
+														console.log(err);
+													}
+												});
+											});
+											function GetActualUserStatus(){
+												console.log('GetActualUserStatus::');
+												var nUserID = $("#userID").data("value");
+												$.ajax({
+													url: "/admin/userGetStatus/"+nUserID,
+													type: "GET",
+													success: function(result){
+															console.log('GetActualUserStatus success:');
+															console.log(result);
+															$("#userIDStatus").attr('data-value', result[0].IDStatus);
+															$("#userIDStatus").html(result[0].StatusName);
+														},
+													error: function(err){
+														console.log("GET GetActualUserStatus /admin/userGetStatus/id error:");
+														console.log(err);
+													}
+												});
+											}*/
+									</script>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			<% } else{ %>
