@@ -5,58 +5,77 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
-				<div>
-				<% include admheader %>
-				</div>
-				<div class="col-sm-2">
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 					<% include admmnu %>
 				</div>
-				<div id="workArea" class="col-sm-10">
-					Мероприятия
-					<div class="wrapper">
-						<div class="row">
-							<button id="btnCreateEvent" value='NewEvent' type="button">Создать новое</button>
-							<p id="resultCreateMsg"></p>
-						</div>
-						<div id="workArea" class="row">
-						<% if(eventsList) { %>
-							<div class="wrapper">
-							<table class="table trans">
-								<thead>
-									<th scope="col">ID</th>
-									<th scope="col">Название</th>
-									<th scope="col">Дата и время</th>
-									<th scope="col">Статус</th>
-									<th scope="col">Афиша</th>
-								</thead>
-								<tbody>
-							<% eventsList.forEach(function(eventRow) { %>
-									<tr>
-										<td scope="row">
-											<a href="/admin/event/<%= eventRow.ID %>"><span id="eventID<%= eventRow.ID %>"><%= eventRow.ID %></span></a>
-										</td>
-										<td>
-											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Name %></a>
-										</td>
-										<td>
-											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.DateFrom %></a>
-										</td>
-										<td>
-											<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
-										</td>
-										<td>
-											<a href="/admin/event/<%= eventRow.ID %>">
-												<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
-											</a>
-										</td>
-									</tr>
-							<% }); %>
-								</tbody>
-							</table>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							</button>
+							<div class="collapse navbar-collapse justify-content-end">
+								<ul class="navbar-nav">
+									<% include admheader %>
+								</ul>
 							</div>
-						<% } %>
+						</div>
+					</nav>
+					<div id="workArea" class="content">
+						<div class="container-fluid">
+							<div class="col-md-12">
+								<h2>Мероприятия</h2>
+							</div>
+							<div class="col-md-12">
+								<button id="btnCreateEvent" class="btn btn-primary btn-create-event" value='NewEvent' type="button">Создать новое</button>
+								<p id="resultCreateMsg"></p>
+							</div>
+							<% if(eventsList) { %>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead class="text-primary">
+														<th scope="col">ID</th>
+														<th scope="col">Название</th>
+														<th scope="col">Дата и время</th>
+														<th scope="col">Статус</th>
+														<th scope="col">Афиша</th>
+													</thead>
+													<tbody>
+														<% eventsList.forEach(function(eventRow) { %>
+															<tr>
+																<td scope="row">
+																	<a href="/admin/event/<%= eventRow.ID %>"><span id="eventID<%= eventRow.ID %>"><%= eventRow.ID %></span></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.Name %></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.DateFrom %></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>">
+																		<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
+																	</a>
+																</td>
+															</tr>
+														<% }); %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							<% } %>
 						</div>
 					</div>
 				</div>
