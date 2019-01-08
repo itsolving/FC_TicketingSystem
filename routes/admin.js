@@ -764,21 +764,23 @@ router.get('/qr/:text', function(req,res){
 })
 
 //testing variant Vladimir
-router.get('/qrtest/:ticketID', function(req,res){
+router.get('/qrtest/:ticketID/:Barcode', function(req,res){
 	let data = { 
-		ticketID: req.params.ticketID
+		ticketID: req.params.ticketID,
+		Barcode: req.params.Barcode
 	};
 
-	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
-		console.log(ticket)
-		var code = qr.image(`http://localhost:3000/api/ticket/approve/${ticket.IDEvent}/${data.ticketID}`, { type: 'png' });
+	console.log(data);
+
+	dbUtils.Ticket.getByIDBarcode(data.ticketID, data.Barcode, (ticket) => {
+		var code = qr.image(`http://localhost:3000/api/ticket/approve/${ticket.IDEvent}/${data.ticketID}/${ticket.Barcode.replace(/\s/g, '')}`, { type: 'png' });
 
 		res.setHeader('Content-type', 'image/png');
    		code.pipe(res);
 	})
 })
 
-router.get('/api/ticket/approve/:eventID/:ticketID', function(req,res){
+router.get('/api/ticket/approve/:eventID/:ticketID/:Barcode', function(req,res){
 	let data = { 
 		ticketID: req.params.ticketID,
 		eventID: req.params.eventID

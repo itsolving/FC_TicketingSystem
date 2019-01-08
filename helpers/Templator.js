@@ -5,7 +5,14 @@ let fs  = require('fs'),
 class Templator{
 	constructor(){
 		this.replaceList = [
-			'{{ticketID}}', '{{eventName}}', '{{ticketPrice}}', '{{SectorName}}', '{{RowN}}', '{{SeatN}}', '{{ticID}}'
+			'{{ticketID}}', 
+			'{{eventName}}', 
+			'{{ticketPrice}}', 
+			'{{SectorName}}', 
+			'{{RowN}}', 
+			'{{SeatN}}', 
+			'{{ticID}}', 
+			'{{Barcode}}'
 		]
 	}
 
@@ -29,7 +36,21 @@ class Templator{
 			format: 'Letter'      
 		};
 
-		var newHTML = this.template(html, [ticket.ID, ticket.Name, ticket.Price, ticket.SectorName, ticket.RowN, ticket.SeatN, ticket.ID]);
+		ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
+
+		console.log("Template ticket");
+		console.log(ticket)
+
+		var newHTML = this.template(html, [
+			ticket.ID, 
+			ticket.Name, 
+			ticket.Price, 
+			ticket.SectorName, 
+			ticket.RowN, 
+			ticket.SeatN, 
+			ticket.ID, 
+			ticket.Barcode.replace(/\s+/, "") 
+		]);
 
 
 		pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
