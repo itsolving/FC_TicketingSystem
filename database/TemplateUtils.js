@@ -7,7 +7,14 @@ class TemplateUtils{
 		const clientRoles = new this.Client(this.conOptions);
 		clientRoles.connect();
 		let sSQLRoles = `insert into public."tTemplate" ("ID", "templateName", "templateUrl", "fileName")  
-						values(nextval(\'"tTemplate_ID_seq"\'::regclass), '${itemData.templateName}', '${itemData.fileURL}', '${itemData.fileName}') RETURNING "ID"`;
+						values(
+							nextval(
+							\'"tTemplate_ID_seq"\'::regclass), 
+							'${itemData.templateName}', 
+							'${itemData.fileURL}', 
+							'${itemData.fileName}') 
+						RETURNING "ID"`;
+
 		console.log(sSQLRoles);
 
 		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
@@ -38,6 +45,7 @@ class TemplateUtils{
 		client.connect();
 
 		var sSQL = 'SELECT * FROM public."tTemplate" ';
+
 		console.log(sSQL);
 
 		client.query(sSQL, (qerr, qres) => {
@@ -65,6 +73,7 @@ class TemplateUtils{
 		let rowTemplateData = {};
 		client.connect();
 		var sSQL = `SELECT * FROM public."tTemplate" t where t."ID" = ${nID}`;
+		
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {

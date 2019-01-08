@@ -7,10 +7,10 @@ class UserUtils{
 		const client = new this.Client(this.conOptions);
 		var users = {};
 		client.connect()
-		var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
-					'FROM public."tUser" u '+
-					'join public."tRole" r on r."ID" = u."IDRole" ' +
-					'where 1=1 order by u."isLock", u."ID" ';
+		var sSQL = `SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" 
+					FROM public."tUser" u 
+					join public."tRole" r on r."ID" = u."IDRole" 
+					where 1=1 order by u."isLock", u."ID" `;
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -39,10 +39,11 @@ class UserUtils{
 		const client = new this.Client(this.conOptions);
 		let rowUserData = {};
 		client.connect();
-		var sSQL = 'SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" '+
-					'FROM public."tUser" u '+
-					'join public."tRole" r on r."ID" = u."IDRole" ' +
-					'where u."ID" = '+nID;
+		var sSQL = `SELECT u."ID", u."Login", u."Pwd", u."IDRole", u."isLock", u."Email", r."Name" as "RoleName" 
+					FROM public."tUser" u 
+					join public."tRole" r on r."ID" = u."IDRole"
+					where u."ID" = ${nID}`;
+
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -72,6 +73,7 @@ class UserUtils{
 
 		client.connect()
 		var sSQL = `SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = '${clientData.login}'`;
+
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			client.end();
@@ -84,8 +86,14 @@ class UserUtils{
 		client.connect()
 		var sSQL = "";
 		if (postOperation == "ins") {
-			sSQL = 'insert into public."tUser" ("ID", "Login", "Pwd", "IDRole", "isLock", "Email") '+
-					' values(nextval(\'"tUser_ID_seq"\'::regclass), \''+UserData.login+'\'||nextval(\'"tUserLogin_ID_seq"\'::regclass), \''+UserData.password+'\', '+UserData.IDRole+', '+UserData.isLock+', \''+UserData.email+'\') RETURNING "ID"';
+			sSQL = `insert into public."tUser" ("ID", "Login", "Pwd", "IDRole", "isLock", "Email") values(
+						nextval(\'"tUser_ID_seq"\'::regclass), 
+						'${UserData.login}'||nextval(\'"tUserLogin_ID_seq"\'::regclass), 
+						'${UserData.password}', 
+						${UserData.IDRole}, 
+						${UserData.isLock}, 
+						'${UserData.email}') 
+					RETURNING "ID"`;
 			console.log(sSQL);
 			client.query(sSQL, (qerr, qres) => {
 				var newUserID = 0;
@@ -114,12 +122,15 @@ class UserUtils{
 		var sSQL = "";
 		if (userData.sPostOperation == "del") {
 			//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
-			sSQL = 'update public."tUser" set "IDStatus"=6 '+
-					'where "ID" = '+userData.nID;
+			sSQL = `update public."tUser" set "IDStatus"=6 where "ID" = ${userData.nID}`;
 		} else {
-			sSQL = 'update public."tUser" set "Login"=\''+userData.sLogin+'\', "Pwd"=\''+userData.sPwd+'\', '+
-					'"IDRole"='+userData.nIDRole+', "isLock"='+userData.bIsLock+', "Email" = \''+userData.sEmail+'\' '+
-					'where "ID" = '+userData.nID;
+			sSQL = `update public."tUser" set 
+					"Login"='${userData.sLogin}', 
+					"Pwd"='${userData.sPwd}', 
+					"IDRole"=${userData.nIDRole}, 
+					"isLock"=${userData.bIsLock}, 
+					"Email" = '${userData.sEmail}'
+					where "ID" = ${userData.nID}`;
 		}
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {

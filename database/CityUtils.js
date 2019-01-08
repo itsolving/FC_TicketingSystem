@@ -8,6 +8,7 @@ class CityUtils{
 		const client = new this.Client(this.conOptions);
 		client.connect();
 		var sSQL = 'SELECT ct."ID", ct."Name" from public."tCity" ct ';
+		
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {

@@ -7,12 +7,13 @@ class StadiumUtils{
 		const client = new this.Client(this.conOptions);
 		var stadiums = {};
 		client.connect()
-		var sSQL = 'SELECT sd."ID", sd."Name", sd."IDStatus", '+
-					'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
-					'ct."Name" as "CityName", \'\' as "ImgPath" '+
-					'FROM public."tStadium" sd '+
-					'join public."tCity" ct on ct."ID" = sd."IDCity" '+
-					'where sd."IDStatus" = 1 ';
+		var sSQL = `SELECT sd."ID", sd."Name", sd."IDStatus", 
+					sd."IDUserCreator", sd."CreateDate", sd."IDCity", 
+					ct."Name" as "CityName", \'\' as "ImgPath" 
+					FROM public."tStadium" sd 
+					join public."tCity" ct on ct."ID" = sd."IDCity" 
+					where sd."IDStatus" = 1 `;
+
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -44,6 +45,7 @@ class StadiumUtils{
 		//console.log('client.connect...');
 		client.connect();
 		var sSQL = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
+
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -73,12 +75,13 @@ class StadiumUtils{
 		var rowStadiumData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = 'SELECT sd."ID", sd."Name", \'\' as "ImgPath", sd."IDStatus", '+
-					'sd."IDUserCreator", sd."CreateDate", sd."IDCity", '+
-					'ct."Name" as "CityName" '+
-					'FROM public."tStadium" sd '+
-					'join public."tCity" ct on ct."ID" = sd."IDCity" '+
-					'where sd."IDStatus" = 1 and sd."ID" = '+nID;
+		var sSQL = `SELECT sd."ID", sd."Name", \'\' as "ImgPath", sd."IDStatus", 
+					sd."IDUserCreator", sd."CreateDate", sd."IDCity",
+					ct."Name" as "CityName" 
+					FROM public."tStadium" sd
+					join public."tCity" ct on ct."ID" = sd."IDCity"
+					where sd."IDStatus" = 1 and sd."ID" = ${nID}`;
+
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {

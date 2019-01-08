@@ -9,6 +9,7 @@ class AbonementUtils{
 		let sSQLRoles = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
 						values(nextval(\'"tAbonement_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
 						'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
+
 		console.log(sSQLRoles);
 
 		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
@@ -39,6 +40,7 @@ class AbonementUtils{
 		client.connect();
 
 		var sSQL = 'SELECT * FROM public."tAbonement" ';
+		
 		console.log(sSQL);
 
 		client.query(sSQL, (qerr, qres) => {

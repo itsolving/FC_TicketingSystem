@@ -8,6 +8,7 @@ class RoleUtils{
 		const clientRoles = new this.Client(this.conOptions);
 		clientRoles.connect();
 		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
+		
 		console.log(sSQLRoles);
 		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
 			if (qerrRoles) {

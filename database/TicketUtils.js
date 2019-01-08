@@ -10,7 +10,16 @@ class TicketUtils{
 			var sectorPrice = sector.price;
 			var RowN = sector.RowN;
 			console.log("RowN" + RowN)
-			var sUpdate = 'update public."tTicket" set "Price" = '+sectorPrice+' where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' AND s."RowN" = ' + RowN + ') and "IDEvent" = '+nEventID+';';
+			var sUpdate = `update public."tTicket" 
+							set "Price" = ${sectorPrice} 
+							where "IDSeat" 
+							in (
+								select s."ID" from public."tSeat" s 
+								where s."SectorName" = '${sectorName}' 
+								AND s."RowN" = ${RowN}
+							) 
+							and "IDEvent" = ${nEventID};`;
+
 			sSQL = sSQL + sUpdate;
 		});
 		const client = new this.Client(this.conOptions);
@@ -38,13 +47,14 @@ class TicketUtils{
 		const client = new this.Client(this.conOptions);
 		client.connect();
 
-		var sSQL = 'SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode", ' +
-					' st."SectorName", st."RowN", st."SeatN",' + 
-					' ev."Name" ' + 	
-					' From public."tTicket" tic' + 
-					' join public."tSeat" st on tic."IDSeat" = st."ID" ' +
-					' join public."tEvent" ev on tic."IDEvent" = ev."ID" ' + 
-					'WHERE tic."ID" = ' + nID;
+		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode", 
+					st."SectorName", st."RowN", st."SeatN",
+					ev."Name" 
+					From public."tTicket" tic'
+					join public."tSeat" st on tic."IDSeat" = st."ID" 
+					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
+					WHERE tic."ID" = ' + ${nID}`;
+
 		console.log(sSQL);
 
 		client.query(sSQL, (qerr, qres) => {
