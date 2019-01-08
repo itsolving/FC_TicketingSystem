@@ -8,48 +8,70 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
-				<div>
-				<% include admheader %>
-				</div>
-				<div class="col-sm-2">
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 					<% include admmnu %>
 				</div>
-				<div id="workArea" class="col-sm-10">
-					<h3>Список абонементов</h3>
-					<small><a href="/admin/abonements/add">Добавить абонемент</a></small>
-
-
-					<div class="wrapper">
-						<table class="table trans">
-							<thead>
-								<th scope="col">ID</th>
-								<th scope="col">Цена</th>
-								<th scope="col">Трибуна и сектор</th>
-								<th scope="col">Ряд</th>
-								<th scope="col">Место</th>
-								<th scope="col">SeatID</th>
-								<th scope="col">IDs мероприятий</th>
-							</thead>
-							<tbody>
-								<% abonList.forEach(function(abonRow) { %>
-									<tr>
-										<td scope="row"><%= abonRow.ID %></td>
-										<td><%= abonRow.Price %></td>
-										<td><%= abonRow.SectorName %></td>
-										<td><%= abonRow.RowN %></td>
-										<td><%= abonRow.SeatN %></td>
-										<td><%= abonRow.SeatID %></td>
-										<td><%= abonRow.evensIDs %></td>
-										
-										
-									</tr>
-								<% }); %>
-							</tbody>
-						</table>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							</button>
+							<div class="collapse navbar-collapse justify-content-end">
+								<ul class="navbar-nav">
+									<% include admheader %>
+								</ul>
+							</div>
+						</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<h2>Список абонементов</h2>
+								</div>
+								<div class="col-md-12">
+									<a href="/admin/abonements/add" class="btn btn-primary btn-create-event">Создать новое</a>
+								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead class="text-primary">
+														<th scope="col">ID</th>
+														<th scope="col">Цена</th>
+														<th scope="col">Трибуна и сектор</th>
+														<th scope="col">Ряд</th>
+														<th scope="col">Место</th>
+														<th scope="col">SeatID</th>
+														<th scope="col">IDs мероприятий</th>
+													</thead>
+													<tbody>
+														<% abonList.forEach(function(abonRow) { %>
+															<tr>
+																<td scope="row"><%= abonRow.ID %></td>
+																<td><%= abonRow.Price %></td>
+																<td><%= abonRow.SectorName %></td>
+																<td><%= abonRow.RowN %></td>
+																<td><%= abonRow.SeatN %></td>
+																<td><%= abonRow.SeatID %></td>
+																<td><%= abonRow.evensIDs %></td>
+															</tr>
+														<% }); %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					
 				</div>
 			<% } else{ %>
 				<% include admloginform %>

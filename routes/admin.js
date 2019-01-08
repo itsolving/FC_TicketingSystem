@@ -9,6 +9,7 @@ var db = require('./queries');
 var passwordHash = require('password-hash');
 var formidable = require('formidable');
 var fs = require('fs');
+var qr = require('qr-image');
 
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage() })
@@ -20,6 +21,7 @@ var conOptions = conn.conOptions;
 const sAdminPageTitle = 'Управление билетной системой';
 
 let dbUtils = require('./../database/DatabaseUtils.js');		// Управление бд
+
 
 
 //при открытии страницы "localhost:3000/admin"
@@ -701,7 +703,36 @@ router.get('/templates', function(req, res){
 		return;
 	}
 
-	res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin});
+	dbUtils.Template.getAll((templates) => {
+		res.render('adminTemplates', {title: sAdminPageTitle, adminLogin: sAdminLogin, templates: templates});
+	})
+
+})
+
+// создание и загрузка нового шаблона
+
+let fileUploader = require('./../helpers/fileUploader.js');
+
+router.post('/templates', function(req, res){
+	console.log("POST /admin/templates");
+
+	var sAdminLogin = "";
+	var sessData = req.session;
+	if(sessData.adminLogin){
+		sAdminLogin = sessData.adminLogin;
+	}
+	else {
+		res.redirect('/admin');
+		return;
+	}
+
+	var filesURL = `/../templates/${req.body.name}`;
+	var dbURL = `templates/${req.body.name}`;
+	fileUploader(req.files, filesURL);
+	dbUtils.Template.insert({templateName: req.body.name,fileURL: dbURL, fileName: req.files.page.name}, (ans) => {
+		res.redirect('/admin/templates');
+	})
+
 })
 
 router.get('/template/:id', function(req, res){
@@ -722,6 +753,63 @@ router.get('/template/:id', function(req, res){
 	// разработка
 
 	res.json({templateID: nID});
+})
+
+
+//testing variant Kuanysh Tuktubayev 2019-01-06
+router.get('/qr/:text', function(req,res){
+   var code = qr.image(req.params.text, { type: 'png', ec_level: 'H', size: 10, margin: 0 });
+   res.setHeader('Content-type', 'image/png');
+   code.pipe(res);
+})
+
+//testing variant Vladimir
+router.get('/qrtest/:ticketID', function(req,res){
+	let data = { 
+		ticketID: req.params.ticketID
+	};
+
+	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
+		console.log(ticket)
+		var code = qr.image(`http://localhost:3000/api/ticket/approve/${ticket.IDEvent}/${data.ticketID}`, { type: 'png' });
+
+		res.setHeader('Content-type', 'image/png');
+   		code.pipe(res);
+	})
+})
+
+router.get('/api/ticket/approve/:eventID/:ticketID', function(req,res){
+	let data = { 
+		ticketID: req.params.ticketID,
+		eventID: req.params.eventID
+	};
+
+	res.json(data);
+
+	// разработка апрува билета
+})
+
+
+
+
+// тесты шаблонов
+let Templator = require('./../helpers/Templator.js'),
+	templator = new Templator();
+// /admin/tmp/download/5/5348 или /admin/tmp/download/4/5348 для теста
+router.get('/tmp/download/:templateID/:ticketID', function(req, res){
+	let data = {
+		ticketID: req.params.ticketID,
+		templateID: req.params.templateID
+	}
+	dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
+		dbUtils.Template.getByID(data.templateID, (template) => {
+			console.log(template)
+			templator.htmlToPdf(ticket, { name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (file) => {
+				res.sendFile(file.filename);
+			});
+		})
+	})
+	
 })
 
 

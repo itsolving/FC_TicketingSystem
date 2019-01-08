@@ -37,12 +37,13 @@ class EventsUtils{
 		var events = {};
 		//console.log('client.connect...');
 		client.connect()
-		var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI:SS\') as "DateFrom", '+
-					'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI:SS\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
-					'sd."Name" as "Stadium" '+
+		var sSQL = 'SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", '+
+					'TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", '+
+					'sd."Name" as "StadiumName", st."Name" as "StatusName" '+
 					'FROM public."tEvent" ev '+
 					'join public."tStadium" sd on ev."IDStadium" = sd."ID" '+
-					'where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ '+
+					'join public."tStatus" st on ev."IDStadium" = st."ID" '+
+					'where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ '+
 					'order by ev."DateFrom", ev."ID" ';
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
