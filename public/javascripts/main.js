@@ -2,25 +2,46 @@ app = {};
 
 $(function () {
   app.init();
-});
 
+  $('.cart__buy, .cart__ticket-remove').on('click', function () {
+    $('.cart').toggleClass('cart--gray')
+  });
+});
+var zoom;
 app.init = function () {
   app.initFluid();
 
-  // $('#main-svg').panzoom({
-  //   contain: "invert",
-  //   minScale: 1
-  // }).panzoom("zoom");
+  var $stadiumSVG = $('#stadiumSVG');
+  var stadiumSVG = document.getElementById('stadiumSVG').getBoundingClientRect();
+  var body = document.body.getBoundingClientRect();
 
-  zoom = panzoom(document.getElementById('stadiumSVG'), {
+  var svgStartZoom = (body.height / stadiumSVG.height) * 0.96;
+  var svgStartOffsetX = (body.width / 2) * (1 + svgStartZoom) - ((stadiumSVG.width * svgStartZoom) / 2) - (body.width * 0.0732);
+  // var svgStartOffsetX = (body.width / 2);
+
+  // console.log(stadiumSVG, body)
+
+  zoom = panzoom($stadiumSVG[0], {
     smoothScroll: false,
-    contain: 'invert',
-    onStart: function () {
-      console.log(1)
-    }
+    maxZoom: 2,
+    minZoom: 0.3,
+    zoomSpeed: 0.25,
   });
-  zoom.on('panzoomstart', function (e, panzoom, matrix, changed) {
-    console.log(2)
+
+  zoom.zoomAbs(
+    svgStartOffsetX,
+    0,
+    svgStartZoom
+  );
+
+
+  zoom.on('panstart', function (e) {
+    $stadiumSVG.addClass('draggable')
+    console.log()
+  });
+
+  zoom.on('panend', function (e) {
+    $stadiumSVG.removeClass('draggable')
   });
 
   app.zoomTribune(zoom);
@@ -113,42 +134,85 @@ app.checkEvent = function () {
 };
 
 app.getTickets = function (id) {
-  var $tribune = $('[data-tribune][data-available=true]');
   id = id !== 'undefined' ? id : 1;
-  $tribune.each(function () {
-    var _self = $(this);
-    _self.on('click touchstart', function () {
+
+  $('[data-tribune]').each(function () {
+    var $tribune = $(this);
+    $tribune.on('click touchstart', function () {
+      tribuneName = $tribune.data('tribune');
+      $exist = $('[data-popup-svg-elem=' + tribuneName + ']');
+
+      if ($exist.length === 1) {
+        $.fancybox.open($('[data-popup]'), {
+          baseClass: 'tribune-fancybox',
+          beforeShow: function () {
+            $('[data-popup-title]').text(tribuneName);
+            $('[data-popup-svg]').attr('data-popup-svg', tribuneName);
+            $exist.show();
+          },
+          afterClose: function () {
+            $('[data-popup-svg] svg').hide();
+          }
+        });
+
+        return;
+      }
+
+      app.startPreloading();
+
       $.post('/getsectortickets', {
         IDEvent: id,
-        SectorName: _self.data('tribune')
+        SectorName: tribuneName
       }, function (data) {
         console.log(data);
         if (data.TicketData.length > 0) {
           var data = data.TicketData[0].row_to_json;
 
           $.fancybox.open($('[data-popup]'), {
+            baseClass: 'tribune-fancybox',
             beforeShow: function () {
               $('[data-popup-title]').text(data.SectorRu);
-              $.get('../images/sectors/' + _self.data('tribune') + '.svg', null, function (svg) {
+
+              $.get('../images/sectors/' + tribuneName + '.svg', null, function (svg) {
                 $("svg", svg).prependTo($('[data-popup-svg]'));
+                $('[data-popup-svg]').attr('data-popup-svg', tribuneName)
+                $('[data-popup-svg] svg:first-child').attr('data-popup-svg-elem', tribuneName)
+
                 app.tribuneSeatData();
                 app.setDataForSeatTooltip(data);
               }, 'xml');
             },
+            afterShow: function () {
+              app.stopPreloading();
+            },
             afterClose: function () {
-              $('[data-popup-svg]').html('');
+              $('[data-popup-svg] svg').hide();
+              //$('[data-popup-svg]').html('');
             }
           });
         } else {
-          $.fancybox.open('<div class="popup t-a-c"><h2>Билетов в данной трибуне нет!</h2></div>');
+          app.stopPreloading();
+          $.fancybox.open('<div class="popup t-a-c"><h2>Билетов в данной трибуне нет!</h2></div>', {
+            baseClass: 'tribune-fancybox',
+          });
         }
       }, 'json');
     });
   });
 };
 
+app.startPreloading = function () {
+  $('[data-preloader]').fadeIn(280);
+  $('html').css('overflow', 'hidden');
+};
+
+app.stopPreloading = function () {
+  $('[data-preloader]').hide();
+  $('html').css('overflow', 'visible');
+};
+
 app.endPreloading = function () {
-  $('[data-preloader]').fadeOut();
+  $('[data-preloader]').fadeOut(280);
   $('html').css('overflow', 'visible');
 };
 
@@ -205,8 +269,6 @@ app.setContentTooltip = function (elem) {
 
   $('[data-tooltip-bind]').hide();
 
-  console.log(data);
-
   if (data.type === 'tribune') {
     if (!data.available) {
       setRowTooltip('unavailable');
@@ -257,85 +319,126 @@ app.setContentTooltip = function (elem) {
 };
 
 app.setDataForTribuneTooltip = function (id) {
-  var id = id !== 'undefined' ? id : 1;
+  var id = (id !== 'undefined') ? id : 1;
 
   $('[data-tribune]').each(function (index) {
     var $tribune = $(this);
-    var available = index % 2 === 0 ? true : false; // temp
+    var tribuneName = $tribune.data('tribune');
 
-    $tribune.attr('data-show-tooltip', 'init-wait');
-    $tribune.attr('data-available', available);
-    $tribune.data('tooltip', {
-      type: 'tribune',
-      available: available,
-      title: $tribune.data('tribune'),
-      maxPrice: 9999,
-      minPrice: 99,
-      seatsLeft: 28
+    if (index > 885) return;
+
+    $.post('/getsectortickets', {
+      IDEvent: id,
+      SectorName: tribuneName
+    }, function (res) {
+      $tribune.attr('data-load', true);
+
+      if (res.TicketData.length === 0) return;
+
+      data = res.TicketData[0].row_to_json
+      available = data.seatsLeft > 0 ? true : false;
+
+      $tribune.attr('data-show-tooltip', 'init-wait');
+      $tribune.attr('data-available', available);
+      $tribune.data('tooltip', {
+        type: 'tribune',
+        available: available,
+        title: data.SectorRu,
+        maxPrice: data.maxPrice,
+        minPrice: data.minPrice,
+        seatsLeft: data.seatsLeft
+      });
+
+      app.setListenerTooltip();
     });
 
-    // $.post('/getsectortickets', {
-    //   IDEvent: id,
-    //   SectorName: $tribune.data('tribune')
-    // }, function (data) {
-    //   data = data.TicketData[0].row_to_json;
-    //   available = data.seatsLeft > 0 ? true : false;
-
-    //   $tribune.data('show-tooltip', {
-    //     availableTribune: available,
-    //     tribune: data.SectorRu,
-    //     maxPrice: data.maxPrice,
-    //     minPrice: data.minPrice,
-    //     seatsLeft: data.seatsLeft
-    //   });
-    // });
   });
-
-  app.setListenerTooltip();
 };
 
+
+// метод gettickets очень медленный, нерабочее решение
+
+// app.setDataForTribuneTooltip = function (id) {
+//   var id = (id !== 'undefined') ? id : 1;
+
+//   $.post('/gettickets', {
+//     IDEvent: id,
+//   }, function (res) {
+
+//     console.log(res);
+
+//     $('[data-tribune]').each(function (index) {
+//       var $tribune = $(this);
+//       var tribuneName = $tribune.data('tribune');
+
+//       res.TicketData.forEach(function (data) {
+//         data = data.row_to_json;
+
+//         if (data.SectorName === tribuneName) {
+//           available = data.seatsLeft > 0 ? true : false;
+
+//           $tribune.attr('data-show-tooltip', 'init-wait');
+//           $tribune.attr('data-available', available);
+//           $tribune.data('tooltip', {
+//             type: 'tribune',
+//             available: available,
+//             title: data.SectorRu,
+//             maxPrice: data.maxPrice,
+//             minPrice: data.minPrice,
+//             seatsLeft: data.seatsLeft
+//           });
+//         }
+//       });
+//     });
+
+//     app.setListenerTooltip();
+//     app.getTickets(1);
+//   });
+// };
+
 app.setDataForSeatTooltip = function (data) {
-  console.log(data)
-
-  data.minPrice = 1000;
-  data.maxPrice = 10000;
-
   $('[data-seat]').each(function (index) {
     var $seat = $(this);
-    var random2 = Math.random().toFixed(1) < 0.5 ? Math.random().toFixed(1) >= 0.9 ? 2 : 1 : 3; // temp
-    var random3 = Math.random().toFixed(1) // temp
+    var line = $seat.data('line');
+    var seat = $seat.data('seat');
+
+    data = {
+      status: 3,
+      title: 'W4(верх)',
+      price: 1450,
+      seat: 28,
+      line: 82
+    }
 
     $seat.attr('data-show-tooltip', 'init-wait');
-    $seat.attr('data-status', random2);
-    // $seat.css({
-    //   opacity: random3
-    // });
+    $seat.attr('data-status', data.status);
 
     $seat.data('tooltip', {
       type: 'seat',
-      status: random2,
-      title: data.SectorRu,
-      price: 1000 * random3,
-      seat: index,
-      line: 28
+      status: data.status,
+      title: data.title,
+      price: data.price,
+      seat: data.seat,
+      line: data.line
     });
-
-    // $.post('/getsectortickets', {
-    //   IDEvent: id,
-    //   SectorName: $tribune.data('tribune')
-    // }, function (data) {
-    //   data = data.TicketData[0].row_to_json;
-    //   available = data.seatsLeft > 0 ? true : false;
-
-    //   $tribune.data('show-tooltip', {
-    //     availableTribune: available,
-    //     tribune: data.SectorRu,
-    //     maxPrice: data.maxPrice,
-    //     minPrice: data.minPrice,
-    //     seatsLeft: data.seatsLeft
-    //   });
-    // });
   });
 
+  app.handlerForAvaliableSeats()
   app.setListenerTooltip();
 };
+
+app.handlerForAvaliableSeats = function () {
+  $('[data-seat][data-status=3]').on('click', function () {
+    $seat = $(this);
+
+    inCart = $seat.toggleClass('in-cart');
+
+
+
+
+    console.log(inCart)
+
+    ;
+  });
+
+}

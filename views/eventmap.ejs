@@ -10,6 +10,10 @@
   <select name="events" id="eventsSelect"></select>
   <?xml-stylesheet type="text/css" href="arena1.css"?>
   <svg xmlns="http://www.w3.org/2000/svg" id="main-svg">
+    <g id="stadiumCenter" style="transform: translate(50%, 50%)">
+      <circle fill="#AEBDC4" cx="42.89" cy="21.52" r="1.85" data-line="17" data-seat="1" data-show-tooltip="ready"
+        data-status="1"></circle>
+    </g>
     <g id="stadiumSVG">
       <g data-tribune="NEbottom">
         <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2155.48 1602.43l-113.26-48.17-81.66 81.66 48.19 113.24z" />
@@ -503,9 +507,7 @@
         </g>
       </g>
       <g data-tribune="N7">
-        <g>
-          <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2298.02 577.01l-237.98 81.3H2327z" />
-        </g>
+        <path fill="#F1F3F4" stroke="#BCC8CE" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10" d="M2298.02 577.01l-237.98 81.3H2327z" />
         <g>
           <path class="ln" stroke="#BCC8CE" d="M2294.01 653.01v-42.43" />
           <path class="ln" stroke="#BCC8CE" d="M2286.59 653.01v-58.66M2279.18 653.01v-58.66" />
@@ -1533,8 +1535,8 @@
           </text>
         </g>
       </g>
-      <g stroke-miterlimit="10">
-        <path fill="#D8EDD9" stroke="#C8E6C9" stroke-width=".5" stroke-linecap="round" d="M468.54 643.32h1503.48v909.5H468.54z" />
+      <g id="field" stroke-miterlimit="10">
+        <path id="field-grass" fill="#D8EDD9" stroke="#C8E6C9" stroke-width=".5" stroke-linecap="round" d="M468.54 643.32h1503.48v909.5H468.54z" />
         <path fill="none" stroke="#FFF" stroke-width="3" d="M1220.28 670.23v855.68" />
         <ellipse fill="none" stroke="#FFF" stroke-width="3" cx="1220.28" cy="1098.07" rx="109.91" ry="109.95" />
         <path fill="none" stroke="#FFF" stroke-width="3" d="M495.44 670.23H1945.1v855.68H495.44z" />
@@ -1617,6 +1619,60 @@
       <div class="popup__svg" data-popup-svg></div>
     </div>
   </div>
+
+  <div class="cart cart--gray">
+    <div class="cart__tickets">
+
+      <div class="cart__ticket">
+        <div class="cart__ticket-tribune" data-cart="tribune">NW(низ)</div>
+        <div class="cart__ticket-line">
+          Ряд:
+          <span data-cart="line">28</span> 
+        </div>
+        <div class="cart__ticket-seat">
+          Место:
+          <span data-cart="seat">128</span> 
+        </div>
+        <div class="cart__ticket-remove" data-cart="remove">удалить</div>
+      </div>
+
+      <div class="cart__ticket">
+        <div class="cart__ticket-tribune" data-cart="tribune">NW(низ)</div>
+        <div class="cart__ticket-line">
+          Ряд:
+          <span data-cart="line">28</span> 
+        </div>
+        <div class="cart__ticket-seat">
+          Место:
+          <span data-cart="seat">128</span> 
+        </div>
+        <div class="cart__ticket-remove" data-cart="remove">удалить</div>
+      </div>
+
+      <div class="cart__ticket">
+        <div class="cart__ticket-tribune" data-cart="tribune">NW(низ)</div>
+        <div class="cart__ticket-line">
+          Ряд:
+          <span data-cart="line">28</span> 
+        </div>
+        <div class="cart__ticket-seat">
+          Место:
+          <span data-cart="seat">128</span> 
+        </div>
+        <div class="cart__ticket-remove" data-cart="remove">удалить</div>
+      </div>
+
+    </div>
+
+    <div class="cart__total">
+      Итого: 
+      <span data-cart="total">2800</span> 
+      руб.
+    </div>
+    
+    <div class="cart__buy">Купить</div>
+  </div>
+
   <div class="tooltip" data-tooltip>
     <div class="tooltip__unavailable" data-tooltip-bind="unavailable">
       <span data-tooltip-bind="unavailable-seat">Недоступно</span>
