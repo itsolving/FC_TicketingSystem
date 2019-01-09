@@ -50,10 +50,10 @@ class TicketUtils{
 		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode", 
 					st."SectorName", st."RowN", st."SeatN",
 					ev."Name" 
-					From public."tTicket" tic'
+					From public."tTicket" tic
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
-					WHERE tic."ID" = ' + ${nID}`;
+					WHERE tic."ID" = ${nID}`;
 
 		console.log(sSQL);
 
