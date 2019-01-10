@@ -43,37 +43,6 @@ class Templator{
 
 		ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
 
-		console.log("Template ticket");
-		console.log(ticket)
-		var coder = barcode('ean13', {
-		    data: 'qwertyuiopasd',
-		    width: 400,
-		    height: 100,
-		});
-
-		/*coder.getBase64( (err, BarcodeSrc) => {
-		    if (err) throw err;
-		 
-		    // if we're using HTTP or another framework
-		    
-		    var newHTML = this.template(html, [
-				ticket.ID, 
-				ticket.Name, 
-				ticket.Price, 
-				ticket.SectorName, 
-				ticket.RowN, 
-				ticket.SeatN, 
-				ticket.ID, 
-				ticket.Barcode.replace(/\s+/, ""),
-				BarcodeSrc
-			]);
-
-
-			pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
-			  console.log(res);
-			  next(res);
-			});
-		});*/
 	
 		bwipjs.toBuffer({
 	        bcid:        'ean13',       // Barcode type
@@ -85,13 +54,7 @@ class Templator{
 	    }, (err, BarcodeSrc) => {
 	        if (err) {
 	        	console.log(err)
-	            // Decide how to handle the error
-	            // `err` may be a string or Error object
 	        } else {
-	            // `png` is a Buffer
-	            // png.length           : PNG file length
-	            // png.readUInt32BE(16) : PNG image width
-	            // png.readUInt32BE(20) : PNG image height
 	            var Barcode = 'data:image/png;base64,' + BarcodeSrc.toString('base64');
 	            var newHTML = this.template(html, [
 					ticket.ID, 
