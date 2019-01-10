@@ -63,7 +63,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			return;
 		}
 
-		let filesURL = `${__basedir}/templates/${req.body.name}`;
+		let filesURL = `../../templates/${req.body.name}`;
 		 	dbURL 	 = `templates/${req.body.name}`;
 
 		fileUploader(req.files, filesURL);
