@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/itsolving/FC_TicketingSystem#readme",
   "dependencies": {
+    "apikeygen": "^1.1.0",
     "barcode": "^0.1.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",

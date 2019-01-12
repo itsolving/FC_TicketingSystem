@@ -183,7 +183,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			nID: 			req.params.id,
 			sPostOperation: req.body.postOperation,
 			sLogin: 		req.body.userLogin,
-			sPwd:			req.body.userPwd,
+			sPwd:			passwordHash.generate(req.body.userPwd),
 			nIDRole: 		req.body.roleID,
 			bIsLock: 		req.body.userIsLock,
 			sEmail: 		req.body.userEmail

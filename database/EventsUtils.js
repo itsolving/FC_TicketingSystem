@@ -32,7 +32,7 @@ class EventsUtils{
 			next(events);
 		});
 	}
-	getAll(next){
+	getAll(next, api){
 		const client = new this.Client(this.conOptions);
 		var events = {};
 		//console.log('client.connect...');
@@ -43,9 +43,11 @@ class EventsUtils{
 					FROM public."tEvent" ev 
 					join public."tStadium" sd on ev."IDStadium" = sd."ID" 
 					join public."tStatus" st on ev."IDStadium" = st."ID" 
-					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ 
-					order by ev."DateFrom", ev."ID" `;
+					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ `;
 		console.log(sSQL);
+		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
+		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
+
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
 				console.log("qerr:");
@@ -170,7 +172,7 @@ class EventsUtils{
 			next(sResMsg);
 		});
 	}
-	getById(nID, next){
+	getById(nID, next, api){
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
@@ -183,6 +185,8 @@ class EventsUtils{
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
 					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = ${nID}`;
+
+		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true';
 					
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
@@ -191,6 +195,8 @@ class EventsUtils{
 				console.log(qerr ? qerr.stack : qres);
 			}
 			else {
+				console.log(qres)
+				console.log(qres.rows)
 				//console.log(qerr ? qerr.stack : qres);
 				
 				if (typeof qres.rowCount === 'undefined') {

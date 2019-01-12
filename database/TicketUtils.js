@@ -148,6 +148,30 @@ class TicketUtils{
 			next(tickets);
 		});
 	}
+	setStatus(ticketID, statusID, next){
+		let sSQL = `update public."tTicket" tic
+						set "IDStatus" = ${statusID} 
+						where tic."ID" = ${ticketID}`;
+
+		const client = new this.Client(this.conOptions);
+		client.connect();
+		console.log(sSQL);
+		client.query(sSQL, (qerr, qres) => {
+			if (qerr) {
+				console.log("qerr:");
+				console.log(qerr ? qerr.stack : qres);
+				client.end();
+				next(qerr);
+				/*res.json({"ok": querr});*/
+			}
+			else {
+				client.end();
+				console.log(qres)
+				next(qres);
+				/*res.json({"ok": "OK"});*/
+			}
+		});
+	}
 }
 
 module.exports = TicketUtils;
