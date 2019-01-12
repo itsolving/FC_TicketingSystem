@@ -42,7 +42,6 @@ class StadiumUtils{
 	getNameID(next){
 		var stadiumList = {};
 		const client = new this.Client(this.conOptions);
-		//console.log('client.connect...');
 		client.connect();
 		var sSQL = 'SELECT sd."ID", sd."Name" from public."tStadium" sd ';
 
@@ -60,7 +59,7 @@ class StadiumUtils{
 				}
 				else {
 					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
+						console.log('stadiumList res.rowCount='+qres.rowCount);
 					}
 					else {
 						stadiumList = qres.rows;

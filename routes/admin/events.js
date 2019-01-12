@@ -59,14 +59,20 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		let nID 		= req.params.id,
-			stadiumList = {};
+			rowEventData = {},
+			stadiumList = {},
+			sectorList = {};
 
 		dbUtils.Event.getById(nID, (rowEventData, qres) => {
+			console.log('rowEventData.IDStadium='+rowEventData.IDStadium);
 			dbUtils.Stadium.getNameID((stadiumList) => {
+				if (typeof rowEventData.IDStadium === 'undefined') {
+					
+				}
 				let nIDStadiumEvent = rowEventData.IDStadium || 0;
-						
+				
 				dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
-
+					
 					dbUtils.Seat.getByStadiumID(nID, nIDStadiumEvent, (rowList) => {
 						//console.log(rowList);
 						let mainPrices = Object;
@@ -96,7 +102,6 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					});
 				});
 			});
-			
 		});
 	});
 
