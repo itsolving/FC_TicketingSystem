@@ -304,60 +304,69 @@ router.get('/gettickets/:idevent', function(req, res){
 	console.log('eventID='+eventID);
 
 	if (eventID !== 'undefined') {
-		sSQL = 'select row_to_json(t) '
-				+'from ( '
-				+'	select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft", '
-				+'		( '
-				+'			select array_to_json(array_agg(row_to_json(rw))) '
-				+'			from '
-				+'			( '
-				+'				select row_all."RowN", '
-				+'					( '
-				+'						select array_to_json(array_agg(row_to_json(tick))) '
-				+'						from '
-				+'						( '
-				+'							select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName" '
-				+'							from ( '
-				+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
-				+'									s."SeatN", s."RowN", '
-				+'									t."Price"::numeric "Price", '
-				+'									t."IDStatus", st."Name" "StatusName", '
-				+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-				+'								FROM public."tTicket" t '
-				+'								join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'								join public."tStatus" st on t."IDStatus" = st."ID" '
-				+'								where t."IDEvent" = '+eventID+' '
-				+'								and t."IDStatus" in (3, 4, 5) '
-				+'							) tick_all '
-				+'							where tick_all."SectorName" = sectors."SectorName" and tick_all."RowN" = row_all."RowN" '
-				+'							order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN" '
-				+'						) tick '
-				+'					) as "tickets" '
-				+'				from '
-				+'				( '
-				+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-				+'					FROM public."tSeat" s '
-				+'					where 1=1 '
-				+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
-				+'				) row_all '
-				+'				where row_all."SectorName" = sectors."SectorName" '
-				+'				order by row_all."RowN" '
-				+'			) rw '
-				+'		) as "sector_rows" '
-				+'	from ( '
-				+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
-				+'				min(t."Price"::numeric) "minPrice", '
-				+'				max(t."Price"::numeric) "maxPrice", '
-				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
-				+'			FROM public."tTicket" t '
-				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'			where t."IDEvent" = '+eventID+' '
-				+'			and t."IDStatus" in (3, 4, 5) '
-				+'			group by trim(s."SectorName"), trim(s."SectorRu") '
-				+'		) sectors '
-				+'	where 1=1 '
-				+'  order by sectors."SectorName" '
-				+') t ';
+		sSQL = `select row_to_json(t)
+				from (
+					select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft",
+						(
+							select array_to_json(array_agg(row_to_json(rw)))
+							from
+							(
+								select row_all."RowN",
+									(
+										select array_to_json(array_agg(row_to_json(tick)))
+										from
+										(
+											select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName"
+											from (
+												SELECT t."ID" as "TicketID",
+													trim(t."Barcode") "Barcode", t."Price"::numeric "Price",
+													t."IDStatus", st."Name" "StatusName",
+													t."IDSeat", s."SeatN", s."RowN",
+													trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", s."Tribune"
+												FROM public."tTicket" t
+												join public."tSeat" s on s."ID" = t."IDSeat"
+												join public."tStatus" st on st."ID" = t."IDStatus"
+												join public."tRowN" rr on rr."ID" = s."IDRowN" and rr."ID" = row_all."IDRowN"
+												join public."tSector" sec on sec."ID" = rr."IDSector" and sec."ID" = row_all."IDSector"
+												join public."tTribune" tri on tri."ID" = sec."IDTribune" and tri."ID" = row_all."IDTribune"
+												where 1=1
+												and t."IDEvent" = 1
+												and t."IDStatus" in (3, 4, 5)
+											) tick_all
+											where 1=1
+											and tick_all."SectorName" = row_all."SectorName"
+											and tick_all."RowN" = row_all."RowN"
+											order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN"
+										) tick
+									) as "tickets"
+								from
+								(
+									SELECT r."ID" as "IDRowN", r."RowN",
+										sct."ID" as "IDSector", trim(sct."SectorName") "SectorName", trim(sct."SectorRu") "SectorRu",
+										trb."ID" as "IDTribune", trim(trb."TribuneName") "TribuneName"
+									FROM public."tRowN" r
+									join public."tSector" sct on sct."ID" = r."IDSector" and sct."ID" = sectors."IDSector"
+									join public."tTribune" trb on trb."ID" = sct."IDTribune" and trb."ID" = sectors."IDTribune"
+									where 1=1
+								) row_all
+								where row_all."SectorName" = sectors."SectorName"
+								order by row_all."RowN"
+							) rw
+						) as "sector_rows"
+					from (
+							SELECT tr."ID" as "IDTribune", Sc."ID" as "IDSector", sc."SectorName", sc."SectorRu",
+								public."fGetMinPrice"(ev."ID", sc."SectorName") "minPrice",
+								public."fGetMaxPrice"(ev."ID", sc."SectorName") "maxPrice",
+								public."fGetSaleSeatCount"(ev."ID", sc."SectorName") "seatsLeft"
+							FROM public."tEvent" ev
+							join public."tTribune" tr on tr."IDStadium" = ev."IDStadium"
+							join public."tSector" sc on sc."IDTribune" = tr."ID"
+							where 1=1
+							and ev."ID" = `+eventID+`
+						) sectors
+					where 1=1
+					order by sectors."SectorName"
+				) t `;
 
 		//console.log(sSQL);
 		db.db.any(sSQL)
@@ -410,60 +419,69 @@ router.post('/gettickets', function(req, res){
 	console.log('eventID='+eventID);
 
 	if (eventID !== 'undefined') {
-		sSQL = 'select row_to_json(t) '
-				+'from ( '
-				+'	select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft", '
-				+'		( '
-				+'			select array_to_json(array_agg(row_to_json(rw))) '
-				+'			from '
-				+'			( '
-				+'				select row_all."RowN", '
-				+'					( '
-				+'						select array_to_json(array_agg(row_to_json(tick))) '
-				+'						from '
-				+'						( '
-				+'							select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName" '
-				+'							from ( '
-				+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
-				+'									s."SeatN", s."RowN", '
-				+'									t."Price"::numeric "Price", '
-				+'									t."IDStatus", st."Name" "StatusName", '
-				+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-				+'								FROM public."tTicket" t '
-				+'								join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'								join public."tStatus" st on t."IDStatus" = st."ID" '
-				+'								where t."IDEvent" = '+eventID+' '
-				+'								and t."IDStatus" in (3, 4, 5) '
-				+'							) tick_all '
-				+'							where tick_all."SectorName" = sectors."SectorName" and tick_all."RowN" = row_all."RowN" '
-				+'							order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN" '
-				+'						) tick '
-				+'					) as "tickets" '
-				+'				from '
-				+'				( '
-				+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-				+'					FROM public."tSeat" s '
-				+'					where 1=1 '
-				+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
-				+'				) row_all '
-				+'				where row_all."SectorName" = sectors."SectorName" '
-				+'				order by row_all."RowN" '
-				+'			) rw '
-				+'		) as "sector_rows" '
-				+'	from ( '
-				+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
-				+'				min(t."Price"::numeric) "minPrice", '
-				+'				max(t."Price"::numeric) "maxPrice", '
-				+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
-				+'			FROM public."tTicket" t '
-				+'			join public."tSeat" s on t."IDSeat" = s."ID" '
-				+'			where t."IDEvent" = '+eventID+' '
-				+'			and t."IDStatus" in (3, 4, 5) '
-				+'			group by trim(s."SectorName"), trim(s."SectorRu") '
-				+'		) sectors '
-				+'	where 1=1 '
-				+'  order by sectors."SectorName" '
-				+') t ';
+		sSQL = `select row_to_json(t)
+				from (
+					select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft",
+						(
+							select array_to_json(array_agg(row_to_json(rw)))
+							from
+							(
+								select row_all."RowN",
+									(
+										select array_to_json(array_agg(row_to_json(tick)))
+										from
+										(
+											select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName"
+											from (
+												SELECT t."ID" as "TicketID",
+													trim(t."Barcode") "Barcode", t."Price"::numeric "Price",
+													t."IDStatus", st."Name" "StatusName",
+													t."IDSeat", s."SeatN", s."RowN",
+													trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", s."Tribune"
+												FROM public."tTicket" t
+												join public."tSeat" s on s."ID" = t."IDSeat"
+												join public."tStatus" st on st."ID" = t."IDStatus"
+												join public."tRowN" rr on rr."ID" = s."IDRowN" and rr."ID" = row_all."IDRowN"
+												join public."tSector" sec on sec."ID" = rr."IDSector" and sec."ID" = row_all."IDSector"
+												join public."tTribune" tri on tri."ID" = sec."IDTribune" and tri."ID" = row_all."IDTribune"
+												where 1=1
+												and t."IDEvent" = 1
+												and t."IDStatus" in (3, 4, 5)
+											) tick_all
+											where 1=1
+											and tick_all."SectorName" = row_all."SectorName"
+											and tick_all."RowN" = row_all."RowN"
+											order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN"
+										) tick
+									) as "tickets"
+								from
+								(
+									SELECT r."ID" as "IDRowN", r."RowN",
+										sct."ID" as "IDSector", trim(sct."SectorName") "SectorName", trim(sct."SectorRu") "SectorRu",
+										trb."ID" as "IDTribune", trim(trb."TribuneName") "TribuneName"
+									FROM public."tRowN" r
+									join public."tSector" sct on sct."ID" = r."IDSector" and sct."ID" = sectors."IDSector"
+									join public."tTribune" trb on trb."ID" = sct."IDTribune" and trb."ID" = sectors."IDTribune"
+									where 1=1
+								) row_all
+								where row_all."SectorName" = sectors."SectorName"
+								order by row_all."RowN"
+							) rw
+						) as "sector_rows"
+					from (
+							SELECT tr."ID" as "IDTribune", Sc."ID" as "IDSector", sc."SectorName", sc."SectorRu",
+								public."fGetMinPrice"(ev."ID", sc."SectorName") "minPrice",
+								public."fGetMaxPrice"(ev."ID", sc."SectorName") "maxPrice",
+								public."fGetSaleSeatCount"(ev."ID", sc."SectorName") "seatsLeft"
+							FROM public."tEvent" ev
+							join public."tTribune" tr on tr."IDStadium" = ev."IDStadium"
+							join public."tSector" sc on sc."IDTribune" = tr."ID"
+							where 1=1
+							and ev."ID" = `+eventID+`
+						) sectors
+					where 1=1
+					order by sectors."SectorName"
+				) t `;
 				
 		//console.log(sSQL);
 		db.db.any(sSQL)
@@ -521,7 +539,74 @@ router.post('/getsectortickets', function(req, res){
 	console.log('sectorName='+sectorName);
 
 	if (eventID !== 'undefined') {
-		sSQL = 'select row_to_json(t) '
+		//проверим два варианта sql-запроса, какой из них быстрее
+		//вариант 2
+		sSQL = `select row_to_json(t)
+				from (
+					select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft",
+						(
+							select array_to_json(array_agg(row_to_json(rw)))
+							from
+							(
+								select row_all."RowN",
+									(
+										select array_to_json(array_agg(row_to_json(tick)))
+										from
+										(
+											select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName"
+											from (
+												SELECT t."ID" as "TicketID",
+													trim(t."Barcode") "Barcode", t."Price"::numeric "Price",
+													t."IDStatus", st."Name" "StatusName",
+													t."IDSeat", s."SeatN", s."RowN",
+													trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", s."Tribune"
+												FROM public."tTicket" t
+												join public."tSeat" s on s."ID" = t."IDSeat"
+												join public."tStatus" st on st."ID" = t."IDStatus"
+												join public."tRowN" rr on rr."ID" = s."IDRowN" and rr."ID" = row_all."IDRowN"
+												join public."tSector" sec on sec."ID" = rr."IDSector" and sec."ID" = row_all."IDSector"
+												join public."tTribune" tri on tri."ID" = sec."IDTribune" and tri."ID" = row_all."IDTribune"
+												where 1=1
+												and t."IDEvent" = 1
+												and t."IDStatus" in (3, 4, 5)
+											) tick_all
+											where 1=1
+											and tick_all."SectorName" = row_all."SectorName"
+											and tick_all."RowN" = row_all."RowN"
+											order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN"
+										) tick
+									) as "tickets"
+								from
+								(
+									SELECT r."ID" as "IDRowN", r."RowN",
+										sct."ID" as "IDSector", trim(sct."SectorName") "SectorName", trim(sct."SectorRu") "SectorRu",
+										trb."ID" as "IDTribune", trim(trb."TribuneName") "TribuneName"
+									FROM public."tRowN" r
+									join public."tSector" sct on sct."ID" = r."IDSector" and sct."ID" = sectors."IDSector"
+									join public."tTribune" trb on trb."ID" = sct."IDTribune" and trb."ID" = sectors."IDTribune"
+									where 1=1
+								) row_all
+								where row_all."SectorName" = sectors."SectorName"
+								order by row_all."RowN"
+							) rw
+						) as "sector_rows"
+					from (
+							SELECT tr."ID" as "IDTribune", Sc."ID" as "IDSector", sc."SectorName", sc."SectorRu",
+								public."fGetMinPrice"(ev."ID", sc."SectorName") "minPrice",
+								public."fGetMaxPrice"(ev."ID", sc."SectorName") "maxPrice",
+								public."fGetSaleSeatCount"(ev."ID", sc."SectorName") "seatsLeft"
+							FROM public."tEvent" ev
+							join public."tTribune" tr on tr."IDStadium" = ev."IDStadium"
+							join public."tSector" sc on sc."IDTribune" = tr."ID"
+							where 1=1
+							and ev."ID" = `+eventID+`
+							and upper(trim(sc."SectorName")) = upper('`+sectorName+`')
+						) sectors
+					where 1=1
+					order by sectors."SectorName"
+				) t `;
+				////вариант 1
+				/*'select row_to_json(t) '
 				+'from ( '
 				+'	select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft", '
 				+'		( '
@@ -574,7 +659,7 @@ router.post('/getsectortickets', function(req, res){
 				+'		) sectors '
 				+'	where 1=1 '
 				+'  order by sectors."SectorName" '
-				+') t ';
+				+') t ';*/
 		//console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
