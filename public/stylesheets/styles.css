@@ -994,45 +994,53 @@ body #main-svg g[data-tribune] {
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
-body #main-svg g[data-tribune][data-available='true']:hover {
+body #main-svg g[data-tribune]:hover {
+  cursor: default;
+}
+body #main-svg g[data-tribune]:hover > path,
+body #main-svg g[data-tribune]:hover > polygon {
+  -webkit-transition: fill 0.15s ease;
+  transition: fill 0.15s ease;
+  fill: #e1e7ea;
+}
+body #main-svg g[data-tribune][data-available-seats='true'] {
   cursor: pointer;
 }
-body #main-svg g[data-tribune][data-available='true']:hover > path,
-body #main-svg g[data-tribune][data-available='true']:hover > polygon {
+body #main-svg g[data-tribune][data-available-seats='true']:hover > path,
+body #main-svg g[data-tribune][data-available-seats='true']:hover > polygon {
   -webkit-transition: fill 0.15s ease;
   transition: fill 0.15s ease;
   fill: #d8edd9;
   stroke: #d8edd9;
 }
-body #main-svg g[data-tribune][data-available='true']:hover .ln {
+body #main-svg g[data-tribune][data-available-seats='true']:hover .ln {
   -webkit-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   opacity: 0;
 }
-body #main-svg g[data-tribune][data-available='false'],
-body #main-svg g[data-tribune]:not([data-available]) {
+body #main-svg g[data-tribune][data-available-seats='false'] {
   opacity: 0.3;
 }
-body #main-svg g[data-tribune][data-available='false'] path,
-body #main-svg g[data-tribune]:not([data-available]) path {
+body #main-svg g[data-tribune][data-available-seats='false'] path {
   stroke: #f1f3f4;
 }
-body #main-svg g[data-tribune][data-available='false'] g path,
-body #main-svg g[data-tribune]:not([data-available]) g path {
+body #main-svg g[data-tribune][data-available-seats='false'] g path {
   opacity: 0;
 }
-body #main-svg g[data-tribune][data-available='false'] text,
-body #main-svg g[data-tribune]:not([data-available]) text {
+body #main-svg g[data-tribune][data-available-seats='false'] text {
   opacity: 0.5;
 }
-body #main-svg g[data-tribune]:not([data-load]) {
+body #main-svg g[data-tribune].active > path,
+body #main-svg g[data-tribune].active > polygon {
+  -webkit-transition: fill 0.15s ease;
+  transition: fill 0.15s ease;
+  fill: #ffc107;
+  stroke: #ffc107;
+}
+body #main-svg g[data-tribune].active .ln {
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   opacity: 0;
-  -webkit-transform: rotate(1deg) translateY(-1px) translateZ(1px);
-          transform: rotate(1deg) translateY(-1px) translateZ(1px);
-  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.1s ease;
-  transition: opacity 0.2s ease, -webkit-transform 0.1s ease;
-  transition: transform 0.1s ease, opacity 0.2s ease;
-  transition: transform 0.1s ease, opacity 0.2s ease, -webkit-transform 0.1s ease;
 }
 body #main-svg tspan,
 body #main-svg text {
@@ -1058,6 +1066,7 @@ body #stadiumSVG.draggable [data-tribune] {
   position: relative;
   background-color: transparent;
   cursor: default !important;
+  padding-bottom: 70px;
 }
 .popup__title {
   color: #f1f3f4;
@@ -1088,23 +1097,31 @@ body #stadiumSVG.draggable [data-tribune] {
 .popup__svg circle {
   cursor: pointer;
 }
+.popup__svg[data-popup-svg^=VIP],
+.popup__svg[data-popup-svg^=President] {
+  width: 25rem;
+}
 .tooltip {
   position: absolute;
   pointer-events: none;
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
   -webkit-box-shadow: none;
           box-shadow: none;
-  z-index: 99993;
+  z-index: 99999;
   font-size: 1.6rem;
   visibility: hidden;
   opacity: 0;
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
-  -webkit-transition: opacity 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.3s ease;
-  transition: opacity 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.3s ease;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease, visibility 1s;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.3s ease;
+  background: #fff url('../images/s-loader.gif') no-repeat center 50%;
+  background-size: 200px;
+  min-height: 50px;
+  min-width: 50px;
+  -webkit-transition: opacity 0.2s ease, border-radius 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.1s ease;
+  transition: opacity 0.2s ease, border-radius 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.1s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.1s ease, border-radius 0.2s ease, visibility 1s;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.1s ease, border-radius 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.1s ease;
 }
 .tooltip.show {
   visibility: visible;
@@ -1113,6 +1130,8 @@ body #stadiumSVG.draggable [data-tribune] {
           transform: scale(1);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 9px 22px -1px rgba(0, 0, 0, 0.12);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 9px 22px -1px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
+          box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
 }
 .tooltip [data-tooltip-bind] {
   display: none;
@@ -1151,6 +1170,14 @@ body #stadiumSVG.draggable [data-tribune] {
 .tooltip b {
   color: #313131;
 }
+.tooltip[data-style='in-cart'] .tooltip__price {
+  background: #ffc107;
+}
+.tooltip[data-style='loading'] {
+  border-radius: 28px;
+  -webkit-transition: border-radius 0s;
+  transition: border-radius 0s;
+}
 [data-seat] {
   -webkit-transition: r 0.17s cubic-bezier(0.18, 0.89, 0.32, 1.28), fill 0.1s ease;
   transition: r 0.17s cubic-bezier(0.18, 0.89, 0.32, 1.28), fill 0.1s ease;
@@ -1173,7 +1200,12 @@ body #stadiumSVG.draggable [data-tribune] {
 }
 [data-seat].in-cart {
   fill: #556167;
+  fill: #ffc107;
   r: 2;
+}
+[data-seat].active {
+  stroke: #767d7d;
+  stroke-width: 0.6px;
 }
 .preloader {
   position: fixed;
@@ -1210,25 +1242,39 @@ body #stadiumSVG.draggable [data-tribune] {
       -ms-user-select: none;
           user-select: none;
 }
+.fancybox-active .cart {
+  background: rgba(49, 56, 56, 0.7);
+}
+#cart-ticket {
+  display: none;
+}
 .cart {
   position: fixed;
   right: 0;
+  left: 0;
   bottom: 0;
-  padding: 0rem 2rem;
+  padding: 0.1rem 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 99999;
-  -webkit-transform: translateY(13px);
-          transform: translateY(13px);
-  -webkit-transition: 0.13s ease-in;
-  transition: 0.13s ease-in;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 99998;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+.cart:not(.open) {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
 }
 .cart__tickets {
-  margin: -1rem 0 -3rem;
+  margin: -3rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1239,8 +1285,6 @@ body #stadiumSVG.draggable [data-tribune] {
 }
 .cart:hover,
 .cart:hover .cart__tickets {
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
   -webkit-transition: 0.28s ease-out;
   transition: 0.28s ease-out;
 }
@@ -1248,59 +1292,70 @@ body #stadiumSVG.draggable [data-tribune] {
   background: #ffc107;
   border: 1px solid #ffc107;
   border-radius: 6px 6px 0 0;
-  padding: 1rem 0.6rem 3rem;
+  padding: 0.6rem 0.6rem 5rem;
   text-align: right;
   cursor: default;
-  margin-left: 10px;
-  -webkit-transform: rotate(-2deg) translate(-2px, 18px);
-          transform: rotate(-2deg) translate(-2px, 18px);
+  margin-left: 3px;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
   -webkit-transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
   transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 80px;
+  position: relative;
+  z-index: 1;
+  border-left: 3px solid rgba(0, 0, 0, 0.2);
 }
 .cart__ticket-tribune {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   text-align: center;
-  color: white;
+  color: rgba(0, 0, 0, 0.8);
 }
 .cart__ticket-line,
 .cart__ticket-seat {
   font-size: 1.2rem;
   line-height: 1.2;
-  color: rgba(0, 0, 0, 0.66);
+  color: rgba(0, 0, 0, 0.5);
   font-weight: 700;
+}
+.cart__ticket:hover {
+  -webkit-transform: translate(0, -5px);
+          transform: translate(0, -5px);
+  -webkit-box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
+          box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
+  z-index: 3;
+}
+.cart__ticket:hover .cart__ticket-remove {
+  opacity: 0.9;
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 .cart__ticket-remove {
   cursor: pointer;
-  padding: 0.2rem 1rem 0.3rem;
-  text-align: center;
-  margin: 1rem 0.5rem -1rem;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.4);
-  border-radius: 8px;
-  font-size: 11px;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  font-size: 19px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  opacity: 0;
+  -webkit-transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  right: 2px;
+  top: -3px;
+  width: 10px;
+  height: 10px;
 }
 .cart__ticket-remove:hover {
-  background: rgba(0, 0, 0, 0.4);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
 }
 .cart__ticket-remove:active {
-  background: rgba(0, 0, 0, 0.6);
-  color: rgba(255, 255, 255, 0.5);
-}
-.cart__ticket:hover {
-  -webkit-transform: rotate(0) translate(0, -20px);
-          transform: rotate(0) translate(0, -20px);
-  -webkit-box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
-          box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
+  color: rgba(0, 0, 0, 0.8);
 }
 .cart__total {
   text-align: center;
@@ -1357,11 +1412,11 @@ body #stadiumSVG.draggable [data-tribune] {
           box-shadow: 0 16px 33px -6px rgba(0, 0, 0, 0.19);
 }
 .cart--gray .cart__ticket-remove {
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.3);
 }
 .cart--gray .cart__ticket-remove:hover {
   background: rgba(0, 0, 0, 0.2);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.5);
 }
 .cart--gray .cart__ticket-remove:active {
   background: rgba(0, 0, 0, 0.3);
