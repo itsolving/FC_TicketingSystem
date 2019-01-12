@@ -561,32 +561,26 @@ router.post('/getsectortickets', function(req, res){
 													t."IDSeat", s."SeatN", s."RowN",
 													trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", s."Tribune"
 												FROM public."tTicket" t
-												join public."tSeat" s on s."ID" = t."IDSeat"
+												join public."tSeat" s on s."ID" = t."IDSeat" and s."IDRowN" = row_all."IDRowN"
 												join public."tStatus" st on st."ID" = t."IDStatus"
-												join public."tRowN" rr on rr."ID" = s."IDRowN" and rr."ID" = row_all."IDRowN"
-												join public."tSector" sec on sec."ID" = rr."IDSector" and sec."ID" = row_all."IDSector"
-												join public."tTribune" tri on tri."ID" = sec."IDTribune" and tri."ID" = row_all."IDTribune"
 												where 1=1
 												and t."IDEvent" = 1
 												and t."IDStatus" in (3, 4, 5)
 											) tick_all
 											where 1=1
-											and tick_all."SectorName" = row_all."SectorName"
+											and tick_all."SectorName" = sectors."SectorName"
 											and tick_all."RowN" = row_all."RowN"
 											order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN"
 										) tick
 									) as "tickets"
 								from
 								(
-									SELECT r."ID" as "IDRowN", r."RowN",
-										sct."ID" as "IDSector", trim(sct."SectorName") "SectorName", trim(sct."SectorRu") "SectorRu",
-										trb."ID" as "IDTribune", trim(trb."TribuneName") "TribuneName"
+									SELECT r."ID" as "IDRowN", r."RowN", r."IDSector"
 									FROM public."tRowN" r
-									join public."tSector" sct on sct."ID" = r."IDSector" and sct."ID" = sectors."IDSector"
-									join public."tTribune" trb on trb."ID" = sct."IDTribune" and trb."ID" = sectors."IDTribune"
 									where 1=1
+									and r."IDSector" = sectors."IDSector"
 								) row_all
-								where row_all."SectorName" = sectors."SectorName"
+								where row_all."IDSector" = sectors."IDSector"
 								order by row_all."RowN"
 							) rw
 						) as "sector_rows"
