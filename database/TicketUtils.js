@@ -47,7 +47,7 @@ class TicketUtils{
 		const client = new this.Client(this.conOptions);
 		client.connect();
 
-		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode", 
+		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
 					st."SectorName", st."RowN", st."SeatN",
 					ev."Name" 
 					From public."tTicket" tic
@@ -149,9 +149,9 @@ class TicketUtils{
 		});
 	}
 	setStatus(ticketID, statusID, next){
-		let sSQL = `update public."tTicket" tic
-						set "IDStatus" = ${statusID} 
-						where tic."ID" = ${ticketID}`;
+		let sSQL = `update public."tTicket"
+					set "IDStatus" = ${statusID} 
+					where "ID" = ${ticketID}`;
 
 		const client = new this.Client(this.conOptions);
 		client.connect();

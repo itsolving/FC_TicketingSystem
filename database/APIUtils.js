@@ -6,7 +6,7 @@ class APIUtils{
 	insert(itemData, next){
 		let client = new this.Client(this.conOptions);
 		client.connect();
-		let sSQL = `insert into public."tAPI" ("ID", "APIKEY", "IDUser")  
+		let sSQL = `insert into public."tAPI" ("ID", "APIKey", "IDUser")  
 						values(nextval(\'"tAPI_ID_seq"\'::regclass), '${itemData.APIKEY}', '${itemData.userID}') RETURNING "ID"`;
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -53,14 +53,14 @@ class APIUtils{
 				}
 			}
 			client.end();
-			next(qres.rows);
+			next(qres.rows || null);
 		})
 	}
 
 	findByKey(APIKEY, next){
 		let client = new this.Client(this.conOptions);
 		client.connect();
-		let sSQL = `SELECT * FROM public."tAPI" api WHERE api."APIKEY" = '${APIKEY}'`;
+		let sSQL = `SELECT * FROM public."tAPI" api WHERE api."APIKey" = '${APIKEY}'`;
 		client.query(sSQL, (qerr, qres) => {
 			let success = false;
 			if (qerr) {
