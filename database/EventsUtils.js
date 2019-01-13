@@ -1,42 +1,22 @@
-class EventsUtils{
+let rootUtils = require('./root.js');
+
+class EventsUtils extends rootUtils{
 	constructor(Client, conOptions){
+		super();
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
 	getNameId(next){
-		const client = new this.Client(this.conOptions);
-		client.connect();
 
 		var sSQL = 'SELECT ev."ID", ev."Name" from public."tEvent" ev';
 		console.log(sSQL);
 
-		var events = {};
-
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					events = qres.rows;
-				}
-			}
-			client.end();
+		this.execute(sSQL, (events) => {
 			next(events);
-		});
+		})
+
 	}
 	getAll(next, api){
-		const client = new this.Client(this.conOptions);
-		var events = {};
-		//console.log('client.connect...');
-		client.connect()
 		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", 
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", 
 					sd."Name" as "StadiumName", st."Name" as "StatusName" 
@@ -44,67 +24,27 @@ class EventsUtils{
 					join public."tStadium" sd on ev."IDStadium" = sd."ID" 
 					join public."tStatus" st on ev."IDStadium" = st."ID" 
 					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ `;
-		//console.log(sSQL);
 		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
 		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
+		console.log(sSQL);
 
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			else {
-				//console.log(qerr ? qerr.stack : qres);
-				
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-					else {
-						events = qres.rows;
-					}
-				}
-			}
-			client.end();
+		this.execute(sSQL, (events) => {
 			next(events);
-		});
+		})
+
 	}
 	getStatus(nID, next){
-		var rowEventData = {};
-		const client = new this.Client(this.conOptions);
-		client.connect();
+
 		var sSQL = `SELECT ev."ID", ev."Name", ev."IDStatus", 
 					s."Name" as "StatusName"
 					FROM public."tEvent" ev
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
 					where ev."ID" = ${nID}`;
 		console.log(sSQL);
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			else {
-				//console.log(qerr ? qerr.stack : qres);
-				
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-					else {
-						rowEventData = qres.rows;
-					}
-				}
-			}
-			client.end();
-			next(rowEventData);
-		});
+
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
 	}
 	insert(postOperation, next){
 		const client = new this.Client(this.conOptions);

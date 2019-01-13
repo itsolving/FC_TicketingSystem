@@ -46,7 +46,10 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		let nID = req.params.id;
 
-		res.json({templateID: nID});
+		dbUtils.Template.getByID(nID, (template) => {
+			res.json(template);
+		})
+
 	})
 
 	router.post('/templates', function(req, res){

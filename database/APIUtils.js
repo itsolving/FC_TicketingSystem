@@ -1,5 +1,8 @@
-class APIUtils{
+let rootUtils = require('./root.js');
+
+class APIUtils extends rootUtils{
 	constructor(Client, conOptions){
+		super();
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
@@ -32,29 +35,12 @@ class APIUtils{
 
 	getByUserID(nID, next){
 
-		let client = new this.Client(this.conOptions);
-		client.connect();
+	
 		let sSQL = `SELECT * FROM public."tAPI" api WHERE api."IDUser" = ${nID}`;
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			else {
-				console.log(qerr ? qerr.stack : qres);
-				
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-				}
-			}
-			client.end();
-			next(qres.rows || null);
+		this.execute(sSQL, (apis) => {
+			next(apis || null)
 		})
+		
 	}
 
 	findByKey(APIKEY, next){

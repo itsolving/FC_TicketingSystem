@@ -1,5 +1,8 @@
-class TemplateUtils{
+let rootUtils = require('./root.js');
+
+class TemplateUtils extends rootUtils{
 	constructor(Client, conOptions){
+		super();
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
@@ -40,63 +43,25 @@ class TemplateUtils{
 	}
 	getAll(next){
 
-		var templates = {};
-		const client = new this.Client(this.conOptions);
-		client.connect();
-
-		var sSQL = 'SELECT * FROM public."tTemplate" ';
-
+		let sSQL = 'SELECT * FROM public."tTemplate" ';
 		console.log(sSQL);
 
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			if (typeof qres.rowCount === 'undefined') {
-				console.log('res.rowCount not found');
-			}
-			else {
-				if (qres.rowCount == 0) {
-					console.log('res.rowCount='+qres.rowCount);
-				}
-				else {
-					templates = qres.rows;
-				}
-			}
-			client.end();
+		this.execute(sSQL, (templates) => {
 			next(templates);
-		});
+		})
+	
 	}
 	getByID(nID, next){
-		const client = new this.Client(this.conOptions);
-		let rowTemplateData = {};
-		client.connect();
-		var sSQL = `SELECT * FROM public."tTemplate" t where t."ID" = ${nID}`;
 		
+		var sSQL = `SELECT * FROM public."tTemplate" t where t."ID" = ${nID}`;
 		console.log(sSQL);
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log(qerr ? qerr.stack : qres);
+
+		this.execute(sSQL, (templates) => {
+			if ( templates ){
+				next(templates[0]);
 			}
-			else {
-				//console.log(qerr ? qerr.stack : qres);
-				
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-					else {
-						rowTemplateData = qres.rows[0];
-					}
-				}
-			}
-			client.end();
-			next(rowTemplateData);
-		});
+		})
+		
 	}
 }
 

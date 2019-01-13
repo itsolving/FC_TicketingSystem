@@ -1,37 +1,39 @@
-class RoleUtils{
+/* -------------------- РОЛИ ПОЛЬЗОВАТЕЛЕЙ -------------------- */
+/*
+
+   ID | Name	   			 | RoleType
+---------------------------------------------------------------
+	1 |	Админ  				 | 1		
+---------------------------------------------------------------
+	2 |	Кассир 				 | 1
+---------------------------------------------------------------
+	3 |	Устройство контроля  | 2
+---------------------------------------------------------------
+	4 |	API	   			     | 3
+---------------------------------------------------------------
+	5 |	online	  		     | 4
+---------------------------------------------------------------
+
+ */
+/* ------------------------------------------------------------ */
+
+let rootUtils = require('./root.js');
+
+class RoleUtils extends rootUtils{
 	constructor(Client, conOptions){
+		super();
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
 	getNameID(next){
-		let rolesList = {};
-		const clientRoles = new this.Client(this.conOptions);
-		clientRoles.connect();
-		var sSQLRoles = 'SELECT r."ID", r."Name" from public."tRole" r ';
+
+		var sSQL = 'SELECT r."ID", r."Name" from public."tRole" r ';
+		console.log(sSQL);
+
+		this.execute(sSQL, (roles) => {
+			next(roles);
+		})
 		
-		console.log(sSQLRoles);
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {
-				//console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						rolesList = qresRoles.rows;
-					}
-				}
-			}
-			clientRoles.end();
-			next(rolesList);
-		});
 	}
 	
 }
