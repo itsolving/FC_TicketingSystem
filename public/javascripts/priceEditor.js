@@ -3,16 +3,17 @@ $(document).ready(function(){
 	nEventID = $("#eventID").data("value");
 	console.log("priceEditor.js loaded");
 	$('.select-rowN').each(function(){
+		var obj = $(this).val();
+
 		var tr = $(this).parent().parent();
 		var obj = $(tr).children().last().children().val();			// цена первого
-		obj = JSON.parse(obj);
 		let data = {
 			rowN: obj.rowN,
 			price: obj.price,
 			sector: $(tr).children().first().text(),
 			inputPrice: null
 		};
-		$(tr).children().first().next().children().first().val(data.price);	// подгружаем цену первого элемента
+		$(tr).children().first().next().children().first().val(data.price);	// подгружаем цену первого элемента*/
 	})
 	$('.select-rowN').change(function(){
 		console.log('select-rowN change event');

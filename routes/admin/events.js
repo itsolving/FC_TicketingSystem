@@ -69,7 +69,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				if (typeof rowEventData.IDStadium === 'undefined') {
 					
 				}
-				let nIDStadiumEvent = rowEventData.IDStadium || 0;
+				
+				let nIDStadiumEvent = rowEventData[0].IDStadium || 0;
 				
 				dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
 					
