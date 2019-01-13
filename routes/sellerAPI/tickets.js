@@ -66,13 +66,13 @@ module.exports = (router, dbUtils) => {
 			if ( success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID == 2 ||  ticket.statusID == 5 || ticket.statusID == 5 ){
+					if ( ticket.statusID == 2 ||  ticket.statusID == 5 || ticket.statusID == 6 ){
 						res.json({err: "ticket is not available"})
 					}
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 4, (ans) => {
 							if ( ans.rowCount ){
-								res.json({success: true, data: `reserver ticket (ID:${params.ticketID}) success`})
+								res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
 							}
 						})
 					}
