@@ -47,33 +47,27 @@ class EventsUtils extends rootUtils{
 		})
 	}
 	insert(postOperation, next){
-		const client = new this.Client(this.conOptions);
-		var events = {};
-		client.connect()
 		var sSQL = "";
 		if (postOperation == "ins") {
 			sSQL = `insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") 
 					values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"`;
 
 			console.log(sSQL);
-			client.query(sSQL, (qerr, qres) => {
-				var newEventID = 0;
-				var sResultMsg = "";
-				if (qerr) {
-					console.log("qerr:");
-					console.log(qerr ? qerr.stack : qres);
-					sResultMsg = qerr.stack;
-				}
-				else {
-					console.log(qres.rows);
-					newEventID = qres.rows[0].ID;
-					console.log("newEventID="+newEventID);
+
+			this.execute(sSQL, (data) => {
+				let newEventID = 0,
+				    sResultMsg = "";
+
+				if ( data.length > 0 ){
+					newEventID = data[0].ID;
 					sResultMsg = "ok, new EventID="+newEventID;
 				}
-				client.end();
-				//res.redirect('/admin/event/'+newEventID);
+				else {
+					sResultMsg = "ERROR!";
+				}
 				next({ResultMsg: sResultMsg, ID: newEventID});
-			});
+
+			})
 		}
 	}
 	update(eventData, next){

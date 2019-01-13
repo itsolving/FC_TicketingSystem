@@ -100,24 +100,12 @@ class TicketUtils extends rootUtils{
 					set "IDStatus" = ${statusID} 
 					where "ID" = ${ticketID}`;
 
-		const client = new this.Client(this.conOptions);
-		client.connect();
 		console.log(sSQL);
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-				client.end();
-				next(qerr);
-				/*res.json({"ok": querr});*/
-			}
-			else {
-				client.end();
-				console.log(qres)
-				next(qres);
-				/*res.json({"ok": "OK"});*/
-			}
-		});
+		this.execute(sSQL, (data) => {
+			console.log(data);
+			next(data);
+		})
+		
 	}
 }
 

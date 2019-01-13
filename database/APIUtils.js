@@ -7,30 +7,14 @@ class APIUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(itemData, next){
-		let client = new this.Client(this.conOptions);
-		client.connect();
+		
 		let sSQL = `insert into public."tAPI" ("ID", "APIKey", "IDUser")  
 						values(nextval(\'"tAPI_ID_seq"\'::regclass), '${itemData.APIKEY}', '${itemData.userID}') RETURNING "ID"`;
-		client.query(sSQL, (qerr, qres) => {
-			if (qerr) {
-				console.log(qerr ? qerr.stack : qres);
-			}
-			else {				
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-					else {
-						console.log(qres.rows)
-					}
-				}
-			}
-			client.end();
-			next(qres.rows);
-		});	
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+
 	}
 
 	getByUserID(nID, next){
@@ -44,30 +28,17 @@ class APIUtils extends rootUtils{
 	}
 
 	findByKey(APIKEY, next){
-		let client = new this.Client(this.conOptions);
-		client.connect();
+
 		let sSQL = `SELECT * FROM public."tAPI" api WHERE api."APIKey" = '${APIKEY}'`;
-		client.query(sSQL, (qerr, qres) => {
+
+		this.execute(sSQL, (data) => {
 			let success = false;
-			if (qerr) {
-				console.log("qerr:");
-				console.log(qerr ? qerr.stack : qres);
-			}
-			else {
-				if (typeof qres.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qres.rowCount == 0) {
-						console.log('res.rowCount='+qres.rowCount);
-					}
-					else {
-						success = true;
-					}
-				}
+			if ( data.length > 0 ){
+				success = true;
 			}
 			next(success);
 		})
+
 	}
 }
 

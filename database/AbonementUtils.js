@@ -7,34 +7,17 @@ class AbonementUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(itemData, next){
-		const clientRoles = new this.Client(this.conOptions);
-		clientRoles.connect();
-		let sSQLRoles = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
+
+		let sSQL = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
 						values(nextval(\'"tAbonement_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
 						'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
 
-		console.log(sSQLRoles);
+		console.log(sSQL);
 
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						console.log(qresRoles.rows)
-					}
-				}
-			}
-			clientRoles.end();
-			next(qresRoles.rows);
-		});
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+
 	}
 	getAll(next){
 

@@ -16,8 +16,12 @@ class SeatUtils extends rootUtils{
 		console.log(sSQL);
 
 		this.execute(sSQL, (seats) => {
-			seatData = seats[0].ID;
-			next(seatData);
+			console.log(seats)
+			if ( seats[0] ){
+				seatData.seatID = seats[0].ID;
+				next(seatData);
+			}
+			else next(null);
 		})
 		
 	}

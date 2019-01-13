@@ -71,7 +71,7 @@ module.exports = (router, dbUtils) => {
 					}
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 4, (ans) => {
-							if ( ans.rowCount ){
+							if ( ans ){
 								res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
 							}
 						})
@@ -97,7 +97,7 @@ module.exports = (router, dbUtils) => {
 					}
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 3, (ans) => {
-							if ( ans.rowCount ){
+							if ( ans ){
 								res.json({success: true, data: `unreserve ticket (ID:${params.ticketID}) success`})
 							}
 						})

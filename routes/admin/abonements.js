@@ -60,27 +60,35 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		let formData = req.body;
 
+		console.log(formData)
+
 		let seatData = {
 			seatID: null,
 			SectorName: (formData.tribune + formData.sector).toUpperCase(),
 			RowN: formData.row,
 			SeatN: formData.seat
 		};
-
+		console.log(seatData)
 		dbUtils.Seat.getByPosition(seatData, (data) => {
+			if ( data != null ){
+				let itemData = {
+					Price: formData.price,
+					SectorName: data.SectorName,
+					SeatID: data.seatID,
+					RowN: data.RowN,
+					SeatN: data.SeatN,
+					evensIDs: null
+				};
+				console.log(itemData)
+				if ( typeof(formData.evens) == 'string' ) itemData.evensIDs = formData.evens;
+				else itemData.evensIDs = formData.evens.join()
 
-			let itemData = {
-				Price: formData.price,
-				SectorName: data.SectorName,
-				SeatID: data.seatID,
-				RowN: data.RowN,
-				SeatN: data.SeatN,
-				evensIDs: null
-			};
-			if ( typeof(formData.evens) == 'string' ) itemData.evensIDs = formData.evens;
-			else itemData.evensIDs = formData.evens.join()
-
-			dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
+				dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
+			}
+			else {
+				console.log("error Seat.getByPosition");
+				res.redirect('/admin/abonements/add');
+			}
 
 		});
 

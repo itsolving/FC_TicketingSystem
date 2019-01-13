@@ -7,9 +7,8 @@ class TemplateUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(itemData, next){
-		const clientRoles = new this.Client(this.conOptions);
-		clientRoles.connect();
-		let sSQLRoles = `insert into public."tTemplate" ("ID", "templateName", "templateUrl", "fileName")  
+		
+		let sSQL = `insert into public."tTemplate" ("ID", "templateName", "templateUrl", "fileName")  
 						values(
 							nextval(
 							\'"tTemplate_ID_seq"\'::regclass), 
@@ -18,28 +17,12 @@ class TemplateUtils extends rootUtils{
 							'${itemData.fileName}') 
 						RETURNING "ID"`;
 
-		console.log(sSQLRoles);
+		console.log(sSQL);
 
-		clientRoles.query(sSQLRoles, (qerrRoles, qresRoles) => {
-			if (qerrRoles) {
-				console.log(qerrRoles ? qerrRoles.stack : qresRoles);
-			}
-			else {				
-				if (typeof qresRoles.rowCount === 'undefined') {
-					console.log('res.rowCount not found');
-				}
-				else {
-					if (qresRoles.rowCount == 0) {
-						console.log('res.rowCount='+qresRoles.rowCount);
-					}
-					else {
-						console.log(qresRoles.rows)
-					}
-				}
-			}
-			clientRoles.end();
-			next(qresRoles.rows);
-		});
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+
 	}
 	getAll(next){
 
