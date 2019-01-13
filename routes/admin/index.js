@@ -7,9 +7,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /admin");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: ""});
 	});
 

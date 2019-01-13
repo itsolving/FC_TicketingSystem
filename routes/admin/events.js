@@ -7,10 +7,10 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		let sAdminLogin = "",
 			sessData 	= req.session;
 
-
+			console.log(sessData);
 		console.log("GET /admin/events");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 		}
 		else {
 			res.redirect('/admin');
@@ -28,9 +28,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("POST /admin/events");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;
@@ -50,8 +50,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /admin/event/id");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 		}
 		else {
 			res.redirect('/admin');
@@ -113,9 +113,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("POST /admin/event/id");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;

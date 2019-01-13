@@ -7,9 +7,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /admin/reports");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;

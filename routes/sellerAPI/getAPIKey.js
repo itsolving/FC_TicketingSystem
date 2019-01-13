@@ -7,7 +7,7 @@ module.exports = (router, dbUtils, APIKEY) => {
 
 
 		console.log("GET /api/get/apikey");
-		if ( sessData.userLogin ){
+		if ( sessData.admControl ){
 			dbUtils.Users.getByID(sessData.userID, (users) => {
 				let user = users[0];
 				if ( user ){
@@ -44,7 +44,7 @@ module.exports = (router, dbUtils, APIKEY) => {
 			sessData 	= req.session;
 
 		console.log("GET /api/get/apikey");
-		if ( sessData.userLogin ){
+		if ( sessData.admControl ){
 			dbUtils.Users.getByID(sessData.userID, (users) => {
 				let user = users[0];
 				// IDRole = 4  ---- API

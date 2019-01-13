@@ -17,9 +17,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /admin/stadiums");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;
@@ -37,9 +37,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /admin/stradium/id");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;
@@ -65,9 +65,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("POST /admin/stadium/id");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;

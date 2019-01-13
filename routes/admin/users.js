@@ -9,8 +9,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log('POST /admin');
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 			console.log('showing adminhome with session data...');
 			res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: ""});
 		}
@@ -68,7 +68,13 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					}
 				}
 				console.log('save sAdminLogin to session and show adminhome...');
-				sessData.adminLogin = sAdminLogin;
+				//sessData.Login = sAdminLogin;
+				sessData.admControl = {
+					ID: qres.rows[0].ID,
+					Login: qres.rows[0].Login,
+					IDRole: qres.rows[0].IDRole
+				};
+				//console.log(sessData.admControl)
 				res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
 			});
 		}
@@ -94,8 +100,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("GET /users");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 		}
 		else {
 			res.redirect('/admin');
@@ -115,8 +121,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		console.log("POST /admin/users");
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 		}
 		else {
 			res.redirect('/admin');
@@ -142,8 +148,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		console.log("GET /user/id");
 		var sAdminLogin = "";
 		var sessData = req.session;
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
 		}
 		else {
 			res.redirect('/admin');
@@ -165,9 +171,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		console.log("POST /admin/user/id");
 		var sAdminLogin = "";
 		var sessData = req.session;
-		if(sessData.adminLogin){
-			sAdminLogin = sessData.adminLogin;
-		}
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
 		else {
 			res.redirect('/admin');
 			return;

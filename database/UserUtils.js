@@ -72,7 +72,7 @@ class UserUtils{
 		const client = new this.Client(this.conOptions);
 
 		client.connect()
-		var sSQL = `SELECT "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = '${clientData.login}'`;
+		var sSQL = `SELECT "ID", "Login", "Pwd", "IDRole" FROM public."tUser" where "isLock" = false and "IDRole" = 1 and "Login" = '${clientData.login}'`;
 
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
