@@ -17,7 +17,7 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", 
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", 
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", 
 					sd."Name" as "StadiumName", st."Name" as "StatusName" 
 					FROM public."tEvent" ev 
@@ -85,6 +85,7 @@ class EventsUtils extends rootUtils{
 					"IDStadium"=${eventData.nStadiumID}, 
 					"ShowOnline" = ${eventData.bshowOnline}, 
 					"ShowCasher" = ${eventData.bshowCasher},
+					"IDTemplate" = ${eventData.nTemplateID},
 			 		"ShowAPI" = ${eventData.bshowAPI} 
 					where "ID" = ${eventData.nID}`;
 		}
@@ -110,7 +111,7 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDStatus", 
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", 
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",

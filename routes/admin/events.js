@@ -90,16 +90,19 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 								}
 							})
 						})
+						dbUtils.Template.getAll((templates) => {
+							res.render('admineventedit', {
+								title: sAdminPageTitle, 
+								adminLogin: sAdminLogin, 
+								eventData: rowEventData, 
+								eventID: nID, 
+								stadiums: stadiumList, 
+								sectors: sectorList, 
+								rownums: mainPrices,
+								templates: templates
+							});
+						})
 						//console.log(mainPrices);
-						res.render('admineventedit', {
-							title: sAdminPageTitle, 
-							adminLogin: sAdminLogin, 
-							eventData: rowEventData, 
-							eventID: nID, 
-							stadiums: stadiumList, 
-							sectors: sectorList, 
-							rownums: mainPrices
-						});
 					});
 				});
 			});
@@ -134,6 +137,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sImgPath: 		req.body.eventAfisha,
 			sDateFrom: 		req.body.eventDateFrom,
 			nStadiumID: 	req.body.stadiumID,
+			nTemplateID:    req.body.templateID,
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
 			bshowAPI: 		req.body.showAPI
