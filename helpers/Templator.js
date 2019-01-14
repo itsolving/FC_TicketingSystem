@@ -1,7 +1,6 @@
 let fs  	= require('fs'),
 	pdf 	= require('html-pdf'),
 	bwipjs  = require('bwip-js'),
-	barcode = require('barcode'),
 	gm = require('gm').subClass({imageMagick: true});
 
 
@@ -39,14 +38,12 @@ class Templator{
 		var options = { 
 			format: 'Letter'      
 		};
-		console.log(gm)
+		console.log(ticket)
+		//ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
 
-		ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
-
-	
 		bwipjs.toBuffer({
-	        bcid:        'ean13',       // Barcode type
-	        text:        ticket.Barcode.replace(/\s+/, ""),    // Text to encode
+	        bcid:        "ean13",       // Barcode type
+	        text:        ticket.Barcode,    // Text to encode
 	        scale:       3,               // 3x scaling factor
 	        height:      10,              // Bar height, in millimeters
 	        includetext: true,            // Show human-readable text

@@ -84,6 +84,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			templateID: req.params.templateID
 		}
 		dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
+			console.log(ticket)
 			dbUtils.Template.getByID(data.templateID, (template) => {
 				templator.htmlToPdf(ticket, { name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (file) => {
 					res.sendFile(file.filename);
