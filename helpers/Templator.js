@@ -3,7 +3,6 @@ let fs  	= require('fs'),
 	bwipjs  = require('bwip-js'),
 	gm = require('gm').subClass({imageMagick: true});
 
-
 class Templator{
 	constructor(){
 		this.replaceList = [
@@ -40,10 +39,11 @@ class Templator{
 		};
 		console.log(ticket)
 		//ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
+		console.log(ticket.Barcode);
 
 		bwipjs.toBuffer({
 	        bcid:        "ean13",       // Barcode type
-	        text:        ticket.Barcode,    // Text to encode
+	        text:        '9780471117094',    // Text to encode
 	        scale:       3,               // 3x scaling factor
 	        height:      10,              // Bar height, in millimeters
 	        includetext: true,            // Show human-readable text
