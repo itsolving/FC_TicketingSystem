@@ -499,5 +499,114 @@ module.exports = (router, db) => {
 				});
 		}
 	});
-	
+	//версия2 - сохранение факта продажи билетов из схемы зала по указанному мероприятию
+	router.post('/sendsaledtickets2', function(req, res){
+		console.log('post /sendsaledtickets2');
+		
+		//данные из сессии
+		var sLogin = "";
+		var nUserID = 0;
+		var events = {};
+		var sessData = req.session;
+		if(sessData.userLogin){
+			sLogin = sessData.userLogin;
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
+		
+		var seats = req.body.Seats;
+		/*var eventID = req.body.IDEvent;
+		var sectorName = req.body.SectorName;
+		var checkedSeats = req.body.CheckedSeats;*/
+		
+		var ticketsList = {};
+		var sSQL = "";
+		var sSQLTrans = "";
+		var sSQLTickets = "";
+		
+		console.log('seats:');
+		console.log(seats);
+		
+		if (seats.IDEvent !== 'undefined') {
+			var nEventID = seats.IDEvent;
+			sSQL = "";
+			seats.CheckedSeats.forEach(function(seat) {
+				var sectorName = seat.SectorName;
+				var rowN = seat.RowN;
+				var seatN = seat.SeatN;
+				var seatPrice = seat.Price;
+				var sUpdate = 'update public."tTicket" set "IDStatus" = 5 where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
+				sSQL = sSQL + sUpdate;
+			});
+			
+			//console.log(sSQL);
+			db.db.any(sSQL)
+				.then(function(){
+					//console.log('ticketsList: '+ JSON.stringify(data));
+					console.log('saled tickets statuses updated');
+					
+					sSQLTickets = 'select "ID", "IDStatus", "IDSeat", "IDEvent" from public."tTicket" where "IDStatus" = 5 and "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
+					db.db.any(sSQLTickets)
+						.then(function(tickets){
+							sSQLTrans = "";
+							tickets.forEach(function(tick) {
+								var ticketID = tick.ID;
+								
+								// TODO: how to get value of idticket?
+								var sTransInsert = 'insert into public."tTrans" ( "IDTicket", "Saledate", "IDUserSaler" ) values '
+													+'( '+ticketID+', now(), '+nUserID+' ); ';
+								sSQLTrans = sSQLTrans + sTransInsert;
+							});
+							db.db.any(sSQLTrans)
+								.then(function(){
+									console.log('transactions inserted');
+									res.status(200)
+										.json({
+											ReqStatus: 'success',
+											Message: 'saled tickets saved and transactions created'
+										});
+								})
+								.catch(function(errInsTr){
+									console.log('error of insert transactions of saled tickets:');
+									console.log(errInsTr);
+									res.status(errInsTr.status)
+										.json({
+											ReqStatus: 'error',
+											Message: 'cannot create transactions for saled tickets, event '+nEventID
+										});
+								});
+						})
+						.catch(function(errSrchTick){
+							console.log('error of search saled tickets:');
+							console.log(errSrchTick);
+							res.status(errSrchTick.status)
+								.json({
+									ReqStatus: 'error',
+									Message: 'cannot find saled tickets for event '+nEventID
+								});
+						});
+					
+					
+					
+				})
+				.catch(function(err){
+					//return next(err);
+					console.log('error of update saled tickets:');
+					console.log(err);
+					res.status(err.status)
+						.json({
+							ReqStatus: 'error',
+							Message: 'saling tickets not saved'
+						});
+				});
+		}
+		else {
+			res.status(404)
+				.json({
+					ReqStatus: 'error',
+					Message: 'event not found, so no tickets updated'
+				});
+		}
+	});
+		
 }
