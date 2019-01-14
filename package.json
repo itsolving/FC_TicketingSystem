@@ -25,8 +25,11 @@
   },
   "homepage": "https://github.com/itsolving/FC_TicketingSystem#readme",
   "dependencies": {
+    "apikeygen": "^1.1.0",
+    "barcode": "^0.1.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
+    "bwip-js": "^1.7.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
@@ -36,6 +39,7 @@
     "express-session": "^1.15.6",
     "formidable": "^1.2.1",
     "fs": "0.0.1-security",
+    "gm": "^1.23.1",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
@@ -50,7 +54,8 @@
     "password-hash": "^1.2.2",
     "pg": "^7.6.0",
     "pg-promise": "^8.5.1",
-    "qr-image": "^3.2.0"
+    "qr-image": "^3.2.0",
+    "require-fu": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.3",

@@ -1,11 +1,22 @@
-let fs  = require('fs'),
-	pdf = require('html-pdf');
+let fs  	= require('fs'),
+	pdf 	= require('html-pdf'),
+	bwipjs  = require('bwip-js'),
+	barcode = require('barcode'),
+	gm = require('gm').subClass({imageMagick: true});
 
 
 class Templator{
 	constructor(){
 		this.replaceList = [
-			'{{ticketID}}', '{{eventName}}', '{{ticketPrice}}', '{{SectorName}}', '{{RowN}}', '{{SeatN}}', '{{ticID}}'
+			'{{ticketID}}', 
+			'{{eventName}}', 
+			'{{ticketPrice}}', 
+			'{{SectorName}}', 
+			'{{RowN}}', 
+			'{{SeatN}}', 
+			'{{ticID}}', 
+			'{{QRCode}}',
+			'{{Barcode}}'
 		]
 	}
 
@@ -28,14 +39,44 @@ class Templator{
 		var options = { 
 			format: 'Letter'      
 		};
+		console.log(gm)
 
-		var newHTML = this.template(html, [ticket.ID, ticket.Name, ticket.Price, ticket.SectorName, ticket.RowN, ticket.SeatN, ticket.ID]);
+		ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
+
+	
+		bwipjs.toBuffer({
+	        bcid:        'ean13',       // Barcode type
+	        text:        ticket.Barcode.replace(/\s+/, ""),    // Text to encode
+	        scale:       3,               // 3x scaling factor
+	        height:      10,              // Bar height, in millimeters
+	        includetext: true,            // Show human-readable text
+	        textxalign:  'center',        // Always good to set this
+	    }, (err, BarcodeSrc) => {
+	        if (err) {
+	        	console.log(err)
+	        } else {
+	            var Barcode = 'data:image/png;base64,' + BarcodeSrc.toString('base64');
+	            var newHTML = this.template(html, [
+					ticket.ID, 
+					ticket.Name, 
+					ticket.Price, 
+					ticket.SectorName, 
+					ticket.RowN, 
+					ticket.SeatN, 
+					ticket.ID, 
+					ticket.Barcode.replace(/\s+/, ""),
+					Barcode
+				]);
 
 
-		pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
-		  console.log(res);
-		  next(res);
-		});
+				pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
+				  console.log(res);
+				  next(res);
+				});
+	        }
+	    });
+
+
 	}
 }
 

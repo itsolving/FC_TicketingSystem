@@ -112,7 +112,7 @@
 								</div>
 							</div>
 							<div class="col-md-12">
-								<h2>Редактирование мероприятия</h2>
+								<h2>Назначение цен на билеты</h2>
 							</div>
 							<div class="col-md-12">
 								<div class="card">
@@ -139,9 +139,8 @@
 																			<td>
 																				<select name="rowN" class="select-rowN form-control form-control-sm">
 																					<% rownums[seatRow.SectorName].forEach(function(Row) { %>
-																						<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price %>}'><%= Row.RowN %> ( <%= Row.Price %> )</option>
+																						<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price || "Ошибка" %>}'><%= Row.RowN %> ( <%= Row.Price || "Ошибка" %> )</option>
 																					<% }); %>
-																					
 																				</select>
 																			</td>
 																		</tr>
