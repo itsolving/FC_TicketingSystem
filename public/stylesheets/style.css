@@ -31,3 +31,12 @@
 .main-panel.events {
 	width: 100%;
 }
+
+.form-group input[type=file] {
+	position: relative;
+	opacity: 1;
+}
+
+.form-control-sm {
+	border: 1px solid rgb(210, 210, 210)!important;
+}
