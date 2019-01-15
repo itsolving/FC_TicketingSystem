@@ -535,7 +535,13 @@ module.exports = (router, db) => {
 				var rowN = seat.RowN;
 				var seatN = seat.SeatN;
 				var seatPrice = seat.Price;
-				var sUpdate = 'update public."tTicket" set "IDStatus" = 5 where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
+				var sUpdate = `update public."tTicket" set "IDStatus" = 5
+								where "IDSeat" in (select s."ID" from public."tSeat" s 
+													where s."SectorName" = \'`+sectorName+`\' 
+													and s."RowN" = `+rowN+` 
+													and s."SeatN" = `+seatN+`) 
+								and "IDEvent" = `+nEventID+`
+								and "IDStatus" = 3;`;
 				sSQL = sSQL + sUpdate;
 			});
 			
