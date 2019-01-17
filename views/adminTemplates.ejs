@@ -8,52 +8,87 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
-				<div>
-				<% include admheader %>
-				</div>
-				<div class="col-sm-2">
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 					<% include admmnu %>
 				</div>
-				<div id="workArea" class="col-sm-10">
-					<h3>Список шаблонов</h3>
-					<form>
-						<hr>
-						<div>
-							<div style="display: flex; justify-content: space-between; align-items: center;">
-								<label>Название</label>
-								<input type="text" name="name">
-								<label>index.html</label>
-								<input type="file" name="template">
-								<label>assets</label>
-								<input type="file" multiple name="assets">
-							</div>	
-							<button>Добавить</button>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
+								</div>
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<h2>Список шаблонов</h2>
+								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<form method="POST" enctype="multipart/form-data" >
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group bmd-form-group">
+															<label class="bmd-label-floating">Название</label>
+															<input type="text" name="name" required class="form-control">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group bmd-form-group">
+															<input class="form-control-file" type="file" name="page" required style="position: initial; opacity: 1;">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<button class="btn btn-primary">Добавить</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead>
+														<th scope="col">ID</th>
+														<th scope="col">Название</th>
+														<th scope="col">Местоположение</th>
+													</thead>
+													<tbody>
+														<% if(templates.length > 0){ %>
+															<% templates.forEach(function(template) { %>
+																<tr>
+																	<td scope="row"><%= template.ID %></td>
+																	<td scope="row"><a href="/admin/tmp/download/<%= template.ID %>/5348" target="_blank"><%= template.templateName %></a></td>
+																	<td scope="row"><%= template.templateUrl %></td>
+																</tr>
+															<% }); %>
+														<% } else{ %>  
+															<p>Шаблонов еще нет</p>
+														<% } %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>
 						</div>
-						
-						<hr>
-					</form>
-
-					<div class="wrapper">
-						<table class="table trans">
-							<thead>
-								<th scope="col">ID</th>
-								<th scope="col">Название</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td scope="row">1</td>
-									<td><a href="/admin/template/1">Шаблон 1</a></td>
-								</tr>
-								<tr>
-									<td scope="row">2</td>
-									<td><a href="/admin/template/2">Шаблон 2</a></td>
-								</tr>
-							</tbody>
-						</table>
 					</div>
-				
 				</div>
 			<% } else{ %>
 				<% include admloginform %>

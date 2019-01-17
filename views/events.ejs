@@ -5,32 +5,70 @@
   </head>
   <body>
     <div class="Container">
-		<h1>Мероприятия</h1>
-		
-			<div>
-				<% if(userLogin){ %>
-				<% include mainheader %>
-				<% } %>
-				<br />
-				<div id="workArea" class="row">
-					<% if(eventsList) { %>
-						<% eventsList.forEach(function(eventRow) { %>
-						<div class="col-sm-6 col-md-3">
-							<!--<div class="thumbnail">-->
-								<!--<a href="http://krvc77.myjino.ru/astana3/"><span hidden><%= eventRow.ID %></span>-->
-								<a href="/event/<%= eventRow.ID %>"><span hidden><%= eventRow.ID %></span>
-									<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
-									
-									<div class="caption">
-										<h3><%= eventRow.Name %></h3>
-										<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
-										<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
-									</div>
-								</a>
-							<!--</div>-->
+			<h1>Мероприятия</h1>
+				<div id="workArea" class="main-panel events">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							</button>
+							<div class="collapse navbar-collapse justify-content-end">
+								<ul class="navbar-nav">
+									<% if(userLogin){ %>
+										<% include mainheader %>
+									<% } %>
+								</ul>
+							</div>
 						</div>
-						<% }); %>
-					<% } %>
+					</nav>
+					<div id="workArea" class="content container">
+						<div class="row">
+								<% if(eventsList) { %>
+									<% eventsList.forEach(function(eventRow) { %>
+										<div class="col-md-4">
+												<div class="card card-chart">
+													<div class="card-header">
+														<a href="/event/<%= eventRow.ID %>">
+															<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
+														</a>
+														</div>
+													<div class="card-body">
+														<h4 class="card-title">
+															<a href="/event/<%= eventRow.ID %>"><%= eventRow.Name %></a>
+														</h4>
+													</div>
+													<div class="card-footer">
+														<div class="stats">
+															<i class="material-icons">access_time</i> <strong>Дата и время:</strong> <%= eventRow.DateFrom %>
+														</div>
+													</div>
+												</div>
+											</div>
+									<% }); %>
+							<% } %>
+						</div>
+						<% if(eventsList) { %>
+							<% eventsList.forEach(function(eventRow) { %>
+							<div class="col-sm-6 col-md-3">
+								<!--<div class="thumbnail">-->
+									<!--<a href="http://krvc77.myjino.ru/astana3/"><span hidden><%= eventRow.ID %></span>-->
+									<a href="/event/<%= eventRow.ID %>"><span hidden><%= eventRow.ID %></span>
+										<img src="<%= eventRow.ImgPath %>" width="250px" height="350px" alt="<%= eventRow.Name %>" />
+										
+										<div class="caption">
+											<h3><%= eventRow.Name %></h3>
+											<p><strong>Дата и время:</strong> <%= eventRow.DateFrom %></p>
+											<p><strong>Место:</strong> <%= eventRow.Stadium %></p>
+										</div>
+									</a>
+								<!--</div>-->
+							</div>
+							<% }); %>
+						<% } %>
+					</div>
 				</div>
 			</div>
 		

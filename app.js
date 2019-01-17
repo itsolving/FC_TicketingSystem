@@ -1,3 +1,5 @@
+global.__basedir = __dirname;
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,8 +8,14 @@ var logger = require('morgan');
 
 var mainRouter = require('./routes/main');
 var adminRouter = require('./routes/admin');
+var ApiRouter = require('./routes/api')
+var fileUpload = require('express-fileupload');
 
 var app = express();
+
+app.use(fileUpload());
+
+
 
 var session = require('express-session');
 app.use(session({
@@ -31,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRouter);
 app.use('/admin', adminRouter);
+app.use('/api/', ApiRouter);
 
 
 // catch 404 and forward to error handler

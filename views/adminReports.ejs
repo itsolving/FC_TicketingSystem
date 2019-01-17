@@ -5,18 +5,38 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1><%= title %></h1>
 			<% if(adminLogin){ %>
-				<div>
-				<% include admheader %>
-				</div>
-				<div class="col-sm-2">
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 					<% include admmnu %>
 				</div>
-				<div id="workArea" class="col-sm-10">
-					<h3>Список отчетов</h3>
-					<a href="/admin/reports/trans">Отчет по продажам</a><br>
-					
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
+								</div>
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<h2>Список отчетов</h2>
+								</div>
+								<div class="col-md-12">
+									<a href="/admin/reports/trans" class="btn btn-primary btn-create-event">Отчет по продажам</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			<% } else{ %>
 				<% include admloginform %>
