@@ -39,6 +39,28 @@
 												<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
 												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
 												<p id="txResultMsg"></p>
+												<!-- HTML-код модального окна -->
+												<div id="myModalBox" class="modal fade">
+												  <div class="modal-dialog">
+												    <div class="modal-content">
+												      <!-- Заголовок модального окна -->
+												      <div class="modal-header">
+												      	<h4 class="modal-title">Подтверждение действия</h4>
+												        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												      </div>
+												      <!-- Основное содержимое модального окна -->
+												      <div class="modal-body">
+												        Вы действительно хотите удалить мероприятие?
+												      </div>
+												      <!-- Футер модального окна -->
+												      <div class="modal-footer">
+												        
+												        <button type="button" class="btn btn-danger" id="deleteExecute">Удалить</button>
+												        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+												      </div>
+												    </div>
+												  </div>
+												</div>
 											</div>
 											<!-- <%= eventData[0].ID %> -->
 											<% eventData.forEach(function(eventRow) { %>
@@ -289,6 +311,9 @@
 					});
 
 					$("#btnDeleteEvent").on('click', function(){
+						$("#myModalBox").modal('show');
+					});
+					$('#deleteExecute').on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						console.log("btnDeleteEvent click: nEventID="+nEventID);
@@ -306,6 +331,7 @@
 							success: function(result){
 									console.log("POST del /admin/event/id success: result="+result);
 									$("#txResultMsg").html(result);
+									window.location = '/admin/events';
 									//--------------
 									//TODO: after development this functional we must delete this command:
 									ClearMsg("#txResultMsg");
@@ -317,7 +343,7 @@
 								console.log(err);
 							}
 						});
-					});
+					})
 
 					$('#rowsTable').on('click', '.clickable-row', function(event) {
 					  //$(this).addClass('active').siblings().removeClass('active');
