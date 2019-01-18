@@ -93,10 +93,10 @@ class EventsUtils extends rootUtils{
 		client.query(sSQL, (qerr, qres) => {
 			var sResMsg = "";
 			if (eventData.sPostOperation == "del") {
-				sResMsg = "Удалил";
+				sResMsg = "Удалено";
 			}
 			else {
-				sResMsg = "Сохранил";
+				sResMsg = "Сохранено";
 			}
 			if (qerr) {
 				console.log("qerr:");
