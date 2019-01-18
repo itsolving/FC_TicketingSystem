@@ -34,6 +34,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		dbUtils.Trans.getAll((trans) => {
+			if ( !(trans.length > 0) ){ trans = []; }
 			res.render('adminTrans', { title: sAdminPageTitle, adminLogin: sAdminLogin, transList: trans });
 		})
 

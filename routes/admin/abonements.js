@@ -16,6 +16,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		dbUtils.Abonement.getAll((abonements) => {
+			console.log(abonements)
+			if ( !(abonements.length > 0) ){ abonements = []; }
 			res.render('adminAbonements', {title: sAdminPageTitle, adminLogin: sAdminLogin, abonList: abonements});
 		})
 
