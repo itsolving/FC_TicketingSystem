@@ -80,14 +80,15 @@
 					</div>
 				</div>
 				<script>
+
 					$("#btnCreateEvent").click(function(){
 						console.log("btnCreateEvent click");
-						$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+						$("#resultCreateMsg").html('Создание нового мероприятия...');
 						//--------------
 						//TODO: after development this functional we must delete this command:
 						//ClearMsg("#resultCreateMsg");
 						//--------------
-						
+
 						$.ajax({
 							url: "/admin/events/",
 							type: "POST",
@@ -103,7 +104,7 @@
 									window.location.replace("/admin/event/"+result.ID);
 								}
 								else {
-									$("#resultCreateMsg").html('Функционал создания нового мероприятия находится в разработке');
+									$("#resultCreateMsg").html('Неизвестная ошибка при создании нового мероприятия');
 									ClearMsg("#resultCreateMsg");
 								}
 							},
@@ -115,7 +116,7 @@
 							}
 						});
 					});
-					
+
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){
 							$(msgElement).html("");
@@ -128,4 +129,3 @@
 		</div>
 	</body>
 </html>
-
