@@ -78,19 +78,28 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 	// /admin/tmp/download/5/5348 или /admin/tmp/download/4/5348 для теста
-	router.get('/tmp/download/2/:ticketID', function(req, res){
-		let data = {
-			ticketID: req.params.ticketID,
-			templateID: req.params.templateID
+	router.get('/get/template/:id', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /get/template/:id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
 		}
-		dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
-			console.log(ticket)
-			dbUtils.Template.getByID(data.templateID, (template) => {
-				templator.htmlToPdf(ticket, { name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (pdfData) => {
-					res.type('pdf'); 
-					res.send(pdfData);
-				});
+
+
+		let	templateID = req.params.id;
+		dbUtils.Template.getByID(templateID, (template) => {
+			templator.example({ name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (pdfData) => {
+				res.type('pdf'); 
+				res.send(pdfData);
 			})
 		})
+		
 	})
 }

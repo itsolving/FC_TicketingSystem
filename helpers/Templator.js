@@ -74,6 +74,19 @@ class Templator{
 
 
 	}
+	example(fileData, next){
+		let htmlLink = `${__dirname}/../${fileData.link}`;
+		let templateName = fileData.name;
+
+		var html = fs.readFileSync(htmlLink, 'utf8');
+		var options = { 
+			format: 'Letter'      
+		};
+
+		pdf.create(html, options).toBuffer( (err, buffer) => {
+		    next(buffer);
+		});
+	}
 }
 
 
