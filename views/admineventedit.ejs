@@ -191,8 +191,8 @@
 												      <!-- Футер модального окна -->
 												      <div class="modal-footer">
 												        
-												        <button type="button" class="btn btn-danger" id="deleteExecute">Удалить</button>
-												        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+												        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
+												        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
 												      </div>
 												    </div>
 												  </div>
@@ -368,8 +368,42 @@
 					    }
 					}
 
-					$("#eventImageFile").change(function(){
-					    readURL(this);
+					$("#eventImageFile").change(function(evt){
+					    //readURL(this);
+
+					    var sImgFileName = evt.target.files[0].name;
+						let file = $('#eventImageFile').get(0).files;
+						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						//$("#eventImgMsg").html("Смена картинки - в разработке");
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						//ClearMsg("#eventImgMsg");
+						//--------------
+						var nEventID = $("#eventID").data("value");
+
+						var data = new FormData();
+
+						data.append('img', $('#eventImageFile')[0].files[0]);
+
+						$.ajax({
+							url: "/admin/uploadeventimg",
+							data: data,
+							cache: false,
+							contentType: false,
+							processData: false,
+							method: 'POST',
+							//type: 'POST', // For jQuery < 1.9
+							success: function(result){
+								console.log(result);
+								console.log("POST /admin/uploadeventimg success: result=");
+								$('#eventImage').attr('src', '/images/events/'+sImgFileName);
+								console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
+							},
+							error: function(err){
+								console.log("POST /admin/uploadeventimg error:");
+								console.log(err);
+							}
+						});
 					});
 					
 					function GetActualEventStatus(){
@@ -394,41 +428,7 @@
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
 					};
-					$('#eventImageFile').on('change', function(evt) {
-						var sImgFileName = evt.target.files[0].name;
-						let file = $('#eventImageFile').get(0).files;
-						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
-						//$("#eventImgMsg").html("Смена картинки - в разработке");
-						//--------------
-						//TODO: after development this functional we must delete this command:
-						//ClearMsg("#eventImgMsg");
-						//--------------
-						var nEventID = $("#eventID").data("value");
-
-						var data = new FormData();
-						$.each($('#eventImageFile')[0].files, function(i, file) {
-							data.append('file-'+i, file);
-						});
-						$.ajax({
-							url: "/admin/uploadeventimg",
-							data: data,
-							cache: false,
-							contentType: false,
-							processData: false,
-							method: 'POST',
-							//type: 'POST', // For jQuery < 1.9
-							success: function(result){
-								console.log("POST /admin/uploadeventimg success: result=");
-								console.log(result);
-								$('#eventImage').attr('src', '/images/events/'+sImgFileName);
-								console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
-							},
-							error: function(err){
-								console.log("POST /admin/uploadeventimg error:");
-								console.log(err);
-							}
-						});
-					});
+				
 
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){

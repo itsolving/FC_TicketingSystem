@@ -1,5 +1,3 @@
-let formidable = require('formidable');
-
 module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	//открытие страницы "localhost:3000/admin/events", отображение списка мероприятий
@@ -158,22 +156,16 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	//загрузка файла с картинкой афиши мероприятия (лишь копируем файл в спецпапку на сервере, но не сохраняем путь в БД)
 	router.post('/uploadeventimg', function(req, res, next){
-		let form = new formidable.IncomingForm();
-	    form.parse(req);
-	    form.on('fileBegin', function (name, file){
-	        file.path = __basedir + '/public/images/events/' + file.name;
-			sFilename = file.name;
-	    });
-	    form.on('file', function (name, file){
-	        console.log('Uploaded ' + file.name);
-			res.send(file.name);
-			return;
-	    });
-		form.on('error', function(err) {
-			console.error(err);
-			return res.send('error: '+err);
-		});
-	    res.status(200);
+
+	    let ImgFile = req.files['img'];
+	    ImgFile.mv(`${__dirname}../../../public/images/events/${ImgFile.name}`, function(err) {
+		    if (err){
+		    	console.log(err);
+		    	return res.send('error: '+err);
+		    }
+		    res.send(`/images/events/${ImgFile.name}`);
+		})
+		 res.status(200);
 	});
 
 
