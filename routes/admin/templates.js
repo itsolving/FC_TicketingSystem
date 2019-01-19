@@ -78,7 +78,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 	// /admin/tmp/download/5/5348 или /admin/tmp/download/4/5348 для теста
-	router.get('/tmp/download/:templateID/:ticketID', function(req, res){
+	router.get('/tmp/download/2/:ticketID', function(req, res){
 		let data = {
 			ticketID: req.params.ticketID,
 			templateID: req.params.templateID
@@ -86,8 +86,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		dbUtils.Ticket.getByID(data.ticketID, (ticket) => {
 			console.log(ticket)
 			dbUtils.Template.getByID(data.templateID, (template) => {
-				templator.htmlToPdf(ticket, { name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (file) => {
-					res.sendFile(file.filename);
+				templator.htmlToPdf(ticket, { name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (pdfData) => {
+					res.type('pdf'); 
+					res.send(pdfData);
 				});
 			})
 		})

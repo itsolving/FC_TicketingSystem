@@ -1,3 +1,6 @@
+let Templator 	 = require(`${__basedir}/helpers/Templator.js`),
+	templator 	 = new Templator();
+
 module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	// изменение прайса на билетах ( NEW BETA )
@@ -24,6 +27,18 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		dbUtils.Ticket.updatePrice(data.nEventID, [{name: data.sector, price: data.newPrice, RowN: data.rowN}], (ans) => {
 			console.log(ans);
+		})
+	})
+
+
+	// получение билета
+	router.get('/kassa/get/ticket/:id', function(req, res){
+		let ticketID = req.params.id;
+		dbUtils.Ticket.getWithTemplate(ticketID, (ticket) => {
+			templator.htmlToPdf(ticket, { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, (pdfData) => {
+				res.type('pdf'); 
+				res.send(pdfData);
+			});
 		})
 	})
 

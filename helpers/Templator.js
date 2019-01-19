@@ -30,7 +30,7 @@ class Templator{
 
 	// конверт из html в pdf
 	htmlToPdf(ticket, fileData, next){
-		let htmlLink = `${__dirname}./../${fileData.link}`;
+		let htmlLink = `${__dirname}/../${fileData.link}`;
 		let templateName = fileData.name;
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
@@ -43,7 +43,7 @@ class Templator{
 
 		bwipjs.toBuffer({
 	        bcid:        "ean13",       // Barcode type
-	        text:        '9780471117094',    // Text to encode
+	        text:        ticket.Barcode,    // Text to encode
 	        scale:       3,               // 3x scaling factor
 	        height:      10,              // Bar height, in millimeters
 	        includetext: true,            // Show human-readable text
@@ -66,9 +66,8 @@ class Templator{
 				]);
 
 
-				pdf.create(newHTML, options).toFile(`./tempFiles/${templateName}.pdf`, (err, res) => {
-				  console.log(res);
-				  next(res);
+				pdf.create(newHTML, options).toBuffer( (err, buffer) => {
+				  next(buffer);
 				});
 	        }
 	    });
