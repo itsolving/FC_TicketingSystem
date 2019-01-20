@@ -30,16 +30,15 @@
 						<div class="container-fluid">
 							<div class="col-md-12">
 								<h2>Редактирование мероприятия</h2>
+								<!-- ТЕСТ -->
+								<div style="display: none;">test</div>
+								<!-- ТЕСТ -->
 							</div>
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-body">
 										<form name="formEvent">
-											<div class="form-group">
-												<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
-												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
-												<p id="txResultMsg"></p>
-											</div>
+											
 											<!-- <%= eventData[0].ID %> -->
 											<% eventData.forEach(function(eventRow) { %>
 												<div class="col-md-3">
@@ -47,9 +46,9 @@
 													<p>
 														<label>ID шаблона билета: </label> 
 														<span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.IDTemplate || "Не выбрано" %></span>
-														<a href="/admin/tmp/download/<%= eventRow.IDTemplate %>/5348">Предпросмотр</a>
+														<a href="/admin/get/template/<%= eventRow.IDTemplate %>" target="_blank">Предпросмотр</a>
 													</p>
-													<p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p>
+													<!-- <p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p> -->
 													<div class="form-group">
 														<label for="eventName">Наименование:</label>
 														<input type="text" class="form-control" id="eventName" value="<%= eventRow.Name %>" placeholder="название мероприятия" />
@@ -175,6 +174,33 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group">
+												<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
+												<p id="txResultMsg"></p>
+												<!-- HTML-код модального окна -->
+												<div id="myModalBox" class="modal fade">
+												  <div class="modal-dialog">
+												    <div class="modal-content">
+												      <!-- Заголовок модального окна -->
+												      <div class="modal-header">
+												      	<h4 class="modal-title">Подтверждение действия</h4>
+												        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												      </div>
+												      <!-- Основное содержимое модального окна -->
+												      <div class="modal-body">
+												        Вы действительно хотите удалить мероприятие?
+												      </div>
+												      <!-- Футер модального окна -->
+												      <div class="modal-footer">
+												        
+												        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
+												        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+												      </div>
+												    </div>
+												  </div>
+												</div>
+											</div>
 						</div>
 					</div>
 				</div>
@@ -289,6 +315,9 @@
 					});
 
 					$("#btnDeleteEvent").on('click', function(){
+						$("#myModalBox").modal('show');
+					});
+					$('#deleteExecute').on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						console.log("btnDeleteEvent click: nEventID="+nEventID);
@@ -306,6 +335,7 @@
 							success: function(result){
 									console.log("POST del /admin/event/id success: result="+result);
 									$("#txResultMsg").html(result);
+									window.location = '/admin/events';
 									//--------------
 									//TODO: after development this functional we must delete this command:
 									ClearMsg("#txResultMsg");
@@ -317,7 +347,7 @@
 								console.log(err);
 							}
 						});
-					});
+					})
 
 					$('#rowsTable').on('click', '.clickable-row', function(event) {
 					  //$(this).addClass('active').siblings().removeClass('active');
@@ -328,64 +358,57 @@
 					  }
 					});
 
-					$('#savePrice').on('click', function () {
-						var eventId = $('#eventID').data('value');
-						var pricingTable = $('#rowsTable');
-						var rows = pricingTable.children('tbody').children();
-						var rowsAsArray = Array.from(rows);
-						var resultSectors = [];
-						rowsAsArray.forEach(sector => {
-							var idCell = sector.children[0];
-							var sectorName = idCell.innerText;
-							var priceCell = sector.children[1];
-							var priceInput = priceCell.children[0];
-							var sectorPrice = priceInput.value;
-							var resultObject = {
-								name: sectorName,
-								price: sectorPrice
-							};
-							resultSectors.push(resultObject);
-						});
-						var postData = {
-							eventId: eventId,
-							sectors: resultSectors
-						};
+					function readURL(input) {
 
-						function showPriceSavingText(text) {
-							var saveButtonWrapper = $('#savePrice').parent()[0]
-							var textElement = document.createElement('p');
-							textElement.innerText = text;
-							saveButtonWrapper.appendChild(textElement);
-						}
+					    if (input.files && input.files[0]) {
+					        var reader = new FileReader();
 
-						function successfullySavedPrices() {
-							showPriceSavingText('Успешно сохранено');
-						}
+					        reader.onload = function (e) {
+					            $('#eventImage').attr('src', e.target.result);
+					        };
 
-						function notSavedPrices() {
-							showPriceSavingText('Возникла ошибка при сохранении');
-						}
+					        reader.readAsDataURL(input.files[0]);
+					    }
+					}
+
+					$("#eventImageFile").change(function(evt){
+					    //readURL(this);
+
+					    var sImgFileName = evt.target.files[0].name;
+						let file = $('#eventImageFile').get(0).files;
+						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						//$("#eventImgMsg").html("Смена картинки - в разработке");
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						//ClearMsg("#eventImgMsg");
+						//--------------
+						var nEventID = $("#eventID").data("value");
+
+						var data = new FormData();
+
+						data.append('img', $('#eventImageFile')[0].files[0]);
 
 						$.ajax({
-									url:'/admin/updateprices',
-									data: JSON.stringify(postData),
-									type: 'POST',
-									contentType: 'application/json; charset=utf-8',
-									dataType: 'json',
-									success: function (response) {
-										if (response.ok === 'OK') {
-											successfullySavedPrices()
-										} else {
-											notSavedPrices();
-										}
-									},
-									error: function (error) {
-										notSavedPrices();
-										console.error('error saving price: ', error.responseText);
-									}
-								})
-					})
-
+							url: "/admin/uploadeventimg",
+							data: data,
+							cache: false,
+							contentType: false,
+							processData: false,
+							method: 'POST',
+							//type: 'POST', // For jQuery < 1.9
+							success: function(result){
+								console.log(result);
+								console.log("POST /admin/uploadeventimg success: result=");
+								$('#eventImage').attr('src', '/images/events/'+sImgFileName);
+								console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
+							},
+							error: function(err){
+								console.log("POST /admin/uploadeventimg error:");
+								console.log(err);
+							}
+						});
+					});
+					
 					function GetActualEventStatus(){
 						console.log('GetActualEventStatus::');
 						var nEventID = $("#eventID").data("value");
@@ -408,41 +431,7 @@
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
 					};
-					$('#eventImageFile').on('change', function(evt) {
-						var sImgFileName = evt.target.files[0].name;
-						let file = $('#eventImageFile').get(0).files;
-						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
-						//$("#eventImgMsg").html("Смена картинки - в разработке");
-						//--------------
-						//TODO: after development this functional we must delete this command:
-						//ClearMsg("#eventImgMsg");
-						//--------------
-						var nEventID = $("#eventID").data("value");
-
-						var data = new FormData();
-						$.each($('#eventImageFile')[0].files, function(i, file) {
-							data.append('file-'+i, file);
-						});
-						$.ajax({
-							url: "/admin/uploadeventimg",
-							data: data,
-							cache: false,
-							contentType: false,
-							processData: false,
-							method: 'POST',
-							//type: 'POST', // For jQuery < 1.9
-							success: function(result){
-								console.log("POST /admin/uploadeventimg success: result=");
-								console.log(result);
-								$('#eventImage').attr('src', '/images/events/'+sImgFileName);
-								console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
-							},
-							error: function(err){
-								console.log("POST /admin/uploadeventimg error:");
-								console.log(err);
-							}
-						});
-					});
+				
 
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){

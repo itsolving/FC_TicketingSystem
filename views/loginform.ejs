@@ -25,6 +25,19 @@
 							</div>
 						</div>
 					</form>
+					<% if(errorMsg){ %>
+		        <p id="pMsg"><%= errorMsg %></p>
+						<script>
+							$(document).ready(function(){
+								ClearMsg("#pMsg");
+							});
+							function ClearMsg(msgElement){
+								window.setTimeout( function(){
+									$(msgElement).html("");
+								}, 5000 );
+							}
+						</script>
+		      <% } %>
 				</div>
 			</div>
 		</div>

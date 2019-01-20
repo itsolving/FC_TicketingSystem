@@ -107,6 +107,25 @@ class TicketUtils extends rootUtils{
 		})
 		
 	}
+	getWithTemplate(nID, next){
+
+		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
+					st."SectorName", st."RowN", st."SeatN",
+					ev."Name",
+					tm."templateUrl", tm."fileName", tm."templateName"
+					From public."tTicket" tic
+					join public."tSeat" st on tic."IDSeat" = st."ID" 
+					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
+					join public."tTemplate" tm on ev."IDTemplate" = tm."ID"
+					WHERE tic."ID" = ${nID}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (tickets) => {
+			next(tickets[0]);
+		})
+
+	}
 }
 
 module.exports = TicketUtils;

@@ -17,12 +17,12 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", 
-					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium", 
-					sd."Name" as "StadiumName", st."Name" as "StatusName" 
-					FROM public."tEvent" ev 
-					join public."tStadium" sd on ev."IDStadium" = sd."ID" 
-					join public."tStatus" st on ev."IDStadium" = st."ID" 
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					FROM public."tEvent" ev
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tStatus" st on ev."IDStadium" = st."ID"
 					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ `;
 		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
 		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
@@ -35,7 +35,7 @@ class EventsUtils extends rootUtils{
 	}
 	getStatus(nID, next){
 
-		var sSQL = `SELECT ev."ID", ev."Name", ev."IDStatus", 
+		var sSQL = `SELECT ev."ID", ev."Name", ev."IDStatus",
 					s."Name" as "StatusName"
 					FROM public."tEvent" ev
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
@@ -49,8 +49,8 @@ class EventsUtils extends rootUtils{
 	insert(postOperation, next){
 		var sSQL = "";
 		if (postOperation == "ins") {
-			sSQL = `insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI") 
-					values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Новое\', 1, now(), 1, false, false, false) RETURNING "ID"`;
+			sSQL = `insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+					values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Название мероприятия\', 1, now(), 1, false, false, false) RETURNING "ID"`;
 
 			console.log(sSQL);
 
@@ -78,25 +78,25 @@ class EventsUtils extends rootUtils{
 			sSQL = 'update public."tEvent" set "IDStatus"=6 '+
 					'where "ID" = '+eventData.nID;
 		} else {
-			sSQL = `update public."tEvent" set 
-					"Name"='${eventData.sEventName}', 
-					"ImgPath"='${eventData.sImgPath}', 
-					"DateFrom"='${eventData.sDateFrom}', 
-					"IDStadium"=${eventData.nStadiumID}, 
-					"ShowOnline" = ${eventData.bshowOnline}, 
+			sSQL = `update public."tEvent" set
+					"Name"='${eventData.sEventName}',
+					"ImgPath"='${eventData.sImgPath}',
+					"DateFrom"='${eventData.sDateFrom}',
+					"IDStadium"=${eventData.nStadiumID},
+					"ShowOnline" = ${eventData.bshowOnline},
 					"ShowCasher" = ${eventData.bshowCasher},
 					"IDTemplate" = ${eventData.nTemplateID},
-			 		"ShowAPI" = ${eventData.bshowAPI} 
+			 		"ShowAPI" = ${eventData.bshowAPI}
 					where "ID" = ${eventData.nID}`;
 		}
 		console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			var sResMsg = "";
 			if (eventData.sPostOperation == "del") {
-				sResMsg = "Удалил";
+				sResMsg = "Удалено";
 			}
 			else {
-				sResMsg = "Сохранил";
+				sResMsg = "Сохранено";
 			}
 			if (qerr) {
 				console.log("qerr:");
@@ -111,19 +111,19 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", 
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
-						sd."Name" as "Stadium", s."Name" as "StatusName", 
+						sd."Name" as "Stadium", s."Name" as "StatusName",
 						ev."ShowOnline", ev."ShowCasher", ev."ShowAPI"
-					FROM public."tEvent" ev 
+					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
 					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = ${nID} `;
 
 		if ( api ) sSQL = sSQL + ' AND ev."ShowAPI" = true';
-					
+
 		//console.log(sSQL);
 		client.query(sSQL, (qerr, qres) => {
 			if (qerr) {
@@ -134,7 +134,7 @@ class EventsUtils extends rootUtils{
 				//console.log(qres)
 				console.log(qres.rows)
 				//console.log(qerr ? qerr.stack : qres);
-				
+
 				if (typeof qres.rowCount === 'undefined') {
 					console.log('rowEventData res.rowCount not found');
 				}
