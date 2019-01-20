@@ -11,10 +11,11 @@ class Templator{
 			'{{ticketPrice}}', 
 			'{{SectorName}}', 
 			'{{RowN}}', 
-			'{{SeatN}}', 
-			'{{ticID}}', 
-			'{{QRCode}}',
-			'{{Barcode}}'
+			'{{SeatN}}',
+			'{{Barcode}}',
+			'{{DateFrom}}',
+			'{{StadiumName}}',
+			'{{CityName}}'
 		]
 	}
 
@@ -22,7 +23,7 @@ class Templator{
 	// подставляет все переменные в шаблон
 	template(file, newData){
 		this.replaceList.forEach((item, i, array) => {
-			file = file.replace(item, newData[i]);
+			file = file.replace(item, newData[item]);
 		})
 		return file;
 	}
@@ -53,17 +54,19 @@ class Templator{
 	        	console.log(err)
 	        } else {
 	            var Barcode = 'data:image/png;base64,' + BarcodeSrc.toString('base64');
-	            var newHTML = this.template(html, [
-					ticket.ID, 
-					ticket.Name, 
-					ticket.Price, 
-					ticket.SectorName, 
-					ticket.RowN, 
-					ticket.SeatN, 
-					ticket.ID, 
-					ticket.Barcode.replace(/\s+/, ""),
-					Barcode
-				]);
+	            let toReplace = {
+	            	'{{ticketID}}': ticket.ID, 
+					'{{eventName}}': ticket.Name,
+					'{{ticketPrice}}': ticket.Price, 
+					'{{SectorName}}': ticket.SectorName,
+					'{{RowN}}': ticket.RowN,
+					'{{SeatN}}': ticket.SeatN,
+					'{{Barcode}}': Barcode,
+					'{{StadiumName}}': ticket.StadiumName,
+					'{{CityName}}': ticket.CityName,
+					'{{DateFrom}}': ticket.DateFrom
+	            };
+	            var newHTML = this.template(html, toReplace);
 
 
 				pdf.create(newHTML, options).toBuffer( (err, buffer) => {

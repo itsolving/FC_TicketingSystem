@@ -107,16 +107,21 @@ class TicketUtils extends rootUtils{
 		})
 		
 	}
+
 	getWithTemplate(nID, next){
 
 		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
 					st."SectorName", st."RowN", st."SeatN",
-					ev."Name",
-					tm."templateUrl", tm."fileName", tm."templateName"
+					ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					tm."templateUrl", tm."fileName", tm."templateName",
+					sd."Name" as "StadiumName",
+					city."Name" as "CityName"
 					From public."tTicket" tic
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
 					join public."tTemplate" tm on ev."IDTemplate" = tm."ID"
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tCity" city on sd."IDCity" = city."ID"
 					WHERE tic."ID" = ${nID}`;
 
 		console.log(sSQL);
