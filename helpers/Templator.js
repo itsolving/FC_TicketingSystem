@@ -1,7 +1,8 @@
-let fs  	= require('fs'),
-	pdf 	= require('html-pdf'),
-	bwipjs  = require('bwip-js'),
-	gm = require('gm').subClass({imageMagick: true});
+let fs  		 = require('fs'),
+	pdf 		 = require('html-pdf'),
+	bwipjs  	 = require('bwip-js'),
+	image2base64 = require('image-to-base64');
+	gm 	    	 = require('gm').subClass({imageMagick: true});
 
 class Templator{
 	constructor(){
@@ -15,7 +16,8 @@ class Templator{
 			'{{Barcode}}',
 			'{{DateFrom}}',
 			'{{StadiumName}}',
-			'{{CityName}}'
+			'{{CityName}}',
+			'{{EventImage}}'
 		]
 	}
 
@@ -53,25 +55,39 @@ class Templator{
 	        if (err) {
 	        	console.log(err)
 	        } else {
-	            var Barcode = 'data:image/png;base64,' + BarcodeSrc.toString('base64');
-	            let toReplace = {
-	            	'{{ticketID}}': ticket.ID, 
-					'{{eventName}}': ticket.Name,
-					'{{ticketPrice}}': ticket.Price, 
-					'{{SectorName}}': ticket.SectorName,
-					'{{RowN}}': ticket.RowN,
-					'{{SeatN}}': ticket.SeatN,
-					'{{Barcode}}': Barcode,
-					'{{StadiumName}}': ticket.StadiumName,
-					'{{CityName}}': ticket.CityName,
-					'{{DateFrom}}': ticket.DateFrom
-	            };
-	            var newHTML = this.template(html, toReplace);
+	            let Barcode = 'data:image/png;base64,' + BarcodeSrc.toString('base64');
+	            let afisha = 'data:image/png;base64,';
+	            image2base64(`${__dirname}/../public${ticket.ImgPath}`) // you can also to use url
+				    .then(
+				        (response) => {
+				            afisha = afisha + response;
+				            let toReplace = {
+				            	'{{ticketID}}': ticket.ID, 
+								'{{eventName}}': ticket.Name,
+								'{{ticketPrice}}': ticket.Price, 
+								'{{SectorName}}': ticket.SectorName,
+								'{{RowN}}': ticket.RowN,
+								'{{SeatN}}': ticket.SeatN,
+								'{{Barcode}}': Barcode,
+								'{{StadiumName}}': ticket.StadiumName,
+								'{{CityName}}': ticket.CityName,
+								'{{DateFrom}}': ticket.DateFrom,
+								'{{EventImage}}': afisha
+				            };
+				            var newHTML = this.template(html, toReplace);
 
 
-				pdf.create(newHTML, options).toBuffer( (err, buffer) => {
-				  next(buffer);
-				});
+							pdf.create(newHTML, options).toBuffer( (err, buffer) => {
+							  next(buffer);
+							});
+				        }
+				    )
+				    .catch(
+				        (error) => {
+				            console.log(error); //Exepection error....
+				        }
+				    )
+	      
 	        }
 	    });
 

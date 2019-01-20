@@ -112,7 +112,7 @@ class TicketUtils extends rootUtils{
 
 		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
 					st."SectorName", st."RowN", st."SeatN",
-					ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
 					tm."templateUrl", tm."fileName", tm."templateName",
 					sd."Name" as "StadiumName",
 					city."Name" as "CityName"
