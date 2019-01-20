@@ -35,7 +35,7 @@ class Templator{
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
 		var options = { 
-			format: 'Letter'      
+			format: 'A4'      
 		};
 		console.log(ticket)
 		//ticket.Barcode = ticket.Barcode.replace(/\s/g, '');			// удалить пробелы в строке
@@ -80,7 +80,7 @@ class Templator{
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
 		var options = { 
-			format: 'Letter'      
+			format: 'A4'      
 		};
 
 		pdf.create(html, options).toBuffer( (err, buffer) => {
