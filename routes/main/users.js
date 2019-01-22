@@ -37,7 +37,7 @@ module.exports = (router, db) => {
 		var sessData = req.session;
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
 		console.log('req.body.txPassword='+req.body.txPassword+', hashedPassword = '+hashedPassword);
-		sSQL = 'SELECT "ID", "Login", "Pwd" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
+		sSQL = 'SELECT "ID", "Login", "Pwd", "IDRole" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
 		console.log(sSQL);
 		db.db.any(sSQL)
 			.then(function(data){
@@ -49,6 +49,13 @@ module.exports = (router, db) => {
 					nUserID = data[0].ID;
 					sessData.userLogin = data[0].Login;
 					sessData.userID = data[0].ID;
+					if ( data[0].IDRole == 2 ){
+						sessData.cashier = {
+							ID: data[0].ID,
+							login: data[0].Login,
+							IDRole: data[0].IDRole
+						};
+					}
 					console.log('sLogin='+sLogin);
 
 					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';

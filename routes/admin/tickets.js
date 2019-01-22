@@ -31,15 +31,4 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 	})
 
 
-	// получение билета
-	router.get('/kassa/get/ticket/:id', function(req, res){
-		let ticketID = req.params.id;
-		dbUtils.Ticket.getWithTemplate(ticketID, (ticket) => {
-			templator.htmlToPdf(ticket, { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, (pdfData) => {
-				res.type('pdf'); 
-				res.send(pdfData);
-			});
-		})
-	})
-
 }

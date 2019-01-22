@@ -138,6 +138,12 @@ module.exports = (router, db) => {
 			sLogin = sessData.userLogin;
 
 		}
+		console.log(sessData)
+
+		if ( sessData.cashier ){
+			res.redirect('/kassa/beta/event/' + eventID);
+			return;
+		}
 		/*else {
 			res.redirect('/');
 			return;

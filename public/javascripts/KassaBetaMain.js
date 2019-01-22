@@ -751,11 +751,32 @@ app.reserve = function(){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/beta/ticket/reserve', {
+    $.post('/kassa/beta/ticket/approve', {
       IDEvent: app.id,
       tickets: tickets
     }, function (res) {
-      console.log(res)
+      if ( res.success ){
+        $.post('/kassa/beta/ticket/reserve', {
+          IDEvent: app.id,
+          tickets: tickets
+        }, function (ans) {
+           if ( ans.success ) { 
+
+            alert('Билеты успешно зарезервированы'); 
+           
+            tickets.forEach((tickID) => {
+              window.open('/kassa/beta/get/ticket/' + tickID);
+            })
+          }
+           else alert("Произошла какая-то ошибка, попробуйте еще раз!")
+        });
+      }
+      else { 
+        console.log("err") ;
+        alert("Ошибка, какие-то из билетов уже заняты, попробуйте другие!")
+        console.log(res.errTickets);
+      }
+       
     });
   }
   else console.log('cart is empty');

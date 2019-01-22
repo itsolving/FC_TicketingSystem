@@ -3,13 +3,21 @@ module.exports = (router, db, PageTitle) => {
 	//вход на страницу выбранного мероприятия
 	router.get('/beta/event/:id', function(req, res, next){
 		console.log("get: /event/id");
+		var eventID = req.params.id;
+	
+		//данные из сессии
 		var sLogin = "";
+		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		var eventID = req.params.id;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
-
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
+		else {
+			res.json({err: "no success"});
+			return;
 		}
 		/*else res.redirect('/login');*/
 		/*else {
