@@ -75,7 +75,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					IDRole: qres.rows[0].IDRole
 				};
 				//console.log(sessData.admControl)
-				res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
+				res.redirect('/admin/events');
+				//res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
 			});
 		}
 	});
