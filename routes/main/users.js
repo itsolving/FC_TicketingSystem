@@ -8,9 +8,9 @@ module.exports = (router, db) => {
 		});
 		res.redirect('/');
 	});
-	// страница авторизации
-	router.get('/login', function(req, res){
-		console.log("get: /login");
+	// страница авторизации кассира
+	router.get('/cashier', function(req, res){
+		console.log("get: /cashier");
 		var sLogin = "";
 		var nUserID = 0;
 		var events = {};
@@ -27,9 +27,9 @@ module.exports = (router, db) => {
 		res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, errorMsg: sMsg});
 	})
 
-	// авторизация
-	router.post('/login', function(req, res){
-		console.log('post: /login');
+	// авторизация	кассира
+	router.post('/cashier', function(req, res){
+		console.log('post: /cashier');
 		var sLogin = "";
 		var nUserID = 0;
 		var events = {};
@@ -73,7 +73,7 @@ module.exports = (router, db) => {
 				}
 				else {
 					sessData.errorMsg = "Неправильный пароль кассира.";
-					res.redirect('/login');
+					res.redirect('/cashier');
 				}
 			})
 			.catch(function(err){
@@ -81,7 +81,7 @@ module.exports = (router, db) => {
 				console.log('error of search user:');
 				console.log(err);
 				sessData.errorMsg = "Неправильный логин кассира.";
-				res.redirect('/login');
+				res.redirect('/cashier');
 			});
 	})
 

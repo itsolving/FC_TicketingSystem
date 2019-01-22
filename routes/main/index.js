@@ -14,7 +14,7 @@ module.exports = (router, db) => {
 		}
 
 		//var events = db.getList(req, res, next);
-		else res.redirect('/login');
+		else res.redirect('/cashier');
 	})
 
 }
