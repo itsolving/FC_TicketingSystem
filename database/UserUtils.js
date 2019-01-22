@@ -80,7 +80,6 @@ class UserUtils extends rootUtils{
 	updateStatus(userData, next){
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		//res.send('функция находится в разработке. Скоро будет готова');
 		var sSQL = "";
 		if (userData.sPostOperation == "del") {
 			//нет поля IDStatus, мы лишь блокируем юзера, поэтому функции удаления не будет
