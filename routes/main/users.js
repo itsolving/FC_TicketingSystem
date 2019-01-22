@@ -72,7 +72,7 @@ module.exports = (router, db) => {
 						});
 				}
 				else {
-					sessData.errorMsg = "Неправильный пароль кассира.";
+					sessData.errorMsg = "Неверный логин или пароль";
 					res.redirect('/cashier');
 				}
 			})
@@ -80,7 +80,7 @@ module.exports = (router, db) => {
 				//return next(err);
 				console.log('error of search user:');
 				console.log(err);
-				sessData.errorMsg = "Неправильный логин кассира.";
+				sessData.errorMsg = "Неверный логин или пароль!";
 				res.redirect('/cashier');
 			});
 	})
