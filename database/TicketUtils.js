@@ -14,6 +14,16 @@ class TicketUtils extends rootUtils{
 			var RowN = sector.RowN;
 			console.log("RowN" + RowN)
 			var sUpdate = `update public."tTicket" 
+							set "Price" = ${sectorPrice}
+							where "IDSeat" 
+							in (
+							select st."ID"
+							from public."tSeat" st 
+							join public."tRowN" rw on rw."ID" = st."IDRowN" and rw."RowN" = ${RowN}
+							join public."tSector" sc on sc."ID" = rw."IDSector" and sc."SectorName" = '${sectorName}'
+							) 
+							and "IDEvent" = ${nEventID};`;
+							/*`update public."tTicket" 
 							set "Price" = ${sectorPrice} 
 							where "IDSeat" 
 							in (
@@ -21,7 +31,7 @@ class TicketUtils extends rootUtils{
 								where s."SectorName" = '${sectorName}' 
 								AND s."RowN" = ${RowN}
 							) 
-							and "IDEvent" = ${nEventID};`;
+							and "IDEvent" = ${nEventID};`;*/
 
 			sSQL = sSQL + sUpdate;
 		});
@@ -46,13 +56,22 @@ class TicketUtils extends rootUtils{
 	}
 	getByID(nID, next){
 
-		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name" 
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."ID" = ${nID}`;
+					/*`SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
 					st."SectorName", st."RowN", st."SeatN",
 					ev."Name" 
 					From public."tTicket" tic
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
-					WHERE tic."ID" = ${nID}`;
+					WHERE tic."ID" = ${nID}`;*/
 
 		console.log(sSQL);
 
@@ -63,14 +82,24 @@ class TicketUtils extends rootUtils{
 	}
 	getByIDBarcode(nID, Barcode, next){
 
-		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode",
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."Barcode",
+						sc."SectorName", rw."RowN", st."SeatN", 
+						ev."Name" 
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."ID" = ${nID}
+					AND t."Barcode" = ' ${Barcode}'`;
+					/*`SELECT tic."Price", tic."ID", tic."IDEvent", tic."Barcode",
 					st."SectorName", st."RowN", st."SeatN", 
 					ev."Name" 
 					From public."tTicket" tic 
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
 					WHERE tic."ID" = ${nID}
-					AND tic."Barcode" = ' ${Barcode}'`;
+					AND tic."Barcode" = ' ${Barcode}'`;*/
 		console.log(sSQL);
 
 		this.execute(sSQL, (tickets) => {
@@ -80,13 +109,22 @@ class TicketUtils extends rootUtils{
 	}
 	getByEventID(nID, next){
 
-		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", 
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent",
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name" 
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."IDEvent" = ${nID}`;
+					/*`SELECT tic."Price", tic."ID", tic."IDEvent", 
 					st."SectorName", st."RowN", st."SeatN",
 					ev."Name" 
 					From public."tTicket" tic
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
-					WHERE tic."IDEvent" = ${nID}`;
+					WHERE tic."IDEvent" = ${nID}`;*/
 
 		console.log(sSQL);
 
@@ -110,19 +148,34 @@ class TicketUtils extends rootUtils{
 
 	getWithTemplate(nID, next){
 
-		var sSQL = `SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
-					st."SectorName", st."RowN", st."SeatN",
-					ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
-					tm."templateUrl", tm."fileName", tm."templateName",
-					sd."Name" as "StadiumName",
-					city."Name" as "CityName"
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
+						tm."templateUrl", tm."fileName", tm."templateName",
+						sd."Name" as "StadiumName",
+						ct."Name" as "CityName"
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tTemplate" tm on tm."ID" = ev."IDTemplate"
+					join public."tStadium" sd on sd."ID" = ev."IDStadium"
+					join public."tCity" ct on ct."ID" = sd."IDCity"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."ID" = ${nID}`;
+					/*`SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
+						st."SectorName", st."RowN", st."SeatN",
+						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
+						tm."templateUrl", tm."fileName", tm."templateName",
+						sd."Name" as "StadiumName",
+						city."Name" as "CityName"
 					From public."tTicket" tic
 					join public."tSeat" st on tic."IDSeat" = st."ID" 
 					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
 					join public."tTemplate" tm on ev."IDTemplate" = tm."ID"
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tCity" city on sd."IDCity" = city."ID"
-					WHERE tic."ID" = ${nID}`;
+					WHERE tic."ID" = ${nID}`;*/
 
 		console.log(sSQL);
 
