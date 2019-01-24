@@ -184,6 +184,26 @@ class TicketUtils extends rootUtils{
 		})
 
 	}
+	getMultiWithTemplate(ids, next){
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
+						tm."templateUrl", tm."fileName", tm."templateName",
+						sd."Name" as "StadiumName",
+						ct."Name" as "CityName"
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tTemplate" tm on tm."ID" = ev."IDTemplate"
+					join public."tStadium" sd on sd."ID" = ev."IDStadium"
+					join public."tCity" ct on ct."ID" = sd."IDCity"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."ID" in (${ids})`;
+		this.execute(sSQL, (tickets) => {
+			next(tickets);
+		})
+	}
 }
 
 module.exports = TicketUtils;

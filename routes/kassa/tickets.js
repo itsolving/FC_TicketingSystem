@@ -119,5 +119,15 @@ module.exports = (router, db, PageTitle) => {
 			});
 		})
 	})
+
+	// получение билетов в одном pdf
+	router.get('/beta/get/tickets/', function(req, res){
+		dbUtils.Ticket.getMultiWithTemplate([17132, 24370, 20903], (tickets) => {
+			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, (pdfData) => {
+				res.type('pdf'); 
+				res.send(pdfData);
+			});
+		})
+	})
 	
 }
