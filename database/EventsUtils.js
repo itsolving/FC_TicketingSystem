@@ -8,7 +8,7 @@ class EventsUtils extends rootUtils{
 	}
 	getNameId(next){
 
-		var sSQL = 'SELECT ev."ID", ev."Name" from public."tEvent" ev';
+		var sSQL = 'SELECT ev."ID", ev."Name", "IDStadium" from public."tEvent" ev';
 		console.log(sSQL);
 
 		this.execute(sSQL, (events) => {

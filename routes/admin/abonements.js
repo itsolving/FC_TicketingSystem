@@ -39,7 +39,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		dbUtils.Event.getNameId((events) => { 
-			res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events}); 
+			dbUtils.Seat.customSelect(null, events[0].IDStadium, (seats) => {
+				res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events, seats: seats}); 
+			})
 		})
 
 
@@ -66,7 +68,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		let seatData = {
 			seatID: null,
-			SectorName: (formData.tribune + formData.sector).toUpperCase(),
+			SectorName: formData.sector,
 			RowN: formData.row,
 			SeatN: formData.seat
 		};
@@ -89,7 +91,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			}
 			else {
 				console.log("error Seat.getByPosition");
-				res.redirect('/admin/abonements/add');
+				res.redirect('/admin/abonements/');
 			}
 
 		});

@@ -38,7 +38,7 @@
 											<% evensList.forEach(function(evenRow) { %>
 												<div class="col-12">
 													<label class="custom-control custom-checkbox">
-														<input type="checkbox" name="evens" value="<%= evenRow.ID %>" class="custom-control-input">
+														<input type="checkbox" name="evens" value="<%= evenRow.ID %>">
 														<span class="custom-control-indicator"></span>
 														<span class="custom-control-description"><%= evenRow.Name %></span>
 													</label>
@@ -49,13 +49,18 @@
 												<label>Цена: </label>
 												<input class="form-control" type="text" name="price">
 											</div>
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label>Трибуна</label>
 												<input class="form-control" type="text" name="tribune">
-											</div>
+											</div> -->
 											<div class="form-group">
 												<label>Сектор</label>
-												<input class="form-control" type="text" name="sector">
+												<!-- <input class="form-control" type="text" name="sector"> -->
+												<select name="sector" class="select-rowN form-control form-control-sm">
+													<% seats.forEach(function(seat) { %>
+														<option value='<%= seat.SectorName %>'><%= seat.SectorName %></option>
+													<% }); %>
+												</select>
 											</div>
 											<div class="form-group">
 												<label>Ряд</label>
