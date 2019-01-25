@@ -530,7 +530,7 @@ module.exports = (router, db) => {
 		if (seats.IDEvent !== 'undefined') {
 			var nEventID = seats.IDEvent;
 			sSQL = "";
-			seats.CheckedSeats.forEach(function(seat) {
+			seats.Seats.forEach(function(seat) {
 				var sectorName = seat.SectorName;
 				var rowN = seat.RowN;
 				var seatN = seat.SeatN;
