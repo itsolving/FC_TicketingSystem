@@ -5,7 +5,7 @@ let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
 module.exports = (router, db, PageTitle) => {
 
 	//дополнительная проверка билетов
-
+	// оставил в коде, может еще понадобиться 
 	router.post('/beta/ticket/approve', function(req, res, next){
 		console.log('post /kassa/beta/ticket/approve');
 		//данные из сессии
@@ -71,27 +71,48 @@ module.exports = (router, db, PageTitle) => {
 		params = JSON.parse(params);
 		console.log(params);
 		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
-		let sSQL = '';
-		params['tickets[]'].forEach((item) => {
-				// 4 status - резерв ( в данном случае - кассовый резерв )
-				var sUpdate = `update public."tTicket" set "IDStatus" = 4
-								where "ID" = ${item}
-								AND "IDStatus" = 3;`;
-				sSQL = sSQL + sUpdate;
-		})
-		db.db.any(sSQL)
-			.then(() => {
-				let sSQLTrans = '';
-				params['tickets[]'].forEach(function(item) {
+		// 4 status - резерв ( в данном случае - кассовый резерв )
+		var sSQLQuery = `SELECT tic."IDStatus", tic."ID"
+						FROM public."tTicket" tic
+						where "ID" in (${params['tickets[]']})`;
+		db.db.any(sSQLQuery)
+			.then((data) => {
+				let sSQL = '';
+				console.log(data);
+				let errTickets = [];
+				data.forEach((ticket) => {
+					if (ticket.IDStatus != 3) errTickets.push(ticket.ID);
+				})
+				if ( errTickets.length == 0 ){
+					let sSQL = '';
+					// approve всех билетов произошел
+					params['tickets[]'].forEach((item) => {
+						// 4 status - резерв ( в данном случае - кассовый резерв )
+						var sUpdate = `update public."tTicket" set "IDStatus" = 4
+										where "ID" = ${item}
+										AND "IDStatus" = 3;`;
+						sSQL = sSQL + sUpdate;
+					})
+					db.db.any(sSQL)
+						.then(() => {
+							let sSQLTrans = '';
+							params['tickets[]'].forEach(function(item) {
 
-					var sTransInsert = `insert into public."tTrans" 
-											( "IDTicket", "Saledate", "IDUserSaler" ) values 
-											( ${item}, now(), ${5} ); `;
-					sSQLTrans = sSQLTrans + sTransInsert;
-				});
-				db.db.any(sSQLTrans);
-				res.json({success: true})
-			});
+								var sTransInsert = `insert into public."tTrans" 
+														( "IDTicket", "Saledate", "IDUserSaler" ) values 
+														( ${item}, now(), ${5} ); `;
+								sSQLTrans = sSQLTrans + sTransInsert;
+							});
+							db.db.any(sSQLTrans);
+							res.json({success: true})
+						});
+						res.json({success: true})
+				}
+				else {
+					res.json({success: false, errTickets: errTickets});
+					console.log(errTickets);
+				}
+			})
 	})
 
 
