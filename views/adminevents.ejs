@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<% include head_html %>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="/javascripts/filter.js"></script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -46,6 +49,7 @@
 														<th scope="col">Дата и время</th>
 														<th scope="col">Статус</th>
 														<th scope="col">Афиша</th>
+														<th scope="col">Функции</th>
 													</thead>
 													<tbody>
 														<% eventsList.forEach(function(eventRow) { %>
@@ -63,9 +67,17 @@
 																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
 																</td>
 																<td>
-																	<a href="/admin/event/<%= eventRow.ID %>">
-																		<img src="<%= eventRow.ImgPath %>" width="50px" height="100px" alt="<%= eventRow.Name %>" />
+																	<a href="<%= eventRow.ImgPath %>" target="_blank">
+																		<img src="<%= eventRow.ImgPath %>" width="50px" height="50px" alt="<%= eventRow.Name %>" />
 																	</a>
+																</td>
+																<td scope="row">
+																	<div class="row">
+																		<div class="col-6">
+																			<a class="btn btn-danger btn-sm" href="/admin/event/archive/<%= eventRow.ID %>">Удалить в архив</a>
+																		</div>
+																	</div>
+																	
 																</td>
 															</tr>
 														<% }); %>
