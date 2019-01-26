@@ -85,9 +85,30 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				};
 				console.log(itemData)
 				if ( typeof(formData.evens) == 'string' ) itemData.evensIDs = formData.evens;
-				else itemData.evensIDs = formData.evens.join()
+				else itemData.evensIDs = formData.evens.join();
 
-				dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
+				dbUtils.Ticket.getBySeat({ IDSeat: itemData.SeatID, events: itemData.evensIDs }, (tickets) => {
+					console.log("ANSWER FROM getBySeat");
+					console.log(tickets);
+					if ( tickets.length != itemData.evensIDs )  {
+						res.json({err: "Ошибка"})
+						return;
+					}
+					else {
+						tickets.forEach((item) => {
+							if (item.IDStatus != 3) { 
+								res.json({err: "Ошибка"}) 
+								return;
+							}
+						})
+						dbUtils.Ticket.multiStatus({tickets: tickets}, (ans) => {
+							console.log("ANSWER FROM multiStatus");
+							dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
+						})
+					}
+				})
+
+				// dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
 			}
 			else {
 				console.log("error Seat.getByPosition");

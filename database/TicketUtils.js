@@ -204,6 +204,28 @@ class TicketUtils extends rootUtils{
 			next(tickets);
 		})
 	}
+	getBySeat(data, next){
+		let sSQL = `SELECT tic."ID", tic."IDStatus" FROM public."tTicket" tic WHERE tic."IDSeat" = ${data.IDSeat} AND tic."IDEvent" in (${data.events})`;
+		console.log(sSQL);
+		this.execute(sSQL, (tickets) => {
+			next(tickets)
+		})
+	}
+	multiStatus(data, next){
+		var sSQL = "";
+		data.tickets.forEach(function(tic) {
+			var sUpdate = `update public."tTicket" 
+							set "IDStatus" = 4
+							WHERE "ID" = ${tic.ID}`;
+
+			sSQL = sSQL + sUpdate;
+		});
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	
+	}
 }
 
 module.exports = TicketUtils;
