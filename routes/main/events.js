@@ -34,7 +34,7 @@ module.exports = (router, db) => {
 
 				console.log('rendering page...');
 				console.log('sLogin='+sLogin);
-				res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events});
+				res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events, api: sessData.api || false});
 			})
 			.catch(function(err){
 				//return next(err);

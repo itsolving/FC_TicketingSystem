@@ -49,8 +49,18 @@ module.exports = (router, db) => {
 					nUserID = data[0].ID;
 					sessData.userLogin = data[0].Login;
 					sessData.userID = data[0].ID;
+					// 2 роль - кассир
 					if ( data[0].IDRole == 2 ){
-						sessData.cashier = {
+						req.session.cashier = {
+							
+							ID: data[0].ID,
+							login: data[0].Login,
+							IDRole: data[0].IDRole
+						};
+					}
+					// 4 роль - апи для сторонних продавцов
+					else if ( data[0].IDRole ==  4){
+						req.session.api = {
 							ID: data[0].ID,
 							login: data[0].Login,
 							IDRole: data[0].IDRole
