@@ -1059,14 +1059,22 @@ body #stadiumSVG.draggable [data-tribune] {
   font-weight: 400;
   font-size: 2.4rem;
 }
+.fancybox-container {
+  font-family: 'GothamPro', sans-serif;
+}
 .fancybox-close-small {
   padding: 0;
+}
+.cart--is-open .popup {
+  padding-bottom: 80px;
 }
 .popup {
   position: relative;
   background-color: transparent;
   cursor: default !important;
-  padding-bottom: 70px;
+  padding-bottom: 24px;
+  -webkit-transition: padding-bottom 0.2s ease;
+  transition: padding-bottom 0.2s ease;
 }
 .popup__title {
   color: #f1f3f4;
@@ -1076,6 +1084,8 @@ body #stadiumSVG.draggable [data-tribune] {
   margin: 0;
   font-size: 4rem;
   font-weight: 400;
+  z-index: 99;
+  text-shadow: 0px 2px 7px #6b6d6d;
 }
 .popup__svg {
   width: 100rem;
@@ -1094,11 +1104,8 @@ body #stadiumSVG.draggable [data-tribune] {
   top: 0;
   left: 0;
 }
-.popup__svg circle {
-  cursor: pointer;
-}
-.popup__svg[data-popup-svg^=VIP],
-.popup__svg[data-popup-svg^=President] {
+.popup__svg[data-popup-svg^='VIP'],
+.popup__svg[data-popup-svg^='President'] {
   width: 25rem;
 }
 .tooltip {
@@ -1108,7 +1115,7 @@ body #stadiumSVG.draggable [data-tribune] {
   overflow: hidden;
   -webkit-box-shadow: none;
           box-shadow: none;
-  z-index: 99999;
+  z-index: 99998;
   font-size: 1.6rem;
   visibility: hidden;
   opacity: 0;
@@ -1122,14 +1129,13 @@ body #stadiumSVG.draggable [data-tribune] {
   transition: opacity 0.2s ease, border-radius 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.1s ease;
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.1s ease, border-radius 0.2s ease, visibility 1s;
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.1s ease, border-radius 0.2s ease, visibility 1s, -webkit-transform 0.2s ease, -webkit-box-shadow 0.1s ease;
+  will-change: top, left;
 }
 .tooltip.show {
   visibility: visible;
   opacity: 1;
   -webkit-transform: scale(1);
           transform: scale(1);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 9px 22px -1px rgba(0, 0, 0, 0.12);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 9px 22px -1px rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
           box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
 }
@@ -1179,45 +1185,46 @@ body #stadiumSVG.draggable [data-tribune] {
   transition: border-radius 0s;
 }
 [data-seat] {
-  -webkit-transition: r 0.17s cubic-bezier(0.18, 0.89, 0.32, 1.28), fill 0.1s ease;
-  transition: r 0.17s cubic-bezier(0.18, 0.89, 0.32, 1.28), fill 0.1s ease;
-}
-[data-seat][data-status='1'] {
-  fill: #e1e5e6;
   cursor: default;
+  opacity: 0.2;
 }
-[data-seat][data-status='1']:hover {
-  fill: #e1e5e6;
-}
-[data-seat][data-status='2'] {
-  fill: #ffe38d;
-}
-[data-seat][data-status='2']:hover {
-  fill: #ffe38d;
-}
-[data-seat][data-status='3']:hover {
-  r: 2;
+[data-seat][data-status='3'] {
+  opacity: 1;
+  cursor: pointer;
 }
 [data-seat].in-cart {
-  fill: #556167;
+  fill: rgba(255, 193, 7, 0.6);
+}
+[data-seat].in-cart:hover {
   fill: #ffc107;
-  r: 2;
 }
 [data-seat].active {
-  stroke: #767d7d;
-  stroke-width: 0.6px;
+  fill: #ffc107;
+}
+[data-seat]:not([data-status]) {
+  fill: #000;
+  opacity: 1;
 }
 .preloader {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999999;
+  z-index: 9999999;
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
   height: 100vh;
   background: #fff url('../images/s-loader.gif') no-repeat center 50%;
   background-size: 400px 300px;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+  pointer-events: all;
+  cursor: default;
+}
+.preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 .tribune-fancybox .fancybox-bg {
   background: rgba(6, 9, 10, 0.68);
@@ -1242,18 +1249,26 @@ body #stadiumSVG.draggable [data-tribune] {
       -ms-user-select: none;
           user-select: none;
 }
-.fancybox-active .cart {
-  background: rgba(49, 56, 56, 0.7);
+.fancybox-active .cart__total {
+  color: rgba(241, 243, 244, 0.7);
+}
+.fancybox-active .cart__total span {
+  color: #f1f3f4;
 }
 #cart-ticket {
   display: none;
 }
+.cart--is-open .cart {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  overflow: visible;
+}
 .cart {
-  position: fixed;
+  position: absolute;
   right: 0;
   left: 0;
   bottom: 0;
-  padding: 0.1rem 2rem;
+  padding: 0 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1264,24 +1279,18 @@ body #stadiumSVG.draggable [data-tribune] {
       -ms-flex-pack: center;
           justify-content: center;
   z-index: 99998;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-.cart:not(.open) {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
+  overflow: hidden;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+  pointer-events: none;
 }
 .cart__tickets {
-  margin: -3rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-transform: translateY(14px);
-          transform: translateY(14px);
-  -webkit-transition: 0.28s ease;
-  transition: 0.28s ease;
+  pointer-events: all;
 }
 .cart:hover,
 .cart:hover .cart__tickets {
@@ -1289,21 +1298,18 @@ body #stadiumSVG.draggable [data-tribune] {
   transition: 0.28s ease-out;
 }
 .cart__ticket {
-  background: #ffc107;
-  border: 1px solid #ffc107;
-  border-radius: 6px 6px 0 0;
-  padding: 0.6rem 0.6rem 5rem;
+  background: #f1f3f4;
+  border: 1px solid #bcc8ce;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  padding: 0.6rem 1.4rem 1rem;
   text-align: right;
   cursor: default;
-  margin-left: 3px;
-  -webkit-transform: translate(0, 0);
-          transform: translate(0, 0);
-  -webkit-transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 80px;
+  margin-left: 4px;
+  -webkit-transform: translate(0, 2px);
+          transform: translate(0, 2px);
   position: relative;
   z-index: 1;
-  border-left: 3px solid rgba(0, 0, 0, 0.2);
 }
 .cart__ticket-tribune {
   font-size: 1.5rem;
@@ -1319,22 +1325,26 @@ body #stadiumSVG.draggable [data-tribune] {
   color: rgba(0, 0, 0, 0.5);
   font-weight: 700;
 }
-.cart__ticket:hover {
-  -webkit-transform: translate(0, -5px);
-          transform: translate(0, -5px);
-  -webkit-box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
-          box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05), inset 0px 0px 3px 2px rgba(241, 180, 0, 0.52);
-  z-index: 3;
+.cart__ticket-line span,
+.cart__ticket-seat span {
+  color: rgba(0, 0, 0, 0.8);
 }
-.cart__ticket:hover .cart__ticket-remove {
-  opacity: 0.9;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+.cart__ticket:hover,
+.cart__ticket.active {
+  z-index: 3;
+  background: #ffc107;
+  border-color: #ffc107;
+  -webkit-box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
+          box-shadow: 0 64px 64px -6px rgba(0, 0, 0, 0.02), 0 32px 32px -6px rgba(0, 0, 0, 0.03), 0 16px 16px -6px rgba(0, 0, 0, 0.03), 0 8px 8px -6px rgba(0, 0, 0, 0.02), 0 4px 4px -6px rgba(0, 0, 0, 0.01), 0 2px 2px -6px rgba(0, 0, 0, 0.01);
+}
+.cart__ticket:hover .cart__ticket-remove,
+.cart__ticket.active .cart__ticket-remove {
+  opacity: 0.4;
 }
 .cart__ticket-remove {
   cursor: pointer;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.5);
+  color: #000;
   border-radius: 50%;
   font-size: 19px;
   -webkit-user-select: none;
@@ -1342,39 +1352,43 @@ body #stadiumSVG.draggable [data-tribune] {
       -ms-user-select: none;
           user-select: none;
   opacity: 0;
-  -webkit-transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: 0.13s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
-  right: 2px;
-  top: -3px;
-  width: 10px;
-  height: 10px;
+  right: -1px;
+  top: -1px;
+  line-height: 17px;
+  width: 16px;
+  height: 16px;
+  text-align: center;
 }
-.cart__ticket-remove:hover {
-  color: rgba(0, 0, 0, 0.7);
-  opacity: 1;
+.cart__ticket-remove:hover:not(.up) {
+  opacity: 0.7;
 }
 .cart__ticket-remove:active {
-  color: rgba(0, 0, 0, 0.8);
+  opacity: 0.5;
 }
 .cart__total {
   text-align: center;
   font-size: 1.4rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.63);
+  color: rgba(0, 0, 0, 0.5);
   margin: 0 2.4rem;
+  position: absolute;
+  right: 30px;
+  bottom: 58px;
+  margin: 0;
   cursor: default;
+  pointer-events: all;
 }
 .cart__total span {
   font-size: 2rem;
   font-weight: 600;
-  color: #ffc107;
+  color: rgba(0, 0, 0, 0.8);
 }
 .cart__buy {
-  padding: 0.8rem 2.5rem;
+  padding: 0.8rem 2.7rem;
   border-radius: 4px;
   background: #ffc107;
-  color: #fff;
+  color: rgba(0, 0, 0, 0.7);
   font-size: 1.6rem;
   font-weight: 700;
   text-align: center;
@@ -1385,6 +1399,10 @@ body #stadiumSVG.draggable [data-tribune] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  position: absolute;
+  right: 30px;
+  bottom: 15px;
+  pointer-events: all;
 }
 .cart__buy:hover {
   -webkit-box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05);
