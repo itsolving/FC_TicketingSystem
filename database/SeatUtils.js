@@ -72,6 +72,37 @@ class SeatUtils extends rootUtils{
 		})
 		
 	}
+
+	getRowNByParams(data, next){
+		/*data = {
+			SectorName: N2,
+			IDStadium: 1
+		}*/
+		var sSQL = `SELECT distinct sc."RowN"
+					from public."tSeat" sc
+					WHERE sc."SectorName" = '${data.SectorName}'
+					AND sc."IDStadium" = ${data.IDStadium}
+					ORDER BY sc."RowN" ASC`;
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	getSeatNByParams(data, next){
+		/*data = {
+			SectorName: N2,
+			IDStadium: 1,
+			RowN: 9
+		}*/
+		var sSQL = `SELECT distinct sc."SeatN"
+					from public."tSeat" sc
+					WHERE sc."SectorName" = '${data.SectorName}'
+					AND sc."IDStadium" = ${data.IDStadium}
+					AND sc."RowN" = ${data.RowN}`;
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
 }
 
 module.exports = SeatUtils;

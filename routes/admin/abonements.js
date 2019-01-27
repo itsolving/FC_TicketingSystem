@@ -40,7 +40,10 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		dbUtils.Event.getNameId((events) => { 
 			dbUtils.Seat.customSelect(null, events[0].IDStadium, (seats) => {
-				res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events, seats: seats}); 
+				dbUtils.Stadium.getAll((stadiums) => {
+					res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events, seats: seats, stadiums: stadiums}); 
+				})
+				
 			})
 		})
 
@@ -117,6 +120,66 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		});
 
+	})
+
+	router.post('/abonements/get/rown', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let data = req.body;
+		//res.json(data);
+		dbUtils.Seat.getRowNByParams({SectorName: data.SectorName, IDStadium: parseInt(data.IDStadium)}, (ans) => {
+			res.json(ans);
+		})
+		
+	})
+
+	router.post('/abonements/get/seatn', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let data = req.body;
+		dbUtils.Seat.getSeatNByParams({SectorName: data.SectorName, IDStadium: parseInt(data.IDStadium), RowN: data.RowN}, (ans) => {
+			res.json(ans);
+		})
+	})
+
+	router.post('/abonements/get/sectors', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let data = req.body;
+		console.log(data);
+		dbUtils.Seat.customSelect(null, data.IDStadium, (sectors) => {
+			res.json(sectors);
+		})
 	})
 	
 }
