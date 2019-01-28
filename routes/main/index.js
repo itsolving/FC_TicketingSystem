@@ -11,7 +11,7 @@ module.exports = (router, db) => {
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
 			console.log(sessData.api)
-			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events });
+			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, api: sessData.api });
 		}
 
 		//var events = db.getList(req, res, next);
