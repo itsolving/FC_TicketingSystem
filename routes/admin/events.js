@@ -177,4 +177,11 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 		
 	});
+
+	router.get('/event/archive/:id', function(req, res, next){
+		let nID = req.params.id;
+		dbUtils.Event.update({ sPostOperation: 'del', nID: nID },(data) => {
+			res.redirect('/admin/events/');
+		})
+	})
 }

@@ -31,9 +31,6 @@
 								<h2>Добавление абонемента</h2>
 							</div>
 							<div class="col-md-12">
-								<a href="/admin/abonements" class="btn btn-primary btn-create-event">Список абонементов</a>
-							</div>
-							<div class="col-md-12">
 								<div class="card">
 									<div class="card-body">
 										<form method="POST">
@@ -41,7 +38,7 @@
 											<% evensList.forEach(function(evenRow) { %>
 												<div class="col-12">
 													<label class="custom-control custom-checkbox">
-														<input type="checkbox" name="evens" value="<%= evenRow.ID %>" class="custom-control-input">
+														<input type="checkbox" name="evens" value="<%= evenRow.ID %>">
 														<span class="custom-control-indicator"></span>
 														<span class="custom-control-description"><%= evenRow.Name %></span>
 													</label>
@@ -52,21 +49,41 @@
 												<label>Цена: </label>
 												<input class="form-control" type="text" name="price">
 											</div>
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label>Трибуна</label>
 												<input class="form-control" type="text" name="tribune">
-											</div>
+											</div> -->
 											<div class="form-group">
+												<label>Стадион</label>
+												<!-- <input type="text" class="form-control IDStadium" name="stadium" value="1"> -->
+												<select name="stadium" class="form-control form-control-sm IDStadium stadiums">
+													<% stadiums.forEach(function(stadium) { %>
+														<option value='<%= stadium.ID %>'><%= stadium.Name %> (ID:<%= stadium.ID %>)</option>
+													<% }); %>
+												</select>
+											</div>
+											<div class="form-group sector-group">
 												<label>Сектор</label>
-												<input class="form-control" type="text" name="sector">
+												<!-- <input class="form-control" type="text" name="sector"> -->
+												<select name="sector" class="select-rowN form-control form-control-sm sectors">
+													<!-- <% seats.forEach(function(seat) { %>
+														<option value='<%= seat.SectorName %>'><%= seat.SectorName %></option>
+													<% }); %> -->
+												</select>
 											</div>
-											<div class="form-group">
+											<div class="form-group row-group">
 												<label>Ряд</label>
-												<input type="text" class="form-control" name="row">
+												<!-- <input type="text" class="form-control" name="row"> -->
+												<select name="row" class="select-rowN form-control form-control-sm rows">
+														<!-- <option value='1'>1</option> -->
+												</select>
 											</div>
-											<div class="form-group">
+											<div class="form-group seat-group">
 												<label>Место</label>
-												<input class="form-control" type="text" name="seat">
+												<!-- <input class="form-control" type="text" name="seat"> -->
+												<select name="seat" class="select-rowN form-control form-control-sm seats">
+														<!-- <option value='1'>1</option> -->
+												</select>
 											</div>	
 											<button type="submit" class="btn btn-success">Создать абонемент</button>
 										</form>
@@ -80,6 +97,63 @@
 				<% include admloginform %>
 			<% } %>
 		</div>
+		<script>
+			$(document).ready(function(){
+
+				$('.stadiums').change(function(){
+					 $.post('/admin/abonements/get/sectors', {
+				          IDStadium: $(this).val(),
+				        }, function (stadiums) {
+				        	$('.seats').empty();
+				        	$('.rows').empty();
+				        	$('.sectors').empty();
+				        	if (! (stadiums.length > 0) ){
+				        		alert("Ошибка, стадион не подготовлен, выбирите другой!");
+				        		$('.seats').hide();
+				        		$('.rows').hide();
+				        		$('.sectors').hide();
+				        		return;
+				        	}
+				        	else {
+				        		$('.seats').show();
+				        		$('.rows').show();
+				        		$('.sectors').show();
+				        	}
+				            stadiums.forEach(function(item){
+				           	  var string = "<option value='" + item.SectorName + "'>" + item.SectorName + "</option>"
+				           	  $('.sectors').append(string);
+				            })
+				        });
+				})
+				$('.sectors').change(function(){
+					 $.post('/admin/abonements/get/rown', {
+				          SectorName: $(this).val(),
+				          IDStadium: $('.IDStadium').val()
+				        }, function (rows) {
+				        	$('.rows').empty();
+				        	$('.seats').empty();
+				            rows.forEach(function(item){
+				           	  var string = "<option value='" + item.RowN + "'>" + item.RowN + "</option>"
+				           	  $('.rows').append(string);
+				            })
+				        });
+				})
+				$('.rows').change(function(){
+					 $.post('/admin/abonements/get/seatn', {
+				          SectorName: $('.sectors').val(),
+				          RowN: $('.rows').val(),
+				          IDStadium: $('.IDStadium').val(),
+				        }, function (seats) {
+				
+				        	$('.seats').empty();
+				            seats.forEach(function(item){
+				           	  var string = "<option value='" + item.SeatN + "'>" + item.SeatN + "</option>"
+				           	  $('.seats').append(string);
+				            })
+				        });
+				})
+			})
+		</script>
 	</body>
 </html>
 

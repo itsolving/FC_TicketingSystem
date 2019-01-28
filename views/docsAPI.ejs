@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>API Docs</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<hr>
+		<div class="method">
+			<p><b>---------------------------------------------//// API KEY GENERAL ////---------------------------------------------></b></p>
+			<p><span style="color:#0052CC;">'/api/get/apikey/new'</span>	- авторизованный пользователь со статусом 4 ( API ) заходит в личный кабинет и генерирует API KEY </p>
+			<p>Вид ответа:</p>
+				<code>{
+					APIKEY: "2gjNeE0dN6m8cLcbuPjXnvZocvCyg0MTmfwm9qFD"
+				}</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/api/get/apikey'</span>	- авторизованный пользователь со статусом 4 ( API ) заходит в личный кабинет и получает API KEY из БД ( ранее сгенерированный ) </p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						APIKEY: "2gjNeE0dN6m8cLcbuPjXnvZocvCyg0MTmfwm9qFD"
+					}
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><b>--------------------------------------------------//// TICKETS ////--------------------------------------------------></b></p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/ticket/:ticketID'</span>	- получение информации о билете по ID</p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						Price: "0",
+						ID: 5942,
+						IDEvent: 1,
+						Barcode: " 123638959136",
+						SectorName: "E2top ",
+						RowN: 46,
+						SeatN: 8,
+						Name: "Тестовое мероприятие"
+					}
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/tickets/event/:eventID'</span>	- получение списка билетов на мероприятие по ID мероприятия </p>
+			<p>Вид ответа:</p>
+				<code>
+					[ 
+						{
+							Price: "0",
+							ID: 5942,
+							IDEvent: 1,
+							SectorName: "E2top ",
+							RowN: 46,
+							SeatN: 8,
+							Name: "Тестовое мероприятие"
+						},
+						{
+							Price: "0",
+							ID: 5943,
+							IDEvent: 1,
+							SectorName: "E2top ",
+							RowN: 47,
+							SeatN: 7,
+							Name: "Тестовое мероприятие"
+						}
+
+					]
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/tickets/reserve/:ticketID'</span>	- резерв билета ( если statusID не 2 || 5 || 6 ) </p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						success: true, 
+						data: "reserve ticket (ID:8501) success"
+					}
+				</code>
+			</p>
+			<p>Если статус не подходит:</p>
+				<code>
+					{
+						err: "ticket is not available"
+					}
+				</code>
+			</p>
+		</div>
+		<hr>
+			<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/tickets/reserve/:ticketID'</span>	- снятие резерва билетаа ( если statusID == 4 ) </p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						success: true, 
+						data: "unreserve ticket (ID:8501) success"
+					}
+				</code>
+			</p>
+			<p>Если статус не подходит ( != 4 ):</p>
+				<code>
+					{
+						err: "ticket is not reserved"
+					}
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><b>----------------------------------------------------//// EVENTS ////----------------------------------------------------></b></p>
+			<p><span style="color:#0052CC;">'/:APIKEY/get/events'</span> - получения списка мероприятий, которые открыты для API </p>
+			<p>Вид ответа:</p>
+				<code>
+					[
+						{
+							ID: 24,
+							Name: "test",
+							ImgPath: "",
+							IDStatus: 1,
+							DateFrom: "08-02-2019 11:57",
+							Dateto: null,
+							IDUserCreator: null,
+							CreateDate: "2019-01-08T08:57:38.019Z",
+							IDStadium: 1,
+							StadiumName: "Астана-Арена",
+							StatusName: "Активный"
+						}
+					]
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/get/event/:eventID'</span> - получение информации по ID мероприятия, если мероприятие открыто для API </p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						ID: 24,
+						Name: "test",
+						ImgPath: "",
+						IDStatus: 1,
+						DateFrom: "2019-02-08T11:57",
+						Dateto: null,
+						IDUserCreator: null,
+						CreateDate: "2019-01-08T08:57:38.019Z",
+						IDStadium: 1,
+						Stadium: "Астана-Арена",
+						StatusName: "Активный",
+						ShowOnline: true,
+						ShowCasher: true,
+						ShowAPI: true
+					}
+				</code>
+			</p>
+		</div>
+		<hr>
+	</div>
+</body>
+</html>

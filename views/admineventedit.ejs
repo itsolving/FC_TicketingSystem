@@ -43,11 +43,14 @@
 											<% eventData.forEach(function(eventRow) { %>
 												<div class="col-md-3">
 													<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
-													<p>
-														<label>ID шаблона билета: </label> 
-														<span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.IDTemplate || "Не выбрано" %></span>
-														<a href="/admin/get/template/<%= eventRow.IDTemplate %>" target="_blank">Предпросмотр</a>
-													</p>
+													<% if(eventRow.IDTemplate){ %>
+														<p>
+															<label>ID шаблона билета: </label> 
+															<span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.IDTemplate %></span>
+															<a href="/admin/get/template/<%= eventRow.IDTemplate %>" target="_blank">Предпросмотр</a>
+														</p>
+													<% } %>
+
 													<!-- <p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p> -->
 													<div class="form-group">
 														<label for="eventName">Наименование:</label>

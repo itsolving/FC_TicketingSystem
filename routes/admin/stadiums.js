@@ -80,7 +80,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		client.connect();
 		
-		res.send('Функция сохранения находится в разработке. Скоро будет готова');
+		res.send('Стадион не сохранен!');
 		
 		//пока не готово
 		var sSQL = `update public."tStadium" set ... where sd."ID" = ${nID}`;

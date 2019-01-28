@@ -10,11 +10,12 @@ module.exports = (router, db) => {
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
-			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events});
+			console.log(sessData.api)
+			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events });
 		}
 
 		//var events = db.getList(req, res, next);
-		else res.redirect('/login');
+		else res.redirect('/cashier');
 	})
 
 }

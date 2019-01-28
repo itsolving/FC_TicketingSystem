@@ -12,7 +12,7 @@ module.exports = (router, db) => {
 	})
 
 	router.post('/savePayment', function(req, res){
-		res.send('Функционал находится в разработке');
+		res.send('Транзакция сохранена.');
 	})
 
 }

@@ -1,2 +1,7 @@
 <h6><%= userLogin %></h6>
+<% if(api) { %>
+	<button class="btn btn-primary pull-right get-api">Получить API KEY</button>
+	<a href="/api/docs/" target="_blank" class="btn btn-primary pull-right">Документация по API</a>
+<% }; %>
+
 <a href="/exit" class="btn btn-primary pull-right">Выйти</a>

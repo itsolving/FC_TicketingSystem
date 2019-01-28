@@ -34,22 +34,22 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					
 					if (typeof qres.rowCount === 'undefined') {
 						console.log('res.rowCount not found');
-						errMsg = "Ошибка А1: неверный логин, либо пользователь заблокирован";
+						errMsg = "Неверный логин, либо пользователь заблокирован";
 					}
 					else {
 						if (qres.rowCount == 0) {
 							console.log('res.rowCount='+qres.rowCount);
-							errMsg = "Ошибка А2: неверный логин, либо пользователь заблокирован";
+							errMsg = "Неверный логин, либо пользователь заблокирован.";
 						}
 						else {
 							if (typeof qres.rows[0] === 'undefined') {
 								console.log('qres.rows[0] not found');
-								errMsg = "Ошибка А3: неверный логин, либо пользователь заблокирован";
+								errMsg = "Неверный логин, либо пользователь заблокирован!";
 							}
 							else {
 								if (typeof qres.rows[0].Login === 'undefined') {
 									console.log('res.rows[0].Login not found');
-									errMsg = "Ошибка А4: неверный логин, либо пользователь заблокирован";
+									errMsg = "неверный логин, либо пользователь заблокирован";
 								}
 								else {
 									//console.log('qres.rows[0].Login='+qres.rows[0].Login+', qres.rows[0].Pwd='+qres.rows[0].Pwd);
@@ -57,6 +57,16 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 										console.log('qres.rows[0].Login='+qres.rows[0].Login);
 										sAdminLogin = qres.rows[0].Login;
 										errMsg = "";
+										console.log('save '+sAdminLogin+' to session and show adminhome...');
+										//sessData.Login = sAdminLogin;
+										sessData.admControl = {
+											ID: qres.rows[0].ID,
+											Login: qres.rows[0].Login,
+											IDRole: qres.rows[0].IDRole
+										};
+										//console.log(sessData.admControl)
+										res.redirect('/admin/events');
+										return;
 									}
 									else {
 										console.log('wrong password');
@@ -67,14 +77,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 						}
 					}
 				}
-				console.log('save sAdminLogin to session and show adminhome...');
-				//sessData.Login = sAdminLogin;
-				sessData.admControl = {
-					ID: qres.rows[0].ID,
-					Login: qres.rows[0].Login,
-					IDRole: qres.rows[0].IDRole
-				};
-				//console.log(sessData.admControl)
+				
+				
 				res.render('adminhome', {title: sAdminPageTitle, adminLogin: sAdminLogin, errorMsg: errMsg});
 			});
 		}

@@ -44,7 +44,7 @@
 														<th>Логин</th>
 														<th>Роль</th>
 														<th>email</th>
-														<th>Блок</th>
+														<th>Статус</th>
 													</thead>
 													<tbody>
 														<% usersList.forEach(function(userRow) { %>
@@ -74,7 +74,7 @@
 				<script>
 					$("#btnCreateUser").click(function(){
 						console.log("btnCreateUser click");
-						$("#resultCreateMsg").html('Функционал создания нового пользователя находится в разработке');
+						$("#resultCreateMsg").html('Создание нового пользователя...');
 						//--------------
 						//TODO: after development this functional we must delete this command:
 						//ClearMsg("#resultCreateMsg");
@@ -95,7 +95,7 @@
 									window.location.replace("/admin/user/"+result.ID);
 								}
 								else {
-									$("#resultCreateMsg").html('Функционал создания нового пользователя находится в разработке');
+									$("#resultCreateMsg").html('При создании нового пользователя не удалось определить ему ID');
 									ClearMsg("#resultCreateMsg");
 								}
 							},
