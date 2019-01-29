@@ -152,6 +152,23 @@ class EventsUtils extends rootUtils{
 			next(rowEventData, qres);
 		})
 	}
+	getByStadium(nID, next, api){
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					FROM public."tEvent" ev
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tStatus" st on ev."IDStadium" = st."ID"
+					where ev."IDStatus" in (1, 2) 
+					AND ev."IDStadium" = ${nID} `;
+		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
+		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
+		console.log(sSQL);
+
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+	}
 }
 
 module.exports = EventsUtils;

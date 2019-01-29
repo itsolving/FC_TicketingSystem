@@ -44,4 +44,26 @@ module.exports = (router, dbUtils) => {
 			else res.json({err: "no success"});
 		})
 	})
+
+	// отдает все мероприятия, которые открыты для API по IDStadium
+	router.get('/:APIKEY/get/events/stadium/:IDStadium', function(req, res){
+		let params = {
+			APIKEY: req.params.APIKEY,
+			IDStadium: req.params.IDStadium
+		}
+		dbUtils.API.findByKey(params.APIKEY, (success) => {
+			if ( success ){
+				// true - означает, что запрос от api
+				dbUtils.Event.getByStadium(params.IDStadium, (events) => {
+					if ( events.length > 0 ){
+						res.json(events);
+					}
+					else {
+						res.json({err: "no API success"});
+					}
+				}, true)
+			}
+			else res.json({err: "no success"});
+		})
+	})
 }
