@@ -184,4 +184,18 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			res.redirect('/admin/events/');
 		})
 	})
+
+	router.get('/event/clone/:id', function(req, res, next){
+		let nID = req.params.id;
+		dbUtils.Event.getById(nID, (events) => {
+			dbUtils.Event.create(events[0],(data) => {
+				if ( data.ResultMsg != "ERROR!" ){
+					res.redirect(`/admin/event/${data.ID}`);
+				}
+				else {
+					res.json({err: data.ResultMsg});
+				}
+			})
+		})
+	})
 }

@@ -176,6 +176,29 @@ class EventsUtils extends rootUtils{
 			next(events);
 		})
 	}
+
+	create(event, next){
+	
+		let sSQL = `insert into public."tEvent" ("ID", "Name", "ImgPath", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+				values(nextval(\'"tEvent_ID_seq"\'::regclass), '${event.Name}', '${event.ImgPath}' , ${event.IDStatus}, now(), ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			let newEventID = 0,
+			    sResultMsg = "";
+
+			if ( data.length > 0 ){
+				newEventID = data[0].ID;
+				sResultMsg = "ok, new EventID="+newEventID;
+			}
+			else {
+				sResultMsg = "ERROR!";
+			}
+			next({ResultMsg: sResultMsg, ID: newEventID});
+
+		})
+	}
 }
 
 module.exports = EventsUtils;
