@@ -169,6 +169,13 @@ class EventsUtils extends rootUtils{
 			next(events);
 		})
 	}
+
+	customSelect(next){
+		let sSQL = `SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1`;
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+	}
 }
 
 module.exports = EventsUtils;

@@ -393,7 +393,7 @@ module.exports = (router, db) => {
 		}
 	});
 
-	//сохранение факта продажи билетов из схемы зала по указанному мероприятию
+	// НЕ ИСПОЛЬЗУЕТСЯ - сохранение факта продажи билетов из схемы зала по указанному мероприятию
 	router.post('/sendsaledtickets', function(req, res){
 		console.log('post /sendsaledtickets');
 		
@@ -499,7 +499,7 @@ module.exports = (router, db) => {
 				});
 		}
 	});
-	//версия2 - сохранение факта продажи билетов из схемы зала по указанному мероприятию
+	// НЕ ИСПОЛЬЗУЕТСЯ - версия2 - сохранение факта продажи билетов из схемы зала по указанному мероприятию
 	router.post('/sendsaledtickets2', function(req, res){
 		console.log('post /sendsaledtickets2');
 		

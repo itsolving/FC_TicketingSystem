@@ -10,7 +10,6 @@ module.exports = (router, db) => {
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
-			console.log(sessData.api)
 			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, api: sessData.api });
 		}
 

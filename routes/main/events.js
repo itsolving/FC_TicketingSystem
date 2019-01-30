@@ -63,48 +63,23 @@ module.exports = (router, db, dbUtils) => {
 			sLogin = sessData.userLogin;
 
 		}
-		console.log(sessData)
 
 		if ( sessData.cashier ){
 			res.redirect('/kassa/beta/event/' + eventID);
 			return;
 		}
-		/*else {
-			res.redirect('/');
-			return;
-		}*/
-		//if (sessData.eventsList){
-			var sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
-			//console.log(sSQL);
-			db.db.any(sSQL)
-				.then(function(data){
-					//console.log('events found:');
-					//console.log(data);
-					sessData.eventsList = data;
-					events = data;
-					//console.log('events: '+ JSON.stringify(events));
-
-					res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
-					return;
-				})
-				.catch(function(err){
-					//return next(err);
-					console.log('error of search actual events:');
-					console.log(err);
-				});
-		/*}
-		else {
-			events = sessData.eventsList;
-		}*/
-		//console.log('sLogin='+sLogin+', eventID='+eventID);
-		//res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
-		res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+		dbUtils.Event.customSelect((data => {
+			sessData.eventsList = data;
+			events = data;
+			res.render('eventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+		    return;
+		}))
 	})
 
 
 
 	//эта функция не используется, создавал для работы со схемой зала
-	router.get('/maps/:idevent', function(req, res, next){
+	/*router.get('/maps/:idevent', function(req, res, next){
 		console.log("get: /maps/idevent");
 		var sLogin = "";
 		var eventID = req.params.idevent;
@@ -160,7 +135,7 @@ module.exports = (router, db, dbUtils) => {
 				console.log('error of search map:');
 				console.log(err);
 			});
-	});
+	});*/
 	
 	
 }
