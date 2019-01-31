@@ -2,7 +2,7 @@ let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
     Templator 	 = require(`${__basedir}/helpers/Templator.js`),
 	templator 	 = new Templator();
 
-module.exports = (router, db, PageTitle) => {
+module.exports = (router, db, PageTitle, dbUtils) => {
 
 	//дополнительная проверка билетов
 	// оставил в коде, может еще понадобиться 
