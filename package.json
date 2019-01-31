@@ -57,7 +57,8 @@
     "pg": "^7.6.0",
     "pg-promise": "^8.5.1",
     "qr-image": "^3.2.0",
-    "require-fu": "^1.0.0"
+    "require-fu": "^1.0.0",
+    "xmlbuilder": "^10.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.3",
