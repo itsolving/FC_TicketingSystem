@@ -179,9 +179,110 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 	});
 
 	router.get('/event/archive/:id', function(req, res, next){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /admin/event/id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
 		let nID = req.params.id;
 		dbUtils.Event.update({ sPostOperation: 'del', nID: nID },(data) => {
 			res.redirect('/admin/events/');
 		})
+	})
+
+	router.get('/event/clone/:id', function(req, res, next){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /admin/event/id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let nID = req.params.id;
+		dbUtils.Event.getById(nID, (events) => {
+			dbUtils.Event.create(events[0],(data) => {
+				if ( data.ResultMsg != "ERROR!" ){
+					res.redirect(`/admin/event/${data.ID}`);
+				}
+				else {
+					res.json({err: data.ResultMsg});
+				}
+			})
+		})
+	})
+
+	router.get('/events/new', function(req, res, next){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /admin/event/id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		
+
+		dbUtils.Template.getAll((templates) => {
+			dbUtils.Stadium.getNameID((stadiums) => {
+				res.render('adminEventNew', {
+					title: sAdminPageTitle, 
+					adminLogin: sAdminLogin, 
+					templates: templates,
+					stadiums: stadiums
+				});
+			})
+		})
+
+
+	})
+
+	router.post('/events/new', function(req, res, next){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /admin/event/id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let eventData = {
+			Name: 			req.body.eventName,
+			ImgPath: 		req.body.eventAfisha,
+			sDateFrom: 		req.body.eventDateFrom,
+			IDStadium: 		req.body.stadiumID,
+			IDTemplate:     req.body.templateID,
+			ShowOnline: 	req.body.showOnline,
+			ShowCasher: 	req.body.showCasher,
+			ShowAPI: 		req.body.showAPI,
+			IDStatus: 		1
+		};
+
+		dbUtils.Event.create(eventData,(data) => {
+			res.json(data);
+		})
+		
+
+		
 	})
 }

@@ -66,7 +66,7 @@ module.exports = (router, dbUtils) => {
 			if ( success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID == 2 ||  ticket.statusID == 5 || ticket.statusID == 6 ){
+					if ( ticket.statusID != 3 ){
 						res.json({err: "ticket is not available"})
 					}
 					else {
@@ -99,6 +99,33 @@ module.exports = (router, dbUtils) => {
 						dbUtils.Ticket.setStatus(params.ticketID, 3, (ans) => {
 							if ( ans ){
 								res.json({success: true, data: `unreserve ticket (ID:${params.ticketID}) success`})
+							}
+						})
+					}
+				})
+			}
+			else res.json({err: "no success"});
+		})
+	})
+
+	// Покупка билета
+	router.get('/:APIKEY/tickets/buy/:ticketID', function(req, res){
+		let params = {
+			APIKEY: req.params.APIKEY,
+			ticketID: req.params.ticketID
+		}
+		dbUtils.API.findByKey(params.APIKEY, (success) => {
+			if ( success ){
+				//res.json(params);
+				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
+					if ( ticket.statusID != 3 ){
+						res.json({err: "ticket is not available"})
+					}
+					else {	
+						// 5 IDStatus - продан
+						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
+							if ( ans ){
+								res.json({success: true, data: `sale ticket (ID:${params.ticketID}) success`})
 							}
 						})
 					}

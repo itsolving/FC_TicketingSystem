@@ -96,8 +96,8 @@
 			</p>
 		</div>
 		<hr>
-			<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/tickets/reserve/:ticketID'</span>	- снятие резерва билетаа ( если statusID == 4 ) </p>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/tickets/unreserve/:ticketID'</span>	- снятие резерва билета ( если statusID == 4 ) </p>
 			<p>Вид ответа:</p>
 				<code>
 					{
@@ -114,10 +114,28 @@
 				</code>
 			</p>
 		</div>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/tickets/buy/:ticketID'</span>	- снятие резерва билетаа ( если statusID == 4 ) </p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						success: true, 
+						data: "sale ticket (ID:8501) success"
+					}
+				</code>
+			</p>
+			<p>Если статус не подходит ( != 4 ):</p>
+				<code>
+					{
+						err: "ticket is not available"
+					}
+				</code>
+			</p>
+		</div>
 		<hr>
 		<div class="method">
 			<p><b>----------------------------------------------------//// EVENTS ////----------------------------------------------------></b></p>
-			<p><span style="color:#0052CC;">'/:APIKEY/get/events'</span> - получения списка мероприятий, которые открыты для API </p>
+			<p><span style="color:#0052CC;">'/:APIKEY/get/events'</span> - получение списка мероприятий, которые открыты для API </p>
 			<p>Вид ответа:</p>
 				<code>
 					[
@@ -159,6 +177,68 @@
 						ShowCasher: true,
 						ShowAPI: true
 					}
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/:APIKEY/get/event/stadium/:IDStadium'</span> - получение мероприятий по IDStadium, если они открыты для API </p>
+			<p>Вид ответа:</p>
+				<code>
+					[
+						{
+							ID: 24,
+							Name: "test",
+							ImgPath: "",
+							IDTemplate: null,
+							IDStatus: 1,
+							DateFrom: "08-02-2019 11:57",
+							Dateto: null,
+							IDUserCreator: null,
+							CreateDate: "2019-01-08T08:57:38.019Z",
+							IDStadium: 1,
+							StadiumName: "Астана-Арена",
+							StatusName: "Активный"
+						}
+					]
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><b>----------------------------------------------------//// STADIUMS ////----------------------------------------------------></b></p>
+			<p><span style="color:#0052CC;">'/:APIKEY/get/stadiums'</span> - получение списка стадионов </p>
+			<p>Вид ответа:</p>
+				<code>
+					[
+						{
+							ID: 2,
+							Name: "Дворец Республики"
+						},
+						{
+							ID: 1,
+							Name: "Астана-Арена"
+						}
+					]
+				</code>
+			</p>
+		</div>
+		<hr>
+		<div class="method">
+			<p><b>----------------------------------------------------//// CITIES ////----------------------------------------------------></b></p>
+			<p><span style="color:#0052CC;">'/:APIKEY/get/cities'</span> - получение списка городов </p>
+			<p>Вид ответа:</p>
+				<code>
+					[
+						{
+							ID: 1,
+							Name: "Астана"
+						},
+						{
+							ID: 2,
+							Name: "Алматы"
+						}
+					]
 				</code>
 			</p>
 		</div>

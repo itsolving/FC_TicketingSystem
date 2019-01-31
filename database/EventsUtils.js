@@ -152,6 +152,53 @@ class EventsUtils extends rootUtils{
 			next(rowEventData, qres);
 		})
 	}
+	getByStadium(nID, next, api){
+		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					FROM public."tEvent" ev
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tStatus" st on ev."IDStadium" = st."ID"
+					where ev."IDStatus" in (1, 2) 
+					AND ev."IDStadium" = ${nID} `;
+		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
+		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
+		console.log(sSQL);
+
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+	}
+
+	customSelect(next){
+		let sSQL = `SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1`;
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+	}
+
+	create(event, next){
+	
+		let sSQL = `insert into public."tEvent" ( "Name", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+				values('${event.Name}', '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			let newEventID = 0,
+			    sResultMsg = "";
+
+			if ( data.length > 0 ){
+				newEventID = data[0].ID;
+				sResultMsg = "ok, new EventID="+newEventID;
+			}
+			else {
+				sResultMsg = "ERROR!";
+			}
+			next({ResultMsg: sResultMsg, ID: newEventID});
+
+		})
+	}
 }
 
 module.exports = EventsUtils;
