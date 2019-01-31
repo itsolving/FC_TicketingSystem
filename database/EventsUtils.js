@@ -180,7 +180,7 @@ class EventsUtils extends rootUtils{
 	create(event, next){
 	
 		let sSQL = `insert into public."tEvent" ( "Name", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-				values('${event.Name}', '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, ${event.DateFrom || 'now()'}, ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+				values('${event.Name}', '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
 
 		console.log(sSQL);
 
