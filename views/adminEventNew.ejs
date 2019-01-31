@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+		<script src="/javascripts/priceEditor.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<% if(adminLogin){ %>
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							<span class="navbar-toggler-icon icon-bar"></span>
+							</button>
+							<div class="collapse navbar-collapse justify-content-end">
+								<ul class="navbar-nav">
+									<% include admheader %>
+								</ul>
+							</div>
+						</div>
+					</nav>
+					<div id="workArea" class="content">
+						<div class="container-fluid">
+							<div class="col-md-12">
+								<h2>Создание мероприятия</h2>
+								<!-- ТЕСТ -->
+								<div style="display: none;">test</div>
+								<!-- ТЕСТ -->
+							</div>
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-body">
+										<form name="formEvent">
+											
+
+												<div class="col-md-3">
+													
+																										<div class="form-group">
+														<label for="eventName">Наименование:</label>
+														<input type="text" class="form-control" id="eventName" placeholder="Название мероприятия" />
+													</div>
+													<div class="form-group">
+														<label for="eventDateFrom">Начало:</label>
+														<input type="datetime-local" class="form-control" id="eventDateFrom" placeholder="начало" />
+													</div>
+													<div class="form-group">
+														<label for="stadiumsList">Шаблон билета:</label>
+														<select name="templatesList" id="templatesList" class="form-control form-control-sm">
+															<% templates.forEach(function(template) { %>
+																<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
+															<% }); %>
+														</select>
+													</div>
+													<div class="form-group">
+														<label for="stadiumsList">Стадион:</label>
+														<select name="stadiumsList" id="stadiumsList" class="form-control form-control-sm">
+															<% stadiums.forEach(function(stadiumRow) { %>
+																	<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
+															<% }); %>
+														</select>
+													</div>
+													<div class="form-group">
+														<input type="checkbox" id="eventShowOnline">Показать online</input>
+													</div>
+													<div class="form-group">
+														<input type="checkbox" id="eventShowCasher" >Показать кассиру</input>
+													</div>
+													<div class="form-group">
+														<input type="checkbox" id="eventShowAPI">Показать для API</input>
+													</div>
+													<!--<div class="form-group">
+														<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
+														<p id="GenerateTicketsMSG"></p>
+													</div>-->
+												</div>
+												<div class="col-sm-6 col-md-4">
+													<div class="form-group">
+														<label for="eventImage">Афиша:</label>
+														<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
+														<button class="btn btn-primary" type="button" onclick="ClickNewImg();">Сменить</button>
+														<p id="eventImgMsg"></p>
+														<img id="eventImage" name="eventImage" src="#" alt="afisha" width="250" height="350" />
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-6">
+														<button class="btn btn-success" id="btnSaveEvent" type="button">Создать</button>
+													</div>
+												</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<script>
+					$(document).ready(function(){
+						GetStadiumList();
+					});
+
+					function GetStadiumList(){
+						$.ajax({
+							url: '/admin/stadiumsJson',
+							type: "GET",
+							success: function(result){
+								$('select#stadiumsList').empty();
+								var nEvIDStadium = $("#eventIDStadium").data("value");
+								$.each(result, function(index) {
+									if (result[index].ID == nEvIDStadium) {
+										$('select#stadiumsList').append(
+											$('<option selected></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
+										);
+									}
+									else {
+										$('select#stadiumsList').append(
+												$('<option></option>')
+												.val(result[index].ID)
+												.html(result[index].Name)
+										);
+									}
+								});
+							}
+						});
+					};
+
+					$("#btnSaveEvent").on('click', function(){
+						var nEventID = 0;
+						nEventID = $("#eventID").data("value");
+						//console.log("btnSaveEvent click: nEventID="+nEventID);
+
+						var sURL = "/admin/events/new";
+
+						//console.log('img src='+$('#eventImage').attr('src'));
+						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
+						//console.log('eventShowCasher='+$("input[id='eventShowCasher']:checked").val());
+						//console.log('eventShowAPI='+$("input[id='eventShowAPI']:checked").val());
+
+						//---------------
+						var sShowOnline = "false";
+						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
+							sShowOnline = "false";
+						}
+						else
+						if (($("input[id='eventShowOnline']:checked").val() == "true")
+							|| ($("input[id='eventShowOnline']:checked").val() == "on")) {
+							sShowOnline = "true";
+						}
+						else {sShowOnline = "false";}
+
+						//---------------
+						var sShowCasher = "false";
+						if ($("input[id='eventShowCasher']:checked").val() === "undefined") {
+							sShowCasher = "false";
+						}
+						else
+						if (($("input[id='eventShowCasher']:checked").val() == "true")
+							|| ($("input[id='eventShowCasher']:checked").val() == "on")){
+							sShowCasher = "true";
+						}
+						else {sShowCasher = "false";}
+
+						//---------------
+						var sShowAPI = "false";
+						if (($("input[id='eventShowAPI']:checked").val() === "undefined")
+							|| ($("input[id='eventShowAPI']:checked").val() == "true")) {
+							sShowAPI = "false";
+						}
+						else
+						if ($("input[id='eventShowAPI']:checked").val() == "on") {
+							sShowAPI = "true";
+						}
+						else {sShowAPI = "false";}
+
+						//---------------
+						$.ajax({
+							url: sURL,
+							type: "POST",
+							data: {
+								eventName: $("#eventName").val(),
+								eventDateFrom: $("#eventDateFrom").val(),
+								stadiumID: $("select#stadiumsList").val(),
+								templateID: $("select#templatesList").val(),
+								eventAfisha: $('#eventImage').attr('src'),
+								showOnline: sShowOnline,
+								showCasher: sShowCasher,
+								showAPI: sShowAPI
+							},
+							success: function(result){
+								console.log("POST create /admin/events/new success: result="+result);
+							 	window.location = '/admin/events';
+
+							},
+							error: function(err){
+								console.log("POST /admin/event/id error:");
+								console.log(err);
+							}
+						});
+					});
+
+
+					$('#rowsTable').on('click', '.clickable-row', function(event) {
+					  //$(this).addClass('active').siblings().removeClass('active');
+					  if($(this).hasClass('active')){
+						$(this).removeClass('active');
+					  } else {
+						$(this).addClass('active').siblings().removeClass('active');
+					  }
+					});
+
+					function readURL(input) {
+
+					    if (input.files && input.files[0]) {
+					        var reader = new FileReader();
+
+					        reader.onload = function (e) {
+					            $('#eventImage').attr('src', e.target.result);
+					        };
+
+					        reader.readAsDataURL(input.files[0]);
+					    }
+					}
+
+					$("#eventImageFile").change(function(evt){
+					    //readURL(this);
+
+					    var sImgFileName = evt.target.files[0].name;
+						let file = $('#eventImageFile').get(0).files;
+						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
+						//$("#eventImgMsg").html("Смена картинки - в разработке");
+						//--------------
+						//TODO: after development this functional we must delete this command:
+						//ClearMsg("#eventImgMsg");
+						//--------------
+						var nEventID = $("#eventID").data("value");
+
+						var data = new FormData();
+
+						data.append('img', $('#eventImageFile')[0].files[0]);
+
+						$.ajax({
+							url: "/admin/uploadeventimg",
+							data: data,
+							cache: false,
+							contentType: false,
+							processData: false,
+							method: 'POST',
+							//type: 'POST', // For jQuery < 1.9
+							success: function(result){
+								console.log(result);
+								console.log("POST /admin/uploadeventimg success: result=");
+								$('#eventImage').attr('src', '/images/events/'+sImgFileName);
+								console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
+							},
+							error: function(err){
+								console.log("POST /admin/uploadeventimg error:");
+								console.log(err);
+							}
+						});
+					});
+					
+					function GetActualEventStatus(){
+						console.log('GetActualEventStatus::');
+						var nEventID = $("#eventID").data("value");
+						$.ajax({
+							url: "/admin/eventGetStatus/"+nEventID,
+							type: "GET",
+							success: function(result){
+									console.log('GetActualEventStatus success:');
+									console.log(result);
+									$("#eventIDStatus").attr('data-value', result[0].IDStatus);
+									$("#eventIDStatus").html(result[0].StatusName);
+								},
+							error: function(err){
+								console.log("GET GetActualEventStatus /admin/eventGetStatus/id error:");
+								console.log(err);
+							}
+						});
+					}
+
+					function ClickNewImg(){
+						$("input[id='eventImageFile']").click();
+					};
+				
+
+					function ClearMsg(msgElement){
+						window.setTimeout( function(){
+							$(msgElement).html("");
+						}, 5000 );
+					}
+				</script>
+			<% } else { %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+
