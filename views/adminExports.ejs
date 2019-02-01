@@ -27,9 +27,37 @@
 					</nav>
 					<div class="content">
 						<div class="container-fluid">
-							<div class="row">
+							<!-- <div class="row">
 								<div class="col-md-12">
 									<a href="/admin/reports/trans/xml" class="btn btn-primary" target="_blank">Отчет по продажам ( XML )</a>
+								</div>
+							</div> -->
+							<div class="row">
+								<div class="col-4">
+									<div class="row">
+										<div class="col-4">
+											<label for="eventsList">Мероприятие:</label>
+										</div>
+										<div class="col-8">
+											<select name="eventsList" id="eventID" class="form-control form-control-sm" required>
+												<% events.forEach(function(event) { %>
+														<option value="<%= event.ID %>"><%= event.Name %> (ID:<%= event.ID%>)</option>
+												<% }); %>
+											</select>
+										</div>
+									</div>
+									
+								</div>
+								<div class="col-2">
+									<input type="date" class="form-control begin" placeholder="с" required />
+								</div>
+								<div class="col-2">
+									<input type="date" class="form-control end" placeholder="до" required />
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<div class="col-4">
+									<button class="btn btn-primary export">Экспорт в 1С</button>
 								</div>
 							</div>
 						</div>
@@ -39,6 +67,40 @@
 				<% include admloginform %>
 			<% } %>
 		</div>
+
+		<script>
+			$(document).ready(function(){
+				$('.export').click(function(){
+					console.log({
+								eventID: $("#eventID").val(),
+								begin: $(".begin").val(),
+								end: $(".end").val()
+							
+							})
+					let sURL = '/admin/export/'
+					//---------------
+						$.ajax({
+							url: sURL,
+							type: "POST",
+							data: {
+								eventID: $("#eventID").val(),
+								begin: $(".begin").val(),
+								end: $(".end").val()
+							
+							},
+							success: function(result){
+								console.log("POST /admin/export/ success:");
+								console.log(result)
+
+							},
+							error: function(err){
+								console.log("POST /admin/export/ error:");
+								console.log(err);
+							}
+						});
+				})
+			})
+		</script>
 	</body>
 </html>
 

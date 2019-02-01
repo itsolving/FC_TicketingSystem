@@ -42,9 +42,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	});
 
-	//при открытии страницы "localhost:3000/admin/reports/trans"
+	//при открытии страницы "localhost:3000/admin/reports/trans/xml"
 	router.get('/reports/trans/xml', function(req, res, next) {
-		let sAdminLogin = "",
+		/*let sAdminLogin = "",
 			sessData 	= req.session;
 
 
@@ -55,7 +55,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		else {
 			res.redirect('/admin');
 			return;
-		}
+		}*/
 
 		dbUtils.Trans.getAll((trans) => {
 			if ( !(trans.length > 0) ){ trans = []; }
@@ -106,7 +106,47 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			return;
 		}
 
-		res.render('adminExports', { title: sAdminPageTitle, adminLogin: sAdminLogin });
+		dbUtils.Event.getNameId((events) => {
+			res.render('adminExports', { title: sAdminPageTitle, adminLogin: sAdminLogin, events: events });
+		})
+
+	})
+
+	router.post('/export', function(req, res, next){
+		let data = req.body;
+		//res.json(data);
+		dbUtils.Trans.getAllFilters(data, (trans) => {
+			if ( !(trans.length > 0) ){ trans = []; }
+
+			let obj = [];
+
+			trans.forEach((item) => {
+				obj.push({
+		        'id': item.ID,
+		        'saledate': item.Saledate,
+		        'name': item.Name,
+		        'sectorname': item.SectorName,
+		        'rown': item.RowN,
+		        'seatn': item.SeatN,
+		        'statusname': item.StatusName,
+		        'email': item.Email,
+		        'price': item.Price
+		      })
+			})
+			let transObj = { 
+				'root': {
+					'trans': [obj]
+				}
+			}
+
+			let transXML = builder.create(transObj, { encoding: 'utf-8' })
+
+
+			let resultXML = transXML.end({ pretty: true })
+			res.type('application/xml');
+			res.send(resultXML);
+			//res.json(trans);
+		})
 	})
 
 }
