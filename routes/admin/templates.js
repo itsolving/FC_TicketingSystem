@@ -1,6 +1,7 @@
 let fileUploader = require(`${__basedir}/helpers/fileUploader.js`),
 	Templator 	 = require(`${__basedir}/helpers/Templator.js`),
-	templator 	 = new Templator();
+	templator 	 = new Templator(),
+	fs           = require('fs');
 
 
 module.exports = (router, dbUtils, sAdminPageTitle) => {
@@ -99,6 +100,40 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				res.type('pdf'); 
 				res.send(pdfData);
 			})
+		})
+		
+	})
+
+	// /admin/edit/template/:id
+	router.get('/edit/template/:id', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /get/template/:id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+
+		let	templateID = req.params.id;
+		dbUtils.Template.getByID(templateID, (template) => {
+			if ( template.templateName ){
+				fs.readFile(`${__dirname}/../../${template.templateUrl}/${template.fileName}`, function read(err, data) {
+				    if (err) {
+				        throw err;
+				    }
+				    content = data;
+
+				    res.render('adminTemplateEdit', {title: sAdminPageTitle, adminLogin: sAdminLogin, fileContent: content})
+				});
+
+			} 
+			else res.json({err: 'template is not found'})
 		})
 		
 	})

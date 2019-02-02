@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/mode/xml/xml.min.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<% if(adminLogin){ %>
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
+								</div>
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<!-- <textarea name="" id="" cols="600" rows="600">
+								
+							</textarea> -->
+							<pre><textarea class="html" id="html" ><%= fileContent %></textarea></pre>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-3">
+								<button class="btn btn-success">Сохранить</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+		<script>
+			$(document).ready(function(){
+				var editor = CodeMirror.fromTextArea(document.getElementById('html'), {
+				    lineNumbers: true,
+				    mode: "xml",
+				    htmlMode: true
+				});
+				editor.setSize('100%', 700);
+			})
+			
+		</script>
+	</body>
+</html>
+
