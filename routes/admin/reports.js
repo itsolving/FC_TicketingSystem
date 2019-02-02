@@ -44,7 +44,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	//при открытии страницы "localhost:3000/admin/reports/trans/xml"
 	router.get('/reports/trans/xml', function(req, res, next) {
-		/*let sAdminLogin = "",
+		let sAdminLogin = "",
 			sessData 	= req.session;
 
 
@@ -55,7 +55,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		else {
 			res.redirect('/admin');
 			return;
-		}*/
+		}
 
 		dbUtils.Trans.getAll((trans) => {
 			if ( !(trans.length > 0) ){ trans = []; }
@@ -83,9 +83,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 			let transXML = builder.create(transObj, { encoding: 'utf-8' })
 
-
 			let resultXML = transXML.end({ pretty: true })
 			res.type('application/xml');
+
 			res.send(resultXML);
 		
 		})
@@ -113,8 +113,21 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 	})
 
 	router.post('/export', function(req, res, next){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports/trans");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+
 		let data = req.body;
-		//res.json(data);
 		dbUtils.Trans.getAllFilters(data, (trans) => {
 			if ( !(trans.length > 0) ){ trans = []; }
 
@@ -144,8 +157,11 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 			let resultXML = transXML.end({ pretty: true })
 			res.type('application/xml');
-			res.send(resultXML);
-			//res.json(trans);
+			res.writeHead(200, {
+		        'Content-Type': 'application/xml',
+		        'Content-disposition': 'attachment;filename=transactions.xml'
+		    });
+			res.end(resultXML);
 		})
 	})
 
