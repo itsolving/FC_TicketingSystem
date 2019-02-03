@@ -5,6 +5,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/mode/xml/xml.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -36,8 +38,11 @@
 							<pre><textarea class="html" id="html" ><%= fileContent %></textarea></pre>
 						</div>
 						<div class="row justify-content-center">
-							<div class="col-3">
-								<button class="btn btn-success">Сохранить</button>
+							<div class="col-2">
+								<button class="btn btn-success do-save">Сохранить</button>
+							</div>
+							<div class="col-2">
+								<button class="btn btn-primary do-view">Предпросмотр</button>
 							</div>
 						</div>
 					</div>
@@ -46,6 +51,27 @@
 				<% include admloginform %>
 			<% } %>
 		</div>
+
+	<div class="modal save-info" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header md-header" style="background-color: #4caf50;">
+	        <h5 class="modal-title md-title"><b>Сохранено!</b></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" style="padding-bottom: 0;">
+	        <p class="md-content">Сохранение шаблона успешно!</p>
+	      </div>
+	      <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px;">
+	        <button type="button" class="btn btn-success md-ok" data-dismiss="modal">Ок</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+
 		<script>
 			$(document).ready(function(){
 				var editor = CodeMirror.fromTextArea(document.getElementById('html'), {
@@ -54,6 +80,36 @@
 				    htmlMode: true
 				});
 				editor.setSize('100%', 700);
+
+				$('.do-save').click(() => {
+					console.log(editor.getValue());
+					$.ajax({
+						type: "POST",
+						data: {
+							content: editor.getValue()
+						},
+						success: function(result){
+							if ( result.success ){
+								$('.save-info').modal('show');
+							}
+							else if ( result.err ){
+								$('.md-title').text("Ошибка!");
+								$('.md-content').text(result.err);
+								$('.md-header').css('background-color', '#f44336');
+								$('.md-ok').addClass('btn-danger').removeClass('btn-success');
+
+								$('.save-info').modal('show');
+							}
+							console.log("POST upd /admin/template/edit/:id result");
+							console.log(result);
+							
+						},
+						error: function(err){
+							console.log("POST /admin/template/edit/:id error:");
+							console.log(err);
+						}
+					});
+				})
 			})
 			
 		</script>

@@ -137,4 +137,41 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 		
 	})
+
+	// /admin/edit/template/:id
+	router.post('/edit/template/:id', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("POST /get/template/:id");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let data = {
+			templateID: req.params.id,
+			content: req.body.content
+		}
+		dbUtils.Template.getByID(data.templateID, (template) => {
+			if ( template.templateName ){
+				fs.writeFile(`${__dirname}/../../${template.templateUrl}/${template.fileName}`, data.content, (err) => {  
+				    if (err){
+				    	res.json({err: "Произошла ошибка, попробуйте еще раз!"})
+				    } else {
+				    	res.json({success: true})
+				    }
+				    
+				});
+	
+
+			} 
+			else res.json({err: 'template is not found'})
+		})
+		
+	})
 }
