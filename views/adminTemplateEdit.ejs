@@ -70,6 +70,25 @@
 	    </div>
 	  </div>
 	</div>
+
+	<div class="modal preview" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title"><b>Предпросмотр!</b></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" style="padding-bottom: 0;">
+	        <!-- <iframe frameborder="0" class="frame-code" id="frame-code"></iframe> -->
+	      </div>
+	      <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px;">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 
 		<script>
@@ -81,7 +100,7 @@
 				});
 				editor.setSize('100%', 700);
 
-				$('.do-save').click(() => {
+				$('.do-save').click(function() {
 					console.log(editor.getValue());
 					$.ajax({
 						type: "POST",
@@ -109,6 +128,14 @@
 							console.log(err);
 						}
 					});
+				})
+				$('.do-view').click(function(){
+					
+					$('.preview').modal('show');
+					var Frame = $(".frame-code").contents().find('html');
+					Frame.html(editor.getValue())
+			        
+			        //myFrame.html(editor.getValue());
 				})
 			})
 			

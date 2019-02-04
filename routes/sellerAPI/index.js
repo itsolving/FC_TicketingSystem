@@ -25,8 +25,7 @@ module.exports = (router, dbUtils, APIKEY) => {
 				userID: sessData.api.ID
 			}
 			dbUtils.API.getByUserID(data.userID, (ans) => {
-				console.log("ANSSSSSS HEREEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!")
-				console.log(ans)
+				
 				if ( ans.length > 0 ){
 					res.json({err: "APIKEY already created!"})
 				}
