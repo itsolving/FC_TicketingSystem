@@ -110,7 +110,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sessData 	= req.session;
 
 
-		console.log("POST /get/template/:id");
+		console.log("GET /admin/edit/template/:id");
 		if(sessData.admControl){
 	        sAdminLogin = sessData.admControl.Login;
         }
@@ -121,6 +121,12 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		let	templateID = req.params.id;
+		
+		if (!(parseInt(templateID))){
+			res.satus('404')
+			return;
+		}
+
 		dbUtils.Template.getByID(templateID, (template) => {
 			if ( template.templateName ){
 				fs.readFile(`${__dirname}/../../${template.templateUrl}/${template.fileName}`, function read(err, data) {
@@ -129,7 +135,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				    }
 				    content = data;
 
-				    res.render('adminTemplateEdit', {title: sAdminPageTitle, adminLogin: sAdminLogin, fileContent: content})
+				    res.render('adminTemplateEdit', {title: sAdminPageTitle, adminLogin: sAdminLogin, fileContent: content, IDTemplate: templateID})
 				});
 
 			} 
@@ -144,7 +150,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sessData 	= req.session;
 
 
-		console.log("POST /get/template/:id");
+		console.log("POST /admin/edit/template/:id");
 		if(sessData.admControl){
 	        sAdminLogin = sessData.admControl.Login;
         }
@@ -152,6 +158,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			res.redirect('/admin');
 			return;
 		}
+		console.log(typeof(req.params.id))
 
 		let data = {
 			templateID: req.params.id,

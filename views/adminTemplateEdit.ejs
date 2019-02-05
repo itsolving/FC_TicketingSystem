@@ -53,7 +53,7 @@
 		</div>
 
 	<div class="modal save-info" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
+	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header md-header" style="background-color: #4caf50;">
 	        <h5 class="modal-title md-title"><b>Сохранено!</b></h5>
@@ -75,15 +75,15 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title"><b>Предпросмотр!</b></h5>
+	        <h5 class="modal-title"><b>Предпросмотр</b></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body" style="padding-bottom: 0;">
-	        <!-- <iframe frameborder="0" class="frame-code" id="frame-code"></iframe> -->
+	      <div class="modal-body" style="padding-bottom: 0; height: 450px;">
+	        <iframe src="<%= IDTemplate %>" class="frame-preview" style="width: 100%; height: 100%;"></iframe>
 	      </div>
-	      <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px;">
+	      <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px; margin-top: 15px;">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>
 	      </div>
 	    </div>
@@ -132,10 +132,9 @@
 				$('.do-view').click(function(){
 					
 					$('.preview').modal('show');
-					var Frame = $(".frame-code").contents().find('html');
-					Frame.html(editor.getValue())
-			        
-			        //myFrame.html(editor.getValue());
+					var Frame = $(".frame-preview").contents().find('body');
+					Frame.html(editor.getValue());
+								        
 				})
 			})
 			
