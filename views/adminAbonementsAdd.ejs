@@ -34,15 +34,27 @@
 								<div class="card">
 									<div class="card-body">
 										<form method="POST">
-											<div class="row" style="height: 200px; overflow-y: auto; width: 400px; border: 1px solid #ccc;; margin-left: 0px; padding: 10px 0">
+											<div class="row" style="height: 200px; overflow-y: auto; width: 400px; border: 1px solid #ccc; margin-left: 0px; padding: 10px 0">
 											<% evensList.forEach(function(evenRow) { %>
 												<div class="col-12">
+													<div class="form-check">
+												        <label class="form-check-label">
+												            <input class="form-check-input" name="evens" type="checkbox" value="<%= evenRow.ID %>">
+												            	<%= evenRow.Name %>
+												            <span class="form-check-sign">
+												                <span class="check"></span>
+												            </span>
+												        </label>
+												    </div>
+												</div>
+											
+												<!-- <div class="col-12">
 													<label class="custom-control custom-checkbox">
 														<input type="checkbox" name="evens" value="<%= evenRow.ID %>">
 														<span class="custom-control-indicator"></span>
 														<span class="custom-control-description"><%= evenRow.Name %></span>
 													</label>
-												</div>
+												</div> -->
 											<% }); %>
 											</div>
 											<div class="form-group">
