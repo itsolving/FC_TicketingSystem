@@ -138,7 +138,7 @@
 								<div class="card">
 									<div class="card-body">
 										<form name="formPrice">
-												<div class="col-md-4">
+												<div class="col-md-8">
 													<div class="table-responsive">
 														<table class="table trans">
 															<thead class="text-primary">
@@ -157,7 +157,8 @@
 																				<input type="text" name="txPrice" class="priceInput form-control" value="<%= seatRow.Price %>"	 />
 																			</td>
 																			<td>
-																				<select name="rowN" class="select-rowN form-control form-control-sm">
+
+																				<select name="rowN" class="select-rowN form-control selectpicker" data-style="btn btn-link">
 																					<% rownums[seatRow.SectorName].forEach(function(Row) { %>
 																						<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price || "Ошибка" %>}'><%= Row.RowN %> ( <%= Row.Price || "Ошибка" %> )</option>
 																					<% }); %>
