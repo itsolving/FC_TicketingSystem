@@ -226,6 +226,13 @@ class TicketUtils extends rootUtils{
 		})
 	
 	}
+	getSaled(data, next){
+		let sSQL = `SELECT * FROM public."tTicket" tic WHERE tic."IDStatus" in (4, 5) AND tic."IDEvent" = ${data.IDEvent}`;
+		console.log(sSQL);
+		this.execute(sSQL, (tickets) => {
+			next(tickets);
+		})
+	}
 }
 
 module.exports = TicketUtils;
