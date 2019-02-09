@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+	</head>
+	<body>
+		<div class="wrapper">
+			<% if(adminLogin){ %>
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
+								</div>
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<form method="POST" action="/admin/tickets/import/" enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-4">
+										<div class="row">
+											<div class="col-4">
+												<label for="eventsList">Мероприятие:</label>
+											</div>
+											<div class="col-8">
+												<select name="event" id="eventID" class="form-control" required style="margin-top: -15px;">
+													<% events.forEach(function(event) { %>
+															<option value="<%= event.ID %>"><%= event.Name %> (ID:<%= event.ID%>)</option>
+													<% }); %>
+												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group bmd-form-group">
+													<input class="form-control-file" type="file" name="xlsx" required style="position: initial; opacity: 1;">
+												</div>
+											</div>
+										</div>
+										
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<button class="btn btn-primary export" type="submit">Импорт</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+
+	</body>
+</html>
+

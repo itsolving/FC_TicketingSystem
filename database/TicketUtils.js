@@ -233,6 +233,32 @@ class TicketUtils extends rootUtils{
 			next(tickets);
 		})
 	}
+	import(data, next){
+		let sSQL = '';
+		let tickets = data.tickets;
+		tickets.forEach(function(ticket) {
+			
+			var sUpdate = `update public."tTicket" 
+							set ( "Price", "Barcode") = ( ${ticket.Price}, '${ticket.Barcode}' )
+							
+							where "IDSeat"
+							in (
+							select st."ID"
+							from public."tSeat" st 
+							join public."tRowN" rw on rw."ID" = st."IDRowN" and rw."RowN" = ${ticket.RowN}
+							join public."tSector" sc on sc."ID" = rw."IDSector" and sc."SectorName" = '${ticket.SectorName}'
+							join public."tSeat" ts on ts."SeatN" = ${ticket.SeatN}
+							) 
+							and "IDEvent" = ${ticket.IDEvent}`;
+			console.log(sUpdate);
+
+			sSQL = sSQL + sUpdate;
+		});
+		console.log(sSQL);
+		this.execute(sSQL, (result) => {
+			next(result);
+		});
+	}
 }
 
 module.exports = TicketUtils;
