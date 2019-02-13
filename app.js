@@ -10,6 +10,7 @@ var mainRouter = require('./routes/main');
 var adminRouter = require('./routes/admin');
 var ApiRouter = require('./routes/api');
 var KassaRouter = require('./routes/kassa');
+var TicketApiRouter = require('./routes/ticketapi');
 var fileUpload = require('express-fileupload');
 
 var app = express();
@@ -42,6 +43,7 @@ app.use('/', mainRouter);
 app.use('/admin', adminRouter);
 app.use('/api/', ApiRouter);
 app.use('/kassa/', KassaRouter);
+app.use('/ticketapi/', TicketApiRouter);
 
 
 // catch 404 and forward to error handler

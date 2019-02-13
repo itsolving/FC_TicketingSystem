@@ -259,6 +259,51 @@ class TicketUtils extends rootUtils{
 			next(result);
 		});
 	}
+	getByBarcode(data, next){
+		// data = {
+		// 	IDEvent: 1,
+		// 	Barcode: 123456789123
+		// }
+
+		var sSQL = `SELECT "ID", "Barcode", "IDEvent" FROM public."tTicket" WHERE 
+							"IDEvent" = ${data.IDEvent} AND 
+							"Barcode" = '${data.Barcode}'`;
+		this.execute(sSQL, (tickets) => {
+			next(tickets[0]);
+		})
+	}
+	insertPassage(ticket, next){
+		// ticket = {
+		// 	IDTicket: 1,
+		// 	IDEvent: 1,
+		// 	IDUserController: 1
+		// }
+
+		let sSQL = `insert into public."tTicketPassage" ("IDTicket", "IDEvent", "PassageDate", "IDUserController")  
+						values(
+							 ${ticket.IDTicket}, 
+							 ${ticket.IDEvent}, 
+							 now(),
+							'${ticket.IDUserController}') 
+						RETURNING "ID"`
+		this.execute(sSQL, (results) => {
+			next(results[0])
+		})
+	}
+	getPassage(ticket, next){
+		// ticket = {
+		// 	IDEvent: 1,
+		// 	ID: 1,
+		// 	Barcode: 123456789123
+		// }
+
+		let sSQL = `SELECT * FROM public."tTicketPassage" WHERE 
+						"IDEvent"  = ${ticket.IDEvent} AND
+						"IDTicket" = ${ticket.ID}`;
+		this.execute(sSQL, (result) => {
+			next(result[0]);
+		})
+	}
 }
 
 module.exports = TicketUtils;
