@@ -614,5 +614,58 @@ module.exports = (router, db) => {
 				});
 		}
 	});
+
+		//вход на страницу выбранного мероприятия
+	router.post('/beta/tickets/reserve/', function(req, res, next){
+		
+		let params = req.body;
+		params = JSON.stringify(params);
+		params = JSON.parse(params);
+		console.log(params);
+		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
+		// 4 status - резерв ( в данном случае - кассовый резерв )
+		var sSQLQuery = `SELECT tic."IDStatus", tic."ID"
+						FROM public."tTicket" tic
+						where "ID" in (${params['tickets[]']})`;
+		db.db.any(sSQLQuery)
+			.then((data) => {
+				let sSQL = '';
+				console.log(data);
+				let errTickets = [];
+				data.forEach((ticket) => {
+					if (ticket.IDStatus != 3) errTickets.push(ticket.ID);
+				})
+				if ( errTickets.length == 0 ){
+					let sSQL = '';
+					// approve всех билетов произошел
+					params['tickets[]'].forEach((item) => {
+						// 4 status - резерв ( в данном случае - кассовый резерв )
+						var sUpdate = `update public."tTicket" set "IDStatus" = 4
+										where "ID" = ${item}
+										AND "IDStatus" = 3;`;
+						sSQL = sSQL + sUpdate;
+					})
+					db.db.any(sSQL)
+						.then(() => {
+							let sSQLTrans = '';
+							params['tickets[]'].forEach(function(item) {
+
+								var sTransInsert = `insert into public."tTrans" 
+														( "IDTicket", "Saledate", "IDUserSaler" ) values 
+														( ${item}, now(), 1 ); `;
+								sSQLTrans = sSQLTrans + sTransInsert;
+							});
+							db.db.any(sSQLTrans);
+							res.json({success: true})
+							return;
+						});
+				}
+				else {
+					res.json({success: false, errTickets: errTickets});
+					console.log(errTickets);
+					return;
+				}
+			})
+	})
 		
 }

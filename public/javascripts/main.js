@@ -1,6 +1,6 @@
 app = {};
 
-app.id = +window.location.pathname.slice(7);
+app.id = 1;
 
 app.cart = {
   tickets: [],
@@ -127,7 +127,7 @@ app.showTribuneSeats = function () {
     } else {
       app.startPreloading();
       $.get(
-        '../images/sectors/' + data.SectorName + '.svg',
+        '/images/sectors/' + data.SectorName + '.svg',
         null,
         function (svg) {
           $('svg', svg).prependTo($('[data-popup-svg]'));
@@ -166,6 +166,15 @@ app.initFluid = function () {
     $('html').css({
       'font-size': Math.min(($(window).width() / baseWidth) * baseSize, 10) + 'px'
     });
+
+    
+    //------- beta
+
+     $('.cart__buy').on('click', function() {
+      app.reserve();
+    });
+
+     //------------
   }
 };
 
@@ -550,7 +559,7 @@ app.removeFromCart = function (ticket, $seat) {
   console.log(ticket, $seat);
 };
 
-$('.cart__buy').on('click', function () {
+/*$('.cart__buy').on('click', function () {
   $.post(
     '/sendsaledtickets2', {
       IDEvent: app.id,
@@ -564,4 +573,37 @@ $('.cart__buy').on('click', function () {
     function (res) {
       console.log(res)
     });
-});
+});*/
+
+
+// BETA --------------------------------
+
+app.reserve = function(){
+  console.log(app.cart.tickets);
+  if ( app.cart.tickets.length > 0 ){
+    console.log(app.cart.tickets);
+    var tickets = [];
+    app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
+    $.post('/beta/tickets/reserve', {
+          IDEvent: app.id,
+          tickets: tickets
+        }, function (ans) {
+           if ( ans.success ) { 
+
+            alert('Билеты успешно зарезервированы'); 
+           
+            // tickets.forEach((tickID) => {
+            //   window.open('/kassa/beta/get/ticket/' + tickID);
+            // })
+            console.log(tickets);
+          }
+           else alert("Произошла какая-то ошибка, попробуйте еще раз!")
+        });
+       
+
+  }
+  else console.log('cart is empty');
+}
+
+
+// -------------------------------------
