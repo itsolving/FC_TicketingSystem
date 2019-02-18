@@ -16,7 +16,8 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			events = sessData.eventsList;
 		}
 		else {
-			res.json({err: "no success"});
+			res.redirect('/');
+			//res.json({err: "no success"});
 			return;
 		}
 		dbUtils.Event.customSelect((data => {

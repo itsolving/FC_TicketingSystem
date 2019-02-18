@@ -19,8 +19,9 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			events = sessData.eventsList;
 		}
 		else {
-			res.json({err: "no success"});
-			return
+			res.redirect('/');
+			//res.json({err: "no success"});
+			return;
 		}
 		let params = req.body;
 		params = JSON.stringify(params);
@@ -62,7 +63,8 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			events = sessData.eventsList;
 		}
 		else {
-			res.json({err: "no success"});
+			res.redirect('/');
+			//res.json({err: "no success"});
 			return;
 		}
 		// нужна проверка на авторизацию кассы
@@ -129,7 +131,8 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			events = sessData.eventsList;
 		}
 		else {
-			res.json({err: "no success"});
+			res.redirect('/');
+			//res.json({err: "no success"});
 			return;
 		}
 		let ticketID = req.params.id;
