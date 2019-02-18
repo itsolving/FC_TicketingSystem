@@ -591,6 +591,12 @@ app.reserve = function(){
            if ( ans.success ) { 
 
             alert('Билеты успешно зарезервированы'); 
+
+            $.fancybox.close();
+            app.cart.tickets = [];
+            if (!app.cart.tickets.length) {
+              $('body').removeClass('cart--is-open');
+            }
            
             // tickets.forEach((tickID) => {
             //   window.open('/kassa/beta/get/ticket/' + tickID);
