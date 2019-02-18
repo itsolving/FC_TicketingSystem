@@ -88,7 +88,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 					// approve всех билетов произошел
 					params['tickets[]'].forEach((item) => {
 						// 4 status - резерв ( в данном случае - кассовый резерв )
-						var sUpdate = `update public."tTicket" set "IDStatus" = 4
+						var sUpdate = `update public."tTicket" set "IDStatus" = 5
 										where "ID" = ${item}
 										AND "IDStatus" = 3;`;
 						sSQL = sSQL + sUpdate;
