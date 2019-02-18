@@ -1,5 +1,7 @@
 let Templator 	 = require(`${__basedir}/helpers/Templator.js`),
-	templator 	 = new Templator();
+	templator 	 = new Templator(),
+	xl 			 = require('excel4node'),
+	xlsx         = require('node-xlsx');
 
 module.exports = (router, dbUtils, sAdminPageTitle) => {
 
@@ -30,5 +32,110 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 	})
 
+
+	//	Экспорт/Выгрузка штрих кодов в excel файл 
+	router.get('/tickets/barcode/export', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		dbUtils.Event.getNameId((events) => {
+			res.render('adminBarcodeExport', { title: sAdminPageTitle, adminLogin: sAdminLogin, events: events });
+		})
+	})
+
+	router.post('/tickets/barcode/export', function(req, res){
+
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Ticket.getSaled({IDEvent: req.body.event}, (tickets) => {
+			let wb = new xl.Workbook();
+			wb.write('result.xlsx');
+			let ws = wb.addWorksheet('Sheet 1');
+			for ( let i = 1; i < tickets.length+1; i++ ){
+				 ws.cell(i, 1).string(tickets[i-1].Barcode);
+			}
+			//res.json(tickets);
+			wb.write('result.xlsx', res);
+		})
+	})
+
+	router.get('/tickets/import', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		dbUtils.Event.getNameId((events) => {
+			res.render('adminBarcodeImport', { title: sAdminPageTitle, adminLogin: sAdminLogin, events: events });
+		})
+	})
+
+	router.post('/tickets/import', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		//console.log(req.files.xlsx);
+		let workSheets = xlsx.parse(req.files.xlsx.data);
+		//console.log(workSheets[0].data)
+		//res.json(workSheets[0].data);
+
+		let objData = [];
+
+		workSheets[0].data.forEach((item) => {
+			objData.push({
+				IDEvent: req.body.event,
+				Barcode: item[0],
+				SectorName: item[1],
+				RowN: item[2],
+				SeatN: item[3],
+				Price: item[4]
+			})
+		})
+
+		dbUtils.Ticket.import({tickets: objData}, (result) => {
+			console.log(result);
+			res.json(result);
+
+		})
+
+		console.log(objData);
+	})
 
 }

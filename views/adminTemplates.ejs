@@ -73,7 +73,7 @@
 															<% templates.forEach(function(template) { %>
 																<tr>
 																	<td scope="row"><%= template.ID %></td>
-																	<td scope="row"><a href="/admin/get/template/<%= template.ID %>" target="_blank"><%= template.templateName %></a></td>
+																	<td scope="row"><a href="/admin/edit/template/<%= template.ID %>"><%= template.templateName %></a></td>
 																	<td scope="row"><%= template.templateUrl %></td>
 																</tr>
 															<% }); %>
