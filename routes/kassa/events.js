@@ -22,7 +22,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		dbUtils.Event.customSelect((data => {
 			sessData.eventsList = data;
 			events = data;
-			res.render('KassaBetaEventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
+			res.render('KassaBetaEventmap', {title: 'Продажа билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
 		    return;
 		}))
 	})
