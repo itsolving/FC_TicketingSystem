@@ -62,8 +62,14 @@
 														<label for="stadiumsList">Стадион:</label>
 														<select name="stadiumsList" id="stadiumsList" class="form-control form-control-sm">
 															<% stadiums.forEach(function(stadiumRow) { %>
-																	<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %></option>
+																<% if ( stadiumRow.ID == 1) { %>
+																	<option value="<%= stadiumRow.ID %>" selected><%= stadiumRow.Name %> (ID: <%= stadiumRow.ID %>)</option>
+																<% } else { %>
+																	<option value="<%= stadiumRow.ID %>"><%= stadiumRow.Name %> (ID: <%= stadiumRow.ID %>)</option>
+																<% } %>
+
 															<% }); %>
+
 														</select>
 													</div>
 													<div class="form-group">
@@ -105,7 +111,7 @@
 				</div>
 				<script>
 					$(document).ready(function(){
-						GetStadiumList();
+						//GetStadiumList();
 					});
 
 					function GetStadiumList(){
