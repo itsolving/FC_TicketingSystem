@@ -1,3 +1,5 @@
+let bwipjs = require('bwip-js');
+
 
 module.exports = (router, db) => {
 	
@@ -666,6 +668,33 @@ module.exports = (router, db) => {
 					return;
 				}
 			})
+	})
+
+	router.get('/get/barcode/:text', function(req, res){
+
+		
+		// format: /get/barcode/?bcid=ean13&text=123456789012
+		req.query = { 
+			bcid: "ean13", 
+			text: req.params.text, 
+			scale: 3, 
+			height: 10, 
+			includetext: true, 
+			textxalign: 'center' 
+		};
+
+	    req.url = "?"
+	    for(var attr in req.query) { 
+		    req.url += `&${attr}=${req.query[attr]}`; 
+		}
+		console.log(req.url)
+
+	    if (!req.query.bcid ) {
+	        res.writeHead(404, { 'Content-Type':'text/plain' });
+	        res.end('Unknown request format.', 'utf8');
+	    } else {
+	        bwipjs(req, res);
+	    }
 	})
 		
 }

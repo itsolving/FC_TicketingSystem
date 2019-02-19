@@ -145,8 +145,25 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 	})
 
 	// получение билетов в одном pdf
-	router.get('/beta/get/tickets/', function(req, res){
-		dbUtils.Ticket.getMultiWithTemplate([17132, 24370, 20903], (tickets) => {
+	router.get('/beta/get/tickets/:ids', function(req, res){
+		//данные из сессии
+		var sLogin = "";
+		var nUserID = 0;
+		var events = {};
+		var sessData = req.session;
+		if(sessData.userLogin){
+			sLogin = sessData.userLogin;
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
+		else {
+			res.redirect('/');
+			//res.json({err: "no success"});
+			return;
+		}
+		let reqTickets = req.params.ids.split(",");
+		console.log(reqTickets)
+		dbUtils.Ticket.getMultiWithTemplate(reqTickets /* [17132, 24370, 20903] */, (tickets) => {
 			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, (pdfData) => {
 				res.type('pdf'); 
 				res.send(pdfData);

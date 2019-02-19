@@ -590,18 +590,28 @@ app.reserve = function(){
         }, function (ans) {
            if ( ans.success ) { 
 
-            alert('Билеты успешно куплены!'); 
-
             $.fancybox.close();
             app.cart.tickets = [];
             if (!app.cart.tickets.length) {
               $('body').removeClass('cart--is-open');
             }
 
+            var tickids = '';
 
-            tickets.forEach((tickID) => {
-              window.open('/kassa/beta/get/ticket/' + tickID);
-            })
+            for ( var i = 0; i < tickets.length; i++){
+              if ( i == tickets.length-1 ){
+                tickids += `${tickets[i]}`;
+              } 
+              else {
+                tickids += `${tickets[i]},`;
+              }
+            }
+            $('.open-pdf').attr('href', `/kassa/beta/get/tickets/${tickids}`);
+            $('.open-pdf')[0].click();
+            setTimeout(function(){
+               window.location.reload(1);
+            }, 200);
+            
           }
            else alert("Произошла какая-то ошибка, попробуйте еще раз!")
         });
