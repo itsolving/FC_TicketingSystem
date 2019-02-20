@@ -20,6 +20,9 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			//res.json({err: "no success"});
 			return;
 		}
+		console.log('------SESSION------');
+		console.log(sessData);
+		console.log('------SESSION------');
 		dbUtils.Event.customSelect((data => {
 			sessData.eventsList = data;
 			events = data;

@@ -92,6 +92,28 @@ class TransUtils extends rootUtils{
 		})
 		
 	}
+	cashierSelect(data, next){
+		let sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  
+						tc."Price", 
+						st."ID", sc."SectorName", rw."RowN", st."SeatN", trb."TribuneName" as "Tribune",
+						ev."Name", 
+						us."Email",
+						ss."Name" as "StatusName" 
+					FROM public."tTrans" tr 
+					join public."tTicket" tc on tc."ID" = tr."IDTicket"
+					join public."tSeat" st on st."ID" = tc."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					join public."tTribune" trb on trb."ID" = sc."IDTribune"
+					join public."tEvent" ev on ev."ID" = tc."IDEvent"
+					join public."tStatus" ss on ss."ID" = tc."IDStatus"
+					join public."tUser" us on us."ID" = tr."IDUserSaler"
+					WHERE tr."IDUserSaler" = ${data.userID}`;
+		console.log(sSQL);
+		this.execute(sSQL, (trans) => {
+			next(trans);
+		})
+	}
 }
 
 module.exports = TransUtils;

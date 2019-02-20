@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="/javascripts/filter.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Отчет продаж</h2>
+					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table trans">
+										<thead class="text-primary">
+											<th scope="col">Дата покупки</th>
+											<th scope="col">Название МП</th>
+											<th scope="col">Трибуна и сектор</th>
+											<th scope="col">Ряд</th>
+											<th scope="col">Место</th>
+											<th scope="col">Статус билета</th>
+											<th scope="col">Email</th>
+											<th scope="col">Цена</th>
+										</thead>
+										<tbody>
+											<% transactions.forEach(function(transRow) { %>
+												<tr>
+													<td scope="row"><%= transRow.Saledate %></td>
+													<td><%= transRow.Name %></td>
+													<td><%= transRow.SectorName %></td>
+													<td><%= transRow.RowN %></td>
+													<td><%= transRow.SeatN %></td>
+													<td><%= transRow.StatusName %></td>
+													<td><%= transRow.Email %></td>
+													<td><%= transRow.Price %></td>
+												</tr>
+											<% }); %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

@@ -102,7 +102,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 
 								var sTransInsert = `insert into public."tTrans" 
 														( "IDTicket", "Saledate", "IDUserSaler" ) values 
-														( ${item}, now(), ${5} ); `;
+														( ${item}, now(), ${sessData.cashier.ID} ); `;
 								sSQLTrans = sSQLTrans + sTransInsert;
 							});
 							db.db.any(sSQLTrans);

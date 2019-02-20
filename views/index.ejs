@@ -19,6 +19,12 @@
 		<% } else{ %>
 			<h1>Авторизация кассира</h1>
 			<% include loginform %>
+			<script>
+				function setCookie(name, value){
+					document.cookie = name + "=" + value;
+				}
+				setCookie('session', 0);
+			</script>
 		<% } %>
 	</div>
   </body>
