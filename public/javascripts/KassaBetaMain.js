@@ -1,6 +1,9 @@
+var parts = window.location.href.split("/");
+var result = parts[parts.length - 1];
+
 app = {};
 
-app.id = 1;
+app.id = result;
 
 app.cart = {
   tickets: [],
