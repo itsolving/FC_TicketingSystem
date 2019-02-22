@@ -155,11 +155,43 @@ class Templator{
 		let templateName = fileData.name;
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
+
+		let opt = { 
+			bcid: "ean13", 
+			text: 111111111111, 
+			scale: 3, 
+			height: 10, 
+			includetext: true, 
+			textxalign: 'center' 
+		};
+	    let reqAPI = "http://bwipjs-api.metafloor.com/?"
+	    for(var attr in opt) { 
+	    	if ( attr == 'bcid'){
+	    		reqAPI +=`${attr}=${opt[attr]}`;
+	    	}
+	    	else {
+		    	reqAPI += `&${attr}=${opt[attr]}`;
+		    } 
+		}
 		var options = { 
 			format: 'A4'      
 		};
+		let toReplace = {
+			'{{ticketID}}': '{{ticketID}}', 
+			'{{eventName}}': '{{eventName}}',
+			'{{ticketPrice}}': '{{ticketPrice}}', 
+			'{{SectorName}}': '{{SectorName}}',
+			'{{RowN}}': '{{RowN}}',
+			'{{SeatN}}': '{{SeatN}}',
+			'{{Barcode}}': reqAPI,
+			'{{StadiumName}}': '{{StadiumName}}',
+			'{{CityName}}': '{{CityName}}',
+			'{{DateFrom}}': '{{DateFrom}}',
+			'{{EventImage}}': '{{EventImage}}'
+        };
+		var newHTML = this.template(html, toReplace);
 
-		pdf.create(html, options).toBuffer( (err, buffer) => {
+		pdf.create(newHTML, options).toBuffer( (err, buffer) => {
 		    next(buffer);
 		});
 	}
