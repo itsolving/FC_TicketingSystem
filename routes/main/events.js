@@ -11,7 +11,6 @@ module.exports = (router, db, dbUtils) => {
 		var sessData = req.session;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
-
 			console.log('sLogin='+sLogin);
 		}
 		
@@ -20,7 +19,13 @@ module.exports = (router, db, dbUtils) => {
 				sessData.eventsList = data;
 				events = data;
 				console.log('rendering page...');
-				res.render('events', {title: 'Покупка билетов', userLogin: sLogin, eventsList: events, api: sessData.api || false});
+				res.render('events', {
+										title: 'Покупка билетов', 
+										userLogin: sLogin, 
+										eventsList: events, 
+										api: sessData.api || false, 
+										cashier: sessData.cashier || false
+									})
 		})
 
 	});
