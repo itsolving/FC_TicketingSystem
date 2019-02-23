@@ -21,6 +21,9 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		}
 
 		dbUtils.Event.getById(eventID, (data) => {
+			dbUtils.Event.logGetByID(nUserID, eventID, data.length, (logResult) => {
+				//nothing do here
+			})
 			if( data.length > 0){
 				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sLogin, EventName: data[0].Name});
 			}

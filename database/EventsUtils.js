@@ -152,6 +152,34 @@ class EventsUtils extends rootUtils{
 			next(rowEventData, qres);
 		})
 	}
+	logGetByID(nUserID, nEventID, dataCount, next){
+		var sDescr = "";
+		if (dataCount > 0) {
+			sDescr = "Event found.";
+		}
+		else {
+			sDescr = "Event not found.";
+		}
+		let sSQL = `insert into public."tLogUserActions" ( "IDUser", "Descr", "ADate")
+				values('${nUserID}', 'get event data by ID=${nEventID}. ${sDescr}', now()) RETURNING "ID"`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			let newLogID = 0,
+			    isError = false;
+
+			if ( data.length > 0 ){
+				newLogID = data[0].ID;
+				isError = false;
+			}
+			else {
+				isError = true;
+			}
+			next({ResultIsOK: isError});
+
+		})
+	}
 	getByStadium(nID, next, api){
 		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
