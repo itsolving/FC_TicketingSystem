@@ -13,7 +13,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
@@ -57,7 +57,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
@@ -125,7 +125,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
@@ -151,7 +151,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;

@@ -10,25 +10,22 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
 		}
 		else {
 			res.redirect('/');
-			//res.json({err: "no success"});
 			return;
 		}
-		console.log('------SESSION------');
-		console.log(sessData);
-		console.log('------SESSION------');
-		dbUtils.Event.customSelect((data => {
-			sessData.eventsList = data;
-			events = data;
-			res.render('KassaBetaEventmap', {title: 'Продажа билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
-		    return;
-		}))
+
+		dbUtils.Event.getById(eventID, (data) => {
+			if( data.length > 0){
+				res.render('KassaBetaEventmap', {title: 'Продажа билетов', userLogin: sLogin, EventName: data[0].Name});
+			}
+			else res.json({err: 'Event not found'})
+		}, false)
 	})
 	
 }
