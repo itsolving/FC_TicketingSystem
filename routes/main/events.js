@@ -70,7 +70,7 @@ module.exports = (router, db, dbUtils) => {
 		}
 
 		if ( sessData.cashier ){
-			res.redirect('/kassa/beta/event/' + eventID);
+			res.redirect('/kassa/event/' + eventID);
 			return;
 		}
 		dbUtils.Event.customSelect((data => {

@@ -6,7 +6,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 
 	//дополнительная проверка билетов
 	// оставил в коде, может еще понадобиться 
-	router.post('/beta/ticket/approve', function(req, res, next){
+	router.post('/ticket/approve', function(req, res, next){
 		console.log('post /kassa/beta/ticket/approve');
 		//данные из сессии
 		var sLogin = "";
@@ -51,7 +51,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 	});
 
 	//вход на страницу выбранного мероприятия
-	router.post('/beta/ticket/reserve/', function(req, res, next){
+	router.post('/ticket/reserve/', function(req, res, next){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;
@@ -119,7 +119,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 
 
 	// получение билета
-	router.get('/beta/get/ticket/:id', function(req, res){
+	router.get('/get/ticket/:id', function(req, res){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;
@@ -145,7 +145,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 	})
 
 	// получение билетов в одном pdf
-	router.get('/beta/get/tickets/:ids', function(req, res){
+	router.get('/get/tickets/:ids', function(req, res){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;

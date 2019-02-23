@@ -1,7 +1,7 @@
 module.exports = (router, db, PageTitle, dbUtils) => {
 
 	//вход на страницу выбранного мероприятия
-	router.get('/beta/reports/trans/', function(req, res, next){
+	router.get('/reports/trans/', function(req, res, next){
 		console.log("get: /event/id");
 		var eventID = req.params.id;
 	

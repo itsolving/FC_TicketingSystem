@@ -587,7 +587,7 @@ app.reserve = function(){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/beta/ticket/reserve', {
+    $.post('/kassa/ticket/reserve', {
           IDEvent: app.id,
           tickets: tickets
         }, function (ans) {
@@ -609,7 +609,7 @@ app.reserve = function(){
                 tickids += `${tickets[i]},`;
               }
             }
-            $('.open-pdf').attr('href', `/kassa/beta/get/tickets/${tickids}`);
+            $('.open-pdf').attr('href', `/kassa/get/tickets/${tickids}`);
             $('.open-pdf')[0].click();
             setTimeout(function(){
                window.location.reload(1);
