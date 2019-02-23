@@ -9,9 +9,16 @@ $(document).ready(function(){
 	  ));
 	  return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
-	function setCookie(name, value){
-		document.cookie = name + "=" + value;
+	function setCookie(c_name,value,exdays)
+	{
+	    var exdate=new Date();
+	    exdate.setDate(exdate.getDate() + exdays);
+	    var c_value=escape(value) + ((exdays==null)
+	                                 ? "" : "; expires="+exdate.toUTCString())
+	                                + "; path=/";
+	    document.cookie=c_name + "=" + c_value;
 	}
+	
 	function setTime() {
 	  ++totalSeconds;
 	  var totalSeconds = parseInt(getCookie('session')) + 1;
@@ -31,13 +38,13 @@ $(document).ready(function(){
 	}
 
 	if ( !getCookie('session') ){
-		setCookie('session', 0);
+		setCookie('session', 0, 1);
 	}
 
 	setInterval(setTime, 1000);
 
 	$('.exit-button').click(function(){
-		setCookie('session', 0);
+		setCookie('session', 0, 1);
 		window.location.href="/exit";
 	})
 

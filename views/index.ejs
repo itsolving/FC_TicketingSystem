@@ -5,27 +5,16 @@
   </head>
   <body>
     <div class="Container">
-		<% if(userLogin){ %>
-			<h1>Система "<%= title %>"</h1>
-			<div>
-				<!--
-				<% include mainheader %>
-				-->
-
-				<div id="workArea" class="row">
-					<% include events %>
-				</div>
-			</div>
-		<% } else{ %>
-			<h1>Авторизация кассира</h1>
-			<% include loginform %>
-			<script>
-				function setCookie(name, value){
-					document.cookie = name + "=" + value;
-				}
-				setCookie('session', 0);
-			</script>
-		<% } %>
+		
+		<h1>Авторизация кассира</h1>
+		<% include loginform %>
+		
 	</div>
+	<script>
+		function setCookie(name, value){
+			document.cookie = name + "=" + value;
+		}
+		setCookie('session', 0, 1);
+	</script>
   </body>
 </html>
