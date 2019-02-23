@@ -158,7 +158,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 	router.post('/uploadeventimg', function(req, res, next){
 
 	    let ImgFile = req.files['img'];
-	    ImgFile.mv(`${__dirname}../../../public/images/events/${ImgFile.name}`, function(err) {
+	    ImgFile.mv(`${__dirname}/../../public/images/events/${ImgFile.name}`, function(err) {
 		    if (err){
 		    	console.log(err);
 		    	return res.send('error: '+err);
