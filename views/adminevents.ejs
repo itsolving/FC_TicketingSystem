@@ -48,6 +48,7 @@
 														<th scope="col">Название</th>
 														<th scope="col">Дата и время</th>
 														<th scope="col">Статус</th>
+														<th scope="col">Продаж</th>
 														<th scope="col">Афиша</th>
 														<th scope="col">Функции</th>
 													</thead>
@@ -65,6 +66,9 @@
 																</td>
 																<td>
 																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.saledtickets %></a>
 																</td>
 																<td>
 																	<a href="<%= eventRow.ImgPath %>" target="_blank">
