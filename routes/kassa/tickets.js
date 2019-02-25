@@ -170,5 +170,36 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			});
 		})
 	})
+
+	router.post('/ticket/momentreserve', function(req, res){
+		//данные из сессии
+		var sLogin = "";
+		var nUserID = 0;
+		var events = {};
+		var sessData = req.session;
+		if(sessData.cashier){
+			sLogin = sessData.userLogin;
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
+		else {
+			res.redirect('/');
+			//res.json({err: "no success"});
+			return;
+		}
+		let tickID = req.body.TicketID;
+		res.json(req.body);
+
+		dbUtils.Ticket.getByID(tickID, (ticket) => {
+			if (ticket.status == 3 ){
+				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
+					res.json({success: true});
+				})
+			}
+			else res.json({err: "Ticket status error!"});
+		})
+
+
+	})
 	
 }

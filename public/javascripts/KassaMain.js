@@ -534,6 +534,7 @@ app.addToCart = function (ticket, $seat) {
   $(addedTicket).attr('data-cart-id', ticket.IDSeat);
 
   console.log(ticket);
+  app.momentReserve(ticket);
 };
 
 app.removeFromCart = function (ticket, $seat) {
@@ -580,6 +581,14 @@ app.removeFromCart = function (ticket, $seat) {
 
 
 // BETA --------------------------------
+
+app.momentReserve = function(ticket){
+  console.log(ticket)
+  $.post('/kassa/ticket/momentreserve', ticket
+    ,function (ans) {
+         console.log(ans)  
+    });
+}
 
 app.reserve = function(){
   console.log(app.cart.tickets);
