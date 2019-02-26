@@ -81,6 +81,28 @@
 											</form>
 										</div>
 									</div>
+									<div id="myModalBox" class="modal fade">
+												  <div class="modal-dialog">
+												    <div class="modal-content">
+												      <!-- Заголовок модального окна -->
+												      <div class="modal-header">
+												      	<h4 class="modal-title">Подтверждение действия</h4>
+												        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+												      </div>
+												      <!-- Основное содержимое модального окна -->
+												      <div class="modal-body">
+												        <!-- Вы действительно хотите удалить мероприятие? -->
+												        Обновить пользовательские данные?
+												      </div>
+												      <!-- Футер модального окна -->
+												      <div class="modal-footer">
+												        
+												        <button type="button" class="btn btn-success" id="updateExecute">Да</button>
+												        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+												      </div>
+												    </div>
+												  </div>
+												</div>
 								</div>
 								<script>
 										/*
@@ -114,6 +136,9 @@
 										
 										$(document).ready(function(){
 											GetRoleList();
+											$("#btnSaveUser").on('click', function(){
+												$("#myModalBox").modal('show');
+											});
 										});
 															
 										function GetRoleList(){
@@ -144,7 +169,7 @@
 										};
 										
 										
-										$("#btnSaveUser").on('click', function(){
+										$("#updateExecute").on('click', function(){
 											var nUserID = $("#userID").data("value");
 											//console.log("btnSaveUser click: nUserID="+nUserID);
 											
@@ -185,6 +210,7 @@
 													console.log(err);
 												}
 											});
+											$("#myModalBox").modal('hide');
 										});
 										
 										/*удаление нам не нужно, потому что пользователи будут либо блокированными, либо разблокируются (для этого есть галочка)

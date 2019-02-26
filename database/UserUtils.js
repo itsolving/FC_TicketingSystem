@@ -97,10 +97,10 @@ class UserUtils extends rootUtils{
 		client.query(sSQL, (qerr, qres) => {
 			var sResMsg = "";
 			if (userData.sPostOperation == "del") {
-				sResMsg = "Удалил";
+				sResMsg = "Удалено";
 			}
 			else {
-				sResMsg = "Сохранил";
+				sResMsg = "Сохранено";
 			}
 			if (qerr) {
 				console.log("qerr:");
