@@ -179,8 +179,8 @@
 								</div>
 							</div>
 							<div class="form-group">
+												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
 												<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
-												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Удалить</button>
 												<p id="txResultMsg"></p>
 												<!-- HTML-код модального окна -->
 												<div id="myModalBox" class="modal fade">
@@ -193,7 +193,8 @@
 												      </div>
 												      <!-- Основное содержимое модального окна -->
 												      <div class="modal-body">
-												        Вы действительно хотите удалить мероприятие?
+												        <!-- Вы действительно хотите удалить мероприятие? -->
+												        Выйти без сохранения изменений?
 												      </div>
 												      <!-- Футер модального окна -->
 												      <div class="modal-footer">
@@ -322,35 +323,36 @@
 						$("#myModalBox").modal('show');
 					});
 					$('#deleteExecute').on('click', function(){
-						var nEventID = 0;
-						nEventID = $("#eventID").data("value");
-						console.log("btnDeleteEvent click: nEventID="+nEventID);
-						$.ajax({
-							url: "/admin/event/"+nEventID,
-							type: "POST",
-							data: {
-								postOperation: 'del',
-								eventID: $("#eventID").val(),
-								eventName: $("#eventName").val(),
-								eventDateFrom: $("#eventDateFrom").val(),
-								stadiumID: $("select#stadiumsList").val(),
-								eventAfisha: $('#eventImage').attr('src')
-								},
-							success: function(result){
-									console.log("POST del /admin/event/id success: result="+result);
-									$("#txResultMsg").html(result);
-									window.location = '/admin/events';
-									//--------------
-									//TODO: after development this functional we must delete this command:
-									ClearMsg("#txResultMsg");
-									//--------------
-									GetActualEventStatus();
-								},
-							error: function(err){
-								console.log("POST /admin/event/id error:");
-								console.log(err);
-							}
-						});
+						document.location.href = "/admin/events";
+						// var nEventID = 0;
+						// nEventID = $("#eventID").data("value");
+						// console.log("btnDeleteEvent click: nEventID="+nEventID);
+						// $.ajax({
+						// 	url: "/admin/event/"+nEventID,
+						// 	type: "POST",
+						// 	data: {
+						// 		postOperation: 'del',
+						// 		eventID: $("#eventID").val(),
+						// 		eventName: $("#eventName").val(),
+						// 		eventDateFrom: $("#eventDateFrom").val(),
+						// 		stadiumID: $("select#stadiumsList").val(),
+						// 		eventAfisha: $('#eventImage').attr('src')
+						// 		},
+						// 	success: function(result){
+						// 			console.log("POST del /admin/event/id success: result="+result);
+						// 			$("#txResultMsg").html(result);
+						// 			window.location = '/admin/events';
+						// 			//--------------
+						// 			//TODO: after development this functional we must delete this command:
+						// 			ClearMsg("#txResultMsg");
+						// 			//--------------
+						// 			GetActualEventStatus();
+						// 		},
+						// 	error: function(err){
+						// 		console.log("POST /admin/event/id error:");
+						// 		console.log(err);
+						// 	}
+						// });
 					})
 
 					$('#rowsTable').on('click', '.clickable-row', function(event) {

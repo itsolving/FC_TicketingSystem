@@ -1,7 +1,7 @@
 module.exports = (router, db, PageTitle, dbUtils) => {
 
 	//вход на страницу выбранного мероприятия
-	router.get('/beta/event/:id', function(req, res, next){
+	router.get('/event/:id', function(req, res, next){
 		console.log("get: /event/id");
 		var eventID = req.params.id;
 	
@@ -10,21 +10,25 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
+		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
 		}
 		else {
-			res.json({err: "no success"});
+			res.redirect('/');
 			return;
 		}
-		dbUtils.Event.customSelect((data => {
-			sessData.eventsList = data;
-			events = data;
-			res.render('KassaBetaEventmap', {title: 'Учет билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
-		    return;
-		}))
+
+		dbUtils.Event.getById(eventID, (data) => {
+			dbUtils.Event.logGetByID(nUserID, eventID, data.length, (logResult) => {
+				//nothing do here
+			})
+			if( data.length > 0){
+				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sLogin, EventName: data[0].Name});
+			}
+			else res.json({err: 'Event not found'})
+		}, false)
 	})
 	
 }

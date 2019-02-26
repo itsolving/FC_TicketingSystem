@@ -3,15 +3,61 @@
 
 <head>
   <!-- <% include head_html_for_map %> -->
-   <meta charset="utf-8">
-      <meta name="description" content="">
-      <title><%= title %></title>
-      <link rel='stylesheet' href='/stylesheets/styles.css' />
-      <script src="/javascripts/libs.js"></script>
-      <script src="/javascripts/KassaBetaMain.js"></script>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/styles.css' />
+  <script src="/javascripts/libs.js"></script>
+  <script src="/javascripts/KassaMain.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  
+  <link href="/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="/javascripts/kassa.js"></script>
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " style="background-color: #edeef0 !important; padding: 0;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      </button>
+       
+      <div class="collapse navbar-collapse justify-content-end">
+        <div style="margin: auto; font-size: 15px;">
+          <%= EventName %>
+       </div>
+        <ul class="navbar-nav">
+    
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 10px;">
+              <%= userLogin %> (<span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>)
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/kassa/reports/trans/" target="_blank" style="font-size: 10px;">Отчет по продажам</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item exit-button" style="font-size: 10px;">Выйти</a>
+            </div>
+          </div>
+
+         <!--  <h6 style="font-size: 10px;"><%= userLogin %></h6>
+          <a href="#" class="btn btn-primary pull-right" style="font-size: 10px;">Отчет по продажам</a>
+          <a href="/exit" class="btn btn-danger pull-right" style="font-size: 10px;">Выйти</a> -->
+    
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
   <div class="preloader" data-preloader></div>
   <select name="events" id="eventsSelect"></select>
   <?xml-stylesheet type="text/css" href="arena1.css"?>
@@ -1686,6 +1732,9 @@
       </div>
     </div>
   </div>
+
+
+  <a href="" class="open-pdf" style="display: none;" target="_blank"></a>
 </body>
 
 </html>

@@ -7,11 +7,12 @@ module.exports = (router, db) => {
 		var events = {};
 		var sessData = req.session;
 		if(sessData.userLogin){
-			sLogin = sessData.userLogin;
-			nUserID = sessData.userID;
-			events = sessData.eventsList;
-			res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, api: sessData.api });
-		}
+			res.redirect('/events/');
+		// 	sLogin = sessData.userLogin;
+		// 	nUserID = sessData.userID;
+		// 	events = sessData.eventsList;
+		// 	res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, api: sessData.api });
+	    }
 
 		//var events = db.getList(req, res, next);
 		else res.redirect('/cashier');

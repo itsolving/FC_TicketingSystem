@@ -38,11 +38,14 @@
 							<pre><textarea class="html" id="html" ><%= fileContent %></textarea></pre>
 						</div>
 						<div class="row justify-content-center">
-							<div class="col-2">
+							<div class="col-6">
 								<button class="btn btn-success do-save">Сохранить</button>
 							</div>
 							<div class="col-2">
-								<button class="btn btn-primary do-view">Предпросмотр</button>
+								<button class="btn btn-primary do-view">Предпросмотр HTML</button>
+							</div>
+							<div class="col-2">
+								<a class="btn btn-primary" href="/admin/get/template/<%= IDTemplate %>" target="_blank">Предпросмотр PDF</a>
 							</div>
 						</div>
 					</div>
@@ -75,7 +78,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title"><b>Предпросмотр</b></h5>
+	        <h5 class="modal-title"><b>Предпросмотр HTML</b></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>

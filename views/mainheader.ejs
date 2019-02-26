@@ -1,7 +1,20 @@
-<h6><%= userLogin %></h6>
-<% if(api) { %>
+<% if(api){ %>
+	<h6><%= userLogin %></h6>
 	<button class="btn btn-primary pull-right get-api">Получить API KEY</button>
 	<a href="/api/docs/" target="_blank" class="btn btn-primary pull-right">Документация по API</a>
-<% }; %>
-
-<a href="/exit" class="btn btn-primary pull-right">Выйти</a>
+	<a href="/exit" class="btn btn-primary pull-right">Выйти</a>
+<% } else if(cashier){ %>
+	<div class="btn-group">
+	    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	      <%= userLogin %> (<span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>)
+	    </button>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" href="/kassa/reports/trans/" target="_blank" >Отчет по продажам</a>
+	      <div class="dropdown-divider"></div>
+	      <a class="dropdown-item exit-button">Выйти</a>
+	    </div>
+	</div>
+<% } else { %>
+	<h6><%= userLogin %></h6>
+	<a href="/exit" class="btn btn-primary pull-right">Выйти</a>
+<% } %>

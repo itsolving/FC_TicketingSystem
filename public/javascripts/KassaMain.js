@@ -1,6 +1,9 @@
+var parts = window.location.href.split("/");
+var result = parts[parts.length - 1];
+
 app = {};
 
-app.id = 1;
+app.id = result;
 
 app.cart = {
   tickets: [],
@@ -531,6 +534,7 @@ app.addToCart = function (ticket, $seat) {
   $(addedTicket).attr('data-cart-id', ticket.IDSeat);
 
   console.log(ticket);
+  app.momentReserve(ticket);
 };
 
 app.removeFromCart = function (ticket, $seat) {
@@ -578,23 +582,48 @@ app.removeFromCart = function (ticket, $seat) {
 
 // BETA --------------------------------
 
+app.momentReserve = function(ticket){
+  console.log(ticket)
+  $.post('/kassa/ticket/momentreserve', ticket
+    ,function (ans) {
+         console.log(ans)  
+    });
+}
+
 app.reserve = function(){
   console.log(app.cart.tickets);
   if ( app.cart.tickets.length > 0 ){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/beta/ticket/reserve', {
+    $.post('/kassa/ticket/reserve', {
           IDEvent: app.id,
           tickets: tickets
         }, function (ans) {
            if ( ans.success ) { 
 
-            alert('Билеты успешно зарезервированы'); 
-           
-            tickets.forEach((tickID) => {
-              window.open('/kassa/beta/get/ticket/' + tickID);
-            })
+            $.fancybox.close();
+            app.cart.tickets = [];
+            if (!app.cart.tickets.length) {
+              $('body').removeClass('cart--is-open');
+            }
+
+            var tickids = '';
+
+            for ( var i = 0; i < tickets.length; i++){
+              if ( i == tickets.length-1 ){
+                tickids += `${tickets[i]}`;
+              } 
+              else {
+                tickids += `${tickets[i]},`;
+              }
+            }
+            $('.open-pdf').attr('href', `/kassa/get/tickets/${tickids}`);
+            $('.open-pdf')[0].click();
+            setTimeout(function(){
+               window.location.reload(1);
+            }, 200);
+            
           }
            else alert("Произошла какая-то ошибка, попробуйте еще раз!")
         });
