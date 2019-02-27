@@ -6,6 +6,14 @@ class TransUtils extends rootUtils{
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
+	insert(ticket, userid, next){
+		let sSQL = `insert into public."tTrans" 
+						( "IDTicket", "Saledate", "IDUserSaler" ) values 
+						( ${ticket}, now(), ${userid} );`
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
 	getAll(next){
 
 		var sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  

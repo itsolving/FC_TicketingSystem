@@ -561,6 +561,7 @@ app.removeFromCart = function (ticket, $seat) {
   }
 
   console.log(ticket, $seat);
+  app.momentUnReserve(ticket);
 };
 
 /*$('.cart__buy').on('click', function () {
@@ -584,11 +585,22 @@ app.removeFromCart = function (ticket, $seat) {
 
 app.momentReserve = function(ticket){
   console.log(ticket)
-  $.post('/kassa/ticket/momentreserve', ticket
+  $.post('/kassa/ticket/moment/reserve', ticket
     ,function (ans) {
          console.log(ans)  
+         if (ans.err) alert(ans.err);  
     });
 }
+
+app.momentUnReserve = function(ticket){
+  console.log(ticket)
+  $.post('/kassa/ticket/moment/unreserve', ticket
+    ,function (ans) {
+         console.log(ans)
+         if (ans.err) alert(ans.err);  
+    });
+}
+
 
 app.reserve = function(){
   console.log(app.cart.tickets);
