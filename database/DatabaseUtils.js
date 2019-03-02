@@ -13,7 +13,8 @@ let abonement = require('./AbonementUtils.js'),
 	stadium   = require('./StadiumUtils.js'),
 	ticket    = require('./TicketUtils.js'),
 	template  = require('./TemplateUtils.js'),
-	api		  = require('./APIUtils.js');
+	api		  = require('./APIUtils.js'),
+	timer	  = require('./TimerUtils.js');
 // для всех
 
 let db = {
@@ -27,7 +28,8 @@ let db = {
 	Stadium:   new stadium(Client, conOptions),
 	Ticket:    new ticket(Client, conOptions),
 	Template:  new template(Client, conOptions),
-	API: 	   new api(Client, conOptions)
+	API: 	   new api(Client, conOptions),
+	Timer:     new timer(Client, conOptions)
 }
 
 module.exports = db;
