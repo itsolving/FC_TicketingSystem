@@ -20,6 +20,8 @@
  */
 /* ----------------------------------------------------------- */
 
+let md5 = require('md5');
+
 
 
 module.exports = (router, dbUtils) => {
@@ -66,7 +68,7 @@ module.exports = (router, dbUtils) => {
 			if ( success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID != 3 ){
+					if ( ticket.IDStatus != 3 ){
 						res.json({err: "ticket is not available"})
 					}
 					else {
@@ -118,16 +120,24 @@ module.exports = (router, dbUtils) => {
 			if ( success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID != 3 ){
-						res.json({err: "ticket is not available"})
-					}
-					else {	
+					console.log(ticket)
+					if ( ticket.IDStatus == 3 || ticket.IDStatus  == 4 ){
 						// 5 IDStatus - продан
 						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
 							if ( ans ){
-								res.json({success: true, data: `sale ticket (ID:${params.ticketID}) success`})
+								let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
+								res.json({
+									success: true, 
+									IDTicket: ticket.ID,
+									data: `sale ticket (ID:${params.ticketID}) success`, 
+									ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
+								}); 
 							}
 						})
+						
+					}
+					else {	
+						res.json({err: "ticket is not available"})
 					}
 				})
 			}

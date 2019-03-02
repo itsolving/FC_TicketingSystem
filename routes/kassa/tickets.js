@@ -50,7 +50,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			})
 	});
 
-	//вход на страницу выбранного мероприятия
+	// покупка билетов
 	router.post('/ticket/reserve/', function(req, res, next){
 		//данные из сессии
 		var sLogin = "";
@@ -83,7 +83,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 				console.log(data);
 				let errTickets = [];
 				data.forEach((ticket) => {
-					if (ticket.IDStatus != 3) errTickets.push(ticket.ID);
+					if (ticket.IDStatus != 3 || ticket.IDStatus != 4) errTickets.push(ticket.ID);
 				})
 				if ( errTickets.length == 0 ){
 					let sSQL = '';
