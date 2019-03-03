@@ -11,8 +11,10 @@ let express 		= require('express'),
 requireFu(__dirname + '/admin')(router, dbUtils, sAdminPageTitle);					// подключение всего админ роутинга из /admin/
 
 
-let timer = new (require('./../helpers/Timer.js'))(60, dbUtils);
-
-timer.analysis();
+// setInterval(() => {
+//     dbUtils.Timer.analysis((data) => {
+//     	console.log(data);
+//     })
+// }, 5 * 1000);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 let rootUtils = require('./root.js');
 
-class APIUtils extends rootUtils{
+class TimerUtils extends rootUtils{
 	constructor(Client, conOptions){
 		super();
 		this.Client = Client;
@@ -8,8 +8,11 @@ class APIUtils extends rootUtils{
 	}
 	analysis(next){
 		
-		let sSQL = `SELECT * FROM public."tTicket" tic WHERE tic."IDStatus" = 4 
-		AND tic."CreateDate" < NOW() - INTERVAL '20 min'`;
+		let sSQL = `SELECT tr."IDTicket" from public."tTrans" 
+					JOIN public."tTicket" tic on tic."ID" = trans."IDTicket" 
+					AND tic."IDStatus" = 4
+					AND tic."CreateDate" < now()::timestamp - INTERVAL '20 min'
+				`;
         console.log(sSQL);
 
 		this.execute(sSQL, (data) => {
@@ -20,7 +23,19 @@ class APIUtils extends rootUtils{
 
 	}
 
+	update(next){
+		let sSQL = `update public."tTicket" tic set "IDStatus" = 3 WHERE tic."IDStatus" = 4 
+		AND tic."CreateDate" < (now() - (20 * '-1 minute'))
+				RETURNING tic."ID"`;
+        console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			console.log(data)
+			next(data);
+
+		})
+	}
 	
 }
 
-module.exports = APIUtils;
+module.exports = TimerUtils;

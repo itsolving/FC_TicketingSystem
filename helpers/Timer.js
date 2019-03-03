@@ -6,7 +6,7 @@ class Timer{
 
 	analysis(){
 
-		this.dbUtils.Timer.analysis((result) => {
+		dbUtils.Timer.analysis((result) => {
 			console.log(result);
 		})
 	}
