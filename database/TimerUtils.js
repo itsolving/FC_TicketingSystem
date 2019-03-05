@@ -8,25 +8,23 @@ class TimerUtils extends rootUtils{
 	}
 	analysis(next){
 		
-		let sSQL = `SELECT tr."IDTicket" from public."tTrans" 
-					JOIN public."tTicket" tic on tic."ID" = trans."IDTicket" 
-					AND tic."IDStatus" = 4
-					AND tic."CreateDate" < now()::timestamp - INTERVAL '20 min'
+		let sSQL = `SELECT tr."IDTicket" from public."tTrans" tr
+					JOIN public."tTicket" tic on tic."ID" = tr."IDTicket" AND tic."IDStatus" = 4
+					WHERE tr."CreateDate" < now()::timestamp - INTERVAL '20 minutes'
 				`;
         console.log(sSQL);
 
 		this.execute(sSQL, (data) => {
-			console.log(data)
+		
 			next(data);
 
 		})
 
 	}
 
-	update(next){
-		let sSQL = `update public."tTicket" tic set "IDStatus" = 3 WHERE tic."IDStatus" = 4 
-		AND tic."CreateDate" < (now() - (20 * '-1 minute'))
-				RETURNING tic."ID"`;
+	update(ids, next){
+		let sSQL = `UPDATE public."tTicket" tic set "IDStatus" = 3 
+					WHERE tic."ID" in (${ids})`;
         console.log(sSQL);
 
 		this.execute(sSQL, (data) => {
