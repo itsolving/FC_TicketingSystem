@@ -64,8 +64,8 @@ module.exports = (router, dbUtils) => {
 			APIKEY: req.params.APIKEY,
 			ticketID: req.params.ticketID
 		}
-		dbUtils.API.findByKey(params.APIKEY, (success) => {
-			if ( success ){
+		dbUtils.API.findByKey(params.APIKEY, (data) => {
+			if ( data.success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
 					if ( ticket.IDStatus != 3 ){
@@ -74,7 +74,10 @@ module.exports = (router, dbUtils) => {
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 4, (ans) => {
 							if ( ans ){
-								res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (ans) => {
+									res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
+								})
+								
 							}
 						})
 					}
@@ -116,8 +119,8 @@ module.exports = (router, dbUtils) => {
 			APIKEY: req.params.APIKEY,
 			ticketID: req.params.ticketID
 		}
-		dbUtils.API.findByKey(params.APIKEY, (success) => {
-			if ( success ){
+		dbUtils.API.findByKey(params.APIKEY, (data) => {
+			if ( data.success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
 					console.log(ticket)
@@ -125,13 +128,15 @@ module.exports = (router, dbUtils) => {
 						// 5 IDStatus - продан
 						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
 							if ( ans ){
-								let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
-								res.json({
-									success: true, 
-									IDTicket: ticket.ID,
-									data: `sale ticket (ID:${params.ticketID}) success`, 
-									ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
-								}); 
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (trans) => {
+									let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
+									res.json({
+										success: true, 
+										IDTicket: ticket.ID,
+										data: `sale ticket (ID:${params.ticketID}) success`, 
+										ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
+									}); 
+								})
 							}
 						})
 						
