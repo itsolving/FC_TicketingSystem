@@ -83,7 +83,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 				console.log(data);
 				let errTickets = [];
 				data.forEach((ticket) => {
-					if (ticket.IDStatus != 3 || ticket.IDStatus != 4) errTickets.push(ticket.ID);
+					if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
 				})
 				if ( errTickets.length == 0 ){
 					let sSQL = '';
@@ -92,7 +92,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 						// 4 status - резерв ( в данном случае - кассовый резерв )
 						var sUpdate = `update public."tTicket" set "IDStatus" = 5
 										where "ID" = ${item}
-										AND "IDStatus" = 3;`;
+										AND "IDStatus" = 3 OR "IDStatus" = 4;`;
 						sSQL = sSQL + sUpdate;
 					})
 					db.db.any(sSQL)

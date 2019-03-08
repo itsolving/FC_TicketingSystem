@@ -134,14 +134,22 @@ class TicketUtils extends rootUtils{
 
 	}
 	setStatus(ticketID, statusID, next){
-		let sSQL = `update public."tTicket"
-					set "IDStatus" = ${statusID} 
-					where "ID" = ${ticketID}`;
+		this.getByID(ticketID, (ticket) => {
+			console.log(ticket);
+			this.getEventTickets(ticket.IDEvent, (event) => {
+				console.log(event)
+				if ( event.SaledTickets < event.SaledTickets || event.SaledTickets == null ){
+					let sSQL = `update public."tTicket"
+								set "IDStatus" = ${statusID} 
+								where "ID" = ${ticketID}`;
 
-		console.log(sSQL);
-		this.execute(sSQL, (data) => {
-			console.log(data);
-			next(data);
+					console.log(sSQL);
+					this.execute(sSQL, (data) => {
+						console.log(data);
+						next(data);
+					})
+				}
+			})
 		})
 		
 	}
@@ -212,17 +220,23 @@ class TicketUtils extends rootUtils{
 		})
 	}
 	multiStatus(data, next){
-		var sSQL = "";
-		data.tickets.forEach(function(tic) {
-			var sUpdate = `update public."tTicket" 
-							set "IDStatus" = 4
-							WHERE "ID" = ${tic.ID}`;
+		this.getByID(data[0].ID, (ticket) => {
+			this.getEventTickets(ticket.IDEvent, (event) => {
+				if ( event.SaledTickets < (event.SaledTickets + data.length) || event.SaledTickets == null ){
+					var sSQL = "";
+					data.tickets.forEach(function(tic) {
+						var sUpdate = `update public."tTicket" 
+										set "IDStatus" = 4
+										WHERE "ID" = ${tic.ID}`;
 
-			sSQL = sSQL + sUpdate;
-		});
+						sSQL = sSQL + sUpdate;
+					});
 
-		this.execute(sSQL, (data) => {
-			next(data);
+					this.execute(sSQL, (data) => {
+						next(data);
+					})
+				}
+			})
 		})
 	
 	}
@@ -303,6 +317,15 @@ class TicketUtils extends rootUtils{
 		this.execute(sSQL, (result) => {
 			next(result[0]);
 		})
+	}
+
+	getEventTickets(id, next){
+		let sSQL = `SELECT * FROM public."tEvent" WHERE "ID" = ${id}`;
+
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		}) 
 	}
 }
 

@@ -13,6 +13,7 @@ requireFu(__dirname + '/admin')(router, dbUtils, sAdminPageTitle);					// под
 
 setInterval(() => {
     dbUtils.Timer.analysis((data) => {
+    	console.log(data);
     	let ticketsID = [];
     	if ( data.length > 0 ){
     		data.forEach((item) => {
