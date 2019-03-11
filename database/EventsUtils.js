@@ -83,6 +83,7 @@ class EventsUtils extends rootUtils{
 		} else {
 			sSQL = `update public."tEvent" set
 					"Name"='${eventData.sEventName}',
+					"MaxTickets" = ${eventData.MaxTickets},
 					"ImgPath"='${eventData.sImgPath}',
 					"DateFrom"='${eventData.sDateFrom}',
 					"IDStadium"=${eventData.nStadiumID},
@@ -114,7 +115,7 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
+		var sSQL = `SELECT ev."ID", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
@@ -210,8 +211,8 @@ class EventsUtils extends rootUtils{
 
 	create(event, next){
 	
-		let sSQL = `insert into public."tEvent" ( "Name", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-				values('${event.Name}', '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+		let sSQL = `insert into public."tEvent" ( "Name", "MaxTickets", "SaledTickets" "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+				values('${event.Name}', ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
 
 		console.log(sSQL);
 
@@ -230,7 +231,23 @@ class EventsUtils extends rootUtils{
 
 		})
 	}
+	getEventTickets(id, next){
+		let sSQL = `SELECT * FROM public."tEvent" WHERE "ID" = ${id}`;
 
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		}) 
+	}
+	ChangeEventTickets(id, next){
+		let sSQL = `UPDATE public."tEvent" 
+					   SET "SaledTickets" = "SaledTickets" + 1
+					WHERE "ID" = ${id}`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
 
 
 }

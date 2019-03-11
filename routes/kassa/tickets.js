@@ -74,7 +74,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		console.log(params);
 		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
 		// 4 status - резерв ( в данном случае - кассовый резерв )
-		var sSQLQuery = `SELECT tic."IDStatus", tic."ID"
+		var sSQLQuery = `SELECT tic."IDStatus", tic."ID", tic."IDEvent"
 						FROM public."tTicket" tic
 						where "ID" in (${params['tickets[]']})`;
 		db.db.any(sSQLQuery)
@@ -106,9 +106,11 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 								sSQLTrans = sSQLTrans + sTransInsert;
 							});
 							db.db.any(sSQLTrans);
-							res.json({success: true})
+							dbUtils.Event.ChangeEventTickets(data[0].IDEvent, (next) => {
+								res.json({success: true});
+							})
+					   		
 						});
-						res.json({success: true})
 				}
 				else {
 					res.json({success: false, errTickets: errTickets});

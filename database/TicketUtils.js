@@ -138,15 +138,22 @@ class TicketUtils extends rootUtils{
 			console.log(ticket);
 			this.getEventTickets(ticket.IDEvent, (event) => {
 				console.log(event)
-				if ( event.SaledTickets < event.SaledTickets || event.SaledTickets == null ){
+				if ( event.SaledTickets < event.SaledTickets || event.MaxTickets == null ){
 					let sSQL = `update public."tTicket"
 								set "IDStatus" = ${statusID} 
 								where "ID" = ${ticketID}`;
 
 					console.log(sSQL);
 					this.execute(sSQL, (data) => {
-						console.log(data);
+						console.log("******* STATUSID = " + statusID);
+						if ( parseInt(statusID) == 5 ){
+							this.ChangeEventTickets(ticket.IDEvent, (back) => {
+								console.log(`Saled tickets event ${ticket.IDEvent} + 1`);
+							})
+						}
+						
 						next(data);
+						
 					})
 				}
 			})
@@ -326,6 +333,15 @@ class TicketUtils extends rootUtils{
 		this.execute(sSQL, (data) => {
 			next(data[0]);
 		}) 
+	}
+	ChangeEventTickets(id, next){
+		let sSQL = `UPDATE public."tEvent" 
+					   SET "SaledTickets" = "SaledTickets" + 1
+					WHERE "ID" = ${id}`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
 	}
 }
 

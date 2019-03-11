@@ -138,7 +138,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			nTemplateID:    req.body.templateID,
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
-			bshowAPI: 		req.body.showAPI
+			bshowAPI: 		req.body.showAPI,
+			MaxTickets:     req.body.MaxTickets
 		};
 
 		dbUtils.Event.update(eventData, (sResMsg) => {
@@ -275,7 +276,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			ShowOnline: 	req.body.showOnline,
 			ShowCasher: 	req.body.showCasher,
 			ShowAPI: 		req.body.showAPI,
-			IDStatus: 		1
+			IDStatus: 		1,
+			MaxTickets:     req.body.MaxTickets
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
