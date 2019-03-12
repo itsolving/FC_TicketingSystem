@@ -394,9 +394,9 @@ app.setContentTooltip = function (elem, checkHover) {
 app.setSeatsData = function (data) {
   var priceIndex = {};
   data = data.sector_rows;
- /* data.forEach(function(row){
+  /*data.forEach(function(row){
     var $line = $('g[data-line="'+row.RowN+'"]'),
-        $number = '<svg><text x="0" y="15" font-size="12" fill="rgba(0,0,0,0.8)">'+row.RowN+'</text></svg>';
+        $number = '<svg><text x="10" y="10" font-size="5" fill="rgb(62, 61, 61);">'+row.RowN+'</text></svg>';
     $line.append($number);
   });*/
 
