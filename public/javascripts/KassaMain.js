@@ -3,6 +3,8 @@ var result = parts[parts.length - 1];
 
 app = {};
 
+app.colors = ['#0078ff', '#feb914', '#ff88a4', '#1abba1', '#5abb34', '#b8bb00', '#bb7628', '#BB3325', '#BB0005'];
+
 app.id = result;
 
 app.cart = {
@@ -392,16 +394,19 @@ app.setContentTooltip = function (elem, checkHover) {
 app.setSeatsData = function (data) {
   var priceIndex = {};
   data = data.sector_rows;
+ /* data.forEach(function(row){
+    var $line = $('g[data-line="'+row.RowN+'"]'),
+        $number = '<svg><text x="0" y="15" font-size="12" fill="rgba(0,0,0,0.8)">'+row.RowN+'</text></svg>';
+    $line.append($number);
+  });*/
 
   for (var i = 0; i < data.length; ++i) {
     for (var i2 = 0; i2 < data[i].tickets.length; ++i2) {
       var seatData = data[i].tickets[i2];
       var $seat = $('[data-seat]:not([data-init])[data-line=' + seatData.RowN + '][data-seat=' + seatData.SeatN + ']');
-
       $seat.attr('data-show-tooltip', 'init-wait');
       $seat.attr('data-status', seatData.IDStatus);
       $seat.attr('data-price', seatData.Price);
-
       $seat.data('data', seatData);
       $seat.data('inCart', false);
       $seat.data('tooltip', {
@@ -411,6 +416,29 @@ app.setSeatsData = function (data) {
         price: '' + seatData.Price,
         seat: seatData.SeatN,
         line: seatData.RowN
+      });
+      $seat.each(function(){
+        if($(this).data('price') <= 600){
+          $(this).css('fill', app.colors[0]);
+        }else if($(this).data('price') <= 800){
+          $(this).css('fill', app.colors[1]);
+        }else if($(this).data('price') <= 1000){
+          $(this).css('fill', app.colors[2]);
+        }else if($(this).data('price') <= 2000){
+          $(this).css('fill', app.colors[3]);
+        }else if($(this).data('price') <= 5000){
+          $(this).css('fill', app.colors[4]);
+        }else if($(this).data('price') <= 7500){
+          $(this).css('fill', app.colors[5]);
+        }else if($(this).data('price') <= 10000){
+          $(this).css('fill', app.colors[6]);
+        }else if($(this).data('price') <= 25000){
+          $(this).css('fill', app.colors[7]);
+        }else if($(this).data('price') <= 50000){
+          $(this).css('fill', app.colors[8]);
+        }else if($(this).data('price') <= 100000){
+          $(this).css('fill', app.colors[9]);
+        }
       });
 
       if (seatData.IDStatus === 3) {
@@ -464,7 +492,6 @@ app.setSeatsData = function (data) {
   //   $seat.attr('data-init', true);
   // });
 
-  console.log(priceIndex)
   app.setListenerTooltip();
 };
 
