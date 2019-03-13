@@ -146,11 +146,7 @@ class TicketUtils extends rootUtils{
 					console.log(sSQL);
 					this.execute(sSQL, (data) => {
 						console.log("******* STATUSID = " + statusID);
-						if ( parseInt(statusID) == 5 ){
-							this.ChangeEventTickets(ticket.IDEvent, (back) => {
-								console.log(`Saled tickets event ${ticket.IDEvent} + 1`);
-							})
-						}
+						
 						
 						next(data);
 						
@@ -226,22 +222,21 @@ class TicketUtils extends rootUtils{
 			next(tickets)
 		})
 	}
-	multiStatus(data, next){
-		this.getByID(data[0].ID, (ticket) => {
+	multiStatus(data, statusID, next){
+		this.getByID(data[0], (ticket) => {
 			this.getEventTickets(ticket.IDEvent, (event) => {
-				if ( event.SaledTickets < (event.SaledTickets + data.length) || event.SaledTickets == null ){
-					var sSQL = "";
-					data.tickets.forEach(function(tic) {
-						var sUpdate = `update public."tTicket" 
-										set "IDStatus" = 4
-										WHERE "ID" = ${tic.ID}`;
+				if ( ( event.SaledTickets + data.length ) <= event.MaxTickets || event.MaxTickets == null ){
+					var sSQL = `update public."tTicket" 
+										set "IDStatus" = ${statusID}
+										WHERE "ID" in (${data}) `;
+					console.log(sSQL)
 
-						sSQL = sSQL + sUpdate;
-					});
-
-					this.execute(sSQL, (data) => {
-						next(data);
+					this.execute(sSQL, (ans) => {
+						next(ans);
 					})
+				}
+				else {
+					next({err: "max tickets err"})
 				}
 			})
 		})
@@ -334,11 +329,14 @@ class TicketUtils extends rootUtils{
 			next(data[0]);
 		}) 
 	}
-	ChangeEventTickets(id, next){
-		let sSQL = `UPDATE public."tEvent" 
-					   SET "SaledTickets" = "SaledTickets" + 1
-					WHERE "ID" = ${id}`;
+
+	customSelect(ids, next){
+		let sSQL = `SELECT tic."IDStatus", tic."ID", tic."IDEvent"
+						FROM public."tTicket" tic
+						where "ID" in (${ids})`;
+
 		console.log(sSQL);
+
 		this.execute(sSQL, (data) => {
 			next(data);
 		})

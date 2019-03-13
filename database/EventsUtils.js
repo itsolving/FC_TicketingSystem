@@ -239,9 +239,9 @@ class EventsUtils extends rootUtils{
 			next(data[0]);
 		}) 
 	}
-	ChangeEventTickets(id, next){
+	ChangeEventTickets(id, value, next){
 		let sSQL = `UPDATE public."tEvent" 
-					   SET "SaledTickets" = "SaledTickets" + 1
+					   SET "SaledTickets" = "SaledTickets" + ${value}
 					WHERE "ID" = ${id}`;
 		console.log(sSQL);
 		this.execute(sSQL, (data) => {
