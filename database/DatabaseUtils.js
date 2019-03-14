@@ -14,22 +14,24 @@ let abonement = require('./AbonementUtils.js'),
 	ticket    = require('./TicketUtils.js'),
 	template  = require('./TemplateUtils.js'),
 	api		  = require('./APIUtils.js'),
-	timer	  = require('./TimerUtils.js');
+	timer	  = require('./TimerUtils.js'),
+	pricecol  = require('./PriceColorUtils.js');
 // для всех
 
 let db = {
-	Abonement: new abonement(Client, conOptions),
-	Event: 	   new event(Client, conOptions),
-	Trans:     new trans(Client, conOptions),
-	Seat:      new seat(Client, conOptions),
-	Users:     new user(Client, conOptions),
-	Role:      new role(Client, conOptions),
-	City:      new city(Client, conOptions),
-	Stadium:   new stadium(Client, conOptions),
-	Ticket:    new ticket(Client, conOptions),
-	Template:  new template(Client, conOptions),
-	API: 	   new api(Client, conOptions),
-	Timer:     new timer(Client, conOptions)
+	Abonement:  new abonement(Client, conOptions),
+	Event: 	    new event(Client, conOptions),
+	Trans:      new trans(Client, conOptions),
+	Seat:       new seat(Client, conOptions),
+	Users:      new user(Client, conOptions),
+	Role:       new role(Client, conOptions),
+	City:       new city(Client, conOptions),
+	Stadium:    new stadium(Client, conOptions),
+	Ticket:     new ticket(Client, conOptions),
+	Template:   new template(Client, conOptions),
+	API: 	    new api(Client, conOptions),
+	Timer:      new timer(Client, conOptions),
+	PriceColor: new pricecol(Client, conOptions)
 }
 
 module.exports = db;
