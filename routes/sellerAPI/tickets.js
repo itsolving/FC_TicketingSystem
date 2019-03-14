@@ -127,7 +127,10 @@ module.exports = (router, dbUtils) => {
 					if ( ticket.IDStatus == 3 || ticket.IDStatus  == 4 ){
 						// 5 IDStatus - продан
 						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
-							if ( ans ){
+							if ( ans.err ){
+								res,json({err: ans.err});
+							}
+							else {
 								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (trans) => {
 									dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
 										let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))

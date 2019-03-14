@@ -138,7 +138,7 @@ class TicketUtils extends rootUtils{
 			console.log(ticket);
 			this.getEventTickets(ticket.IDEvent, (event) => {
 				console.log(event)
-				if ( event.SaledTickets < event.SaledTickets || event.MaxTickets == null ){
+				if ( ( event.SaledTickets + data.length ) <= event.MaxTickets || event.MaxTickets == null ){
 					let sSQL = `update public."tTicket"
 								set "IDStatus" = ${statusID} 
 								where "ID" = ${ticketID}`;
@@ -151,6 +151,9 @@ class TicketUtils extends rootUtils{
 						next(data);
 						
 					})
+				}
+				else {
+					next({err: "max tickers error"})
 				}
 			})
 		})
