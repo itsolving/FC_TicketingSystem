@@ -48,11 +48,15 @@
 													</div>
 													<div class="form-group">
 														<label for="eventTickets">Ограничение билетов:</label>
-														<input type="text" class="form-control" id="eventTickets" placeholder="Максимальное количество возможно проданных билетов" />
+														<input type="text" class="form-control" id="eventTickets" placeholder="200" />
 													</div>
 													<div class="form-group">
 														<label for="eventDateFrom">Начало:</label>
-														<input type="datetime-local" class="form-control" id="eventDateFrom" placeholder="начало" />
+														<input type="datetime-local" class="form-control" id="eventDateFrom" />
+													</div>
+													<div class="form-group">
+														<label for="eventDateto">Конец:</label>
+														<input type="datetime-local" class="form-control" id="eventDateto" />
 													</div>
 													<div class="form-group">
 														<label for="stadiumsList">Шаблон билета:</label>
@@ -200,6 +204,7 @@
 							data: {
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
+								Dateto: $("#eventDateto").val(),
 								stadiumID: $("select#stadiumsList").val(),
 								templateID: $("select#templatesList").val(),
 								eventAfisha: $('#eventImage').attr('src'),

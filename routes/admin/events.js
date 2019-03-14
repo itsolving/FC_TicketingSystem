@@ -270,14 +270,16 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		let eventData = {
 			Name: 			req.body.eventName,
 			ImgPath: 		req.body.eventAfisha,
-			sDateFrom: 		req.body.eventDateFrom,
+			DateFrom: 		req.body.eventDateFrom,
 			IDStadium: 		req.body.stadiumID,
 			IDTemplate:     req.body.templateID,
 			ShowOnline: 	req.body.showOnline,
 			ShowCasher: 	req.body.showCasher,
 			ShowAPI: 		req.body.showAPI,
 			IDStatus: 		1,
-			MaxTickets:     req.body.MaxTickets
+			MaxTickets:     req.body.MaxTickets,
+			IDUserCreator:  sessData.admControl.ID,
+			Dateto: 		req.body.Dateto
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
