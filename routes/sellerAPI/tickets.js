@@ -129,13 +129,16 @@ module.exports = (router, dbUtils) => {
 						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
 							if ( ans ){
 								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (trans) => {
-									let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
-									res.json({
-										success: true, 
-										IDTicket: ticket.ID,
-										data: `sale ticket (ID:${params.ticketID}) success`, 
-										ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
-									}); 
+									dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
+										let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
+										res.json({
+											success: true, 
+											IDTicket: ticket.ID,
+											data: `sale ticket (ID:${params.ticketID}) success`, 
+											ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
+										});
+									})
+									 
 								})
 							}
 						})
