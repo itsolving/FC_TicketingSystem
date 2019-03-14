@@ -278,8 +278,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			ShowAPI: 		req.body.showAPI,
 			IDStatus: 		1,
 			MaxTickets:     req.body.MaxTickets,
-			IDUserCreator:  sessData.admControl.ID,
-			Dateto: 		req.body.Dateto
+			IDUserCreator:  sessData.admControl.ID
 		};
 
 		dbUtils.Event.create(eventData,(data) => {

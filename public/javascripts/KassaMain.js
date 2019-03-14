@@ -615,7 +615,7 @@ app.momentReserve = function(ticket){
   $.post('/kassa/ticket/moment/reserve', ticket
     ,function (ans) {
          console.log(ans)  
-         if (ans.err) alert(ans.err);  
+         if (ans.err) console.err(ans.err);  
     });
 }
 
@@ -624,7 +624,7 @@ app.momentUnReserve = function(ticket){
   $.post('/kassa/ticket/moment/unreserve', ticket
     ,function (ans) {
          console.log(ans)
-         if (ans.err) alert(ans.err);  
+         if (ans.err) console.err(ans.err)
     });
 }
 

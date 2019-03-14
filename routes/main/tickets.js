@@ -261,7 +261,7 @@ module.exports = (router, db, dbUtils) => {
 													join public."tSeat" s on s."ID" = t."IDSeat" and s."IDRowN" = row_all."IDRowN"
 													join public."tStatus" st on st."ID" = t."IDStatus"
 													where 1=1
-													and t."IDEvent" = 1
+													and t."IDEvent" = ${eventID}
 													and t."IDStatus" in (3, 4, 5)
 												) tick_all
 												where 1=1

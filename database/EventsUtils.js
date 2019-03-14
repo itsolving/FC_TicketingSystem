@@ -17,10 +17,9 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
-					sd."Name" as "StadiumName", st."Name" as "StatusName",
-					(SELECT COUNT(*) FROM public."tTicket" tic WHERE tic."IDStatus" = 5 AND tic."IDEvent" = ev."ID") AS saledtickets
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
@@ -211,8 +210,8 @@ class EventsUtils extends rootUtils{
 
 	create(event, next){
 	
-		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "Dateto", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', '${event.Dateto || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
 
 		console.log(sSQL);
 
