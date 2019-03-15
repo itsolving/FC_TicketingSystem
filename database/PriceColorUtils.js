@@ -22,15 +22,21 @@ class PriceColorUtils extends rootUtils{
 	
 		let sSQL = `SELECT * FROM public."tPriceColor" WHERE "ID" = ${nID}`;
 		this.execute(sSQL, (data) => {
-			next(data);
+			next(data[0]);
 		})
 		
 	}
 
+	getByEvent(nID, next){
+		let sSQL = `SELECT * FROM public."tPriceColor" WHERE "IDEvent" = ${IDEvent}`;
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
 	getCustom(IDEvent, Price, next){
 		let sSQL = `SELECT * FROM public."tPriceColor" WHERE "IDEvent" = ${IDEvent} AND "Price" = ${Price}`;
 		this.execute(sSQL, (data) => {
-			next(data);
+			next(data[0]);
 		})
 	}
 	setCustom(IDEvent, Price, Color,  next){
@@ -42,9 +48,9 @@ class PriceColorUtils extends rootUtils{
 			next(data);
 		})
 	}
-	setByID(ID, Color, next){
+	setByID(ID, Price, Color, next){
 		let sSQL = `UPDATE public."tPriceColor" 
-					   SET "Color" = '${Color}'
+					   SET "Color" = '${Color}', "Price" = ${Price}
 					WHERE "ID" = ${ID}`;
 		this.execute(sSQL, (data) => {
 			next(data);
