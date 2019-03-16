@@ -24,7 +24,8 @@ class TimerUtils extends rootUtils{
 
 	update(ids, next){
 		let sSQL = `UPDATE public."tTicket" tic set "IDStatus" = 3 
-					WHERE tic."ID" in (${ids})`;
+					WHERE tic."ID" in (${ids})
+					AND tic."IDStatus" = 4`;
         console.log(sSQL);
 
 		this.execute(sSQL, (data) => {
