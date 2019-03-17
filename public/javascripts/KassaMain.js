@@ -3,8 +3,6 @@ var result = parts[parts.length - 1];
 
 app = {};
 
-app.colors = ['#0078ff', '#feb914', '#ff88a4', '#1abba1', '#5abb34', '#b8bb00', '#bb7628', '#BB3325', '#BB0005'];
-
 app.id = result;
 
 app.cart = {
@@ -400,6 +398,25 @@ app.setSeatsData = function (data) {
     $line.append($number);
   });*/
 
+  var colors = [];
+  $.ajax({
+    url: '/colors/get/byevent/' + app.id,
+    type: 'GET',
+    async: false
+  }).done(function(data) {
+     console.log(data);
+    colors = data;
+  }).fail(function(xhr)  {
+     // Todo something..
+  });
+  //  $.get(
+  //   '/colors/get/byevent/' + app.id,
+  //   null,
+  //    (data) => {
+  //     colors = data;
+  //   }, false
+  // );
+
   for (var i = 0; i < data.length; ++i) {
     for (var i2 = 0; i2 < data[i].tickets.length; ++i2) {
       var seatData = data[i].tickets[i2];
@@ -417,27 +434,15 @@ app.setSeatsData = function (data) {
         seat: seatData.SeatN,
         line: seatData.RowN
       });
-      $seat.each(function(){
-        if($(this).data('price') <= 600){
-          $(this).css('fill', app.colors[0]);
-        }else if($(this).data('price') <= 800){
-          $(this).css('fill', app.colors[1]);
-        }else if($(this).data('price') <= 1000){
-          $(this).css('fill', app.colors[2]);
-        }else if($(this).data('price') <= 2000){
-          $(this).css('fill', app.colors[3]);
-        }else if($(this).data('price') <= 5000){
-          $(this).css('fill', app.colors[4]);
-        }else if($(this).data('price') <= 7500){
-          $(this).css('fill', app.colors[5]);
-        }else if($(this).data('price') <= 10000){
-          $(this).css('fill', app.colors[6]);
-        }else if($(this).data('price') <= 25000){
-          $(this).css('fill', app.colors[7]);
-        }else if($(this).data('price') <= 50000){
-          $(this).css('fill', app.colors[8]);
-        }else if($(this).data('price') <= 100000){
-          $(this).css('fill', app.colors[9]);
+   
+      $seat.each(function() {
+        
+       
+        for(var i = 0;i < colors.length; i++){
+          if($(this).data('price') == parseInt(colors[i].Price)){
+            $(this).css('fill', colors[i].Color);
+            break;
+          }
         }
       });
 
@@ -448,6 +453,7 @@ app.setSeatsData = function (data) {
       $seat.attr('data-init', true);
     }
   }
+
 
   // $('[data-seat]:not([data-init])').each(function () {
   //   var $seat = $(this);

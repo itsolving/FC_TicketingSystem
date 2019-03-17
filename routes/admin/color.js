@@ -1,4 +1,4 @@
-module.exports = (router, db) => {
+module.exports = (router, dbUtils) => {
 	
 	router.post('/colors/new/', function(req, res){
 		let sAdminLogin = "",
@@ -29,6 +29,45 @@ module.exports = (router, db) => {
 					else res.json({err: "Fail color create"})
 				})
 			}
+		})
+
+	})
+
+	router.post('/colors/modify/', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let params = req.body;
+		params = JSON.stringify(params);
+		params = JSON.parse(params);
+		
+		params.items = JSON.parse(params.items);
+		console.log(params);
+
+		params.items.forEach((item) => {
+			console.log(item)
+			dbUtils.PriceColor.getCustom(params.IDEvent, item.price, (color) => {
+				console.log(color);
+				if ( color ){
+					dbUtils.PriceColor.setCustom(params.IDEvent, item.price, item.color, (ans) => {
+						console.log(`Color by this params (IDEvent: ${params.IDEvent}, data: ${item}) updated`);
+					})
+				}
+				else {
+					// создаем 
+					dbUtils.PriceColor.insert({IDEvent: params.IDEvent, Color: item.color, Price: item.price }, (ans) => {
+						console.log(`Color by this params (IDEvent: ${params.IDEvent}, data: ${item}) created`)
+					})
+				}
+			})
 		})
 
 	})
@@ -75,7 +114,7 @@ module.exports = (router, db) => {
 			Color:   req.body.Color
 		}
 
-		dbUtils.PriceColor.setByID(data.IDEvent, data.Price, data.Color , (color) => {
+		dbUtils.PriceColor.setCustom(data.IDEvent, data.Price, data.Color , (color) => {
 			res.json({success: true, data: `Color by this params (${data}) updated`})
 		})
 

@@ -27,7 +27,7 @@ class PriceColorUtils extends rootUtils{
 		
 	}
 
-	getByEvent(nID, next){
+	getByEvent(IDEvent, next){
 		let sSQL = `SELECT * FROM public."tPriceColor" WHERE "IDEvent" = ${IDEvent}`;
 		this.execute(sSQL, (data) => {
 			next(data);

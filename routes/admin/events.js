@@ -89,16 +89,21 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 							})
 						})
 						dbUtils.Template.getAll((templates) => {
-							res.render('admineventedit', {
-								title: sAdminPageTitle, 
-								adminLogin: sAdminLogin, 
-								eventData: rowEventData, 
-								eventID: nID, 
-								stadiums: stadiumList, 
-								sectors: sectorList, 
-								rownums: mainPrices,
-								templates: templates
-							});
+							dbUtils.PriceColor.getByEvent(rowEventData[0].ID, (colorData) => {
+								console.log(colorData)
+								res.render('admineventedit', {
+									title: sAdminPageTitle, 
+									adminLogin: sAdminLogin, 
+									eventData: rowEventData, 
+									eventID: nID, 
+									stadiums: stadiumList, 
+									sectors: sectorList, 
+									rownums: mainPrices,
+									templates: templates,
+									priceColor: colorData
+								});
+							})
+							
 						})
 						//console.log(mainPrices);
 					});

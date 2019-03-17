@@ -64,6 +64,8 @@
 														<label for="eventDateFrom">Начало:</label>
 														<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало" />
 													</div>
+
+													
 													<!--
 													<div class="form-group">
 														<label for="eventDateTo">Окончание:</label>
@@ -95,6 +97,11 @@
 															<% }); %>
 														</select>
 													</div>
+
+													<div class="form-group">
+														<button class="btn btn-primary pricecolor" type="button">Изменение цвета мест</button>
+													</div>
+												
 													<div class="form-group">
 														<% if (eventRow.ShowOnline) { %>
 															<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
@@ -183,35 +190,76 @@
 								</div>
 							</div>
 							<div class="form-group">
-												<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
-												<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
-												<p id="txResultMsg"></p>
-												<!-- HTML-код модального окна -->
-												<div id="myModalBox" class="modal fade">
-												  <div class="modal-dialog">
-												    <div class="modal-content">
-												      <!-- Заголовок модального окна -->
-												      <div class="modal-header">
-												      	<h4 class="modal-title">Подтверждение действия</h4>
-												        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												      </div>
-												      <!-- Основное содержимое модального окна -->
-												      <div class="modal-body">
-												        <!-- Вы действительно хотите удалить мероприятие? -->
-												        Выйти без сохранения изменений?
-												      </div>
-												      <!-- Футер модального окна -->
-												      <div class="modal-footer">
-												        
-												        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
-												        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
-												      </div>
-												    </div>
-												  </div>
-												</div>
-											</div>
+								<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
+								<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
+								<p id="txResultMsg"></p>
+								<!-- HTML-код модального окна -->
+								<div id="myModalBox" class="modal fade">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <!-- Заголовок модального окна -->
+								      <div class="modal-header">
+								      	<h4 class="modal-title">Подтверждение действия</h4>
+								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								      </div>
+								      <!-- Основное содержимое модального окна -->
+								      <div class="modal-body">
+								        <!-- Вы действительно хотите удалить мероприятие? -->
+								        Выйти без сохранения изменений?
+								      </div>
+								      <!-- Футер модального окна -->
+								      <div class="modal-footer">
+								        
+								        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+							</div>
 						</div>
 					</div>
+				</div>
+				<div id="colorModal" class="modal fade">
+				    <div class="modal-dialog">
+					    <div class="modal-content">
+					      <!-- Заголовок модального окна -->
+					      <div class="modal-header">
+					      	<h4 class="modal-title">Изменение цвета мест</h4>
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					      </div>
+					      <!-- Основное содержимое модального окна -->
+					      <div class="modal-body">
+					      	<div class="row justify-content-center" style="margin-bottom: 10px;">
+					      		<div class="col-3">
+					      			<button class="btn btn-success modal-add-price" style="font-size: 8px;">
+					      				<i class="fa fa-plus fa-1" aria-hidden="true"></i>
+					      			</button>
+					      		</div>
+					        </div>
+					        <form class="colorsdata">
+					        	<% priceColor.forEach(function(item) { %>
+									<div class="row justify-content-center" name="colorItem">
+							        	<div class="col-4">
+							        		<input type="number" class="form-control" value="<%= item.Price %>" readonly name="price">
+							        	</div>
+							        	<div class="col-1" style="margin-top: 5px;">
+							        		<input type="color" style="width: 30px; height: 30px;" value="<%= item.Color %>" name="color">
+							        	</div> 	
+							        </div>
+					        	<% }) %>
+					      
+					        </form>
+					       
+					      </div>
+					      <!-- Футер модального окна -->
+					      <div class="modal-footer">
+					        
+					        <button type="button" class="btn btn-success colorSave">Сохранить</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
+					      </div>
+					    </div>
+				    </div>
 				</div>
 				<script>
 					$(document).ready(function(){
@@ -244,6 +292,59 @@
 							}
 						});
 					};
+
+					$('.pricecolor').click(function(){
+						$('#colorModal').modal('show');
+					})
+					$('.modal-add-price').click(function(){
+						var htmlData = `<div class="row justify-content-center" name="colorItem">
+								        	<div class="col-4">
+								        		<input type="number" class="form-control" value="1000" name="price">
+								        	</div>
+								        	<div class="col-1" style="margin-top: 5px;">
+								        		<input type="color" style="width: 30px; height: 30px;" name="color">
+								        	</div> 	
+								        </div>`;
+						$('.colorsdata').append(htmlData);
+					})
+					$('.colorsdata').on('change', '.price-new', function(){
+						console.log(this)
+					})
+					$('.colorSave').click(function(){
+
+						var colors = $('.colorsdata').serializeArray();
+						console.log(colors)
+
+						let colorsNew = [];
+						for(var i = 0; i < colors.length; i = i + 2){
+							colorsNew.push({
+								price: colors[i].value,
+								color: colors[i+1].value
+							})
+						}
+						let data = {
+							IDEvent: $("#eventID").data("value"),
+							items: JSON.stringify(colorsNew)
+						}
+						console.log(data);
+							//---------------
+						$.post('/admin/colors/modify', data, function(ans){
+							console.log(ans);
+						})
+						// $.ajax({
+						// 	url: '/admin/colors/modify/',
+						// 	type: "POST",
+						// 	dataType: 'json',
+						// 	data: JSON.stringify(data),
+						// 	success: function(result){
+						// 		console.log(result);
+
+						// 	},
+						// 	error: function(err){
+						// 		console.log(err);
+						// 	}
+						// });
+					})
 
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;

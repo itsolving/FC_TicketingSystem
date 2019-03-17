@@ -1,4 +1,4 @@
-module.exports = (router, db) => {
+module.exports = (router, db, dbUtils) => {
 	router.get('/colors/get/byevent/:IDEvent', function(req, res){
 		let data = {
 			IDEvent: req.params.IDEvent
