@@ -23,7 +23,7 @@ class EventsUtils extends rootUtils{
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
-					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ 
+					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ 
 					 `;
 		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
 		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
@@ -77,7 +77,7 @@ class EventsUtils extends rootUtils{
 		client.connect();
 		var sSQL = "";
 		if (eventData.sPostOperation == "del") {
-			sSQL = 'update public."tEvent" set "IDStatus"=6 '+
+			sSQL = 'update public."tEvent" set "IDStatus"=2 '+
 					'where "ID" = '+eventData.nID;
 		} else {
 			sSQL = `update public."tEvent" set
@@ -123,7 +123,7 @@ class EventsUtils extends rootUtils{
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
-					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = ${nID} `;
+					where /* ev."IDStatus" = 1 */ /*and ev."Dateto" >= now()*/ ev."ID" = ${nID} `;
 
 		if ( api ) sSQL = sSQL + ' AND ev."ShowAPI" = true';
 
@@ -246,6 +246,22 @@ class EventsUtils extends rootUtils{
 		this.execute(sSQL, (data) => {
 			next(data);
 		})
+	}
+	getArchived(next){
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					FROM public."tEvent" ev
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tStatus" st on ev."IDStadium" = st."ID"
+					where ev."IDStatus" = 2 /*and ev."Dateto" >= now()*/ 
+					 order by ev."DateFrom", ev."ID"`;
+		console.log(sSQL);
+
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+
 	}
 
 

@@ -16,7 +16,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		dbUtils.Event.getAll((events) => {
-			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events});
+			if ( !events.length ) events = [];
+			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: false});
 		})
 	});
 
@@ -90,6 +91,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 						})
 						dbUtils.Template.getAll((templates) => {
 							dbUtils.PriceColor.getByEvent(rowEventData[0].ID, (colorData) => {
+								if ( !colorData.length ) colorData = [];
 								console.log(colorData)
 								res.render('admineventedit', {
 									title: sAdminPageTitle, 
@@ -293,4 +295,28 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		
 	})
+
+
+	//открытие страницы "localhost:3000/admin/events", отображение списка мероприятий
+	router.get('/archive/events', function(req, res, next) {
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+			console.log(sessData);
+		console.log("GET /admin/events");
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
+		}
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Event.getArchived((events) => {
+			if ( !events.length ) events = [];
+			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: true});
+		})
+	});
+
+
 }
