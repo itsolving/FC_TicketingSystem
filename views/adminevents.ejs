@@ -87,7 +87,7 @@
 																	<td scope="row">
 																		<div class="row justify-content-left">
 																			<div class="col-lg-4 col-6">
-																				<a class="btn btn-danger btn-sm" href="/admin/event/archive/<%= eventRow.ID %>">В архив</a>
+																				<button class="btn btn-danger btn-sm btn-archive" data-href="/admin/event/archive/<%= eventRow.ID %>">В архив</button>
 																			</div>
 																			<div class="col-lg-4 col-6">
 																				<a class="btn btn-success btn-sm" href="/admin/event/clone/<%= eventRow.ID %>">Копия</a>
@@ -109,50 +109,43 @@
 						</div>
 					</div>
 				</div>
+				<!-- HTML-код модального окна -->
+				<div id="myModalBox" class="modal fade">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <!-- Заголовок модального окна -->
+				      <div class="modal-header">
+				      	<h4 class="modal-title">Подтверждение действия</h4>
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				      </div>
+				      <!-- Основное содержимое модального окна -->
+				      <div class="modal-body">
+				        <!-- Вы действительно хотите удалить мероприятие? -->
+				        Переместить мероприятие в архив?
+				      </div>
+				      <!-- Футер модального окна -->
+				      <div class="modal-footer">
+				        
+				        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 				<script>
+					let obj = null;
 
-					$("#btnCreateEvent").click(function(){
-						console.log("btnCreateEvent click");
-						$("#resultCreateMsg").html('Создание нового мероприятия...');
-						//--------------
-						//TODO: after development this functional we must delete this command:
-						//ClearMsg("#resultCreateMsg");
-						//--------------
+					$('.btn-archive').click(function(){
+						obj = this;
+						$('#myModalBox').modal('show');
+					})
+					$('#deleteExecute').click(function(){
+						console.log(obj);
+						window.location.href = $(obj).attr('data-href');
+					})
 
-						$.ajax({
-							url: "/admin/events/",
-							type: "POST",
-							data: {
-								postOperation: "ins"
-							},
-							success: function(result){
-								console.log("POST /admin/events/ success");
-								console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
-								console.log(result);
-								//$("#resultCreateMsg").html("result.ID="+result.ID);
-								if(result.ID > 0){
-									window.location.replace("/admin/event/"+result.ID);
-								}
-								else {
-									$("#resultCreateMsg").html('Неизвестная ошибка при создании нового мероприятия');
-									ClearMsg("#resultCreateMsg");
-								}
-							},
-							error: function(err){
-								console.log("btnCreateEvent POST /admin/events/ error:");
-								console.log(err);
-								$("#resultCreateMsg").html('При создании нового мероприятия возникла ошибка: '+err);
-								//ClearMsg("#resultCreateMsg");
-							}
-						});
-					});
-
-					function ClearMsg(msgElement){
-						window.setTimeout( function(){
-							$(msgElement).html("");
-						}, 5000 );
-					}
 				</script>
+				
 			<% } else{ %>
 				<% include admloginform %>
 			<% } %>
