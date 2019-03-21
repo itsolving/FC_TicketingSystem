@@ -318,5 +318,25 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 	});
 
+	router.get('/event/pricechanger/:id', function(req, res, next){
+		let sAdminLogin = "",
+		sessData 	= req.session;
+		
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
+		}
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let eventID = req.params.id;
+		dbUtils.Event.getById(eventID, (data) => {
+			if( data.length > 0){
+				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sAdminLogin, EventName: data[0].Name});
+			}
+			else res.json({err: 'Event not found'})
+		}, false)
+	})
+
 
 }
