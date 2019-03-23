@@ -8,7 +8,7 @@
   <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/styles.css' />
   <script src="/javascripts/libs.js"></script>
-  <script src="/javascripts/KassaMain.js"></script>
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
@@ -17,7 +17,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="/javascripts/kassa.js"></script>
+  <% include sessionControl %>
 </head>
 
 <body>
@@ -34,6 +34,7 @@
         <div style="margin: auto; font-size: 15px;">
           <%= EventName %>
        </div>
+       <% if (user.cashier){ %>
         <ul class="navbar-nav">
     
           <div class="btn-group">
@@ -52,6 +53,7 @@
           <a href="/exit" class="btn btn-danger pull-right" style="font-size: 10px;">Выйти</a> -->
     
         </ul>
+        <% } %>
       </div>
     </div>
   </nav>
@@ -1695,7 +1697,9 @@
       тг.
     </div>
     
-    <div class="cart__buy">Купить</div>
+    <div class="cart__buy">
+      <% if (user.admin) { %> Изменить цену <% } else { %> Купить <% } %> 
+    </div>
   </div>
 
   <div class="tooltip" data-tooltip>
@@ -1734,6 +1738,32 @@
   </div>
 
 
+  <% if (user.admin){ %>
+    <div class="modal fade" id="modalPrice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Введите новую цену</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+          
+              <input type="number" class="form-control newPrice">
+              <label data-error="wrong" data-success="right" for="defaultForm-email">Новая цена</label>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-default priceChange-exec">Изменить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
   <a href="" class="open-pdf" style="display: none;" target="_blank"></a>
 </body>
 
