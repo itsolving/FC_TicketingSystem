@@ -525,9 +525,9 @@ app.handlerForAvaliableSeats = function () {
 app.addToCart = function (ticket, $seat) {
   var $cart = $('.cart');
 
-  if (app.cart.tickets.length >= 8) {
-    return;
-  }
+  // if (app.cart.tickets.length >= 8) {
+  //   return;
+  // }
 
   $('body').addClass('cart--is-open');
   $seat.addClass('in-cart');
