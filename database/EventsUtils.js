@@ -264,6 +264,16 @@ class EventsUtils extends rootUtils{
 
 	}
 
+	getActive(next){
+		let sSQL = `SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
 
 }
 

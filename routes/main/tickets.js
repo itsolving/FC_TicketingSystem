@@ -6,6 +6,7 @@ let bwipjs    = require('bwip-js'),
 
 module.exports = (router, db, dbUtils) => {
 	
+/*
 	//эта функция не используется, создавалась для вебстраницы со схемой зала
 	router.get('/gettickets/:idevent', function(req, res){
 		console.log('get /gettickets/idevent');
@@ -222,7 +223,7 @@ module.exports = (router, db, dbUtils) => {
 					TicketData: {}
 				});
 		}
-	});
+	}); */
 
 
 
@@ -296,62 +297,7 @@ module.exports = (router, db, dbUtils) => {
 						where 1=1
 						order by sectors."SectorName"
 					) t `;
-					////вариант 1
-					/*'select row_to_json(t) '
-					+'from ( '
-					+'	select sectors."SectorName", sectors."SectorRu", sectors."minPrice", sectors."maxPrice", sectors."seatsLeft", '
-					+'		( '
-					+'			select array_to_json(array_agg(row_to_json(rw))) '
-					+'			from '
-					+'			( '
-					+'				select row_all."RowN", '
-					+'					( '
-					+'						select array_to_json(array_agg(row_to_json(tick))) '
-					+'						from '
-					+'						( '
-					+'							select tick_all."IDSeat", tick_all."SeatN", tick_all."RowN", tick_all."SectorName", tick_all."SectorRu", tick_all."Tribune", tick_all."TicketID", tick_all."Barcode", tick_all."Price", tick_all."IDStatus", tick_all."StatusName" '
-					+'							from ( '
-					+'								SELECT t."Barcode", t."ID" as "TicketID", t."IDSeat", '
-					+'									s."SeatN", s."RowN", '
-					+'									t."Price"::numeric "Price", '
-					+'									t."IDStatus", st."Name" "StatusName", '
-					+'									s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-					+'								FROM public."tTicket" t '
-					+'								join public."tSeat" s on t."IDSeat" = s."ID" and upper(trim(s."SectorName")) = upper(\''+sectorName+'\') '
-					+'								join public."tStatus" st on t."IDStatus" = st."ID" '
-					+'								where t."IDEvent" = '+eventID+' '
-					+'								and t."IDStatus" in (3, 4, 5) '
-					+'							) tick_all '
-					+'							where tick_all."SectorName" = sectors."SectorName" and tick_all."RowN" = row_all."RowN" '
-					+'							order by tick_all."SectorName", tick_all."RowN", tick_all."SeatN" '
-					+'						) tick '
-					+'					) as "tickets" '
-					+'				from '
-					+'				( '
-					+'					SELECT s."RowN", s."Tribune", trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu" '
-					+'					FROM public."tSeat" s '
-					+'					where upper(trim(s."SectorName")) = upper(\''+sectorName+'\') '
-					+'					group by s."RowN", s."Tribune", trim(s."SectorName"), trim(s."SectorRu") '
-					+'				) row_all '
-					+'				where row_all."SectorName" = sectors."SectorName" '
-					+'				order by row_all."RowN" '
-					+'			) rw '
-					+'		) as "sector_rows" '
-					+'	from ( '
-					+'			SELECT trim(s."SectorName") "SectorName", trim(s."SectorRu") "SectorRu", '
-					+'				min(t."Price"::numeric) "minPrice", '
-					+'				max(t."Price"::numeric) "maxPrice", '
-					+'				count(case when t."IDStatus" = 3 then t."Price"::numeric end) "seatsLeft" '
-					+'			FROM public."tTicket" t '
-					+'			join public."tSeat" s on t."IDSeat" = s."ID" and upper(trim(s."SectorName")) = upper(\''+sectorName+'\') '
-					+'			where t."IDEvent" = '+eventID+' '
-					+'			and t."IDStatus" in (3, 4, 5) '
-					+'			group by trim(s."SectorName"), trim(s."SectorRu") '
-					+'		) sectors '
-					+'	where 1=1 '
-					+'  order by sectors."SectorName" '
-					+') t ';*/
-			//console.log(sSQL);
+				
 			db.db.any(sSQL)
 				.then(function(data){
 					console.log('tickets-sql finished success, eventID='+eventID+', sectorName='+sectorName);
@@ -394,228 +340,6 @@ module.exports = (router, db, dbUtils) => {
 					ReqStatus: 'error',
 					Message: 'event not found, so no tickets',
 					TicketData: {}
-				});
-		}
-	});
-
-	// НЕ ИСПОЛЬЗУЕТСЯ - сохранение факта продажи билетов из схемы зала по указанному мероприятию
-	router.post('/sendsaledtickets', function(req, res){
-		console.log('post /sendsaledtickets');
-		
-		//данные из сессии
-		var sLogin = "";
-		var nUserID = 0;
-		var events = {};
-		var sessData = req.session;
-		if(sessData.userLogin){
-			sLogin = sessData.userLogin;
-			nUserID = sessData.userID;
-			events = sessData.eventsList;
-		}
-		
-		var eventID = req.body.IDEvent;
-		var sectorName = req.body.SectorName;
-		var checkedSeats = req.body.CheckedSeats;
-		
-		var ticketsList = {};
-		var sSQL = "";
-		var sSQLTrans = "";
-		var sSQLTickets = "";
-		
-		console.log('eventID='+eventID+', sectorName='+sectorName);
-		console.log(checkedSeats);
-		
-		if (eventID !== 'undefined') {
-			sSQL = "";
-			checkedSeats.forEach(function(seat) {
-				var rowN = seat.RowN;
-				var seatN = seat.SeatN;
-				var seatPrice = seat.Price;
-				var sUpdate = 'update public."tTicket" set "IDStatus" = 5 where "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
-				sSQL = sSQL + sUpdate;
-			});
-			
-			//console.log(sSQL);
-			db.db.any(sSQL)
-				.then(function(){
-					//console.log('ticketsList: '+ JSON.stringify(data));
-					console.log('saled tickets statuses updated');
-					
-					sSQLTickets = 'select "ID", "IDStatus", "IDSeat", "IDEvent" from public."tTicket" where "IDStatus" = 5 and "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
-					db.db.any(sSQLTickets)
-						.then(function(tickets){
-							sSQLTrans = "";
-							tickets.forEach(function(tick) {
-								var ticketID = tick.ID;
-								
-								// TODO: how to get value of idticket?
-								var sTransInsert = 'insert into public."tTrans" ( "IDTicket", "Saledate", "IDUserSaler" ) values '
-													+'( '+ticketID+', now(), '+nUserID+' ); ';
-								sSQLTrans = sSQLTrans + sTransInsert;
-							});
-							db.db.any(sSQLTrans)
-								.then(function(){
-									console.log('transactions inserted');
-									res.status(200)
-										.json({
-											ReqStatus: 'success',
-											Message: 'saled tickets saved and transactions created'
-										});
-								})
-								.catch(function(errInsTr){
-									console.log('error of insert transactions of saled tickets:');
-									console.log(errInsTr);
-									res.status(errInsTr.status)
-										.json({
-											ReqStatus: 'error',
-											Message: 'cannot create transactions for saled tickets, event '+nEventID
-										});
-								});
-						})
-						.catch(function(errSrchTick){
-							console.log('error of search saled tickets:');
-							console.log(errSrchTick);
-							res.status(errSrchTick.status)
-								.json({
-									ReqStatus: 'error',
-									Message: 'cannot find saled tickets for event '+nEventID
-								});
-						});
-					
-					
-					
-				})
-				.catch(function(err){
-					//return next(err);
-					console.log('error of update saled tickets:');
-					console.log(err);
-					res.status(err.status)
-						.json({
-							ReqStatus: 'error',
-							Message: 'saling tickets not saved'
-						});
-				});
-		}
-		else {
-			res.status(404)
-				.json({
-					ReqStatus: 'error',
-					Message: 'event not found, so no tickets updated'
-				});
-		}
-	});
-	// НЕ ИСПОЛЬЗУЕТСЯ - версия2 - сохранение факта продажи билетов из схемы зала по указанному мероприятию
-	router.post('/sendsaledtickets2', function(req, res){
-		console.log('post /sendsaledtickets2');
-		
-		//данные из сессии
-		var sLogin = "";
-		var nUserID = 0;
-		var events = {};
-		var sessData = req.session;
-		if(sessData.userLogin){
-			sLogin = sessData.userLogin;
-			nUserID = sessData.userID;
-			events = sessData.eventsList;
-		}
-		
-		var seats = req.body.Seats;
-		/*var eventID = req.body.IDEvent;
-		var sectorName = req.body.SectorName;
-		var checkedSeats = req.body.CheckedSeats;*/
-		
-		var ticketsList = {};
-		var sSQL = "";
-		var sSQLTrans = "";
-		var sSQLTickets = "";
-		
-		console.log('seats:');
-		console.log(seats);
-		
-		if (seats.IDEvent !== 'undefined') {
-			var nEventID = seats.IDEvent;
-			sSQL = "";
-			seats.Seats.forEach(function(seat) {
-				var sectorName = seat.SectorName;
-				var rowN = seat.RowN;
-				var seatN = seat.SeatN;
-				var seatPrice = seat.Price;
-				var sUpdate = `update public."tTicket" set "IDStatus" = 5
-								where "IDSeat" in (select s."ID" from public."tSeat" s 
-													where s."SectorName" = \'`+sectorName+`\' 
-													and s."RowN" = `+rowN+` 
-													and s."SeatN" = `+seatN+`) 
-								and "IDEvent" = `+nEventID+`
-								and "IDStatus" = 3;`;
-				sSQL = sSQL + sUpdate;
-			});
-			
-			//console.log(sSQL);
-			db.db.any(sSQL)
-				.then(function(){
-					//console.log('ticketsList: '+ JSON.stringify(data));
-					console.log('saled tickets statuses updated');
-					
-					sSQLTickets = 'select "ID", "IDStatus", "IDSeat", "IDEvent" from public."tTicket" where "IDStatus" = 5 and "IDSeat" in (select s."ID" from public."tSeat" s where s."SectorName" = \''+sectorName+'\' and s."RowN" = '+rowN+' and s."SeatN" = '+seatN+') and "IDEvent" = '+nEventID+';';
-					db.db.any(sSQLTickets)
-						.then(function(tickets){
-							sSQLTrans = "";
-							tickets.forEach(function(tick) {
-								var ticketID = tick.ID;
-								
-								// TODO: how to get value of idticket?
-								var sTransInsert = 'insert into public."tTrans" ( "IDTicket", "Saledate", "IDUserSaler" ) values '
-													+'( '+ticketID+', now(), '+nUserID+' ); ';
-								sSQLTrans = sSQLTrans + sTransInsert;
-							});
-							db.db.any(sSQLTrans)
-								.then(function(){
-									console.log('transactions inserted');
-									res.status(200)
-										.json({
-											ReqStatus: 'success',
-											Message: 'saled tickets saved and transactions created'
-										});
-								})
-								.catch(function(errInsTr){
-									console.log('error of insert transactions of saled tickets:');
-									console.log(errInsTr);
-									res.status(errInsTr.status)
-										.json({
-											ReqStatus: 'error',
-											Message: 'cannot create transactions for saled tickets, event '+nEventID
-										});
-								});
-						})
-						.catch(function(errSrchTick){
-							console.log('error of search saled tickets:');
-							console.log(errSrchTick);
-							res.status(errSrchTick.status)
-								.json({
-									ReqStatus: 'error',
-									Message: 'cannot find saled tickets for event '+nEventID
-								});
-						});
-					
-					
-					
-				})
-				.catch(function(err){
-					//return next(err);
-					console.log('error of update saled tickets:');
-					console.log(err);
-					res.status(err.status)
-						.json({
-							ReqStatus: 'error',
-							Message: 'saling tickets not saved'
-						});
-				});
-		}
-		else {
-			res.status(404)
-				.json({
-					ReqStatus: 'error',
-					Message: 'event not found, so no tickets updated'
 				});
 		}
 	});

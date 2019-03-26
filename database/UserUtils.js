@@ -111,6 +111,18 @@ class UserUtils extends rootUtils{
 			next(sResMsg);
 		});
 	}
+
+	cashierLogin(login, next){
+		let sSQL = `SELECT "ID", "Login", "Pwd", "IDRole" 
+					FROM public."tUser" 
+					WHERE "isLock" = false and "IDRole" in (2,3,4) 
+					AND "Login" = '${login}'`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+
+	}
 }
 
 module.exports = UserUtils;

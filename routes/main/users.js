@@ -1,6 +1,6 @@
 let passwordHash = require('password-hash');
 
-module.exports = (router, db) => {
+module.exports = (router, db, dbUtils) => {
 	//выход из сессии
 	router.get('/exit', function(req, res){
 		req.session.destroy(function(err) {
@@ -36,11 +36,7 @@ module.exports = (router, db) => {
 		var sSQL = "";
 		var sessData = req.session;
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
-		console.log('req.body.txPassword='+req.body.txPassword+', hashedPassword = '+hashedPassword);
-		sSQL = 'SELECT "ID", "Login", "Pwd", "IDRole" FROM public."tUser" where "isLock" = false and "IDRole" in (2,3,4) and "Login" = \''+req.body.txLogin+'\'';
-		console.log(sSQL);
-		db.db.any(sSQL)
-			.then(function(data){
+		dbUtils.Users.cashierLogin(req.body.txLogin, (data) => {
 				console.log('data[0].Login='+data[0].Login+', data[0].Pwd='+data[0].Pwd);
 				if (passwordHash.verify(req.body.txPassword, data[0].Pwd)) {
 					console.log('user found:');
@@ -68,38 +64,17 @@ module.exports = (router, db) => {
 					}
 					console.log('sLogin='+sLogin);
 
-					sSQL = 'SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1';
-					console.log(sSQL);
-					db.db.any(sSQL)
-						.then(function(data){
-							console.log('events found:');
-							console.log(data);
-							events = data;
-							sessData.eventsList = data;
-							console.log('events: '+ JSON.stringify(events));
-
-							console.log('rendering page...');
-							console.log('sLogin='+sLogin);
-							res.redirect('/events');
-						})
-						.catch(function(err){
-							//return next(err);
-							console.log('error of search actual events:');
-							console.log(err);
-						});
+					dbUtils.Event.getActive((ans) =>{
+						events = ans;
+						sessData.eventsList = ans;
+						res.redirect('/events');
+					})
 				}
 				else {
 					sessData.errorMsg = "Неверный логин или пароль";
 					res.redirect('/cashier');
 				}
-			})
-			.catch(function(err){
-				//return next(err);
-				console.log('error of search user:');
-				console.log(err);
-				sessData.errorMsg = "Неверный логин или пароль!";
-				res.redirect('/cashier');
-			});
+		})
 	})
 
 }
