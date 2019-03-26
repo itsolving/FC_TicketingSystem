@@ -83,7 +83,8 @@ app.tribuneInit = function () {
         }
 
         var data = res.TicketData[0].row_to_json;
-        var available = data.seatsLeft > 0 ? true : false;
+        //var available = data.seatsLeft > 0 ? true : false;
+        var available = true;
 
         $tribune.attr('data-available-seats', available);
 
