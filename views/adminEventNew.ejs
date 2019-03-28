@@ -115,9 +115,11 @@
 						</div>
 					</div>
 				</div>
+				<div class="preloader hidden" data-preloader></div>
 				<script>
 					$(document).ready(function(){
 						//GetStadiumList();
+						
 					});
 
 					function GetStadiumList(){
@@ -148,6 +150,7 @@
 					};
 
 					$("#btnSaveEvent").on('click', function(){
+						console.log("new event click event");
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						//console.log("btnSaveEvent click: nEventID="+nEventID);
@@ -195,10 +198,15 @@
 						}
 						else {sShowAPI = "false";}
 
+						$('[data-preloader]').removeClass('hidden');
+ 						$('html').css('overflow', 'hidden');
+
 						//---------------
 						$.ajax({
 							url: sURL,
 							type: "POST",
+						 	// timeout: 0,
+						 	async: true,
 							data: {
 								eventName: $("#eventName").val(),
 								eventDateFrom: $("#eventDateFrom").val(),
@@ -213,11 +221,14 @@
 							success: function(result){
 								console.log("POST create /admin/events/new success: result="+result);
 							 	window.location = '/admin/events';
+						     	$('[data-preloader]').addClass('hidden');
+  								$('html').css('overflow', 'visible');
 
 							},
 							error: function(err){
-								console.log("POST /admin/event/id error:");
+								console.log("POST /admin/events/new error:");
 								console.log(err);
+								setTimeout(function() { window.location.href = '/admin/events' }, 3 * 60 * 1000);
 							}
 						});
 					});

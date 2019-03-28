@@ -289,7 +289,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
-			res.json(data);
+			res.json({success: true, text: "Event created"});
+			//res.json(data);
 		})
 		
 
