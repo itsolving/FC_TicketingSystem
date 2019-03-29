@@ -32,11 +32,12 @@ class APIUtils extends rootUtils{
 		let sSQL = `SELECT * FROM public."tAPI" api WHERE api."APIKey" = '${APIKEY}'`;
 
 		this.execute(sSQL, (data) => {
-			let success = false;
+			let answer = {success: false, userData: null};
 			if ( data.length > 0 ){
-				success = true;
+				answer.success = true;
+				answer.userData = data[0];
 			}
-			next(success);
+			next(answer);
 		})
 
 	}

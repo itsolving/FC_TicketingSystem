@@ -25,7 +25,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 				//nothing do here
 			})
 			if( data.length > 0){
-				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sLogin, EventName: data[0].Name});
+				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sLogin, EventName: data[0].Name, user: {cashier: true} });
 			}
 			else res.json({err: 'Event not found'})
 		}, false)

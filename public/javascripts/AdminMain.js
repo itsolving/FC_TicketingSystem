@@ -83,7 +83,8 @@ app.tribuneInit = function () {
         }
 
         var data = res.TicketData[0].row_to_json;
-        var available = data.seatsLeft > 0 ? true : false;
+        //var available = data.seatsLeft > 0 ? true : false;
+        var available = true;
 
         $tribune.attr('data-available-seats', available);
 
@@ -173,8 +174,14 @@ app.initFluid = function () {
     
     //------- beta
 
+    $('.priceChange-exec').click(function(){
+      app.changeprice();
+    })
+
      $('.cart__buy').on('click', function() {
-      app.reserve();
+      $('body').removeClass('cart--is-open');
+      $.fancybox.close();
+      $('#modalPrice').modal('show');
     });
 
      //------------
@@ -519,9 +526,9 @@ app.handlerForAvaliableSeats = function () {
 app.addToCart = function (ticket, $seat) {
   var $cart = $('.cart');
 
-  if (app.cart.tickets.length >= 8) {
-    return;
-  }
+  // if (app.cart.tickets.length >= 8) {
+  //   return;
+  // }
 
   $('body').addClass('cart--is-open');
   $seat.addClass('in-cart');
@@ -567,7 +574,7 @@ app.addToCart = function (ticket, $seat) {
   $(addedTicket).attr('data-cart-id', ticket.IDSeat);
 
   console.log(ticket);
-  app.momentReserve(ticket);
+ 
 };
 
 app.removeFromCart = function (ticket, $seat) {
@@ -594,7 +601,6 @@ app.removeFromCart = function (ticket, $seat) {
   }
 
   console.log(ticket, $seat);
-  app.momentUnReserve(ticket);
 };
 
 /*$('.cart__buy').on('click', function () {
@@ -614,57 +620,22 @@ app.removeFromCart = function (ticket, $seat) {
 });*/
 
 
-// BETA --------------------------------
 
-app.momentReserve = function(ticket){
-  console.log(ticket)
-  $.post('/kassa/ticket/moment/reserve', ticket
-    ,function (ans) {
-         console.log(ans)  
-         if (ans.err) console.err(ans.err);  
-    });
-}
-
-app.momentUnReserve = function(ticket){
-  console.log(ticket)
-  $.post('/kassa/ticket/moment/unreserve', ticket
-    ,function (ans) {
-         console.log(ans)
-         if (ans.err) console.err(ans.err)
-    });
-}
-
-
-app.reserve = function(){
+app.changeprice = function(){
   console.log(app.cart.tickets);
   if ( app.cart.tickets.length > 0 ){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/ticket/reserve', {
+    $.post('/admin/tickets/new/changeprice', {
           IDEvent: app.id,
-          tickets: tickets
+          tickets: tickets,
+          price: $('.newPrice').val()
         }, function (ans) {
            if ( ans.success ) { 
 
             $.fancybox.close();
-            app.cart.tickets = [];
-            if (!app.cart.tickets.length) {
-              $('body').removeClass('cart--is-open');
-            }
-
-            var tickids = '';
-
-            for ( var i = 0; i < tickets.length; i++){
-              if ( i == tickets.length-1 ){
-                tickids += `${tickets[i]}`;
-              } 
-              else {
-                tickids += `${tickets[i]},`;
-              }
-            }
-            $('.open-pdf').attr('href', `/kassa/get/tickets/${tickids}`);
-            $('.open-pdf')[0].click();
+           
             setTimeout(function(){
                window.location.reload(1);
             }, 200);

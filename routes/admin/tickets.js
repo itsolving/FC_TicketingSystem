@@ -138,4 +138,27 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		console.log(objData);
 	})
 
+	router.post('/tickets/new/changeprice', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let data = req.body;
+		console.log(data);
+
+		dbUtils.Ticket.setPriceByID(data, (ans) => {
+			console.log(ans);
+			res.json({success: true});
+		})
+	})
+
 }

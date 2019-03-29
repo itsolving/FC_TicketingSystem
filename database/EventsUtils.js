@@ -17,14 +17,13 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
-					sd."Name" as "StadiumName", st."Name" as "StatusName",
-					(SELECT COUNT(*) FROM public."tTicket" tic WHERE tic."IDStatus" = 5 AND tic."IDEvent" = ev."ID") AS saledtickets
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
-					where ev."IDStatus" in (1, 2) /*and ev."Dateto" >= now()*/ 
+					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ 
 					 `;
 		if ( api ) sSQL = sSQL + 'AND ev."ShowAPI" = true ';
 		sSQL = sSQL + 'order by ev."DateFrom", ev."ID"';
@@ -78,11 +77,12 @@ class EventsUtils extends rootUtils{
 		client.connect();
 		var sSQL = "";
 		if (eventData.sPostOperation == "del") {
-			sSQL = 'update public."tEvent" set "IDStatus"=6 '+
+			sSQL = 'update public."tEvent" set "IDStatus"=2 '+
 					'where "ID" = '+eventData.nID;
 		} else {
 			sSQL = `update public."tEvent" set
 					"Name"='${eventData.sEventName}',
+					"MaxTickets" = ${eventData.MaxTickets},
 					"ImgPath"='${eventData.sImgPath}',
 					"DateFrom"='${eventData.sDateFrom}',
 					"IDStadium"=${eventData.nStadiumID},
@@ -114,7 +114,7 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
+		var sSQL = `SELECT ev."ID", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
@@ -123,7 +123,7 @@ class EventsUtils extends rootUtils{
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
-					where ev."IDStatus" = 1 /*and ev."Dateto" >= now()*/ and ev."ID" = ${nID} `;
+					where /* ev."IDStatus" = 1 */ /*and ev."Dateto" >= now()*/ ev."ID" = ${nID} `;
 
 		if ( api ) sSQL = sSQL + ' AND ev."ShowAPI" = true';
 
@@ -210,8 +210,8 @@ class EventsUtils extends rootUtils{
 
 	create(event, next){
 	
-		let sSQL = `insert into public."tEvent" ( "Name", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-				values('${event.Name}', '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
 
 		console.log(sSQL);
 
@@ -230,6 +230,51 @@ class EventsUtils extends rootUtils{
 
 		})
 	}
+	getEventTickets(id, next){
+		let sSQL = `SELECT * FROM public."tEvent" WHERE "ID" = ${id}`;
+
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		}) 
+	}
+	ChangeEventTickets(id, value, next){
+		let sSQL = `UPDATE public."tEvent" 
+					   SET "SaledTickets" = "SaledTickets" + ${value}
+					WHERE "ID" = ${id}`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	getArchived(next){
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
+					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					FROM public."tEvent" ev
+					join public."tStadium" sd on ev."IDStadium" = sd."ID"
+					join public."tStatus" st on ev."IDStadium" = st."ID"
+					where ev."IDStatus" = 2 /*and ev."Dateto" >= now()*/ 
+					 order by ev."DateFrom", ev."ID"`;
+		console.log(sSQL);
+
+		this.execute(sSQL, (events) => {
+			next(events);
+		})
+
+	}
+
+	getActive(next){
+		let sSQL = `SELECT "ID", "Name", "ImgPath", "DateFrom" FROM public."tEvent" where "IDStatus" = 1`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
+
 }
 
 module.exports = EventsUtils;

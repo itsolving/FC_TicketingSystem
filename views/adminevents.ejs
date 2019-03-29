@@ -31,12 +31,14 @@
 					<div id="workArea" class="content">
 						<div class="container-fluid">
 							<div class="col-md-12">
-								<h2>Мероприятия (тест2)</h2>
+								<h2>Мероприятия</h2>
 							</div>
-							<div class="col-md-12">
-								<a class="btn btn-primary btn-create-event" href="/admin/events/new">Создать новое</a>
-								<p id="resultCreateMsg"></p>
-							</div>
+							<% if(archive == false ){ %>
+								<div class="col-md-12">
+									<a class="btn btn-primary btn-create-event" href="/admin/events/new">Создать новое</a>
+									<p id="resultCreateMsg"></p>
+								</div>
+							<% } %>
 							<% if(eventsList) { %>
 								<div class="col-md-12">
 									<div class="card">
@@ -48,9 +50,12 @@
 														<th scope="col">Название</th>
 														<th scope="col">Дата и время</th>
 														<th scope="col">Статус</th>
+														<th scope="col">Ограничение</th>
 														<th scope="col">Продаж</th>
 														<th scope="col">Афиша</th>
-														<th scope="col">Функции</th>
+														<% if(archive == false ){ %>
+															<th scope="col">Функции</th>
+														<% } %>
 													</thead>
 													<tbody>
 														<% eventsList.forEach(function(eventRow) { %>
@@ -68,24 +73,30 @@
 																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.StatusName %></a>
 																</td>
 																<td>
-																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.saledtickets %></a>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.MaxTickets %></a>
+																</td>
+																<td>
+																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.SaledTickets %></a>
 																</td>
 																<td>
 																	<a href="<%= eventRow.ImgPath %>" target="_blank">
 																		<img src="<%= eventRow.ImgPath %>" width="50px" height="50px" alt="<%= eventRow.Name %>" />
 																	</a>
 																</td>
-																<td scope="row">
-																	<div class="row justify-content-left">
-																		<div class="col-lg-4 col-6">
-																			<a class="btn btn-danger btn-sm" href="/admin/event/archive/<%= eventRow.ID %>">В архив</a>
+																<% if(archive == false ){ %>
+																	<td scope="row">
+																		<div class="row justify-content-left">
+																			<div class="col-lg-4 col-6">
+																				<button class="btn btn-danger btn-sm btn-archive" data-href="/admin/event/archive/<%= eventRow.ID %>">В архив</button>
+																			</div>
+																			<div class="col-lg-4 col-6">
+																				<a class="btn btn-success btn-sm" href="/admin/event/clone/<%= eventRow.ID %>">Копия</a>
+																			</div>
 																		</div>
-																		<div class="col-lg-4 col-6">
-																			<a class="btn btn-success btn-sm" href="/admin/event/clone/<%= eventRow.ID %>">Копия</a>
-																		</div>
-																	</div>
-																	
-																</td>
+																		
+																	</td>
+																<% } %>
+																
 															</tr>
 														<% }); %>
 													</tbody>
@@ -98,50 +109,43 @@
 						</div>
 					</div>
 				</div>
+				<!-- HTML-код модального окна -->
+				<div id="myModalBox" class="modal fade">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <!-- Заголовок модального окна -->
+				      <div class="modal-header">
+				      	<h4 class="modal-title">Подтверждение действия</h4>
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				      </div>
+				      <!-- Основное содержимое модального окна -->
+				      <div class="modal-body">
+				        <!-- Вы действительно хотите удалить мероприятие? -->
+				        Переместить мероприятие в архив?
+				      </div>
+				      <!-- Футер модального окна -->
+				      <div class="modal-footer">
+				        
+				        <button type="button" class="btn btn-danger" id="deleteExecute">Да</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 				<script>
+					let obj = null;
 
-					$("#btnCreateEvent").click(function(){
-						console.log("btnCreateEvent click");
-						$("#resultCreateMsg").html('Создание нового мероприятия...');
-						//--------------
-						//TODO: after development this functional we must delete this command:
-						//ClearMsg("#resultCreateMsg");
-						//--------------
+					$('.btn-archive').click(function(){
+						obj = this;
+						$('#myModalBox').modal('show');
+					})
+					$('#deleteExecute').click(function(){
+						console.log(obj);
+						window.location.href = $(obj).attr('data-href');
+					})
 
-						$.ajax({
-							url: "/admin/events/",
-							type: "POST",
-							data: {
-								postOperation: "ins"
-							},
-							success: function(result){
-								console.log("POST /admin/events/ success");
-								console.log("result.ID="+result.ID+", ResultMsg="+result.ResultMsg);
-								console.log(result);
-								//$("#resultCreateMsg").html("result.ID="+result.ID);
-								if(result.ID > 0){
-									window.location.replace("/admin/event/"+result.ID);
-								}
-								else {
-									$("#resultCreateMsg").html('Неизвестная ошибка при создании нового мероприятия');
-									ClearMsg("#resultCreateMsg");
-								}
-							},
-							error: function(err){
-								console.log("btnCreateEvent POST /admin/events/ error:");
-								console.log(err);
-								$("#resultCreateMsg").html('При создании нового мероприятия возникла ошибка: '+err);
-								//ClearMsg("#resultCreateMsg");
-							}
-						});
-					});
-
-					function ClearMsg(msgElement){
-						window.setTimeout( function(){
-							$(msgElement).html("");
-						}, 5000 );
-					}
 				</script>
+				
 			<% } else{ %>
 				<% include admloginform %>
 			<% } %>

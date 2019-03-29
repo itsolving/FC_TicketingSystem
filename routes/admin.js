@@ -11,4 +11,20 @@ let express 		= require('express'),
 requireFu(__dirname + '/admin')(router, dbUtils, sAdminPageTitle);					// подключение всего админ роутинга из /admin/
 
 
+setInterval(() => {
+    dbUtils.Timer.analysis((data) => {
+    	console.log(data);
+    	let ticketsID = [];
+    	if ( data.length > 0 ){
+    		data.forEach((item) => {
+	    		ticketsID.push(item.IDTicket);
+	    	})
+
+	    	dbUtils.Timer.update(ticketsID, (ans) => {
+	    		console.log(ans);
+	    	})
+    	}
+    })
+}, 60 * 1000);
+
 module.exports = router;

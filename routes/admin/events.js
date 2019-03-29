@@ -16,7 +16,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		dbUtils.Event.getAll((events) => {
-			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events});
+			if ( !events.length ) events = [];
+			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: false});
 		})
 	});
 
@@ -89,16 +90,22 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 							})
 						})
 						dbUtils.Template.getAll((templates) => {
-							res.render('admineventedit', {
-								title: sAdminPageTitle, 
-								adminLogin: sAdminLogin, 
-								eventData: rowEventData, 
-								eventID: nID, 
-								stadiums: stadiumList, 
-								sectors: sectorList, 
-								rownums: mainPrices,
-								templates: templates
-							});
+							dbUtils.PriceColor.getByEvent(rowEventData[0].ID, (colorData) => {
+								if ( !colorData.length ) colorData = [];
+								console.log(colorData)
+								res.render('admineventedit', {
+									title: sAdminPageTitle, 
+									adminLogin: sAdminLogin, 
+									eventData: rowEventData, 
+									eventID: nID, 
+									stadiums: stadiumList, 
+									sectors: sectorList, 
+									rownums: mainPrices,
+									templates: templates,
+									priceColor: colorData
+								});
+							})
+							
 						})
 						//console.log(mainPrices);
 					});
@@ -138,7 +145,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			nTemplateID:    req.body.templateID,
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
-			bshowAPI: 		req.body.showAPI
+			bshowAPI: 		req.body.showAPI,
+			MaxTickets:     req.body.MaxTickets
 		};
 
 		dbUtils.Event.update(eventData, (sResMsg) => {
@@ -269,20 +277,67 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		let eventData = {
 			Name: 			req.body.eventName,
 			ImgPath: 		req.body.eventAfisha,
-			sDateFrom: 		req.body.eventDateFrom,
+			DateFrom: 		req.body.eventDateFrom,
 			IDStadium: 		req.body.stadiumID,
 			IDTemplate:     req.body.templateID,
 			ShowOnline: 	req.body.showOnline,
 			ShowCasher: 	req.body.showCasher,
 			ShowAPI: 		req.body.showAPI,
-			IDStatus: 		1
+			IDStatus: 		1,
+			MaxTickets:     req.body.MaxTickets,
+			IDUserCreator:  sessData.admControl.ID
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
-			res.json(data);
+			res.json({success: true, text: "Event created"});
+			//res.json(data);
 		})
 		
 
 		
 	})
+
+
+	//открытие страницы "localhost:3000/admin/events", отображение списка мероприятий
+	router.get('/archive/events', function(req, res, next) {
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+			console.log(sessData);
+		console.log("GET /admin/events");
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
+		}
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Event.getArchived((events) => {
+			if ( !events.length ) events = [];
+			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: true});
+		})
+	});
+
+	router.get('/event/pricechanger/:id', function(req, res, next){
+		let sAdminLogin = "",
+		sessData 	= req.session;
+		
+		if(sessData.admControl){
+			sAdminLogin = sessData.admControl.Login;
+		}
+		else {
+			res.redirect('/admin');
+			return;
+		}
+		let eventID = req.params.id;
+		dbUtils.Event.getById(eventID, (data) => {
+			if( data.length > 0){
+				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sAdminLogin, EventName: data[0].Name, user: {admin: true} });
+			}
+			else res.json({err: 'Event not found'})
+		}, false)
+	})
+
+
 }

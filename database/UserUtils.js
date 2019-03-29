@@ -97,10 +97,10 @@ class UserUtils extends rootUtils{
 		client.query(sSQL, (qerr, qres) => {
 			var sResMsg = "";
 			if (userData.sPostOperation == "del") {
-				sResMsg = "Удалил";
+				sResMsg = "Удалено";
 			}
 			else {
-				sResMsg = "Сохранил";
+				sResMsg = "Сохранено";
 			}
 			if (qerr) {
 				console.log("qerr:");
@@ -110,6 +110,18 @@ class UserUtils extends rootUtils{
 			client.end();
 			next(sResMsg);
 		});
+	}
+
+	cashierLogin(login, next){
+		let sSQL = `SELECT "ID", "Login", "Pwd", "IDRole" 
+					FROM public."tUser" 
+					WHERE "isLock" = false and "IDRole" in (2,3,4) 
+					AND "Login" = '${login}'`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+
 	}
 }
 

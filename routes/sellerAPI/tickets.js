@@ -20,6 +20,8 @@
  */
 /* ----------------------------------------------------------- */
 
+let md5 = require('md5');
+
 
 
 module.exports = (router, dbUtils) => {
@@ -62,17 +64,20 @@ module.exports = (router, dbUtils) => {
 			APIKEY: req.params.APIKEY,
 			ticketID: req.params.ticketID
 		}
-		dbUtils.API.findByKey(params.APIKEY, (success) => {
-			if ( success ){
+		dbUtils.API.findByKey(params.APIKEY, (data) => {
+			if ( data.success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID != 3 ){
+					if ( ticket.IDStatus != 3 ){
 						res.json({err: "ticket is not available"})
 					}
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 4, (ans) => {
 							if ( ans ){
-								res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (ans) => {
+									res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
+								})
+								
 							}
 						})
 					}
@@ -114,20 +119,36 @@ module.exports = (router, dbUtils) => {
 			APIKEY: req.params.APIKEY,
 			ticketID: req.params.ticketID
 		}
-		dbUtils.API.findByKey(params.APIKEY, (success) => {
-			if ( success ){
+		dbUtils.API.findByKey(params.APIKEY, (data) => {
+			if ( data.success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
-					if ( ticket.statusID != 3 ){
-						res.json({err: "ticket is not available"})
-					}
-					else {	
+					console.log(ticket)
+					if ( ticket.IDStatus == 3 || ticket.IDStatus  == 4 ){
 						// 5 IDStatus - продан
 						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
-							if ( ans ){
-								res.json({success: true, data: `sale ticket (ID:${params.ticketID}) success`})
+							if ( ans.err ){
+								res,json({err: ans.err});
+							}
+							else {
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (trans) => {
+									dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
+										let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
+										res.json({
+											success: true, 
+											IDTicket: ticket.ID,
+											data: `sale ticket (ID:${params.ticketID}) success`, 
+											ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
+										});
+									})
+									 
+								})
 							}
 						})
+						
+					}
+					else {	
+						res.json({err: "ticket is not available"})
 					}
 				})
 			}

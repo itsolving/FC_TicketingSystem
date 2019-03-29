@@ -4,59 +4,14 @@ let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
 
 module.exports = (router, db, PageTitle, dbUtils) => {
 
-	//дополнительная проверка билетов
-	// оставил в коде, может еще понадобиться 
-	router.post('/ticket/approve', function(req, res, next){
-		console.log('post /kassa/beta/ticket/approve');
-		//данные из сессии
-		var sLogin = "";
-		var nUserID = 0;
-		var events = {};
-		var sessData = req.session;
-		if(sessData.cashier){
-			sLogin = sessData.userLogin;
-			nUserID = sessData.userID;
-			events = sessData.eventsList;
-		}
-		else {
-			res.redirect('/');
-			//res.json({err: "no success"});
-			return;
-		}
-		let params = req.body;
-		params = JSON.stringify(params);
-		params = JSON.parse(params);
-		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
-		
-		// 4 status - резерв ( в данном случае - кассовый резерв )
-		var sSQL = `SELECT tic."IDStatus", tic."ID"
-						FROM public."tTicket" tic
-						where "ID" in (${params['tickets[]']})`;
-		db.db.any(sSQL)
-			.then((data) => {
-				console.log(data);
-				let errTickets = [];
-				data.forEach((ticket) => {
-					if (ticket.IDStatus != 3) errTickets.push(ticket.ID);
-				})
-				if ( errTickets.length == 0 ){
-					// approve всех билетов произошел
-					res.json({success: true})
-				}
-				else {
-					res.json({success: false, errTickets: errTickets});
-					console.log(errTickets);
-				}
-			})
-	});
-
-	//вход на страницу выбранного мероприятия
+	// покупка билетов
 	router.post('/ticket/reserve/', function(req, res, next){
 		//данные из сессии
-		var sLogin = "";
-		var nUserID = 0;
-		var events = {};
-		var sessData = req.session;
+		let sLogin   = "",
+		 	nUserID  = 0,
+		 	events   = {},
+		 	sessData = req.session;
+
 		if(sessData.cashier){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
@@ -64,57 +19,44 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		}
 		else {
 			res.redirect('/');
-			//res.json({err: "no success"});
 			return;
 		}
 		// нужна проверка на авторизацию кассы
 		let params = req.body;
 		params = JSON.stringify(params);
 		params = JSON.parse(params);
-		console.log(params);
-		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
-		// 4 status - резерв ( в данном случае - кассовый резерв )
-		var sSQLQuery = `SELECT tic."IDStatus", tic."ID"
-						FROM public."tTicket" tic
-						where "ID" in (${params['tickets[]']})`;
-		db.db.any(sSQLQuery)
-			.then((data) => {
-				let sSQL = '';
-				console.log(data);
-				let errTickets = [];
-				data.forEach((ticket) => {
-					if (ticket.IDStatus != 3) errTickets.push(ticket.ID);
-				})
-				if ( errTickets.length == 0 ){
-					let sSQL = '';
-					// approve всех билетов произошел
-					params['tickets[]'].forEach((item) => {
-						// 4 status - резерв ( в данном случае - кассовый резерв )
-						var sUpdate = `update public."tTicket" set "IDStatus" = 5
-										where "ID" = ${item}
-										AND "IDStatus" = 3;`;
-						sSQL = sSQL + sUpdate;
-					})
-					db.db.any(sSQL)
-						.then(() => {
-							let sSQLTrans = '';
-							params['tickets[]'].forEach(function(item) {
 
-								var sTransInsert = `insert into public."tTrans" 
-														( "IDTicket", "Saledate", "IDUserSaler" ) values 
-														( ${item}, now(), ${sessData.cashier.ID} ); `;
-								sSQLTrans = sSQLTrans + sTransInsert;
-							});
-							db.db.any(sSQLTrans);
-							res.json({success: true})
-						});
-						res.json({success: true})
-				}
-				else {
-					res.json({success: false, errTickets: errTickets});
-					console.log(errTickets);
-				}
+		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
+		let tickets = params['tickets[]'];
+		
+		dbUtils.Ticket.customSelect(tickets, (data) => {
+			console.log(data)
+			let sSQL = '';
+			let errTickets = [];
+			data.forEach((ticket) => {
+				if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
 			})
+			if ( errTickets.length == 0 ){
+				
+				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
+					if ( ans.err ){
+						res.json({success: false, errTickets: tickets});
+					}
+					else {
+						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+							dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
+								res.json({success: true});
+							})
+						})
+					}
+					
+				})
+			}
+			else {
+				res.json({success: false, errTickets: errTickets});
+				console.log(errTickets);
+			}
+		})
 	})
 
 
@@ -171,7 +113,7 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 		})
 	})
 
-	router.post('/ticket/momentreserve', function(req, res){
+	router.post('/ticket/moment/reserve', function(req, res){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;
@@ -188,15 +130,45 @@ module.exports = (router, db, PageTitle, dbUtils) => {
 			return;
 		}
 		let tickID = req.body.TicketID;
-		res.json(req.body);
+		dbUtils.Ticket.getByID(tickID, (ticket) => {
+			if (ticket.IDStatus == 3 ){
+				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
+					dbUtils.Trans.insert(tickID, sessData.cashier.ID, (ans) => {
+						res.json({success: true});
+					})
+				})
+			}
+			else res.json({err: "Ticket is not available!"});
+		})
+
+
+	})
+
+	router.post('/ticket/moment/unreserve', function(req, res){
+		//данные из сессии
+		var sLogin = "";
+		var nUserID = 0;
+		var events = {};
+		var sessData = req.session;
+		if(sessData.cashier){
+			sLogin = sessData.userLogin;
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
+		else {
+			res.redirect('/');
+			//res.json({err: "no success"});
+			return;
+		}
+		let tickID = req.body.TicketID;
 
 		dbUtils.Ticket.getByID(tickID, (ticket) => {
-			if (ticket.status == 3 ){
-				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
+			if (ticket.IDStatus == 4 ){
+				dbUtils.Ticket.setStatus(tickID, 3, (data) => {
 					res.json({success: true});
 				})
 			}
-			else res.json({err: "Ticket status error!"});
+			else res.json({err: "Ticket is not reserved!"});
 		})
 
 

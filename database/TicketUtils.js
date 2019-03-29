@@ -134,14 +134,28 @@ class TicketUtils extends rootUtils{
 
 	}
 	setStatus(ticketID, statusID, next){
-		let sSQL = `update public."tTicket"
-					set "IDStatus" = ${statusID} 
-					where "ID" = ${ticketID}`;
+		this.getByID(ticketID, (ticket) => {
+			console.log(ticket);
+			this.getEventTickets(ticket.IDEvent, (event) => {
+				console.log(event)
+				if ( ( event.SaledTickets + 1 ) <= event.MaxTickets || event.MaxTickets == null || statusID != 5 ){
+					let sSQL = `update public."tTicket"
+								set "IDStatus" = ${statusID} 
+								where "ID" = ${ticketID}`;
 
-		console.log(sSQL);
-		this.execute(sSQL, (data) => {
-			console.log(data);
-			next(data);
+					console.log(sSQL);
+					this.execute(sSQL, (data) => {
+						console.log("******* STATUSID = " + statusID);
+						
+						
+						next(data);
+						
+					})
+				}
+				else {
+					next({err: "max tickers error"})
+				}
+			})
 		})
 		
 	}
@@ -211,18 +225,23 @@ class TicketUtils extends rootUtils{
 			next(tickets)
 		})
 	}
-	multiStatus(data, next){
-		var sSQL = "";
-		data.tickets.forEach(function(tic) {
-			var sUpdate = `update public."tTicket" 
-							set "IDStatus" = 4
-							WHERE "ID" = ${tic.ID}`;
+	multiStatus(data, statusID, next){
+		this.getByID(data[0], (ticket) => {
+			this.getEventTickets(ticket.IDEvent, (event) => {
+				if ( ( event.SaledTickets + data.length ) <= event.MaxTickets || event.MaxTickets == null ){
+					var sSQL = `update public."tTicket" 
+										set "IDStatus" = ${statusID}
+										WHERE "ID" in (${data}) `;
+					console.log(sSQL)
 
-			sSQL = sSQL + sUpdate;
-		});
-
-		this.execute(sSQL, (data) => {
-			next(data);
+					this.execute(sSQL, (ans) => {
+						next(ans);
+					})
+				}
+				else {
+					next({err: "max tickets err"})
+				}
+			})
 		})
 	
 	}
@@ -302,6 +321,37 @@ class TicketUtils extends rootUtils{
 						"IDTicket" = ${ticket.ID}`;
 		this.execute(sSQL, (result) => {
 			next(result[0]);
+		})
+	}
+
+	getEventTickets(id, next){
+		let sSQL = `SELECT * FROM public."tEvent" WHERE "ID" = ${id}`;
+
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		}) 
+	}
+
+	customSelect(ids, next){
+		let sSQL = `SELECT tic."IDStatus", tic."ID", tic."IDEvent"
+						FROM public."tTicket" tic
+						where "ID" in (${ids})`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	setPriceByID(data, next){
+		let sSQL = `update public."tTicket" 
+						set "Price" = ${data.price}
+						WHERE "ID" in (${data['tickets[]']})`;
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
 		})
 	}
 }
