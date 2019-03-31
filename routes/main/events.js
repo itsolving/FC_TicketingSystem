@@ -2,7 +2,7 @@ let passwordHash = require('password-hash'),
 	fs 			 = require('fs');
 
 
-module.exports = (router, db, dbUtils) => {
+module.exports = (router, dbUtils) => {
 	//открытие страницы со список актуальных мероприятий (для кассира и для онлайн посетителей)
 	router.get('/events', function(req, res, next){
 		console.log("get: /events");

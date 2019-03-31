@@ -1,4 +1,4 @@
-module.exports = (router, db, PageTitle, dbUtils) => {
+module.exports = (router, PageTitle, dbUtils) => {
 
 	//вход на страницу выбранного мероприятия
 	router.get('/reports/trans/', function(req, res, next){

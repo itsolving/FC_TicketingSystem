@@ -1,4 +1,4 @@
-module.exports = (router, db) => {
+module.exports = (router, dbUtils) => {
 	//страница авторизации кассира
 	router.get('/', function(req, res, next){
 		console.log("get: /");
