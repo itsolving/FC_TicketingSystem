@@ -84,29 +84,36 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					SeatID: data.seatID,
 					RowN: data.RowN,
 					SeatN: data.SeatN,
-					evensIDs: null
+					evensIDs: []
 				};
+				
+				if ( typeof(formData.evens) == 'string' ) itemData.evensIDs.push(formData.evens);
+				else itemData.evensIDs = [...formData.evens];
+
 				console.log(itemData)
-				if ( typeof(formData.evens) == 'string' ) itemData.evensIDs = formData.evens;
-				else itemData.evensIDs = formData.evens.join();
 
 				dbUtils.Ticket.getBySeat({ IDSeat: itemData.SeatID, events: itemData.evensIDs }, (tickets) => {
 					console.log("ANSWER FROM getBySeat");
 					console.log(tickets);
-					if ( tickets.length != itemData.evensIDs )  {
-						res.json({err: "Ошибка"})
+					if ( tickets.length != itemData.evensIDs.length )  {
+						res.json({err: "Ошибка нахождения билетов"})
 						return;
 					}
 					else {
+						let ticketsIDs = [];
+
 						tickets.forEach((item) => {
 							if (item.IDStatus != 3) { 
-								res.json({err: "Ошибка"}) 
+								res.json({err: "Ошибка статусов"}) 
 								return;
 							}
+							ticketsIDs.push(item.ID);
 						})
-						dbUtils.Ticket.multiStatus({tickets: tickets}, (ans) => {
+						
+
+						dbUtils.Ticket.multiStatus(ticketsIDs, 5, (ans) => {
 							console.log("ANSWER FROM multiStatus");
-							dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
+							dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/'); })
 						})
 					}
 				})
