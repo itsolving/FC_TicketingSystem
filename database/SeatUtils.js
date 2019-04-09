@@ -78,11 +78,17 @@ class SeatUtils extends rootUtils{
 			SectorName: N2,
 			IDStadium: 1
 		}*/
-		var sSQL = `SELECT distinct sc."RowN"
+		/*var sSQL = `SELECT distinct sc."RowN"
 					from public."tSeat" sc
 					WHERE sc."SectorName" = '${data.SectorName}'
 					AND sc."IDStadium" = ${data.IDStadium}
-					ORDER BY sc."RowN" ASC`;
+					ORDER BY sc."RowN" ASC`;*/
+		var sSQL = `SELECT distinct r."RowN"
+					from public."tRowN" r
+					join public."tSector" sc on sc."ID" = r."IDSector" and sc."SectorName" = '${data.SectorName}'
+					join public."tTribune" tr on tr."ID" = sc."IDTribune" and tr."IDStadium" = ${data.IDStadium}
+					WHERE 1=1
+					ORDER BY r."RowN" ASC`;
 		this.execute(sSQL, (data) => {
 			next(data);
 		})
@@ -93,11 +99,17 @@ class SeatUtils extends rootUtils{
 			IDStadium: 1,
 			RowN: 9
 		}*/
-		var sSQL = `SELECT distinct sc."SeatN"
+		/*var sSQL = `SELECT distinct sc."SeatN"
 					from public."tSeat" sc
 					WHERE sc."SectorName" = '${data.SectorName}'
 					AND sc."IDStadium" = ${data.IDStadium}
-					AND sc."RowN" = ${data.RowN}`;
+					AND sc."RowN" = ${data.RowN}`;*/
+		var sSQL = `SELECT distinct st."SeatN"
+					from public."tSeat" st
+					join public."tRowN" r on r."ID" = st."IDRowN" and r."RowN" = ${data.RowN}
+					join public."tSector" sc on sc."ID" = r."IDSector" and sc."SectorName" = '${data.SectorName}'
+					join public."tTribune" tr on tr."ID" = sc."IDTribune" and tr."IDStadium" = ${data.IDStadium}
+					WHERE 1=1`;
 		this.execute(sSQL, (data) => {
 			next(data);
 		})
