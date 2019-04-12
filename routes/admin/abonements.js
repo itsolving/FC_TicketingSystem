@@ -41,7 +41,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		dbUtils.Event.getNameId((events) => { 
 			dbUtils.Seat.customSelect(null, events[0].IDStadium, (seats) => {
 				dbUtils.Stadium.getAll((stadiums) => {
-					res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, evensList: events, seats: seats, stadiums: stadiums}); 
+					res.render('adminAbonementsAdd', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, seats: seats, stadiums: stadiums}); 
 				})
 				
 			})
@@ -84,18 +84,18 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 					SeatID: data.seatID,
 					RowN: data.RowN,
 					SeatN: data.SeatN,
-					evensIDs: []
+					eventsIDs: []
 				};
 				
-				if ( typeof(formData.evens) == 'string' ) itemData.evensIDs.push(formData.evens);
-				else itemData.evensIDs = [...formData.evens];
+				if ( typeof(formData.events) == 'string' ) itemData.eventsIDs.push(formData.events);
+				else itemData.eventsIDs = [...formData.events];
 
 				console.log(itemData)
 
-				dbUtils.Ticket.getBySeat({ IDSeat: itemData.SeatID, events: itemData.evensIDs }, (tickets) => {
+				dbUtils.Ticket.getBySeat({ IDSeat: itemData.SeatID, events: itemData.eventsIDs }, (tickets) => {
 					console.log("ANSWER FROM getBySeat");
 					console.log(tickets);
-					if ( tickets.length != itemData.evensIDs.length )  {
+					if ( tickets.length != itemData.eventsIDs.length )  {
 						res.json({err: "Ошибка нахождения билетов"})
 						return;
 					}
@@ -186,6 +186,30 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		console.log(data);
 		dbUtils.Seat.customSelect(null, data.IDStadium, (sectors) => {
 			res.json(sectors);
+		})
+	})
+
+	router.get('/abonements/get/events', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Event.getByAbonement((events) => {
+			console.log(events);
+			let eventsArray = [];
+			events.forEach((item) => {
+				eventsArray.push(item.ID);
+			})
+			res.json(eventsArray);
 		})
 	})
 	

@@ -8,9 +8,9 @@ class AbonementUtils extends rootUtils{
 	}
 	insert(itemData, next){
 
-		let sSQL = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "evensIDs")  
+		let sSQL = `insert into public."tAbonement" ("ID", "Price", "SectorName", "SeatID", "RowN", "SeatN", "eventsIDs")  
 						values(nextval(\'"tAbonement_ID_seq"\'::regclass), '${itemData.Price}', '${itemData.SectorName}', 
-						'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.evensIDs}') RETURNING "ID"`;
+						'${itemData.SeatID}', '${itemData.RowN}', '${itemData.SeatN}', '${itemData.eventsIDs}') RETURNING "ID"`;
 
 		console.log(sSQL);
 

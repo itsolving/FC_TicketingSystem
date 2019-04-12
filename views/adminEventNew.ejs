@@ -81,6 +81,9 @@
 														<input type="checkbox" id="eventShowOnline">Показать online</input>
 													</div>
 													<div class="form-group">
+														<input type="checkbox" id="eventAbonement">Доступность мероприятия для абонементов</input>
+													</div>
+													<div class="form-group">
 														<input type="checkbox" id="eventShowCasher" >Показать кассиру</input>
 													</div>
 													<div class="form-group">
@@ -198,6 +201,20 @@
 						}
 						else {sShowAPI = "false";}
 
+						//---------------
+						var sAbonement = "false";
+						if (($("input[id='eventAbonement']:checked").val() === "undefined")
+							|| ($("input[id='eventAbonement']:checked").val() == "true")) {
+							sAbonement = "false";
+						}
+						else
+						if ($("input[id='eventAbonement']:checked").val() == "on") {
+							sAbonement = "true";
+						}
+						else {sAbonement = "false";}
+
+
+
 						$('[data-preloader]').removeClass('hidden');
  						$('html').css('overflow', 'hidden');
 
@@ -216,7 +233,8 @@
 								showOnline: sShowOnline,
 								showCasher: sShowCasher,
 								showAPI: sShowAPI,
-								MaxTickets: $('#eventTickets').val()
+								MaxTickets: $('#eventTickets').val(),
+								Abonement: sAbonement
 							},
 							success: function(result){
 								console.log("POST create /admin/events/new success: result="+result);
