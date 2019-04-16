@@ -211,5 +211,25 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			res.json(eventsArray);
 		})
 	})
+
+	router.get('/abonements/get/trans/', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Abonement.getAllTransaction((trans) => {
+			if (!trans.length) trans = [];
+			res.render('adminAbonementsTrans', {title: sAdminPageTitle, adminLogin: sAdminLogin, transList: trans}); 
+		})
+	})
 	
 }

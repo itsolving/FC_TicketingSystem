@@ -50,6 +50,7 @@
 														<th scope="col">Место</th>
 														<th scope="col">SeatID</th>
 														<th scope="col">IDs мероприятий</th>
+														<th scope="col">Статус</th>
 													</thead>
 													<tbody>
 														<% abonList.forEach(function(abonRow) { %>
@@ -61,6 +62,7 @@
 																<td><%= abonRow.SeatN %></td>
 																<td><%= abonRow.SeatID %></td>
 																<td><%= abonRow.eventsIDs %></td>
+																<td><%= abonRow.Name %></td>
 															</tr>
 														<% }); %>
 													</tbody>

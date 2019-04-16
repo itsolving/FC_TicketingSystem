@@ -21,7 +21,7 @@ class AbonementUtils extends rootUtils{
 	}
 	getAll(next){
 
-		let sSQL = 'SELECT * FROM public."tAbonement" ';
+		let sSQL = 'SELECT * FROM public."tAbonement" ab join public."tStatus" ss on ss."ID" = ab."IDStatus"';
 		
 		console.log(sSQL);
 
@@ -79,6 +79,25 @@ class AbonementUtils extends rootUtils{
 		let sSQL = `update public."tAbonement"
 						set "IDStatus" = ${params.status} 
 						where "ID" = ${params.id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
+	getAllTransaction(next){
+
+
+		let sSQL = `SELECT tr."ID", tr."IDAbonement", tr."IDUser", TO_CHAR(tr."Date", \'DD-MM-YYYY HH24:MI:SS\') as "Date", 
+						ab."Price", ab."IDStatus",
+						us."Email",
+						ss."Name" as "StatusName"
+					FROM public."tAbonementTrans" tr 
+					join public."tAbonement" ab on ab."ID" = tr."IDAbonement"
+					join public."tStatus" ss on ss."ID" = ab."IDStatus"
+					join public."tUser" us on us."ID" = tr."IDUser" `;
 
 		console.log(sSQL);
 
