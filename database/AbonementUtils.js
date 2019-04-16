@@ -21,7 +21,7 @@ class AbonementUtils extends rootUtils{
 	}
 	getAll(next){
 
-		var sSQL = 'SELECT * FROM public."tAbonement" ';
+		let sSQL = 'SELECT * FROM public."tAbonement" ';
 		
 		console.log(sSQL);
 
@@ -29,6 +29,62 @@ class AbonementUtils extends rootUtils{
 			next(abonements);
 		})
 
+	}
+	insertTransaction(params, next){
+
+		let sSQL = `insert into public."tAbonementTrans" ("IDAbonement", "IDUser", "Date")  
+						values(${params.IDAbonement}, ${params.IDUser}, now()) RETURNING "ID")`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	getTransactionByID(id, next){
+
+		let sSQL = `SELECT * FROM public."tAbonementTrans" WHERE "ID" = ${id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	getTransactionByUser(id, next){
+
+		let sSQL = `SELECT * FROM public."tAbonementTrans" WHERE "IDUser" = ${id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+	getTransactionByAbonement(id, next){
+
+		let sSQL = `SELECT * FROM public."tAbonementTrans" WHERE "IDAbonement" = ${id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
+	updateStatus(params, next){
+
+		// 5 - saled
+		// 3 - available
+		let sSQL = `update public."tAbonement"
+						set "IDStatus" = ${params.status} 
+						where "ID" = ${params.id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
 	}
 }
 

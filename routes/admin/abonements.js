@@ -112,13 +112,12 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 						
 
 						dbUtils.Ticket.multiStatus(ticketsIDs, 5, (ans) => {
-							console.log("ANSWER FROM multiStatus");
+
 							dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/'); })
 						})
 					}
 				})
 
-				// dbUtils.Abonement.insert(itemData, () => { res.redirect('/admin/abonements/add'); })
 			}
 			else {
 				console.log("error Seat.getByPosition");
