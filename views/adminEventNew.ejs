@@ -238,7 +238,7 @@
 							},
 							success: function(result){
 								console.log("POST create /admin/events/new success: result="+result);
-							 	window.location = '/admin/events';
+							 	window.location.href = '/admin/events';
 						     	$('[data-preloader]').addClass('hidden');
   								$('html').css('overflow', 'visible');
 
@@ -246,7 +246,7 @@
 							error: function(err){
 								console.log("POST /admin/events/new error:");
 								console.log(err);
-								setTimeout(function() { window.location.href = '/admin/events' }, 3 * 60 * 1000);
+								setTimeout(function() { window.location.href = '/admin/events' }, 1 * 60 * 1000);
 							}
 						});
 					});
