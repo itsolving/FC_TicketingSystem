@@ -65,4 +65,11 @@
 .preloader.hidden {
   opacity: 0;
   pointer-events: none;
+
+}
+
+.btn-report{
+	width: 300px;
+	text-align: left;
+
 }

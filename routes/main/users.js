@@ -1,6 +1,6 @@
 let passwordHash = require('password-hash');
 
-module.exports = (router, db, dbUtils) => {
+module.exports = (router, dbUtils) => {
 	//выход из сессии
 	router.get('/exit', function(req, res){
 		req.session.destroy(function(err) {

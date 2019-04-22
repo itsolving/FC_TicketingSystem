@@ -2,7 +2,7 @@ let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
     Templator 	 = require(`${__basedir}/helpers/Templator.js`),
 	templator 	 = new Templator();
 
-module.exports = (router, db, PageTitle, dbUtils) => {
+module.exports = (router, PageTitle, dbUtils) => {
 
 	// покупка билетов
 	router.post('/ticket/reserve/', function(req, res, next){

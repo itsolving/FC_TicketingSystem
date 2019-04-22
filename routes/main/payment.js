@@ -1,4 +1,4 @@
-module.exports = (router, db) => {
+module.exports = (router, dbUtils) => {
 	router.get('/payment', function(req, res){
 		var sLogin = "";
 		var sessData = req.session;

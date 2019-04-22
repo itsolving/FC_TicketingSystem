@@ -1,7 +1,7 @@
 let apikey = require("apikeygen").apikey,
 	fs 	   = require("fs");
 
-module.exports = (router, dbUtils, APIKEY) => {
+module.exports = (router, dbUtils) => {
 	router.get('/docs', function(req, res) {
 		let sAdminLogin = "",
 			sessData 	= req.session;

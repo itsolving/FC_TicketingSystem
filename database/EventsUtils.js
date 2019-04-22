@@ -274,6 +274,18 @@ class EventsUtils extends rootUtils{
 		})
 	}
 
+	getByAbonement(next){
+		let sSQL = `SELECT "ID" FROM public."tEvent" 
+						WHERE "IDStatus" = 1 
+						AND "Abonement" = true`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data);
+		})
+	}
+
 
 }
 

@@ -51,7 +51,8 @@ class Templator{
 							scale: 3, 
 							height: 10, 
 							includetext: true, 
-							textxalign: 'center' 
+							textxalign: 'center',
+							rotate: 'R'
 						};
 					    let reqAPI = "http://bwipjs-api.metafloor.com/?"
 					    for(var attr in options) { 

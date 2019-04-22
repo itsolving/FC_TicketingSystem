@@ -90,7 +90,8 @@
 																				<button class="btn btn-danger btn-sm btn-archive" data-href="/admin/event/archive/<%= eventRow.ID %>">В архив</button>
 																			</div>
 																			<div class="col-lg-4 col-6">
-																				<a class="btn btn-success btn-sm" href="/admin/event/clone/<%= eventRow.ID %>">Копия</a>
+
+																				<a class="btn btn-success btn-sm btn-copy" href="/admin/event/clone/<%= eventRow.ID %>">Копия</a>
 																			</div>
 																		</div>
 																		
@@ -132,6 +133,8 @@
 				    </div>
 				  </div>
 				</div>
+
+				<div class="preloader hidden" data-preloader></div>
 				<script>
 					let obj = null;
 
@@ -142,6 +145,18 @@
 					$('#deleteExecute').click(function(){
 						console.log(obj);
 						window.location.href = $(obj).attr('data-href');
+					})
+
+					$('.btn-copy').click(function(event){
+						event.preventDefault();
+						$('[data-preloader]').removeClass('hidden');
+ 						$('html').css('overflow', 'hidden');
+						$.get( $(this).attr('href') , function( data ) {
+						   	$('[data-preloader]').addClass('hidden');
+  							$('html').css('overflow', 'visible');
+  							document.location.href = '/admin/events/';
+						});
+						setTimeout(function() { window.location.href = '/admin/events' }, 5 * 60 * 1000);
 					})
 
 				</script>

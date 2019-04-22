@@ -1,4 +1,3 @@
-
 //-------------------
 //для админки использую "свой" коннект к БД. Потому что запарился с общим коннектом из файла "queries.js"
 const { Client } = require('pg');
@@ -12,6 +11,9 @@ const conOptions = {
 	
 	host: 'localhost', //version for server
 	//host: '185.22.64.26', //local test on home by connect to dev-server
+	//host: 'localhost', //version for server
+	host: '92.46.109.122', //local test on home by connect to dev-server
+	//host: '92.46.109.122', //local test on home by connect to prod-server
 	
 	database: 'postgres',
 	port: 5432,
@@ -23,4 +25,3 @@ module.exports = {
 	connClient: Client,
 	conOptions: conOptions
 }
-

@@ -32,7 +32,7 @@
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-md-12">
-									<h2>Отчет по продажам билетов</h2>
+									<h2>Отчет по продажам абонементов</h2>
 								</div>
 								<div class="col-md-12">
 									<div class="card">
@@ -40,26 +40,23 @@
 											<div class="table-responsive">
 												<table class="table trans">
 													<thead class="text-primary">
-														<th scope="col">Дата покупки</th>
-														<th scope="col">Название МП</th>
-														<th scope="col">Трибуна и сектор</th>
-														<th scope="col">Ряд</th>
-														<th scope="col">Место</th>
-														<th scope="col">Статус билета</th>
-														<th scope="col">Email</th>
-														<th scope="col">Цена</th>
+														<th scope="col">ID транзакции</th>
+														<th scope="col">ID абонемента</th>
+														<th scole="col">Цена</th>
+														<th scole="col">Email</th>
+														<th scole="col">Статус абонемента</th>
+														<th scole="col">Дата</th>
+														
 													</thead>
 													<tbody>
 														<% transList.forEach(function(transRow) { %>
 															<tr>
-																<td scope="row"><%= transRow.Saledate %></td>
-																<td><%= transRow.Name %></td>
-																<td><%= transRow.SectorName %></td>
-																<td><%= transRow.RowN %></td>
-																<td><%= transRow.SeatN %></td>
-																<td><%= transRow.StatusName %></td>
-																<td><%= transRow.Email %></td>
+																<td scope="row"><%= transRow.ID %></td>
+																<td><%= transRow.IDAbonement %></td>
 																<td><%= transRow.Price %></td>
+																<td><%= transRow.Email %></td>
+																<td><%= transRow.StatusName %></td>
+																<td><%= transRow.Date %></td>
 															</tr>
 														<% }); %>
 													</tbody>

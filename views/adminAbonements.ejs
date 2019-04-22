@@ -35,7 +35,7 @@
 									<h2>Список абонементов</h2>
 								</div>
 								<div class="col-md-12">
-									<a href="/admin/abonements/add" class="btn btn-primary btn-create-event">Создать новое</a>
+									<a href="/admin/abonements/add" class="btn btn-primary btn-create-event">Создать новый абонемент</a>
 								</div>
 								<div class="col-md-12">
 									<div class="card">
@@ -50,6 +50,7 @@
 														<th scope="col">Место</th>
 														<th scope="col">SeatID</th>
 														<th scope="col">IDs мероприятий</th>
+														<th scope="col">Статус</th>
 													</thead>
 													<tbody>
 														<% abonList.forEach(function(abonRow) { %>
@@ -60,7 +61,8 @@
 																<td><%= abonRow.RowN %></td>
 																<td><%= abonRow.SeatN %></td>
 																<td><%= abonRow.SeatID %></td>
-																<td><%= abonRow.evensIDs %></td>
+																<td><%= abonRow.eventsIDs %></td>
+																<td><%= abonRow.Name %></td>
 															</tr>
 														<% }); %>
 													</tbody>
