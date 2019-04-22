@@ -273,7 +273,6 @@ class EventsUtils extends rootUtils{
 			next(data);
 		})
 	}
-
 	getByAbonement(next){
 		let sSQL = `SELECT "ID" FROM public."tEvent" 
 						WHERE "IDStatus" = 1 
