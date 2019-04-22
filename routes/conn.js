@@ -9,7 +9,7 @@ const conOptions = {
 	//password: 'qwe', //local test on home-computer Kuanysh
 	//password: 'asd', //local test on home-computer Ivan
 	
-	//host: 'localhost', //version for server
+	//host: 'localhost', //version for server/
 	host: '92.46.109.122', //local test on home by connect to dev-server
 	//host: '92.46.109.122', //local test on home by connect to prod-server
 	
