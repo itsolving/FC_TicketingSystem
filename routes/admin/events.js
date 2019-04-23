@@ -146,7 +146,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
 			bshowAPI: 		req.body.showAPI,
-			MaxTickets:     req.body.MaxTickets
+			MaxTickets:     req.body.MaxTickets,
+			Abonement: 		req.body.Abonement
 		};
 
 		dbUtils.Event.update(eventData, (sResMsg) => {

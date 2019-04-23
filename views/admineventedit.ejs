@@ -50,7 +50,6 @@
 															<a href="/admin/get/template/<%= eventRow.IDTemplate %>" target="_blank">Предпросмотр</a>
 														</p>
 													<% } %>
-
 													<!-- <p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p> -->
 													<div class="form-group">
 														<label for="eventName">Наименование:</label>
@@ -64,7 +63,6 @@
 														<label for="eventDateFrom">Начало:</label>
 														<input type="datetime-local" class="form-control" id="eventDateFrom" value="<%= eventRow.DateFrom %>" placeholder="начало" />
 													</div>
-
 													
 													<!--
 													<div class="form-group">
@@ -97,15 +95,20 @@
 															<% }); %>
 														</select>
 													</div>
-
 													<div class="form-group">
 														<button class="btn btn-primary pricecolor" type="button">Изменение цвета мест</button>
 													</div>
-
 													<div class="form-group">
 														<a class="btn btn-primary" href="/admin/event/pricechanger/<%=eventRow.ID %>" target="_blank">Установка цен (BETA)</a>
 													</div>
 												
+													<div class="form-group">
+														<% if (eventRow.Abonement) { %>
+															<input type="checkbox" id="eventAbonement" checked>Доступность мероприятия для абонементов</input>
+														<% } else { %>
+															<input type="checkbox" id="eventAbonement">Доступность мероприятия для абонементов</input>
+														<% } %>
+													</div>
 													<div class="form-group">
 														<% if (eventRow.ShowOnline) { %>
 															<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
@@ -147,10 +150,10 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col-md-12">
+							<div class="col-md-12">
 								<h2>Назначение цен на билеты</h2>
-							</div> -->
-							<!-- <div class="col-md-12">
+							</div>
+							<div class="col-md-12">
 								<div class="card">
 									<div class="card-body">
 										<form name="formPrice">
@@ -173,7 +176,6 @@
 																				<input type="text" name="txPrice" class="priceInput form-control" value="<%= seatRow.Price %>"	 />
 																			</td>
 																			<td>
-
 																				<select name="rowN" class="select-rowN form-control selectpicker" data-style="btn btn-link">
 																					<% rownums[seatRow.SectorName].forEach(function(Row) { %>
 																						<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price || "Ошибка" %>}'><%= Row.RowN %> ( <%= Row.Price || "Ошибка" %> )</option>
@@ -193,7 +195,7 @@
 											</form>
 									</div>
 								</div>
-							</div> -->
+							</div>
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
 								<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
@@ -260,7 +262,7 @@
 					      <!-- Футер модального окна -->
 					      <div class="modal-footer">
 					        
-					        <button type="button" class="btn btn-success colorSave">Сохранить</button>
+					        <button type="button" class="btn btn-success colorSave" data-dismiss="modal">Сохранить</button>
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
 					      </div>
 					    </div>
@@ -270,7 +272,6 @@
 					$(document).ready(function(){
 						GetStadiumList();
 					});
-
 					function GetStadiumList(){
 						$.ajax({
 							url: '/admin/stadiumsJson',
@@ -297,7 +298,6 @@
 							}
 						});
 					};
-
 					$('.pricecolor').click(function(){
 						$('#colorModal').modal('show');
 					})
@@ -316,10 +316,8 @@
 						console.log(this)
 					})
 					$('.colorSave').click(function(){
-
 						var colors = $('.colorsdata').serializeArray();
 						console.log(colors)
-
 						let colorsNew = [];
 						for(var i = 0; i < colors.length; i = i + 2){
 							colorsNew.push({
@@ -343,26 +341,21 @@
 						// 	data: JSON.stringify(data),
 						// 	success: function(result){
 						// 		console.log(result);
-
 						// 	},
 						// 	error: function(err){
 						// 		console.log(err);
 						// 	}
 						// });
 					})
-
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
 						//console.log("btnSaveEvent click: nEventID="+nEventID);
-
 						var sURL = "/admin/event/"+nEventID;
-
 						//console.log('img src='+$('#eventImage').attr('src'));
 						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
 						//console.log('eventShowCasher='+$("input[id='eventShowCasher']:checked").val());
 						//console.log('eventShowAPI='+$("input[id='eventShowAPI']:checked").val());
-
 						//---------------
 						var sShowOnline = "false";
 						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
@@ -374,7 +367,6 @@
 							sShowOnline = "true";
 						}
 						else {sShowOnline = "false";}
-
 						//---------------
 						var sShowCasher = "false";
 						if ($("input[id='eventShowCasher']:checked").val() === "undefined") {
@@ -386,7 +378,6 @@
 							sShowCasher = "true";
 						}
 						else {sShowCasher = "false";}
-
 						//---------------
 						var sShowAPI = "false";
 						if (($("input[id='eventShowAPI']:checked").val() === "undefined")
@@ -398,6 +389,18 @@
 							sShowAPI = "true";
 						}
 						else {sShowAPI = "false";}
+						//---------------
+
+						var sAbonement = "false";
+						if (($("input[id='eventAbonement']:checked").val() === "undefined")
+							|| ($("input[id='eventAbonement']:checked").val() == "true")) {
+							sAbonement = "false";
+						}
+						else
+						if ($("input[id='eventAbonement']:checked").val() == "on") {
+							sAbonement = "true";
+						}
+						else {sAbonement = "false";}
 
 						//---------------
 						$.ajax({
@@ -414,14 +417,14 @@
 								showOnline: sShowOnline,
 								showCasher: sShowCasher,
 								showAPI: sShowAPI,
-								MaxTickets: $('#eventTickets').val()
+								MaxTickets: $('#eventTickets').val(),
+								Abonement: sAbonement
 							},
 							success: function(result){
 								console.log("POST upd /admin/event/id success: result="+result);
 								$("#txResultMsg").html(result);
 								ClearMsg("#txResultMsg");
 								//TODO: refresh page
-
 							},
 							error: function(err){
 								console.log("POST /admin/event/id error:");
@@ -429,7 +432,6 @@
 							}
 						});
 					});
-
 					$("#btnDeleteEvent").on('click', function(){
 						$("#myModalBox").modal('show');
 					});
@@ -465,7 +467,6 @@
 						// 	}
 						// });
 					})
-
 					$('#rowsTable').on('click', '.clickable-row', function(event) {
 					  //$(this).addClass('active').siblings().removeClass('active');
 					  if($(this).hasClass('active')){
@@ -474,23 +475,17 @@
 						$(this).addClass('active').siblings().removeClass('active');
 					  }
 					});
-
 					function readURL(input) {
-
 					    if (input.files && input.files[0]) {
 					        var reader = new FileReader();
-
 					        reader.onload = function (e) {
 					            $('#eventImage').attr('src', e.target.result);
 					        };
-
 					        reader.readAsDataURL(input.files[0]);
 					    }
 					}
-
 					$("#eventImageFile").change(function(evt){
 					    //readURL(this);
-
 					    var sImgFileName = evt.target.files[0].name;
 						let file = $('#eventImageFile').get(0).files;
 						console.log('ClickNewImg:: sImgFileName='+sImgFileName);
@@ -500,11 +495,8 @@
 						//ClearMsg("#eventImgMsg");
 						//--------------
 						var nEventID = $("#eventID").data("value");
-
 						var data = new FormData();
-
 						data.append('img', $('#eventImageFile')[0].files[0]);
-
 						$.ajax({
 							url: "/admin/uploadeventimg",
 							data: data,
@@ -544,12 +536,10 @@
 							}
 						});
 					}
-
 					function ClickNewImg(){
 						$("input[id='eventImageFile']").click();
 					};
 				
-
 					function ClearMsg(msgElement){
 						window.setTimeout( function(){
 							$(msgElement).html("");
@@ -562,4 +552,3 @@
 		</div>
 	</body>
 </html>
-
