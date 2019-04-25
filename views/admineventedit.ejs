@@ -96,38 +96,106 @@
 														</select>
 													</div>
 													<div class="form-group">
-														<button class="btn btn-primary pricecolor" type="button">Изменение цвета мест</button>
+														<button class="btn btn-primary pricecolor btn-editor" type="button">Изменение цвета мест</button>
 													</div>
 													<div class="form-group">
-														<a class="btn btn-primary" href="/admin/event/pricechanger/<%=eventRow.ID %>" target="_blank">Установка цен (BETA)</a>
+														<a class="btn btn-primary btn-editor" href="/admin/event/pricechanger/<%=eventRow.ID %>" target="_blank">Установка цен по схеме стадиона</a>
+													</div>
+													<div class="form-group">
+														<button class="btn btn-primary btn-sector_editor btn-editor" type="button">Установка цен по секторам</a>
 													</div>
 												
 													<div class="form-group">
 														<% if (eventRow.Abonement) { %>
-															<input type="checkbox" id="eventAbonement" checked>Доступность мероприятия для абонементов</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventAbonement" type="checkbox" checked>
+														            	Доступность мероприятия для абонементов
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } else { %>
-															<input type="checkbox" id="eventAbonement">Доступность мероприятия для абонементов</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventAbonement" type="checkbox">
+														            	Доступность мероприятия для абонементов
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } %>
 													</div>
 													<div class="form-group">
 														<% if (eventRow.ShowOnline) { %>
-															<input type="checkbox" id="eventShowOnline" checked>Показать online</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowOnline" type="checkbox" checked>
+														            	Показать online
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } else { %>
-															<input type="checkbox" id="eventShowOnline">Показать online</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowOnline" type="checkbox">
+														            	Показать online
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } %>
 													</div>
 													<div class="form-group">
 														<% if (eventRow.ShowCasher) { %>
-															<input type="checkbox" id="eventShowCasher" checked>Показать кассиру</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowCasher" type="checkbox" checked>
+														            	Показать кассиру
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } else { %>
-															<input type="checkbox" id="eventShowCasher">Показать кассиру</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowCasher" type="checkbox">
+														            	Показать кассиру
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } %>
 													</div>
 													<div class="form-group">
+														
 														<% if (eventRow.ShowAPI) { %>
-															<input type="checkbox" id="eventShowAPI" checked>Показать для API</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowAPI" type="checkbox" checked>
+														            	Показать для API
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } else { %>
-															<input type="checkbox" id="eventShowAPI">Показать для API</input>
+															<div class="form-check">
+														        <label class="form-check-label">
+														            <input class="form-check-input" id="eventShowAPI" type="checkbox">
+														            	Показать для API
+														            <span class="form-check-sign">
+														                <span class="check"></span>
+														            </span>
+														        </label>
+														    </div>
 														<% } %>
 													</div>
 													<!--<div class="form-group">
@@ -150,7 +218,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-12">
+							<!-- <div class="col-md-12">
 								<h2>Назначение цен на билеты</h2>
 							</div>
 							<div class="col-md-12">
@@ -189,13 +257,11 @@
 														</table>
 													</div>
 												</div>
-												<!-- <div class="col-md-2">
-													<button type="button" id="savePrice">Сохранить цену</button>
-												</div> -->
+												
 											</form>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
 								<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
@@ -268,6 +334,53 @@
 					    </div>
 				    </div>
 				</div>
+				<div id="sectorsPriceModal" class="modal fade">
+				    <div class="modal-dialog">
+					    <div class="modal-content">
+					      <!-- Заголовок модального окна -->
+					      <div class="modal-header">
+					      	<h4 class="modal-title">Изменение цен по секторам</h4>
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					      </div>
+					      <!-- Основное содержимое модального окна -->
+					      <div class="modal-body">
+					        <div class="sectorsData">
+					        	<div class="col-12">
+									<div class="table-responsive">
+										<table class="table trans">
+											<thead class="text-primary">
+												<tr>
+													<th>Сектор</th>
+													<th>Цена</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% if(sectors){ %>
+													<% sectors.forEach(function(seatRow) { %>
+														<tr class="clickable-row">
+															<td data-id="<%= seatRow.SectorName %>" class="sectorNameUpdate"><%= seatRow.SectorName %></td>
+															<td class="cell-price-input">
+																<input type="text" class="form-control priceUpdate"	/>
+															</td>
+														</tr>
+													<% }); %>
+												<% } %>
+											</tbody>
+										</table>
+									</div>
+								</div>
+					        </div>
+					       
+					      </div>
+					      <!-- Футер модального окна -->
+					      <div class="modal-footer">
+					        
+					        <button type="button" class="btn btn-success sectorPriceUpdate" data-dismiss="modal">Сохранить</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
+					      </div>
+					    </div>
+				    </div>
+				</div>
 				<script>
 					$(document).ready(function(){
 						GetStadiumList();
@@ -301,6 +414,11 @@
 					$('.pricecolor').click(function(){
 						$('#colorModal').modal('show');
 					})
+					$('.btn-sector_editor').click(function(){
+						$('#sectorsPriceModal').modal('show');
+					})
+
+					
 					$('.modal-add-price').click(function(){
 						var htmlData = `<div class="row justify-content-center" name="colorItem">
 								        	<div class="col-4">
@@ -334,28 +452,14 @@
 						$.post('/admin/colors/modify', data, function(ans){
 							console.log(ans);
 						})
-						// $.ajax({
-						// 	url: '/admin/colors/modify/',
-						// 	type: "POST",
-						// 	dataType: 'json',
-						// 	data: JSON.stringify(data),
-						// 	success: function(result){
-						// 		console.log(result);
-						// 	},
-						// 	error: function(err){
-						// 		console.log(err);
-						// 	}
-						// });
+						
 					})
 					$("#btnSaveEvent").on('click', function(){
 						var nEventID = 0;
 						nEventID = $("#eventID").data("value");
-						//console.log("btnSaveEvent click: nEventID="+nEventID);
+						
 						var sURL = "/admin/event/"+nEventID;
-						//console.log('img src='+$('#eventImage').attr('src'));
-						//console.log('eventShowOnline='+$("input[id='eventShowOnline']:checked").val());
-						//console.log('eventShowCasher='+$("input[id='eventShowCasher']:checked").val());
-						//console.log('eventShowAPI='+$("input[id='eventShowAPI']:checked").val());
+
 						//---------------
 						var sShowOnline = "false";
 						if ($("input[id='eventShowOnline']:checked").val() === "undefined") {
@@ -437,35 +541,7 @@
 					});
 					$('#deleteExecute').on('click', function(){
 						document.location.href = "/admin/events";
-						// var nEventID = 0;
-						// nEventID = $("#eventID").data("value");
-						// console.log("btnDeleteEvent click: nEventID="+nEventID);
-						// $.ajax({
-						// 	url: "/admin/event/"+nEventID,
-						// 	type: "POST",
-						// 	data: {
-						// 		postOperation: 'del',
-						// 		eventID: $("#eventID").val(),
-						// 		eventName: $("#eventName").val(),
-						// 		eventDateFrom: $("#eventDateFrom").val(),
-						// 		stadiumID: $("select#stadiumsList").val(),
-						// 		eventAfisha: $('#eventImage').attr('src')
-						// 		},
-						// 	success: function(result){
-						// 			console.log("POST del /admin/event/id success: result="+result);
-						// 			$("#txResultMsg").html(result);
-						// 			window.location = '/admin/events';
-						// 			//--------------
-						// 			//TODO: after development this functional we must delete this command:
-						// 			ClearMsg("#txResultMsg");
-						// 			//--------------
-						// 			GetActualEventStatus();
-						// 		},
-						// 	error: function(err){
-						// 		console.log("POST /admin/event/id error:");
-						// 		console.log(err);
-						// 	}
-						// });
+						
 					})
 					$('#rowsTable').on('click', '.clickable-row', function(event) {
 					  //$(this).addClass('active').siblings().removeClass('active');

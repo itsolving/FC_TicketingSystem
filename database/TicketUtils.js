@@ -419,6 +419,33 @@ class TicketUtils extends rootUtils{
 			})
 	}
 
+	updatePriceSector(params, next){
+		let sSQL = '';
+		console.log(params);
+		let sectors = params.sectors;
+
+		sectors.forEach(function(sector) {
+		
+			var sUpdate = `update public."tTicket"
+							set "Price" = ${sector.price}
+							where "IDSeat" 
+							in (
+							select st."ID"
+							from public."tSeat" st
+							WHERE st."SectorName" = '${sector.sector}'
+							) 
+							and "IDEvent" = ${params.IDEvent}; `;
+
+			sSQL = sSQL + sUpdate;
+		});
+
+		console.log(sSQL);
+		this.execute(sSQL, (result) => {
+			next(result);
+		});
+		
+	}
+
 }
 
 module.exports = TicketUtils;

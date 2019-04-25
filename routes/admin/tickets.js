@@ -161,4 +161,28 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 	})
 
+	router.post('/ticket/sectors/changeprice/:IDEvent', function(req, res){
+		let data = req.body;
+
+		let newData = {
+			IDEvent: req.params.IDEvent,
+			sectors: []
+		}
+		console.log(data);
+		let stringParams = '';
+		for ( var prop in data ){
+		   stringParams = '[' + prop + ']';
+		}
+
+		let parsedData = JSON.parse(stringParams);
+
+		newData.sectors = parsedData;
+
+		dbUtils.Ticket.updatePriceSector(newData, (result) => {
+			res.json({success: true});
+		})
+
+
+	})
+
 }
