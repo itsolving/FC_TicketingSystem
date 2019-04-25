@@ -73,7 +73,7 @@
 													<div class="form-group">
 														<label for="stadiumsList">Шаблон билета:</label>
 														<span id="eventIDTemplate" data-value="<%= eventRow.IDTemplate %>" hidden><%= eventRow.IDTemplate %></span>
-														<select name="templatesList" id="templatesList" class="form-control form-control-sm">
+														<select name="templatesList" id="templatesList" class="form-control">
 															<% templates.forEach(function(template) { %>
 																<% if (template.ID == eventRow.IDTemplate ){ %>
 																	<option value="<%= template.ID %>" selected><%= template.templateName %> (ID:<%= template.ID %>) - Выбрано</option>
@@ -86,7 +86,7 @@
 													<div class="form-group">
 														<label for="stadiumsList">Стадион:</label>
 														<span id="eventIDStadium" data-value="<%= eventRow.IDStadium %>" hidden><%= eventRow.IDStadium %></span>
-														<select name="stadiumsList" id="stadiumsList" class="form-control form-control-sm">
+														<select name="stadiumsList" id="stadiumsList" class="form-control">
 															<option value="<%= eventRow.IDStadium %>" selected><%= eventRow.Stadium %></option>
 															<% stadiums.forEach(function(stadiumRow) { %>
 																<% if (stadiumRow.ID != eventRow.IDStadium ){ %>
@@ -262,7 +262,7 @@
 									</div>
 								</div>
 							</div> -->
-							<div class="form-group">
+							<div class="form-group footer-buttons">
 								<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
 								<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
 								<p id="txResultMsg"></p>
