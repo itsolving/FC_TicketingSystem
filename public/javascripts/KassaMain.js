@@ -522,6 +522,9 @@ app.addToCart = function (ticket, $seat) {
   if (app.cart.tickets.length >= 8) {
     return;
   }
+  if ( ticket.Price == 0 ){
+    return;
+  }
 
   $('body').addClass('cart--is-open');
   $seat.addClass('in-cart');
