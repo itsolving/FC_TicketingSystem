@@ -89,6 +89,7 @@ class EventsUtils extends rootUtils{
 					"ShowOnline" = ${eventData.bshowOnline},
 					"ShowCasher" = ${eventData.bshowCasher},
 					"IDTemplate" = ${eventData.nTemplateID},
+					"IDTemplateAdditional" = ${eventData.nTemplateIDAdn},
 			 		"ShowAPI" = ${eventData.bshowAPI},
 			 		"Abonement" = ${eventData.Abonement}
 					where "ID" = ${eventData.nID}`;
@@ -115,7 +116,7 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."Abonement", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
+		var sSQL = `SELECT ev."ID", ev."Abonement", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDTemplateAdditional", ev."IDStatus",
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
@@ -211,8 +212,8 @@ class EventsUtils extends rootUtils{
 
 	create(event, next){
 	
-		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI", "Abonement")
-				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}, ${event.Abonement}) RETURNING "ID"`;
+		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDTemplateAdditional", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI", "Abonement")
+				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDTemplateAdditional}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}, ${event.Abonement}) RETURNING "ID"`;
 
 		console.log(sSQL);
 

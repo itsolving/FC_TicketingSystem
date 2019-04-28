@@ -71,11 +71,24 @@
 													</div>
 													-->
 													<div class="form-group">
-														<label for="stadiumsList">Шаблон билета:</label>
+														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы):</label>
 														<span id="eventIDTemplate" data-value="<%= eventRow.IDTemplate %>" hidden><%= eventRow.IDTemplate %></span>
 														<select name="templatesList" id="templatesList" class="form-control">
 															<% templates.forEach(function(template) { %>
 																<% if (template.ID == eventRow.IDTemplate ){ %>
+																	<option value="<%= template.ID %>" selected><%= template.templateName %> (ID:<%= template.ID %>) - Выбрано</option>
+																<% }else{ %>
+																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
+																<% } %>
+															<% }); %>
+														</select>
+													</div>
+													<div class="form-group">
+														<label for="eventIDTemplate">Шаблон билета (для отправки на почту):</label>
+														<span id="eventIDTemplate" data-value="<%= eventRow.IDTemplate %>" hidden><%= eventRow.IDTemplate %></span>
+														<select name="templatesList" id="templatesListEmail" class="form-control">
+															<% templates.forEach(function(template) { %>
+																<% if (template.ID == eventRow.IDTemplateAdditional ){ %>
 																	<option value="<%= template.ID %>" selected><%= template.templateName %> (ID:<%= template.ID %>) - Выбрано</option>
 																<% }else{ %>
 																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
@@ -517,6 +530,7 @@
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
 								templateID: $("select#templatesList").val(),
+								templateIDAdditional: $("select#templatesListEmail").val(),
 								eventAfisha: $('#eventImage').attr('src'),
 								showOnline: sShowOnline,
 								showCasher: sShowCasher,

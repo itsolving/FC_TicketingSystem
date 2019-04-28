@@ -143,6 +143,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sDateFrom: 		req.body.eventDateFrom,
 			nStadiumID: 	req.body.stadiumID,
 			nTemplateID:    req.body.templateID,
+			nTemplateIDAdn: req.body.templateIDAdditional,
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
 			bshowAPI: 		req.body.showAPI,
@@ -276,18 +277,19 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		let eventData = {
-			Name: 			req.body.eventName,
-			ImgPath: 		req.body.eventAfisha,
-			DateFrom: 		req.body.eventDateFrom,
-			IDStadium: 		req.body.stadiumID,
-			IDTemplate:     req.body.templateID,
-			ShowOnline: 	req.body.showOnline,
-			ShowCasher: 	req.body.showCasher,
-			ShowAPI: 		req.body.showAPI,
-			IDStatus: 		1,
-			MaxTickets:     req.body.MaxTickets,
-			IDUserCreator:  sessData.admControl.ID,
-			Abonement: 		req.body.Abonement
+			Name: 				  req.body.eventName,
+			ImgPath: 			  req.body.eventAfisha,
+			DateFrom: 			  req.body.eventDateFrom,
+			IDStadium: 			  req.body.stadiumID,
+			IDTemplate:     	  req.body.templateID,
+			IDTemplateAdditional: req.body.IDTemplateAdditional,
+			ShowOnline: 		  req.body.showOnline,
+			ShowCasher: 		  req.body.showCasher,
+			ShowAPI: 			  req.body.showAPI,
+			IDStatus: 			  1,
+			MaxTickets:    	      req.body.MaxTickets,
+			IDUserCreator:  	  sessData.admControl.ID,
+			Abonement: 			  req.body.Abonement
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
