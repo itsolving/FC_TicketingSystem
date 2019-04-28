@@ -1193,7 +1193,7 @@ body #stadiumSVG.draggable [data-tribune] {
   cursor: pointer;
 }
 [data-seat].in-cart {
-  fill: rgba(255, 193, 7, 0.6);
+  fill: #AEBDC4 !important;
   opacity: 0.5;
 }
 [data-seat].in-cart:hover {

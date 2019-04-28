@@ -337,7 +337,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		let eventID = req.params.id;
 		dbUtils.Event.getById(eventID, (data) => {
 			if( data.length > 0){
-				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sAdminLogin, EventName: data[0].Name, user: {admin: true} });
+				res.render('KassaEventmap', {title: sAdminPageTitle, userLogin: sAdminLogin, EventName: data[0].Name, user: {admin: true} });
 			}
 			else res.json({err: 'Event not found'})
 		}, false)

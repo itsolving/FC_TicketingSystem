@@ -347,7 +347,7 @@ class TicketUtils extends rootUtils{
 	setPriceByID(data, next){
 		let sSQL = `update public."tTicket" 
 						set "Price" = ${data.price}
-						WHERE "ID" in (${data['tickets[]']})`;
+						WHERE "ID" in (${data.tickets})`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (data) => {

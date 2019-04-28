@@ -95,7 +95,10 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				dbUtils.Ticket.getBySeat({ IDSeat: itemData.SeatID, events: itemData.eventsIDs }, (tickets) => {
 					console.log("ANSWER FROM getBySeat");
 					console.log(tickets);
-					if ( tickets.length != itemData.eventsIDs.length )  {
+					let items = formData.events.split(',');
+					console.log(items);
+					console.log("!!!!!!- " + tickets.length + " : " + items.length)
+					if ( tickets.length != items.length ){
 						res.json({err: "Ошибка нахождения билетов"})
 						return;
 					}
