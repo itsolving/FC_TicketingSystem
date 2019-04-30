@@ -1192,6 +1192,10 @@ body #stadiumSVG.draggable [data-tribune] {
   opacity: 1;
   cursor: pointer;
 }
+[data-seat][data-status='5'] {
+  fill: #AEBDC4 !important;
+  opacity: 0.5;
+}
 [data-seat].in-cart {
   fill: #AEBDC4 !important;
   opacity: 0.5;
