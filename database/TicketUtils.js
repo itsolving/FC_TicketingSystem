@@ -355,7 +355,6 @@ class TicketUtils extends rootUtils{
 		})
 	}
 
-
 	getBySectorEvent(sectorName, eventID, next){
 		let sSQL = `select row_to_json(t)
 					from (
