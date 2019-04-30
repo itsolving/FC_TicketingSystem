@@ -17,7 +17,7 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."Abonement", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
 					sd."Name" as "StadiumName", st."Name" as "StatusName"
 					FROM public."tEvent" ev
@@ -48,30 +48,30 @@ class EventsUtils extends rootUtils{
 			next(events);
 		})
 	}
-	insert(postOperation, next){
-		var sSQL = "";
-		if (postOperation == "ins") {
-			sSQL = `insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-					values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Название мероприятия\', 1, now(), 1, false, false, false) RETURNING "ID"`;
+	// insert(postOperation, next){
+	// 	var sSQL = "";
+	// 	if (postOperation == "ins") {
+	// 		sSQL = `insert into public."tEvent" ("ID", "Name", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
+	// 				values(nextval(\'"tEvent_ID_seq"\'::regclass), \'Название мероприятия\', 1, now(), 1, false, false, false) RETURNING "ID"`;
 
-			console.log(sSQL);
+	// 		console.log(sSQL);
 
-			this.execute(sSQL, (data) => {
-				let newEventID = 0,
-				    sResultMsg = "";
+	// 		this.execute(sSQL, (data) => {
+	// 			let newEventID = 0,
+	// 			    sResultMsg = "";
 
-				if ( data.length > 0 ){
-					newEventID = data[0].ID;
-					sResultMsg = "ok, new EventID="+newEventID;
-				}
-				else {
-					sResultMsg = "ERROR!";
-				}
-				next({ResultMsg: sResultMsg, ID: newEventID});
+	// 			if ( data.length > 0 ){
+	// 				newEventID = data[0].ID;
+	// 				sResultMsg = "ok, new EventID="+newEventID;
+	// 			}
+	// 			else {
+	// 				sResultMsg = "ERROR!";
+	// 			}
+	// 			next({ResultMsg: sResultMsg, ID: newEventID});
 
-			})
-		}
-	}
+	// 		})
+	// 	}
+	// }
 	update(eventData, next){
 		const client = new this.Client(this.conOptions);
 		client.connect();
@@ -89,7 +89,9 @@ class EventsUtils extends rootUtils{
 					"ShowOnline" = ${eventData.bshowOnline},
 					"ShowCasher" = ${eventData.bshowCasher},
 					"IDTemplate" = ${eventData.nTemplateID},
-			 		"ShowAPI" = ${eventData.bshowAPI}
+					"IDTemplateAdditional" = ${eventData.nTemplateIDAdn},
+			 		"ShowAPI" = ${eventData.bshowAPI},
+			 		"Abonement" = ${eventData.Abonement}
 					where "ID" = ${eventData.nID}`;
 		}
 		console.log(sSQL);
@@ -114,7 +116,7 @@ class EventsUtils extends rootUtils{
 		var rowEventData = {};
 		const client = new this.Client(this.conOptions);
 		client.connect();
-		var sSQL = `SELECT ev."ID", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDStatus",
+		var sSQL = `SELECT ev."ID", ev."Abonement", ev."MaxTickets", ev."Name", ev."ImgPath", ev."IDTemplate", ev."IDTemplateAdditional", ev."IDStatus",
 						replace(TO_CHAR(ev."DateFrom", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "DateFrom",
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
@@ -210,8 +212,8 @@ class EventsUtils extends rootUtils{
 
 	create(event, next){
 	
-		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI")
-				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}) RETURNING "ID"`;
+		let sSQL = `insert into public."tEvent" ( "Name", "IDUserCreator", "MaxTickets", "SaledTickets", "ImgPath", "IDTemplate", "IDTemplateAdditional", "IDStatus", "DateFrom", "IDStadium", "ShowOnline", "ShowCasher", "ShowAPI", "Abonement")
+				values('${event.Name}', ${event.IDUserCreator}, ${event.MaxTickets}, 0, '${event.ImgPath}', ${event.IDTemplate}, ${event.IDTemplateAdditional}, ${event.IDStatus}, '${event.DateFrom || 'now()'}', ${event.IDStadium}, ${event.ShowOnline}, ${event.ShowCasher}, ${event.ShowAPI}, ${event.Abonement}) RETURNING "ID"`;
 
 		console.log(sSQL);
 

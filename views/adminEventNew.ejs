@@ -56,16 +56,24 @@
 													</div>
 											
 													<div class="form-group">
-														<label for="stadiumsList">Шаблон билета:</label>
-														<select name="templatesList" id="templatesList" class="form-control form-control-sm">
+														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы):</label>
+														<select name="templatesList" id="templatesList" class="form-control">
 															<% templates.forEach(function(template) { %>
-																<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
+																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
 															<% }); %>
 														</select>
 													</div>
 													<div class="form-group">
+														<label for="eventIDTemplate">Шаблон билета (для отправки на почту):</label>
+														<select name="templatesList" id="templatesListEmail" class="form-control">
+															<% templates.forEach(function(template) { %>
+																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
+															<% }); %>
+														</select>
+													</div>													
+													<div class="form-group">
 														<label for="stadiumsList">Стадион:</label>
-														<select name="stadiumsList" id="stadiumsList" class="form-control form-control-sm">
+														<select name="stadiumsList" id="stadiumsList" class="form-control">
 															<% stadiums.forEach(function(stadiumRow) { %>
 																<% if ( stadiumRow.ID == 1) { %>
 																	<option value="<%= stadiumRow.ID %>" selected><%= stadiumRow.Name %> (ID: <%= stadiumRow.ID %>)</option>
@@ -229,6 +237,7 @@
 								eventDateFrom: $("#eventDateFrom").val(),
 								stadiumID: $("select#stadiumsList").val(),
 								templateID: $("select#templatesList").val(),
+								IDTemplateAdditional: $("select#templatesListEmail").val(),
 								eventAfisha: $('#eventImage').attr('src'),
 								showOnline: sShowOnline,
 								showCasher: sShowCasher,

@@ -1019,10 +1019,10 @@ body #main-svg g[data-tribune][data-available-seats='true']:hover .ln {
   opacity: 0;
 }
 body #main-svg g[data-tribune][data-available-seats='false'] {
-  opacity: 0.3;
+  opacity: 0.8;
 }
 body #main-svg g[data-tribune][data-available-seats='false'] path {
-  stroke: #f1f3f4;
+  stroke: #AEBDC4;
 }
 body #main-svg g[data-tribune][data-available-seats='false'] g path {
   opacity: 0;
@@ -1192,8 +1192,17 @@ body #stadiumSVG.draggable [data-tribune] {
   opacity: 1;
   cursor: pointer;
 }
+[data-seat][data-status='5'] {
+  fill: #AEBDC4 !important;
+  opacity: 0.5;
+}
+[data-seat][data-status='4'] {
+  fill: #AEBDC4 !important;
+  opacity: 0.5;
+}
 [data-seat].in-cart {
-  fill: rgba(255, 193, 7, 0.6);
+  fill: #AEBDC4 !important;
+  opacity: 0.5;
 }
 [data-seat].in-cart:hover {
   fill: #ffc107;

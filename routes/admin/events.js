@@ -143,10 +143,12 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sDateFrom: 		req.body.eventDateFrom,
 			nStadiumID: 	req.body.stadiumID,
 			nTemplateID:    req.body.templateID,
+			nTemplateIDAdn: req.body.templateIDAdditional,
 			bshowOnline: 	req.body.showOnline,
 			bshowCasher: 	req.body.showCasher,
 			bshowAPI: 		req.body.showAPI,
-			MaxTickets:     req.body.MaxTickets
+			MaxTickets:     req.body.MaxTickets,
+			Abonement: 		req.body.Abonement
 		};
 
 		dbUtils.Event.update(eventData, (sResMsg) => {
@@ -275,18 +277,19 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		}
 
 		let eventData = {
-			Name: 			req.body.eventName,
-			ImgPath: 		req.body.eventAfisha,
-			DateFrom: 		req.body.eventDateFrom,
-			IDStadium: 		req.body.stadiumID,
-			IDTemplate:     req.body.templateID,
-			ShowOnline: 	req.body.showOnline,
-			ShowCasher: 	req.body.showCasher,
-			ShowAPI: 		req.body.showAPI,
-			IDStatus: 		1,
-			MaxTickets:     req.body.MaxTickets,
-			IDUserCreator:  sessData.admControl.ID,
-			Abonement: 		req.body.Abonement
+			Name: 				  req.body.eventName,
+			ImgPath: 			  req.body.eventAfisha,
+			DateFrom: 			  req.body.eventDateFrom,
+			IDStadium: 			  req.body.stadiumID,
+			IDTemplate:     	  req.body.templateID,
+			IDTemplateAdditional: req.body.IDTemplateAdditional,
+			ShowOnline: 		  req.body.showOnline,
+			ShowCasher: 		  req.body.showCasher,
+			ShowAPI: 			  req.body.showAPI,
+			IDStatus: 			  1,
+			MaxTickets:    	      req.body.MaxTickets,
+			IDUserCreator:  	  sessData.admControl.ID,
+			Abonement: 			  req.body.Abonement
 		};
 
 		dbUtils.Event.create(eventData,(data) => {
@@ -334,7 +337,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		let eventID = req.params.id;
 		dbUtils.Event.getById(eventID, (data) => {
 			if( data.length > 0){
-				res.render('KassaEventmap', {title: 'Продажа билетов', userLogin: sAdminLogin, EventName: data[0].Name, user: {admin: true} });
+				res.render('KassaEventmap', {title: sAdminPageTitle, userLogin: sAdminLogin, EventName: data[0].Name, user: {admin: true} });
 			}
 			else res.json({err: 'Event not found'})
 		}, false)

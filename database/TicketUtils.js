@@ -347,7 +347,7 @@ class TicketUtils extends rootUtils{
 	setPriceByID(data, next){
 		let sSQL = `update public."tTicket" 
 						set "Price" = ${data.price}
-						WHERE "ID" in (${data['tickets[]']})`;
+						WHERE "ID" in (${data.tickets})`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (data) => {
@@ -417,6 +417,33 @@ class TicketUtils extends rootUtils{
 			this.execute(sSQL, (data) => {
 				next(data);
 			})
+	}
+
+	updatePriceSector(params, next){
+		let sSQL = '';
+		console.log(params);
+		let sectors = params.sectors;
+
+		sectors.forEach(function(sector) {
+		
+			var sUpdate = `update public."tTicket"
+							set "Price" = ${sector.price}
+							where "IDSeat" 
+							in (
+							select st."ID"
+							from public."tSeat" st
+							WHERE st."SectorName" = '${sector.sector}'
+							) 
+							and "IDEvent" = ${params.IDEvent}; `;
+
+			sSQL = sSQL + sUpdate;
+		});
+
+		console.log(sSQL);
+		this.execute(sSQL, (result) => {
+			next(result);
+		});
+		
 	}
 
 }

@@ -12,10 +12,16 @@ var ApiRouter = require('./routes/api');
 var KassaRouter = require('./routes/kassa');
 var TicketApiRouter = require('./routes/ticketapi');
 var fileUpload = require('express-fileupload');
+var bodyParser   = require('body-parser');
 
 var app = express();
 
 app.use(fileUpload());
+
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 

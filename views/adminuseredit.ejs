@@ -60,7 +60,7 @@
 														<div class="form-group">
 															<label for="rolesList">Роль:</label>
 															<span id="userRoleID" data-value="<%= userRow.IDRole %>" hidden><%= userRow.IDRole %></span>
-															<select name="rolesList" id="rolesList" class="form-control form-control-sm">
+															<select name="rolesList" id="rolesList" class="form-control">
 																<option value="<%= userRow.IDRole %>" selected><%= userRow.RoleName %></option>
 																<% roles.forEach(function(roleRow) { %>
 																	<% if (roleRow.ID != roleRow.IDRole ){ %>

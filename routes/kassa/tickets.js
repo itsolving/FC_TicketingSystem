@@ -25,9 +25,12 @@ module.exports = (router, PageTitle, dbUtils) => {
 		let params = req.body;
 		params = JSON.stringify(params);
 		params = JSON.parse(params);
+		//console.log(params)
 
-		if ((typeof params['tickets[]']) == 'string' ) params['tickets[]'] = [params['tickets[]']];
-		let tickets = params['tickets[]'];
+	
+		let tickets = params.tickets;
+
+		console.log(tickets);
 		
 		dbUtils.Ticket.customSelect(tickets, (data) => {
 			console.log(data)
