@@ -9,8 +9,12 @@ const conOptions = {
 	//password: 'qwe', //local test on home-computer Kuanysh
 	//password: 'asd', //local test on home-computer Ivan
 	
+
 	//host: '185.22.64.26', //local test on home by connect to dev-server
-	host: '92.46.109.122', //local test on home by connect to dev-server
+
+	host: 'localhost', //version for server/
+
+	// host: '92.46.109.122', //local test on home by connect to dev-server
 	//host: '92.46.109.122', //local test on home by connect to prod-server
 	
 	database: 'postgres',
