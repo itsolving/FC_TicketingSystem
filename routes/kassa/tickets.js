@@ -38,7 +38,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 			let errTickets = [];
 			data.forEach((ticket) => {
 				if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
-				else if ( ticket.Price == 0 ) errTickets.push(ticket.ID);
+				else if ( ticket.Price == 0 || sessData.cashier.IDRole != 6 ) errTickets.push(ticket.ID);
 			})
 			if ( errTickets.length == 0 ){
 				
@@ -48,7 +48,13 @@ module.exports = (router, PageTitle, dbUtils) => {
 					}
 					else {
 						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
-							res.json({success: true});
+
+							if ( sessData.cashier.IDRole == 6 ){
+								dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
+									res.json({success: true});
+								})
+							}
+							
 							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
 							// 	res.json({success: true});
 							// })

@@ -29,11 +29,11 @@
       <span class="navbar-toggler-icon icon-bar"></span>
       <span class="navbar-toggler-icon icon-bar"></span>
       </button>
-       
       <div class="collapse navbar-collapse justify-content-end">
         <div style="margin: auto; font-size: 15px;">
           <%= EventName %>
-       </div>
+        </div>
+        <input class="userRole" hidden value="<%= user.IDRole %>">
        <% if (user.cashier){ %>
         <ul class="navbar-nav">
     

@@ -46,7 +46,7 @@ module.exports = (router, dbUtils) => {
 					sessData.userLogin = data[0].Login;
 					sessData.userID = data[0].ID;
 					// 2 роль - кассир
-					if ( data[0].IDRole == 2 ){
+					if ( data[0].IDRole == 2 || data[0].IDRole == 6 ){
 						req.session.cashier = {
 							
 							ID: data[0].ID,

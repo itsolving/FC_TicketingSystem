@@ -1,6 +1,7 @@
 var parts = window.location.href.split("/");
 var result = parts[parts.length - 1];
 
+
 app = {};
 
 app.id = result;
@@ -519,10 +520,14 @@ app.handlerForAvaliableSeats = function () {
 app.addToCart = function (ticket, $seat) {
   var $cart = $('.cart');
 
-  if (app.cart.tickets.length >= 8) {
+  var userRole = $('.userRole').val();
+
+  console.log(userRole);
+
+  if (app.cart.tickets.length >= 8 && userRole != 6) {
     return;
   }
-  if ( ticket.Price == 0 ){
+  if ( ticket.Price == 0 && userRole != 6){
     return;
   }
 
