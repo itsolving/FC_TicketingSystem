@@ -624,7 +624,7 @@ app.momentReserve = function(ticket){
   $.post('/kassa/ticket/moment/reserve', ticket
     ,function (ans) {
          console.log(ans)  
-         if (ans.err) console.err(ans.err);  
+         if (ans.err) console.log(ans.err);  
     });
 }
 
@@ -633,7 +633,7 @@ app.momentUnReserve = function(ticket){
   $.post('/kassa/ticket/moment/unreserve', ticket
     ,function (ans) {
          console.log(ans)
-         if (ans.err) console.err(ans.err)
+         if (ans.err) console.log(ans.err)
     });
 }
 
@@ -644,7 +644,7 @@ app.reserve = function(){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/ticket/reserve', {
+    $.post('/kassa/ticket/buy', {
           IDEvent: app.id,
           tickets: tickets
         }, function (ans) {

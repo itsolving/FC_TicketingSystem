@@ -5,7 +5,7 @@ let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
 module.exports = (router, PageTitle, dbUtils) => {
 
 	// покупка билетов
-	router.post('/ticket/reserve/', function(req, res, next){
+	router.post('/ticket/buy/', function(req, res, next){
 		//данные из сессии
 		let sLogin   = "",
 		 	nUserID  = 0,
@@ -38,6 +38,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 			let errTickets = [];
 			data.forEach((ticket) => {
 				if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
+				else if ( ticket.Price == 0 ) errTickets.push(ticket.ID);
 			})
 			if ( errTickets.length == 0 ){
 				
@@ -47,9 +48,10 @@ module.exports = (router, PageTitle, dbUtils) => {
 					}
 					else {
 						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
-							dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
-								res.json({success: true});
-							})
+							res.json({success: true});
+							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
+							// 	res.json({success: true});
+							// })
 						})
 					}
 					
@@ -134,7 +136,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 		}
 		let tickID = req.body.TicketID;
 		dbUtils.Ticket.getByID(tickID, (ticket) => {
-			if (ticket.IDStatus == 3 ){
+			if (ticket.IDStatus == 3 && ticket.Price != 0){
 				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
 					dbUtils.Trans.insert(tickID, sessData.cashier.ID, (ans) => {
 						res.json({success: true});
