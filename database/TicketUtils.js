@@ -446,6 +446,17 @@ class TicketUtils extends rootUtils{
 		
 	}
 
+	getByIDs(ids, next){
+
+		let sSQL = `SELECT * FROM public."tTicket" WHERE "ID" in (${ids})`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (result) => {
+			next(result);
+		})
+	}
+
 }
 
 module.exports = TicketUtils;

@@ -1,6 +1,7 @@
 var parts = window.location.href.split("/");
 var result = parts[parts.length - 1];
 
+
 app = {};
 
 app.id = result;
@@ -519,10 +520,14 @@ app.handlerForAvaliableSeats = function () {
 app.addToCart = function (ticket, $seat) {
   var $cart = $('.cart');
 
-  if (app.cart.tickets.length >= 8) {
+  var userRole = $('.userRole').val();
+
+  console.log(userRole);
+
+  if (app.cart.tickets.length >= 8 && userRole != 6) {
     return;
   }
-  if ( ticket.Price == 0 ){
+  if ( ticket.Price == 0 && userRole != 6){
     return;
   }
 
@@ -644,10 +649,11 @@ app.reserve = function(){
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/kassa/ticket/buy', {
+    $.post('/kassa/tickets/buy/', {
           IDEvent: app.id,
           tickets: tickets
         }, function (ans) {
+          console.log(ans);
            if ( ans.success ) { 
 
             $.fancybox.close();
@@ -668,6 +674,34 @@ app.reserve = function(){
             }
             $('.open-pdf').attr('href', `/kassa/get/tickets/${tickids}`);
             $('.open-pdf')[0].click();
+            setTimeout(function(){
+               window.location.reload(1);
+            }, 200);
+            
+          }
+           else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }
+        });
+       
+
+  }
+  else console.log('cart is empty');
+}
+
+app.sendMail = function(){
+  console.log(app.cart.tickets);
+  if ( app.cart.tickets.length > 0 ){
+    console.log(app.cart.tickets);
+    var tickets = [];
+    app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
+    $.post('/kassa/tickets/send/', {
+          IDEvent: app.id,
+          tickets: tickets,
+          mail: $('.email').val()
+        }, function (ans) {
+           if ( ans.success ) { 
+
+            $.fancybox.close();
+           
             setTimeout(function(){
                window.location.reload(1);
             }, 200);

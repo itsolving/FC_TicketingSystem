@@ -1,11 +1,12 @@
 let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
     Templator 	 = require(`${__basedir}/helpers/Templator.js`),
+    mailer 	     = require(`${__basedir}/helpers/mailer.js`),
 	templator 	 = new Templator();
 
 module.exports = (router, PageTitle, dbUtils) => {
 
 	// покупка билетов
-	router.post('/ticket/buy/', function(req, res, next){
+	router.post('/tickets/buy/', function(req, res, next){
 		//данные из сессии
 		let sLogin   = "",
 		 	nUserID  = 0,
@@ -38,22 +39,30 @@ module.exports = (router, PageTitle, dbUtils) => {
 			let errTickets = [];
 			data.forEach((ticket) => {
 				if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
-				else if ( ticket.Price == 0 ) errTickets.push(ticket.ID);
+				else if (ticket.Price == 0){
+					if (sessData.cashier.IDRole != 6 ) errTickets.push(ticket.ID)
+				}
 			})
 			if ( errTickets.length == 0 ){
 				
 				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
-					if ( ans.err ){
-						res.json({success: false, errTickets: tickets});
-					}
-					else {
+					
 						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
-							res.json({success: true});
+
+							if ( sessData.cashier.IDRole == 6 ){
+								dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
+									res.json({success: true});
+								})
+							}
+							else {
+								res.json({success: true});
+							}
+							
 							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
 							// 	res.json({success: true});
 							// })
 						})
-					}
+					
 					
 				})
 			}
@@ -177,6 +186,29 @@ module.exports = (router, PageTitle, dbUtils) => {
 		})
 
 
+	})
+
+	router.post('/tickets/send/', function(req, res){
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let data = req.body;
+		console.log(data);
+
+		dbUtils.Ticket.setPriceByID(data, (ans) => {
+			console.log(ans);
+			res.json({success: true});
+		})
 	})
 	
 }
