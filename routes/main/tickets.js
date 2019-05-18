@@ -83,14 +83,14 @@ module.exports = (router, dbUtils) => {
 			IDTicket: req.params.ticketid,
 			hash:     req.params.hash
 		}
-
+		console.log(data);
 		dbUtils.Ticket.getMultiWithTemplate(data.IDTicket, (result) => {
 			if ( result.length > 0 ){
 				let ticket = result[0];
 				let resultHash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode));
 				console.log(resultHash);
 				if ( data.hash == resultHash ){
-					templator.multiTickets([ticket], { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, (pdfData) => {
+					templator.multiTickets([ticket], { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, true /* cashier printer status */, (pdfData) => {
 						res.type('pdf'); 
 						res.send(pdfData);
 					});
