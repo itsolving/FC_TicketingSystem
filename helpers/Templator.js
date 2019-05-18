@@ -31,13 +31,22 @@ class Templator{
 		return file;
 	}
 
-	multiTickets(tickets, fileData, next){
+	multiTickets(tickets, fileData, printer, next){
 			let htmlLink = `${__dirname}/../${fileData.link}`;
 			let templateName = fileData.name;
 			var html = fs.readFileSync(htmlLink, 'utf8');
-			var options = { 
-				format: 'A4'      
-			};
+			let options = {};
+			if ( printer ){
+				options = {
+					"height": "70mm",        // allowed units: mm, cm, in, px
+  					"width": "140mm"
+				};
+			}
+			else {
+				options = {
+					format: 'A4' 
+				}
+			}
 			let multiHTML = '';
 			image2base64(`${__dirname}/../public${tickets[0].ImgPath}`) // you can also to use url
 			    .then(async (response) => {

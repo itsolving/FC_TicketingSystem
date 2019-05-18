@@ -120,7 +120,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 		let reqTickets = req.params.ids.split(",");
 		console.log(reqTickets)
 		dbUtils.Ticket.getMultiWithTemplate(reqTickets /* [17132, 24370, 20903] */, (tickets) => {
-			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, (pdfData) => {
+			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, true /* printer status true */, (pdfData) => {
 				res.type('pdf'); 
 				res.send(pdfData);
 			});

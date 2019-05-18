@@ -20,14 +20,14 @@
 			color: blue;
 		}
 		.afisha{
-			width:50px;
-			height: 50px;
+			width:75px;
+			height: 75px;
 			margin-top: 10px;
 		}
 		.ticket-container{
 			margin: 0 !important;
 			width: 595px;
-			height: 200px;
+			height: 199px;
 			padding-left: 20px;
 		}
 
@@ -49,11 +49,11 @@
 	<div class="ticket-container">
 		<div class="left-content" style="width: 400px;">
 			<h1>{{eventName}}</h1>
-			<div style="height: 100px;">
+			<div style="height: 120px;">
 				<div class="left-content">
 					<img src="{{EventImage}}" class="afisha">
 				</div>
-				<div class="right-content">
+				<div class="right-content" style="margin-right: 150px; margin-top: 10px;">
 					<p>{{StadiumName}}</p>
 					<p>{{CityName}}</p>
 					<p>{{DateFrom}}</p>
@@ -66,7 +66,7 @@
 				<div class="left-content">Цена <br> <b>{{ticketPrice}} тг.</b></div>
 			</div>
 		</div>
-		<div class="right-content">
+		<div class="right-content" style="margin-right: 180px;  margin-top: -160px;">
 			<img src="{{Barcode}}" class="transformed">
 		</div>
 		
