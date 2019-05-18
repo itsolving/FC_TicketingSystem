@@ -1,6 +1,11 @@
 var parts = window.location.href.split("/");
 var result = parts[parts.length - 1];
 
+var IDRole = null;
+
+$(document).ready(function(){
+  IDRole = $('.userRole').val();
+})
 
 app = {};
 
@@ -48,6 +53,7 @@ app.init = function () {
   // app.zoomTribune(zoom);
   app.tribuneInit();
   app.stopPreloading();
+
 };
 
 app.tribuneInit = function () {
@@ -172,13 +178,24 @@ app.initFluid = function () {
     });
 
     
-    //------- beta
-
-     $('.cart__buy').on('click', function() {
-      app.reserve();
-    });
 
      //------------
+
+    if ( IDRole == 6 ){
+      $('.cart__buy').on('click', function() {
+        $('body').removeClass('cart--is-open');
+        $.fancybox.close();
+        $('#modalMail').modal('show');
+      });
+      $('.emailSend-exec').click(function(){
+        app.sendMail();
+      })
+    }
+    else {
+       $('.cart__buy').on('click', function() {
+        app.reserve();
+      });
+    }
   }
 };
 
@@ -646,6 +663,10 @@ app.momentUnReserve = function(ticket){
 app.reserve = function(){
   console.log(app.cart.tickets);
   if ( app.cart.tickets.length > 0 ){
+    console.log("User Role: " + IDRole);
+    if ( IDRole == 6 ){ 
+      return;
+    }
     console.log(app.cart.tickets);
     var tickets = [];
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
@@ -700,11 +721,13 @@ app.sendMail = function(){
         }, function (ans) {
            if ( ans.success ) { 
 
-            $.fancybox.close();
+           // $.fancybox.close();
+
+           alert("Билеты отправлены на почту " + $('.email').val());
            
-            setTimeout(function(){
-               window.location.reload(1);
-            }, 200);
+            // setTimeout(function(){
+            //    window.location.reload(1);
+            // }, 2000);
             
           }
            else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }

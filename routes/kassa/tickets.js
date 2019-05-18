@@ -189,25 +189,66 @@ module.exports = (router, PageTitle, dbUtils) => {
 	})
 
 	router.post('/tickets/send/', function(req, res){
-		let sAdminLogin = "",
-			sessData 	= req.session;
-
-
-		console.log("GET /admin/reports");
-		if(sessData.admControl){
-	        sAdminLogin = sessData.admControl.Login;
-        }
+		//данные из сессии
+		var sLogin = "";
+		var nUserID = 0;
+		var events = {};
+		var sessData = req.session;
+		if(sessData.cashier){
+			sLogin = sessData.userLogin;
+			nUserID = sessData.userID;
+			events = sessData.eventsList;
+		}
 		else {
-			res.redirect('/admin');
+			res.redirect('/');
+			//res.json({err: "no success"});
 			return;
 		}
 
-		let data = req.body;
-		console.log(data);
+		let clientData = req.body;
+		console.log(clientData);
+		let tickets = clientData.tickets;
 
-		dbUtils.Ticket.setPriceByID(data, (ans) => {
-			console.log(ans);
-			res.json({success: true});
+		dbUtils.Ticket.customSelect(tickets, (data) => {
+			console.log(data)
+			let sSQL = '';
+			let errTickets = [];
+			data.forEach((ticket) => {
+				if (ticket.IDStatus != 3 && ticket.IDStatus != 4) errTickets.push(ticket.ID);
+				else if (ticket.Price == 0){
+					if (sessData.cashier.IDRole != 6 ) errTickets.push(ticket.ID)
+				}
+			})
+			if ( errTickets.length == 0 ){
+				
+				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
+					
+						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+
+							if ( sessData.cashier.IDRole == 6 ){
+								dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
+									mailer.sendMail({mail: clientData.mail, req: req}, data, () => {
+										res.json({success: true});
+									})
+									
+								})
+							}
+							else {
+								res.json({err: "IDRole error!", success: false});
+							}
+							
+							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
+							// 	res.json({success: true});
+							// })
+						})
+					
+					
+				})
+			}
+			else {
+				res.json({success: false, errTickets: errTickets});
+				console.log(errTickets);
+			}
 		})
 	})
 	
