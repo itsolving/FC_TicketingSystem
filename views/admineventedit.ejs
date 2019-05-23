@@ -43,13 +43,13 @@
 											<% eventData.forEach(function(eventRow) { %>
 												<div class="col-md-3">
 													<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
-													<% if(eventRow.IDTemplate){ %>
+													<!-- <% if(eventRow.IDTemplate){ %>
 														<p>
 															<label>ID шаблона билета: </label> 
 															<span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.IDTemplate %></span>
 															<a href="/admin/get/template/<%= eventRow.IDTemplate %>" target="_blank">Предпросмотр</a>
 														</p>
-													<% } %>
+													<% } %> -->
 													<!-- <p><label>Текущий статус: </label> <span id="eventIDStatus" data-value="<%= eventRow.IDStatus %>"><%= eventRow.StatusName %></span></p> -->
 													<div class="form-group">
 														<label for="eventName">Наименование:</label>
@@ -71,7 +71,7 @@
 													</div>
 													-->
 													<div class="form-group">
-														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы):</label>
+														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы) *140x70mm:</label>
 														<span id="eventIDTemplate" data-value="<%= eventRow.IDTemplate %>" hidden><%= eventRow.IDTemplate %></span>
 														<select name="templatesList" id="templatesList" class="form-control">
 															<% templates.forEach(function(template) { %>
@@ -84,7 +84,7 @@
 														</select>
 													</div>
 													<div class="form-group">
-														<label for="eventIDTemplate">Шаблон билета (для отправки на почту):</label>
+														<label for="eventIDTemplate">Шаблон билета (для отправки на почту) *A4:</label>
 														<span id="eventIDTemplate" data-value="<%= eventRow.IDTemplate %>" hidden><%= eventRow.IDTemplate %></span>
 														<select name="templatesList" id="templatesListEmail" class="form-control">
 															<% templates.forEach(function(template) { %>

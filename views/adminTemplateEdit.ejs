@@ -45,7 +45,7 @@
 								<button class="btn btn-primary do-view">Предпросмотр HTML</button>
 							</div>
 							<div class="col-2">
-								<a class="btn btn-primary" href="/admin/get/template/<%= IDTemplate %>" target="_blank">Предпросмотр PDF</a>
+								<a class="btn btn-primary" href="/admin/get/template/<%= template.Type %>/<%= template.ID %>" target="_blank">Предпросмотр PDF</a>
 							</div>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 	        </button>
 	      </div>
 	      <div class="modal-body" style="padding-bottom: 0; height: 450px;">
-	        <iframe src="<%= IDTemplate %>" class="frame-preview" style="width: 100%; height: 100%;"></iframe>
+	        <iframe src="<%= template.ID %>" class="frame-preview" style="width: 100%; height: 100%;"></iframe>
 	      </div>
 	      <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px; margin-top: 15px;">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>

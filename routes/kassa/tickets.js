@@ -1,7 +1,8 @@
 let dbUtils 	 = require('./../../database/DatabaseUtils.js'),
     Templator 	 = require(`${__basedir}/helpers/Templator.js`),
     mailer 	     = require(`${__basedir}/helpers/mailer.js`),
-	templator 	 = new Templator();
+	templator 	 = new Templator(),
+	md5 		 = require('md5');
 
 module.exports = (router, PageTitle, dbUtils) => {
 
@@ -22,13 +23,10 @@ module.exports = (router, PageTitle, dbUtils) => {
 			res.redirect('/');
 			return;
 		}
-		// нужна проверка на авторизацию кассы
 		let params = req.body;
 		params = JSON.stringify(params);
 		params = JSON.parse(params);
-		//console.log(params)
-
-	
+		
 		let tickets = params.tickets;
 
 		console.log(tickets);
@@ -44,26 +42,17 @@ module.exports = (router, PageTitle, dbUtils) => {
 				}
 			})
 			if ( errTickets.length == 0 ){
-				
 				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
-					
-						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
-
-							if ( sessData.cashier.IDRole == 6 ){
-								dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
-									res.json({success: true});
-								})
-							}
-							else {
+					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+						if ( sessData.cashier.IDRole == 6 ){
+							dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
 								res.json({success: true});
-							}
-							
-							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
-							// 	res.json({success: true});
-							// })
-						})
-					
-					
+							})
+						}
+						else {
+							res.json({success: true});
+						}
+					})
 				})
 			}
 			else {
@@ -74,8 +63,8 @@ module.exports = (router, PageTitle, dbUtils) => {
 	})
 
 
-	// получение билета
-	router.get('/get/ticket/:id', function(req, res){
+	// получение билета ( одного )
+	router.get('/get/ticket/:templateType/:id', function(req, res){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;
@@ -92,8 +81,9 @@ module.exports = (router, PageTitle, dbUtils) => {
 			return;
 		}
 		let ticketID = req.params.id;
-		dbUtils.Ticket.getWithTemplate(ticketID, (ticket) => {
-			templator.htmlToPdf(ticket, { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, (pdfData) => {
+		let templateType = req.params.templateType;
+		dbUtils.Ticket.getWithTemplate(ticketID, templateType, (ticket) => {
+			templator.htmlToPdf(ticket, { name: ticket.templateName, link: `${ticket.templateUrl}/${ticket.fileName}` }, templateType, (pdfData) => {
 				res.type('pdf'); 
 				res.send(pdfData);
 			});
@@ -101,7 +91,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 	})
 
 	// получение билетов в одном pdf
-	router.get('/get/tickets/:ids', function(req, res){
+	router.get('/get/tickets/:templateType/:ids', function(req, res){
 		//данные из сессии
 		var sLogin = "";
 		var nUserID = 0;
@@ -118,9 +108,10 @@ module.exports = (router, PageTitle, dbUtils) => {
 			return;
 		}
 		let reqTickets = req.params.ids.split(",");
+		let templateType = req.params.templateType;
 		console.log(reqTickets)
-		dbUtils.Ticket.getMultiWithTemplate(reqTickets /* [17132, 24370, 20903] */, (tickets) => {
-			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, true /* printer status true */, (pdfData) => {
+		dbUtils.Ticket.getMultiWithTemplate(reqTickets, templateType, (tickets) => {
+			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, templateType, (pdfData) => {
 				res.type('pdf'); 
 				res.send(pdfData);
 			});
@@ -220,35 +211,51 @@ module.exports = (router, PageTitle, dbUtils) => {
 				}
 			})
 			if ( errTickets.length == 0 ){
-				
 				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
-					
-						dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
-
-							if ( sessData.cashier.IDRole == 6 ){
-								dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
-									mailer.sendMail({mail: clientData.mail, req: req}, data, () => {
-										res.json({success: true});
-									})
-									
-								})
-							}
-							else {
-								res.json({err: "IDRole error!", success: false});
-							}
-							
-							// dbUtils.Event.ChangeEventTickets(data[0].IDEvent, tickets.length, (next) => {
-							// 	res.json({success: true});
-							// })
-						})
-					
-					
+					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+						if ( sessData.cashier.IDRole == 6 ){
+							dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
+								mailer.sendMail({mail: clientData.mail, req: req}, data, () => {
+									res.json({success: true});
+								})	
+							})
+						}
+						else {
+							res.json({err: "IDRole error!", success: false});
+						}
+					})
 				})
 			}
 			else {
 				res.json({success: false, errTickets: errTickets});
 				console.log(errTickets);
 			}
+		})
+	})
+
+
+	router.get('/get/main/tickets/:templateType/:hash/:ids', function(req, res){
+		let reqTickets = req.params.ids.split(",");
+		console.log(reqTickets);
+		let reqData = {
+			hash: req.params.hash,
+			tickets: reqTickets
+		}
+
+		let templateType = req.params.templateType;
+
+		dbUtils.Ticket.getMultiWithTemplate(reqData.tickets, templateType, (tickets) => {
+			// hash approve
+			let firstTicket = tickets[0];
+			if ( reqData.hash == md5((firstTicket.ID + firstTicket.IDEvent + firstTicket.Barcode))){
+				templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, templateType, (pdfData) => {
+					res.type('pdf'); 
+					res.send(pdfData);
+				});
+			}
+			else res.json({err: "access trouble"});
+			// ------------
+			
 		})
 	})
 	

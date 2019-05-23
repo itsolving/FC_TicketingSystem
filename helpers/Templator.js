@@ -31,22 +31,17 @@ class Templator{
 		return file;
 	}
 
-	multiTickets(tickets, fileData, printer, next){
+	multiTickets(tickets, fileData, templateType, next){
 			let htmlLink = `${__dirname}/../${fileData.link}`;
 			let templateName = fileData.name;
 			var html = fs.readFileSync(htmlLink, 'utf8');
 			let options = {};
-			if ( printer ){
-				options = {
-					"height": "70mm",        // allowed units: mm, cm, in, px
-  					"width": "140mm"
-				};
+
+			switch(templateType){
+				case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+				case 'A4': 		options = { format: 'A4' }; break;
 			}
-			else {
-				options = {
-					format: 'A4' 
-				}
-			}
+		
 			let multiHTML = '';
 			image2base64(`${__dirname}/../public${tickets[0].ImgPath}`) // you can also to use url
 			    .then(async (response) => {
@@ -102,14 +97,17 @@ class Templator{
 
 
 	// конверт из html в pdf
-	htmlToPdf(ticket, fileData, next){
+	htmlToPdf(ticket, fileData, templateType, next){
 		let htmlLink = `${__dirname}/../${fileData.link}`;
 		let templateName = fileData.name;
 
 		var html = fs.readFileSync(htmlLink, 'utf8');
-		var options = { 
-			format: 'A4'      
-		};
+		var options = {};
+
+		switch(templateType){
+			case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+			case 'A4': 		options = { format: 'A4' }; break;
+		}
 		
         let afisha = 'data:image/png;base64,';
         image2base64(`${__dirname}/../public${ticket.ImgPath}`) 
@@ -160,7 +158,7 @@ class Templator{
 		    )
 		
 	}
-	example(fileData, next){
+	example(fileData, templateType, next){
 		let htmlLink = `${__dirname}/../${fileData.link}`;
 		let templateName = fileData.name;
 
@@ -183,9 +181,11 @@ class Templator{
 		    	reqAPI += `&${attr}=${opt[attr]}`;
 		    } 
 		}
-		var options = { 
-			format: 'A4'      
-		};
+		var options = {};
+		switch(templateType){
+			case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+			case 'A4': 		options = { format: 'A4' }; break;
+		}
 		let toReplace = {
 			'{{ticketID}}': '{{ticketID}}', 
 			'{{eventName}}': '{{eventName}}',

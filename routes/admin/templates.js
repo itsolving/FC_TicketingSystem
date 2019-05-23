@@ -71,15 +71,15 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		 	dbURL 	 = `templates/${req.body.name}`;
 
 		fileUploader(req.files, filesURL);
-		dbUtils.Template.insert({ templateName: req.body.name,fileURL: dbURL, fileName: req.files.page.name }, (ans) => {
+		dbUtils.Template.insert({ templateName: req.body.name, fileURL: dbURL, fileName: req.files.page.name, Type: req.body.Type }, (ans) => {
 			res.redirect('/admin/templates');
 		})
 
 	})
 
 
-	// /admin/tmp/download/5/5348 или /admin/tmp/download/4/5348 для теста
-	router.get('/get/template/:id', function(req, res){
+	// 
+	router.get('/get/template/:templateType/:id', function(req, res){
 		let sAdminLogin = "",
 			sessData 	= req.session;
 
@@ -95,8 +95,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		let	templateID = req.params.id;
+		let templateType = req.params.templateType;
 		dbUtils.Template.getByID(templateID, (template) => {
-			templator.example({ name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, (pdfData) => {
+			templator.example({ name: template.templateName, link: `${template.templateUrl}/${template.fileName}` }, templateType, (pdfData) => {
 				res.type('pdf'); 
 				res.send(pdfData);
 			})
@@ -135,7 +136,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				    }
 				    content = data;
 
-				    res.render('adminTemplateEdit', {title: sAdminPageTitle, adminLogin: sAdminLogin, fileContent: content, IDTemplate: templateID})
+				    res.render('adminTemplateEdit', {title: sAdminPageTitle, adminLogin: sAdminLogin, fileContent: content, template: template})
 				});
 
 			} 

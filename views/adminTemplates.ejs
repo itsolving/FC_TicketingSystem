@@ -46,6 +46,11 @@
 													</div>
 													<div class="col-md-12">
 														<div class="form-group bmd-form-group">
+															<input class="form-control" type="text" name="Type" required placeholder="Тип шаблона (A4, custom)">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group bmd-form-group">
 															<input class="form-control-file" type="file" name="page" required style="position: initial; opacity: 1;">
 														</div>
 													</div>
@@ -65,6 +70,7 @@
 													<thead>
 														<th scope="col">ID</th>
 														<th scope="col">Название</th>
+														<th scope="col">Тип шаблона</th>
 														<th scope="col">Местоположение</th>
 													</thead>
 													<tbody>
@@ -73,6 +79,7 @@
 																<tr>
 																	<td scope="row"><%= template.ID %></td>
 																	<td scope="row"><a href="/admin/edit/template/<%= template.ID %>"><%= template.templateName %></a></td>
+																	<td scope="row"><%= template.Type %></td>
 																	<td scope="row"><%= template.templateUrl %></td>
 																</tr>
 															<% }); %>

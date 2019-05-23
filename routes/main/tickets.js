@@ -77,14 +77,16 @@ module.exports = (router, dbUtils) => {
 
 
 
-	router.get('/cloud/ticket/:ticketid/:hash', function(req, res){
+	router.get('/cloud/ticket/:templateType/:ticketid/:hash', function(req, res){
 
 		let data = {
 			IDTicket: req.params.ticketid,
 			hash:     req.params.hash
 		}
 		console.log(data);
-		dbUtils.Ticket.getMultiWithTemplate(data.IDTicket, (result) => {
+
+		let templateType = req.params.templateType;
+		dbUtils.Ticket.getMultiWithTemplate(data.IDTicket, templateType, (result) => {
 			if ( result.length > 0 ){
 				let ticket = result[0];
 				let resultHash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode));
