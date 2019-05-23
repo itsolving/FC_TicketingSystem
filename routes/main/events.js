@@ -13,6 +13,11 @@ module.exports = (router, dbUtils) => {
 			sLogin = sessData.userLogin;
 			console.log('sLogin='+sLogin);
 		}
+
+		if (!sessData.cashier){ 
+			res.redirect('/'); 
+			return;
+		}
 		
 		dbUtils.Event.getAll((data) => {
 			console.log('events found:');
@@ -67,6 +72,11 @@ module.exports = (router, dbUtils) => {
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
 
+		}
+
+		if (!sessData.cashier){ 
+			res.redirect('/'); 
+			return;
 		}
 
 		if ( sessData.cashier ){
