@@ -160,8 +160,13 @@ class TicketUtils extends rootUtils{
 		
 	}
 
-	getWithTemplate(nID, next){
+	getWithTemplate(nID, type, next){
 
+		let TemplateType = '';
+		switch(type){
+			case 'A4':  	TemplateType = 'IDTemplateAdditional'; break;
+			case 'custom':  TemplateType = 'IDTemplate'; break;
+		}
 		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
 						sc."SectorName", rw."RowN", st."SeatN",
 						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
@@ -170,27 +175,14 @@ class TicketUtils extends rootUtils{
 						ct."Name" as "CityName"
 					From public."tTicket" t
 					join public."tEvent" ev on ev."ID" = t."IDEvent"
-					join public."tTemplate" tm on tm."ID" = ev."IDTemplate"
+					join public."tTemplate" tm on tm."ID" = ev."${TemplateType}"
 					join public."tStadium" sd on sd."ID" = ev."IDStadium"
 					join public."tCity" ct on ct."ID" = sd."IDCity"
 					join public."tSeat" st on st."ID" = t."IDSeat"
 					join public."tRowN" rw on rw."ID" = st."IDRowN"
 					join public."tSector" sc on sc."ID" = rw."IDSector"
 					WHERE t."ID" = ${nID}`;
-					/*`SELECT tic."Price", tic."ID", tic."IDEvent", tic."IDStatus", tic."Barcode", 
-						st."SectorName", st."RowN", st."SeatN",
-						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
-						tm."templateUrl", tm."fileName", tm."templateName",
-						sd."Name" as "StadiumName",
-						city."Name" as "CityName"
-					From public."tTicket" tic
-					join public."tSeat" st on tic."IDSeat" = st."ID" 
-					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
-					join public."tTemplate" tm on ev."IDTemplate" = tm."ID"
-					join public."tStadium" sd on ev."IDStadium" = sd."ID"
-					join public."tCity" city on sd."IDCity" = city."ID"
-					WHERE tic."ID" = ${nID}`;*/
-
+					
 		console.log(sSQL);
 
 		this.execute(sSQL, (tickets) => {
@@ -198,7 +190,12 @@ class TicketUtils extends rootUtils{
 		})
 
 	}
-	getMultiWithTemplate(ids, next){
+	getMultiWithTemplate(ids, type, next){
+		let TemplateType = '';
+		switch(type){
+			case 'A4':  	TemplateType = 'IDTemplateAdditional'; break;
+			case 'custom':  TemplateType = 'IDTemplate'; break;
+		}
 		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
 						sc."SectorName", rw."RowN", st."SeatN",
 						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom", ev."ImgPath",
@@ -207,7 +204,7 @@ class TicketUtils extends rootUtils{
 						ct."Name" as "CityName"
 					From public."tTicket" t
 					join public."tEvent" ev on ev."ID" = t."IDEvent"
-					join public."tTemplate" tm on tm."ID" = ev."IDTemplate"
+					join public."tTemplate" tm on tm."ID" = ev."${TemplateType}"
 					join public."tStadium" sd on sd."ID" = ev."IDStadium"
 					join public."tCity" ct on ct."ID" = sd."IDCity"
 					join public."tSeat" st on st."ID" = t."IDSeat"

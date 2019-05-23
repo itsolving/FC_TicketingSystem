@@ -14,7 +14,8 @@ class TemplateUtils extends rootUtils{
 							\'"tTemplate_ID_seq"\'::regclass), 
 							'${itemData.templateName}', 
 							'${itemData.fileURL}', 
-							'${itemData.fileName}') 
+							'${itemData.fileName}',
+							'${itemData.Type}') 
 						RETURNING "ID"`;
 
 		console.log(sSQL);

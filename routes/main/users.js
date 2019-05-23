@@ -37,6 +37,11 @@ module.exports = (router, dbUtils) => {
 		var sessData = req.session;
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
 		dbUtils.Users.cashierLogin(req.body.txLogin, (data) => {
+				if (!data[0]) {
+					sessData.errorMsg = "Неверный логин или пароль";
+					res.redirect('/cashier');
+					return;
+				}
 				console.log('data[0].Login='+data[0].Login+', data[0].Pwd='+data[0].Pwd);
 				if (passwordHash.verify(req.body.txPassword, data[0].Pwd)) {
 					console.log('user found:');

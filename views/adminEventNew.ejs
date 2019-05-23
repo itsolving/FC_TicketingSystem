@@ -56,7 +56,7 @@
 													</div>
 											
 													<div class="form-group">
-														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы):</label>
+														<label for="eventIDTemplate">Шаблон билета (печатная версия для кассы), *140x70mm:</label>
 														<select name="templatesList" id="templatesList" class="form-control">
 															<% templates.forEach(function(template) { %>
 																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>
@@ -64,7 +64,7 @@
 														</select>
 													</div>
 													<div class="form-group">
-														<label for="eventIDTemplate">Шаблон билета (для отправки на почту):</label>
+														<label for="eventIDTemplate">Шаблон билета (для отправки на почту), *A4:</label>
 														<select name="templatesList" id="templatesListEmail" class="form-control">
 															<% templates.forEach(function(template) { %>
 																	<option value="<%= template.ID %>"><%= template.templateName %> (ID:<%= template.ID %>)</option>

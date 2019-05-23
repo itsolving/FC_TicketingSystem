@@ -693,7 +693,7 @@ app.reserve = function(){
                 tickids += `${tickets[i]},`;
               }
             }
-            $('.open-pdf').attr('href', `/kassa/get/tickets/${tickids}`);
+            $('.open-pdf').attr('href', `/kassa/get/tickets/custom/${tickids}`);
             $('.open-pdf')[0].click();
             setTimeout(function(){
                window.location.reload(1);
@@ -725,9 +725,9 @@ app.sendMail = function(){
 
            alert("Билеты отправлены на почту " + $('.email').val());
            
-            // setTimeout(function(){
-            //    window.location.reload(1);
-            // }, 2000);
+            setTimeout(function(){
+              window.location.reload(1);
+            }, 500);
             
           }
            else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }
