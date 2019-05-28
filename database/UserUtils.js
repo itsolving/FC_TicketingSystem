@@ -42,6 +42,17 @@ class UserUtils extends rootUtils{
 			next(qerr, qres);
 		})
 	}
+	login(userData, next){
+		let sSQL = `SELECT "ID", "Login", "Pwd", "IDRole" 
+					FROM public."tUser" 
+					WHERE "isLock" = false
+					AND "Login" = '${userData.login}'`;
+		console.log(sSQL);
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		})
+
+	}
 	insert(UserData, postOperation, next){
 		const client = new this.Client(this.conOptions);
 		var users = {};

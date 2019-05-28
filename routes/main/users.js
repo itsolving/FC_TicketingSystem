@@ -8,8 +8,8 @@ module.exports = (router, dbUtils) => {
 		});
 		res.redirect('/');
 	});
-	// страница авторизации кассира
-	router.get('/cashier', function(req, res){
+
+	router.get('/login', function(req, res){
 		console.log("get: /cashier");
 		var sLogin = "";
 		var nUserID = 0;
@@ -17,67 +17,76 @@ module.exports = (router, dbUtils) => {
 		var sMsg = "";
 		var sessData = req.session;
 		sMsg = sessData.errorMsg;
-		if(sessData.userLogin){
-			sLogin = sessData.userLogin;
-			nUserID = sessData.userID;
-			events = sessData.eventsList;
+		if ( sessData.cashier || sessData.api ){
+			res.redirect('/events');
 		}
-
-		//var events = db.getList(req, res, next);
-		res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, errorMsg: sMsg});
+		else if ( sessData.admControl ){
+			res.redirect('/admin/events/');
+		}
+		else {
+			res.render('login', {title: "Авторизация", errorMsg: ""});
+		}
+		
 	})
 
-	// авторизация	кассира
-	router.post('/cashier', function(req, res){
-		console.log('post: /cashier');
+	router.post('/login', function(req, res){
+		console.log('post: /login');
 		var sLogin = "";
 		var nUserID = 0;
 		var events = {};
 		var sSQL = "";
 		var sessData = req.session;
 		var hashedPassword = passwordHash.generate(req.body.txPassword);
-		dbUtils.Users.cashierLogin(req.body.txLogin, (data) => {
-				if (!data[0]) {
+		dbUtils.Users.login({login: req.body.txLogin}, (data) => {
+				if (!data) {
 					sessData.errorMsg = "Неверный логин или пароль";
-					res.redirect('/cashier');
+					res.redirect('/login');
 					return;
 				}
-				console.log('data[0].Login='+data[0].Login+', data[0].Pwd='+data[0].Pwd);
-				if (passwordHash.verify(req.body.txPassword, data[0].Pwd)) {
+				console.log('data.Login='+data.Login+', data.Pwd='+data.Pwd);
+				if (passwordHash.verify(req.body.txPassword, data.Pwd)) {
 					console.log('user found:');
 					console.log(data);
-					sLogin = data[0].Login;
-					nUserID = data[0].ID;
-					sessData.userLogin = data[0].Login;
-					sessData.userID = data[0].ID;
-					// 2 роль - кассир
-					if ( data[0].IDRole == 2 || data[0].IDRole == 6 ){
+					sLogin = data.Login;
+					nUserID = data.ID;
+					sessData.userLogin = data.Login;
+					sessData.userID = data.ID;
+
+					// 2 роль - кассир, 6 - главный кассир
+					if ( data.IDRole == 2 || data.IDRole == 6 ){
 						req.session.cashier = {
-							
-							ID: data[0].ID,
-							login: data[0].Login,
-							IDRole: data[0].IDRole
+							ID: data.ID,
+							login: data.Login,
+							IDRole: data.IDRole
 						};
+						
+						res.redirect('/events');
 					}
 					// 4 роль - апи для сторонних продавцов
-					else if ( data[0].IDRole ==  4){
+					else if ( data.IDRole ==  4){
 						req.session.api = {
-							ID: data[0].ID,
-							login: data[0].Login,
-							IDRole: data[0].IDRole
+							ID: data.ID,
+							login: data.Login,
+							IDRole: data.IDRole
 						};
+						res.redirect('/events');
+					}
+
+					// 1 роль - админ
+					else if ( data.IDRole == 1 ){
+						sessData.admControl = {
+							ID: data.ID,
+							Login: data.Login,
+							IDRole: data.IDRole
+						};
+						res.redirect('/admin/events');
 					}
 					console.log('sLogin='+sLogin);
 
-					dbUtils.Event.getActive((ans) =>{
-						events = ans;
-						sessData.eventsList = ans;
-						res.redirect('/events');
-					})
 				}
 				else {
 					sessData.errorMsg = "Неверный логин или пароль";
-					res.redirect('/cashier');
+					res.redirect('/login');
 				}
 		})
 	})
