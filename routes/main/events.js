@@ -14,7 +14,7 @@ module.exports = (router, dbUtils) => {
 			console.log('sLogin='+sLogin);
 		}
 
-		if (!sessData.cashier){ 
+		if (!sessData.cashier && !sessData.api && !sessData.admControl){ 
 			res.redirect('/'); 
 			return;
 		}

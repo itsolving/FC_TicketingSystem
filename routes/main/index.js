@@ -6,16 +6,15 @@ module.exports = (router, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.userLogin){
-			res.redirect('/events/');
-		// 	sLogin = sessData.userLogin;
-		// 	nUserID = sessData.userID;
-		// 	events = sessData.eventsList;
-		// 	res.render('index', {title: 'Учет билетов', userLogin: sLogin, userID: nUserID, eventsList: events, api: sessData.api });
-	    }
-
-		//var events = db.getList(req, res, next);
-		else res.redirect('/cashier');
+		if ( sessData.cashier || sessData.api ){
+			res.redirect('/events');
+		}
+		else if ( sessData.admControl ){
+			res.redirect('/admin/events/')
+		}
+		else {
+			res.redirect('/login/');
+		}
 	})
 
 }
