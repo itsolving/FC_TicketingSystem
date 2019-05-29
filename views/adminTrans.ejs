@@ -48,6 +48,7 @@
 														<th scope="col">Статус</th>
 														<th scope="col">E-mail</th>
 														<th scope="col">Цена, тг</th>
+														<th scope="col">Оплата картой</th>
 													</thead>
 													<tbody>
 														<% transList.forEach(function(transRow) { %>
@@ -60,6 +61,12 @@
 																<td><%= transRow.StatusName %></td>
 																<td><%= transRow.Email %></td>
 																<td><%= transRow.Price %></td>
+																<% if(transRow.CartStatus) { %>
+																	<td>Да</td>
+																<% } else { %>
+																	<td>-</td>
+																<% }  %>
+																<!-- <td><%= transRow.CartStatus %></td> -->
 															</tr>
 														<% }); %>
 													</tbody>

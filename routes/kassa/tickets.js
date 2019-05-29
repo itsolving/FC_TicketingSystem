@@ -43,7 +43,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 			})
 			if ( errTickets.length == 0 ){
 				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
-					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, params.CartStatus, (back) => {
 						if ( sessData.cashier.IDRole == 6 ){
 							dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
 								res.json({success: true});
@@ -138,7 +138,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 		dbUtils.Ticket.getByID(tickID, (ticket) => {
 			if (ticket.IDStatus == 3 && ticket.Price != 0){
 				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
-					dbUtils.Trans.insert(tickID, sessData.cashier.ID, (ans) => {
+					dbUtils.Trans.insert(tickID, sessData.cashier.ID, false, (ans) => {
 						res.json({success: true});
 					})
 				})

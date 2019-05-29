@@ -669,9 +669,15 @@ app.reserve = function(){
     }
     console.log(app.cart.tickets);
     var tickets = [];
+
+    var CartStatus = false;
+    if ($('.cart__paystatus').hasClass('cart__paystatus_true')){
+      CartStatus = true;
+    }
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
     $.post('/kassa/tickets/buy/', {
           IDEvent: app.id,
+          CartStatus: CartStatus,
           tickets: tickets
         }, function (ans) {
           console.log(ans);

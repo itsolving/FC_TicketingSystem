@@ -131,7 +131,7 @@ module.exports = (router, dbUtils) => {
 								res,json({err: ans.err});
 							}
 							else {
-								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (trans) => {
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, false, (trans) => {
 									dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
 										let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
 										res.json({

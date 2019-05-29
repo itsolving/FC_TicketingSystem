@@ -48,5 +48,16 @@ $(document).ready(function(){
 		window.location.href="/exit";
 	})
 
+	$(".cart__paystatus").click(function(){
+		if ($(this).hasClass('cart__paystatus_false')){
+			$(this).removeClass('cart__paystatus_false');
+			$(this).addClass('cart__paystatus_true');
+		}
+		else {
+			$(this).removeClass('cart__paystatus_true');
+			$(this).addClass('cart__paystatus_false');
+		}
+	})
+	
 
 })
