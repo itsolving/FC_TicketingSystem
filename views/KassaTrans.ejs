@@ -28,6 +28,7 @@
 											<th scope="col">Статус</th>
 											<th scope="col">E-mail</th>
 											<th scope="col">Цена, тг</th>
+											<th scope="col">Оплата картой</th>
 										</thead>
 										<tbody>
 											<% transactions.forEach(function(transRow) { %>
@@ -40,6 +41,7 @@
 													<td><%= transRow.StatusName %></td>
 													<td><%= transRow.Email %></td>
 													<td><%= transRow.Price %></td>
+													<td><%= transRow.CartStatus %></td>
 												</tr>
 											<% }); %>
 										</tbody>

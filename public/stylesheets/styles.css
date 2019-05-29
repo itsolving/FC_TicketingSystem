@@ -1427,6 +1427,48 @@ body #stadiumSVG.draggable [data-tribune] {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+
+.cart__paystatus {
+  z-index: 999;
+  padding: 0.8rem 2.7rem;
+  border-radius: 4px;
+  background: #ffc107;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  right: 170px;
+  bottom: 15px;
+  pointer-events: all;
+}
+.cart__paystatus:hover {
+  -webkit-box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 0 64px 64px 0 rgba(0, 0, 0, 0.05), 0 32px 32px 0 rgba(0, 0, 0, 0.05), 0 16px 16px 0 rgba(0, 0, 0, 0.05), 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 4px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.cart__paystatus:active {
+  opacity: 0.8;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.cart__paystatus_true{
+  background: #d4edda !important;
+  border-color: #c3e6cb !important;
+}
+
+.cart__paystatus_false{
+  background-color: #f8d7da !important;
+  border-color: #f5c6cb !important;
+}
+
 .cart--gray .cart__ticket {
   background: #f1f3f4;
   border-radius: 4px;

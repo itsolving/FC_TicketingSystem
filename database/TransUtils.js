@@ -6,21 +6,21 @@ class TransUtils extends rootUtils{
 		this.Client = Client;
 		this.conOptions = conOptions;
 	}
-	insert(ticket, userid, next){
+	insert(ticket, userid, CartStatus, next){
 		let sSQL = `insert into public."tTrans" 
-						( "IDTicket", "Saledate", "IDUserSaler" ) values 
-						( ${ticket}, now(), ${userid} );`
+						( "IDTicket", "Saledate", "IDUserSaler", "CartStatus" ) values 
+						( ${ticket}, now(), ${userid}, ${CartStatus || false} );`
 		this.execute(sSQL, (data) => {
 			next(data);
 		})
 	}
-	multiInsert(tickets, userid, next){
+	multiInsert(tickets, userid, CartStatus, next){
 		let sSQL = '';
 		tickets.forEach(function(item) {
 
 			let sTransInsert = `insert into public."tTrans" 
-									( "IDTicket", "Saledate", "IDUserSaler" ) values 
-									( ${item}, now(), ${userid} ); `;
+									( "IDTicket", "Saledate", "IDUserSaler", "CartStatus" ) values 
+									( ${item}, now(), ${userid}, ${CartStatus || false} ); `;
 			sSQL = sSQL + sTransInsert;
 		});
 
@@ -30,7 +30,7 @@ class TransUtils extends rootUtils{
 	}
 	getAll(next){
 
-		var sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  
+		var sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate", tr."CartStatus", 
 						tc."Price", 
 						st."ID", sc."SectorName", rw."RowN", st."SeatN", trb."TribuneName" as "Tribune",
 						ev."Name", 
@@ -70,7 +70,7 @@ class TransUtils extends rootUtils{
 
 		console.log(filters)
 
-		var sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  
+		var sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate", tr."CartStatus", 
 						tc."Price", tc."IDEvent",
 						st."ID", sc."SectorName", rw."RowN", st."SeatN", trb."TribuneName" as "Tribune",
 						ev."Name", 
@@ -115,7 +115,7 @@ class TransUtils extends rootUtils{
 		
 	}
 	cashierSelect(data, next){
-		let sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate",  
+		let sSQL = `SELECT tr."ID", tr."IDTicket", TO_CHAR(tr."Saledate", \'DD-MM-YYYY HH24:MI:SS\') as "Saledate", tr."CartStatus",  
 						tc."Price", 
 						st."ID", sc."SectorName", rw."RowN", st."SeatN", trb."TribuneName" as "Tribune",
 						ev."Name", 
