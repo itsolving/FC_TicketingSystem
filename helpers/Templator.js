@@ -70,6 +70,7 @@ class Templator{
 			            let toReplace = {
 			            	'{{ticketID}}': tickets[i].ID, 
 							'{{eventName}}': tickets[i].Name,
+							'{{eventName}}': tickets[i].Name,
 							'{{ticketPrice}}': tickets[i].Price, 
 							'{{SectorName}}': tickets[i].SectorName,
 							'{{RowN}}': tickets[i].RowN,
