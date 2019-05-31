@@ -32,10 +32,15 @@
 		}
 
 		.transformed{
-			height: 100px;
-			width: 50px;
+			height: 50px;
+			width: 100px;
 			margin-top: 30px;
 			margin-right: 50px;
+			-webkit-transform: rotate(-90deg); /* Safari and Chrome */
+		    -moz-transform: rotate(-90deg);   /* Firefox */
+		    -ms-transform: rotate(-90deg);   /* IE 9 */
+		    -o-transform: rotate(-90deg);   /* Opera */
+		    transform: rotate(-90deg);
 		}
 		.inline{
 			display: inline-block;

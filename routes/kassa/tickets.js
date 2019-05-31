@@ -212,7 +212,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 			})
 			if ( errTickets.length == 0 ){
 				dbUtils.Ticket.multiStatus(tickets, 5, (ans) => {
-					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, (back) => {
+					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, false, (back) => {
 						if ( sessData.cashier.IDRole == 6 ){
 							dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
 								mailer.sendMail({mail: clientData.mail, req: req}, data, () => {
