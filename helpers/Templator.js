@@ -10,6 +10,7 @@ class Templator{
 		this.replaceList = [
 			'{{ticketID}}', 
 			'{{eventName}}', 
+			'{{eventName}}',
 			'{{ticketPrice}}', 
 			'{{SectorName}}', 
 			'{{RowN}}', 
@@ -69,7 +70,6 @@ class Templator{
 						}
 			            let toReplace = {
 			            	'{{ticketID}}': tickets[i].ID, 
-							'{{eventName}}': tickets[i].Name,
 							'{{eventName}}': tickets[i].Name,
 							'{{ticketPrice}}': tickets[i].Price, 
 							'{{SectorName}}': tickets[i].SectorName,
