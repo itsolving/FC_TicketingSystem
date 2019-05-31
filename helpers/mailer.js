@@ -31,8 +31,11 @@ class eMailVerification{
             }
         }
 
-
-	    let link = `http://${data.req.get('host')}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
+        let host = data.req.get('host');
+        if ( data.req.get('host') != 'localhost'){
+        	host = host + ":8109";
+        }
+	    let link = `http://${host}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
 
 	    mailOptions.html = mailOptions.html + `<a href="${link}">Билеты</a><br>`;
 
