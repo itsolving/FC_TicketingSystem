@@ -1445,7 +1445,7 @@ body #stadiumSVG.draggable [data-tribune] {
       -ms-user-select: none;
           user-select: none;
   position: absolute;
-  right: 170px;
+  right: 250px;
   bottom: 15px;
   pointer-events: all;
 }
