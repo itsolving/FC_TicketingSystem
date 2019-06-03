@@ -52,7 +52,7 @@
 														<th scope="col">Статус</th>
 														<th scope="col">Ограничение</th>
 														<th scope="col">Продаж</th>
-														<th scope="col">Афиша</th>
+														<!-- <th scope="col">Афиша</th> -->
 														<% if(archive == false ){ %>
 															<th scope="col">Функции</th>
 														<% } %>
@@ -78,11 +78,11 @@
 																<td>
 																	<a href="/admin/event/<%= eventRow.ID %>"><%= eventRow.SaledTickets %></a>
 																</td>
-																<td>
+																<!-- <td>
 																	<a href="<%= eventRow.ImgPath %>" target="_blank">
 																		<img src="<%= eventRow.ImgPath %>" width="50px" height="50px" alt="<%= eventRow.Name %>" />
 																	</a>
-																</td>
+																</td> -->
 																<% if(archive == false ){ %>
 																	<td scope="row">
 																		<div class="row justify-content-left">
