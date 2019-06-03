@@ -44,56 +44,47 @@ class Templator{
 			}
 		
 			let multiHTML = '';
-			image2base64(`${__dirname}/../public${tickets[0].ImgPath}`) // you can also to use url
-			    .then(async (response) => {
-		        	let afisha = 'data:image/png;base64,';
-		            afisha = afisha + response;
-		            for ( let i = 0; i < tickets.length; i++ ){
-					
-						let options = { 
-							bcid: "ean13", 
-							text: tickets[i].Barcode, 
-							scale: 3, 
-							height: 10, 
-							includetext: true, 
-							textxalign: 'center'
-							// rotate: 'R'
-						};
-					    let reqAPI = "http://bwipjs-api.metafloor.com/?"
-					    for(var attr in options) { 
-					    	if ( attr == 'bcid'){
-					    		reqAPI +=`${attr}=${options[attr]}`;
-					    	}
-					    	else {
-						    	reqAPI += `&${attr}=${options[attr]}`;
-						    } 
-						}
-			            let toReplace = {
-			            	'{{ticketID}}': tickets[i].ID, 
-							'{{eventName}}': tickets[i].Name,
-							'{{ticketPrice}}': tickets[i].Price, 
-							'{{SectorName}}': tickets[i].SectorName,
-							'{{RowN}}': tickets[i].RowN,
-							'{{SeatN}}': tickets[i].SeatN,
-							'{{Barcode}}': reqAPI,
-							'{{StadiumName}}': tickets[i].StadiumName,
-							'{{CityName}}': tickets[i].CityName,
-							'{{DateFrom}}': tickets[i].DateFrom,
-							'{{EventImage}}': afisha
-			            };
-			            let newHTML = this.template(html, toReplace);	          
-			            multiHTML = multiHTML + newHTML;
-		            }
-		            pdf.create(multiHTML, options).toBuffer( (err, buffer) => {
-						next(buffer);
-					});
-		        }
-		    )
-		    .catch(
-		        (error) => {
-		            console.log(error); //Exepection error....
-		        }
-		    )
+		
+	            for ( let i = 0; i < tickets.length; i++ ){
+				
+					let options = { 
+						bcid: "ean13", 
+						text: tickets[i].Barcode, 
+						scale: 3, 
+						height: 10, 
+						includetext: true, 
+						textxalign: 'center'
+						// rotate: 'R'
+					};
+				    let reqAPI = "http://bwipjs-api.metafloor.com/?"
+				    for(var attr in options) { 
+				    	if ( attr == 'bcid'){
+				    		reqAPI +=`${attr}=${options[attr]}`;
+				    	}
+				    	else {
+					    	reqAPI += `&${attr}=${options[attr]}`;
+					    } 
+					}
+		            let toReplace = {
+		            	'{{ticketID}}': tickets[i].ID, 
+						'{{eventName}}': tickets[i].Name,
+						'{{ticketPrice}}': tickets[i].Price, 
+						'{{SectorName}}': tickets[i].SectorName,
+						'{{RowN}}': tickets[i].RowN,
+						'{{SeatN}}': tickets[i].SeatN,
+						'{{Barcode}}': reqAPI,
+						'{{StadiumName}}': tickets[i].StadiumName,
+						'{{CityName}}': tickets[i].CityName,
+						'{{DateFrom}}': tickets[i].DateFrom
+		            };
+		            let newHTML = this.template(html, toReplace);	          
+		            multiHTML = multiHTML + newHTML;
+	            }
+	            pdf.create(multiHTML, options).toBuffer( (err, buffer) => {
+					next(buffer);
+				});
+		       
+		  
 	}
 
 
