@@ -553,7 +553,8 @@ app.addToCart = function (ticket, $seat) {
   $seat.data('inCart', true);
 
   app.cart.tickets.push(ticket);
-  app.cart.total += ticket.Price;
+  if ( IDRole == 6 ) { app.cart.total = 0; }
+  else { app.cart.total += ticket.Price; }
 
   $('#cart-ticket [data-cart=tribune]').text(ticket.SectorRu);
   $('#cart-ticket [data-cart=line]').text(ticket.RowN);

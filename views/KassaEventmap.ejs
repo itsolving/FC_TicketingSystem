@@ -1696,12 +1696,13 @@
       <span data-cart="total"></span> 
       тг.
     </div>
-    
-    <div class="cart__paystatus cart__paystatus_false">
-      Оплата картой
-    </div>
+    <% if (user.IDRole != 6) { %>
+      <div class="cart__paystatus cart__paystatus_false">
+        Оплата картой
+      </div>
+    <% } %> 
     <div class="cart__buy">
-      <% if (user.admin) { %> Изменить цену <% } else { %> Продать <% } %> 
+      <% if (user.admin) { %> Изменить цену <% } else if (user.IDRole == 6) { %> Отправить на e-mail <% } else { %> Продать <% } %> 
     </div>
   </div>
 
