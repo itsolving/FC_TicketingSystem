@@ -11,7 +11,7 @@ module.exports = (router, dbUtils) => {
 		if ( sessData.userLogin ){
 			res.render('docsAPI');
 		}
-		else res.redirect('/cashier');
+		else res.redirect('/login');
 	})
 	router.get('/get/apikey/new', function(req, res){
 		let sAdminLogin = "",

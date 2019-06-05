@@ -185,4 +185,31 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	})
 
+	router.get('/tickets/download/barcodes/txt/:IDEvent', function(req, res){
+		let sAdminLogin = "",
+		sessData 	= req.session;
+
+
+		console.log("GET /admin/tickets/download/barcodes/txt/:IDEvent");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+
+		let IDEvent = req.params.IDEvent;
+
+		dbUtils.Ticket.getBarcodesByEvent(IDEvent, (barcodes) => {
+			let txtFile = '';
+			console.log(barcodes)
+			barcodes.forEach((item) => { txtFile = txtFile + item.Barcode + "\r\n"; })
+			res.attachment(`Barcodes (IDEvent_${IDEvent}).txt`);
+			res.type('txt');
+			res.send(txtFile);
+		})
+	})
+
 }
