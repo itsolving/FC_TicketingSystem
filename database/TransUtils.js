@@ -10,6 +10,7 @@ class TransUtils extends rootUtils{
 		let sSQL = `insert into public."tTrans" 
 						( "IDTicket", "Saledate", "IDUserSaler", "CartStatus" ) values 
 						( ${ticket}, now(), ${userid}, ${CartStatus || false} );`
+		console.log(sSQL);
 		this.execute(sSQL, (data) => {
 			next(data);
 		})

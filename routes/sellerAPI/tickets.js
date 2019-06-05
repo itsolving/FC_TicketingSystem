@@ -35,6 +35,7 @@ module.exports = (router, dbUtils) => {
 		dbUtils.API.findByKey(params.APIKEY, (success) => {
 			if ( success ){
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
+					ticket.Barcode = null;
 					res.json(ticket);
 				})
 			}
@@ -50,7 +51,7 @@ module.exports = (router, dbUtils) => {
 		}
 		dbUtils.API.findByKey(params.APIKEY, (success) => {
 			if ( success ){
-				dbUtils.Ticket.getByEventID(params.eventID, (tickets) => {
+				dbUtils.Ticket.getAvailableByEventID(params.eventID, (tickets) => {
 					res.json(tickets);
 				})
 			}
@@ -74,7 +75,7 @@ module.exports = (router, dbUtils) => {
 					else {
 						dbUtils.Ticket.setStatus(params.ticketID, 4, (ans) => {
 							if ( ans ){
-								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, (ans) => {
+								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, false, (ans) => {
 									res.json({success: true, data: `reserve ticket (ID:${params.ticketID}) success`})
 								})
 								
@@ -126,25 +127,26 @@ module.exports = (router, dbUtils) => {
 					console.log(ticket)
 					if ( ticket.IDStatus == 3 || ticket.IDStatus  == 4 ){
 						// 5 IDStatus - продан
-						dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
-							if ( ans.err ){
-								res,json({err: ans.err});
-							}
-							else {
-								dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, false, (trans) => {
-									dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
-										let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode))
-										res.json({
-											success: true, 
-											IDTicket: ticket.ID,
-											data: `sale ticket (ID:${params.ticketID}) success`, 
-											ticketCloud: `/cloud/ticket/${ticket.ID}/${hash}`
-										});
-									})
-									 
+						dbUtils.Event.getEventTickets(ticket.IDEvent, (eventData) => {
+							if (eventData.MaxTickets > eventData.SaledTickets || eventData.MaxTickets == null){
+								dbUtils.Ticket.setStatus(params.ticketID, 5, (ans) => {
+									if ( ans.err ){
+										res.json({err: ans.err});
+									}
+									else {
+										dbUtils.Trans.insert(params.ticketID, data.userData.IDUser, false, (trans) => {
+											dbUtils.Event.ChangeEventTickets(ticket.IDEvent, 1, (back) => {
+	
+												res.json({ success: true, ticket: ticket });
+
+											})
+											 
+										})
+									}
 								})
 							}
 						})
+						
 						
 					}
 					else {	

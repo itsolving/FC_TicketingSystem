@@ -133,6 +133,31 @@ class TicketUtils extends rootUtils{
 		})
 
 	}
+	getAvailableByEventID(nID, next){
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus",
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name" 
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."IDEvent" = ${nID} 
+					AND   t."IDStatus" = 3`;
+					/*`SELECT tic."Price", tic."ID", tic."IDEvent", 
+					st."SectorName", st."RowN", st."SeatN",
+					ev."Name" 
+					From public."tTicket" tic
+					join public."tSeat" st on tic."IDSeat" = st."ID" 
+					join public."tEvent" ev on tic."IDEvent" = ev."ID" 
+					WHERE tic."IDEvent" = ${nID}`;*/
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (tickets) => {
+			next(tickets);
+		})
+	}
 	setStatus(ticketID, statusID, next){
 		this.getByID(ticketID, (ticket) => {
 			console.log(ticket);
@@ -446,6 +471,16 @@ class TicketUtils extends rootUtils{
 	getByIDs(ids, next){
 
 		let sSQL = `SELECT * FROM public."tTicket" WHERE "ID" in (${ids})`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (result) => {
+			next(result);
+		})
+	}
+
+	getBarcodesByEvent(IDEvent, next){
+		let sSQL = `SELECT "Barcode" FROM public."tTicket" WHERE "IDEvent" = ${IDEvent}`;
 
 		console.log(sSQL);
 

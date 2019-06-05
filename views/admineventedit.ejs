@@ -41,7 +41,7 @@
 											
 											<!-- <%= eventData[0].ID %> -->
 											<% eventData.forEach(function(eventRow) { %>
-												<div class="col-md-3">
+												<div class="col-md-5">
 													<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
 													<!-- <% if(eventRow.IDTemplate){ %>
 														<p>
@@ -115,10 +115,11 @@
 														<a class="btn btn-primary btn-editor" href="/admin/event/pricechanger/<%=eventRow.ID %>" target="_blank">Установка цен по схеме стадиона</a>
 													</div>
 													<div class="form-group">
-														<button class="btn btn-primary btn-sector_editor btn-editor" type="button">Установка цен по секторам</a>
+														<button class="btn btn-primary btn-sector_editor btn-editor" type="button">Установка цен по секторам</button>
 													</div>
 												
-													<div class="form-group">
+													
+													<div class="form-group" style="margin-left: 4px;">
 														<% if (eventRow.Abonement) { %>
 															<div class="form-check">
 														        <label class="form-check-label">
@@ -141,7 +142,7 @@
 														    </div>
 														<% } %>
 													</div>
-													<div class="form-group">
+													<div class="form-group" style="margin-left: 4px;">
 														<% if (eventRow.ShowOnline) { %>
 															<div class="form-check">
 														        <label class="form-check-label">
@@ -164,7 +165,7 @@
 														    </div>
 														<% } %>
 													</div>
-													<div class="form-group">
+													<div class="form-group" style="margin-left: 4px;">
 														<% if (eventRow.ShowCasher) { %>
 															<div class="form-check">
 														        <label class="form-check-label">
@@ -187,7 +188,7 @@
 														    </div>
 														<% } %>
 													</div>
-													<div class="form-group">
+													<div class="form-group" style="margin-left: 4px;">
 														
 														<% if (eventRow.ShowAPI) { %>
 															<div class="form-check">
@@ -210,6 +211,10 @@
 														        </label>
 														    </div>
 														<% } %>
+													</div>
+
+													<div class="form-group">
+														<a href="/admin/tickets/download/barcodes/txt/<%=eventRow.ID %>" class="btn btn-primary btn-editor">TXT Экспорт штрих-кодов</a>
 													</div>
 													<!--<div class="form-group">
 														<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>

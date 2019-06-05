@@ -31,14 +31,13 @@
 		<hr>
 		<div class="method">
 			<p><b>--------------------------------------------------//// TICKETS ////--------------------------------------------------></b></p>
-			<p><span style="color:#0052CC;">'/api/:APIKEY/get/ticket/:ticketID'</span>	- получение информации о билете по ID</p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/ticket/:ticketID'</span>	- получение информации о билете по ID ( Кроме Barcode-штрихкода )</p>
 			<p>Вид ответа:</p>
 				<code>
 					{
-						Price: "0",
+						Price: "1000",
 						ID: 5942,
 						IDEvent: 1,
-						Barcode: " 123638959136",
 						SectorName: "E2top ",
 						RowN: 46,
 						SeatN: 8,
@@ -49,23 +48,25 @@
 		</div>
 		<hr>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/api/:APIKEY/get/tickets/event/:eventID'</span>	- получение списка билетов на мероприятие по ID мероприятия </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/tickets/event/:eventID'</span>	- получение списка билетов (свободных, IDStatus == 3) на мероприятие по ID мероприятия </p>
 			<p>Вид ответа:</p>
 				<code>
 					[ 
 						{
-							Price: "0",
+							Price: "1000",
 							ID: 5942,
 							IDEvent: 1,
+							IDStatus: 3,
 							SectorName: "E2top ",
 							RowN: 46,
 							SeatN: 8,
 							Name: "Тестовое мероприятие"
 						},
 						{
-							Price: "0",
+							Price: "2000",
 							ID: 5943,
 							IDEvent: 1,
+							IDStatus: 3,
 							SectorName: "E2top ",
 							RowN: 47,
 							SeatN: 7,
@@ -115,12 +116,22 @@
 			</p>
 		</div>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/tickets/buy/:ticketID'</span>	- снятие резерва билетаа ( если statusID == 4 ) </p>
+			<p><span style="color:#0052CC;">'/:APIKEY/tickets/buy/:ticketID'</span>	- покупка билета ( если IDStatus == 3, доступен )</p>
 			<p>Вид ответа:</p>
 				<code>
 					{
-						success: true, 
-						data: "sale ticket (ID:8501) success"
+						"success":true,
+						"ticket":{
+							"Price":"1000",
+							"ID":252,
+							"IDEvent":1,
+							"IDStatus":3,
+							"Barcode":"740249524359",
+							"SectorName":"E6bottom",
+							"RowN":11,
+							"SeatN":6,
+							"Name":"Тестовое мероприятие"
+						}
 					}
 				</code>
 			</p>
@@ -132,6 +143,7 @@
 				</code>
 			</p>
 		</div>
+		
 		<hr>
 		<div class="method">
 			<p><b>----------------------------------------------------//// EVENTS ////----------------------------------------------------></b></p>
