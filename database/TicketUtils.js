@@ -143,7 +143,8 @@ class TicketUtils extends rootUtils{
 					join public."tRowN" rw on rw."ID" = st."IDRowN"
 					join public."tSector" sc on sc."ID" = rw."IDSector"
 					WHERE t."IDEvent" = ${nID} 
-					AND   t."IDStatus" = 3`;
+					AND   t."IDStatus" = 3
+					AND   t."Price" <> 0`;
 					/*`SELECT tic."Price", tic."ID", tic."IDEvent", 
 					st."SectorName", st."RowN", st."SeatN",
 					ev."Name" 
