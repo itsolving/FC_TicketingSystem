@@ -14,10 +14,10 @@ module.exports = (router, dbUtils) => {
 			console.log('sLogin='+sLogin);
 		}
 
-		if (!sessData.cashier && !sessData.api && !sessData.admControl){ 
-			res.redirect('/'); 
-			return;
-		}
+		// if (!sessData.cashier && !sessData.api && !sessData.admControl){ 
+		// 	res.redirect('/'); 
+		// 	return;
+		// }
 		
 		dbUtils.Event.getAll((data) => {
 			console.log('events found:');
@@ -74,10 +74,10 @@ module.exports = (router, dbUtils) => {
 
 		}
 
-		if (!sessData.cashier){ 
-			res.redirect('/'); 
-			return;
-		}
+		// if (!sessData.cashier){ 
+		// 	res.redirect('/'); 
+		// 	return;
+		// }
 
 		if ( sessData.cashier ){
 			res.redirect('/kassa/event/' + eventID);

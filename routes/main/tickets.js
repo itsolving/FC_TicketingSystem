@@ -1,6 +1,7 @@
 let bwipjs    = require('bwip-js'),
 	md5		  = require('md5'),
-	Templator = require(`${__basedir}/helpers/Templator.js`),
+	Templator = require(`${__basedir}/helpers/Templator.js`)
+	payBoxer  = require(`${__basedir}/helpers/payBox.js`),
 	templator = new Templator();
 
 
@@ -106,6 +107,68 @@ module.exports = (router, dbUtils) => {
 			}
 		})
 		
+	})
+
+	router.post('/ticket/moment/reserve', function(req, res){
+
+		let tickID = req.body.TicketID;
+		dbUtils.Ticket.getByID(tickID, (ticket) => {
+			if (ticket.IDStatus == 3 && ticket.Price != 0){
+				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
+					res.json({success: true});
+					// dbUtils.Trans.insert(tickID, sessData.cashier.ID, false, (ans) => {
+					// 	res.json({success: true});
+					// })
+				})
+			}
+			else res.json({err: "Ticket is not available!"});
+		})
+
+
+	})
+
+	router.post('/ticket/moment/unreserve', function(req, res){
+		
+		let tickID = req.body.TicketID;
+
+		dbUtils.Ticket.getByID(tickID, (ticket) => {
+			if (ticket.IDStatus == 4 ){
+				dbUtils.Ticket.setStatus(tickID, 3, (data) => {
+					res.json({success: true});
+				})
+			}
+			else res.json({err: "Ticket is not reserved!"});
+		})
+
+
+	})
+
+	router.post('/tickets/buy', function(req, res){
+		let params = req.body;
+		params = JSON.stringify(params);
+		params = JSON.parse(params);
+		
+		let tickets = params.tickets;
+
+		console.log(tickets);
+
+		dbUtils.Ticket.getByIDs(tickets.join(','), (data) => {
+			let sum = 0;
+			data.forEach((item) => {
+				sum += parseInt(item.Price);
+
+
+			})
+			payBoxer.createPayment({Price: sum}, (paymentInfo) => {
+				dbUtils.Payment.insert({
+					IDPayment: paymentInfo.id,
+					Tickets:   tickets,
+					Amount:    sum
+				}, (back) => {
+					res.json({success: true, link: paymentInfo.payment_page_url})
+				})
+			})
+		})
 	})
 		
 }
