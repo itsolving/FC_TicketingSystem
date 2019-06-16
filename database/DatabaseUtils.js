@@ -15,7 +15,8 @@ let abonement = require('./AbonementUtils.js'),
 	template  = require('./TemplateUtils.js'),
 	api		  = require('./APIUtils.js'),
 	timer	  = require('./TimerUtils.js'),
-	pricecol  = require('./PriceColorUtils.js');
+	pricecol  = require('./PriceColorUtils.js'),
+	payment   = require('./Payment.js');
 // для всех
 
 let db = {
@@ -31,7 +32,8 @@ let db = {
 	Template:   new template(Client, conOptions),
 	API: 	    new api(Client, conOptions),
 	Timer:      new timer(Client, conOptions),
-	PriceColor: new pricecol(Client, conOptions)
+	PriceColor: new pricecol(Client, conOptions),
+	Payment:    new payment(Client, conOptions)
 }
 
 module.exports = db;

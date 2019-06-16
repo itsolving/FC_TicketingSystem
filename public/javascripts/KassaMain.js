@@ -277,6 +277,7 @@ app.setSeatsNumber = function (data) {
 
   app.setSeatsData(data);
 
+
   function _asc(a, b) {
     return a.index > b.index === 0 ? 0 : a.index > b.index ? 1 : -1;
   }
@@ -410,11 +411,11 @@ app.setContentTooltip = function (elem, checkHover) {
 app.setSeatsData = function (data) {
   var priceIndex = {};
   data = data.sector_rows;
-  /*data.forEach(function(row){
-    var $line = $('g[data-line="'+row.RowN+'"]'),
-        $number = '<svg><text x="10" y="10" font-size="5" fill="rgb(62, 61, 61);">'+row.RowN+'</text></svg>';
-    $line.append($number);
-  });*/
+  // data.forEach(function(row){
+  //   var $line = $('g[data-line="'+row.RowN+'"]'),
+  //       $number = '<svg><text x="10" y="10" font-size="5" fill="rgb(62, 61, 61);">'+row.RowN+'</text></svg>';
+  //   $line.append($number);
+  // });
 
   var colors = [];
   $.ajax({

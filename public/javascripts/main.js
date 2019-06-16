@@ -1,6 +1,10 @@
+var parts = window.location.href.split("/");
+var result = parts[parts.length - 1];
+
+
 app = {};
 
-app.id = 1;
+app.id = result;
 
 app.cart = {
   tickets: [],
@@ -44,6 +48,7 @@ app.init = function () {
   // app.zoomTribune(zoom);
   app.tribuneInit();
   app.stopPreloading();
+
 };
 
 app.tribuneInit = function () {
@@ -167,14 +172,9 @@ app.initFluid = function () {
       'font-size': Math.min(($(window).width() / baseWidth) * baseSize, 10) + 'px'
     });
 
-    
-    //------- beta
-
-     $('.cart__buy').on('click', function() {
-      app.reserve();
-    });
-
-     //------------
+    $('.cart__buy').on('click', function() {
+        app.buy();
+      });
   }
 };
 
@@ -255,6 +255,7 @@ app.setSeatsNumber = function (data) {
   });
 
   app.setSeatsData(data);
+
 
   function _asc(a, b) {
     return a.index > b.index === 0 ? 0 : a.index > b.index ? 1 : -1;
@@ -389,16 +390,38 @@ app.setContentTooltip = function (elem, checkHover) {
 app.setSeatsData = function (data) {
   var priceIndex = {};
   data = data.sector_rows;
+  // data.forEach(function(row){
+  //   var $line = $('g[data-line="'+row.RowN+'"]'),
+  //       $number = '<svg><text x="10" y="10" font-size="5" fill="rgb(62, 61, 61);">'+row.RowN+'</text></svg>';
+  //   $line.append($number);
+  // });
+
+  var colors = [];
+  $.ajax({
+    url: '/colors/get/byevent/' + app.id,
+    type: 'GET',
+    async: false
+  }).done(function(data) {
+     console.log(data);
+    colors = data;
+  }).fail(function(xhr)  {
+     // Todo something..
+  });
+  //  $.get(
+  //   '/colors/get/byevent/' + app.id,
+  //   null,
+  //    (data) => {
+  //     colors = data;
+  //   }, false
+  // );
 
   for (var i = 0; i < data.length; ++i) {
     for (var i2 = 0; i2 < data[i].tickets.length; ++i2) {
       var seatData = data[i].tickets[i2];
       var $seat = $('[data-seat]:not([data-init])[data-line=' + seatData.RowN + '][data-seat=' + seatData.SeatN + ']');
-
       $seat.attr('data-show-tooltip', 'init-wait');
       $seat.attr('data-status', seatData.IDStatus);
       $seat.attr('data-price', seatData.Price);
-
       $seat.data('data', seatData);
       $seat.data('inCart', false);
       $seat.data('tooltip', {
@@ -409,6 +432,17 @@ app.setSeatsData = function (data) {
         seat: seatData.SeatN,
         line: seatData.RowN
       });
+   
+      $seat.each(function() {
+        
+       
+        for(var i = 0;i < colors.length; i++){
+          if($(this).data('price') == parseInt(colors[i].Price)){
+            $(this).css('fill', colors[i].Color);
+            break;
+          }
+        }
+      });
 
       if (seatData.IDStatus === 3) {
         $seat.on('click', app.handlerForAvaliableSeats);
@@ -417,6 +451,7 @@ app.setSeatsData = function (data) {
       $seat.attr('data-init', true);
     }
   }
+
 
   // $('[data-seat]:not([data-init])').each(function () {
   //   var $seat = $(this);
@@ -461,7 +496,6 @@ app.setSeatsData = function (data) {
   //   $seat.attr('data-init', true);
   // });
 
-  console.log(priceIndex)
   app.setListenerTooltip();
 };
 
@@ -483,7 +517,12 @@ app.handlerForAvaliableSeats = function () {
 app.addToCart = function (ticket, $seat) {
   var $cart = $('.cart');
 
+ 
+
   if (app.cart.tickets.length >= 8) {
+    return;
+  }
+  if ( ticket.Price == 0){
     return;
   }
 
@@ -531,6 +570,7 @@ app.addToCart = function (ticket, $seat) {
   $(addedTicket).attr('data-cart-id', ticket.IDSeat);
 
   console.log(ticket);
+  app.momentReserve(ticket);
 };
 
 app.removeFromCart = function (ticket, $seat) {
@@ -557,6 +597,7 @@ app.removeFromCart = function (ticket, $seat) {
   }
 
   console.log(ticket, $seat);
+  app.momentUnReserve(ticket);
 };
 
 /*$('.cart__buy').on('click', function () {
@@ -578,38 +619,50 @@ app.removeFromCart = function (ticket, $seat) {
 
 // BETA --------------------------------
 
-app.reserve = function(){
+app.momentReserve = function(ticket){
+  console.log(ticket)
+  $.post('/ticket/moment/reserve', ticket
+    ,function (ans) {
+         console.log(ans)  
+         if (ans.err) console.log(ans.err);  
+    });
+}
+
+app.momentUnReserve = function(ticket){
+  console.log(ticket)
+  $.post('/ticket/moment/unreserve', ticket
+    ,function (ans) {
+         console.log(ans)
+         if (ans.err) console.log(ans.err)
+    });
+}
+
+
+app.buy = function(){
   console.log(app.cart.tickets);
   if ( app.cart.tickets.length > 0 ){
+  
     console.log(app.cart.tickets);
     var tickets = [];
+
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
-    $.post('/beta/tickets/reserve', {
+    $.post('/tickets/buy/', {
           IDEvent: app.id,
           tickets: tickets
         }, function (ans) {
+          console.log(ans);
            if ( ans.success ) { 
-
-            alert('Билеты успешно зарезервированы'); 
-
-            $.fancybox.close();
-            app.cart.tickets = [];
-            if (!app.cart.tickets.length) {
-              $('body').removeClass('cart--is-open');
-            }
-           
-            // tickets.forEach((tickID) => {
-            //   window.open('/kassa/beta/get/ticket/' + tickID);
-            // })
-            console.log(tickets);
+            window.location = ans.link
+                        
           }
-           else alert("Произошла какая-то ошибка, попробуйте еще раз!")
+           else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }
         });
        
 
   }
   else console.log('cart is empty');
 }
+
 
 
 // -------------------------------------
