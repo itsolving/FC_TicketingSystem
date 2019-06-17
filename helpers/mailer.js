@@ -69,7 +69,7 @@ class eMailVerification{
 	    	let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode));
 	    	console.log(ticket);
 	    	console.log((ticket.ID + ticket.IDEvent + ticket.Barcode) + " | " + hash);
-	    	let link =`http://${data.req.get('host')}/cloud/ticket/A4/${ticket.ID}/${hash}`;
+	    	let link =`http://${host}/cloud/ticket/A4/${ticket.ID}/${hash}`;
 	    	mailOptions.html = mailOptions.html + `<a href="${link}">Билет №${index+1}</a><br>`;
 	    })
 	    this.smtp.sendMail(mailOptions, (error, response) => {
