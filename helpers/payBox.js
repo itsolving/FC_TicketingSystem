@@ -73,11 +73,13 @@ class payBox {
                         console.log(info);
                         if (info.status.code != 'new'){
                             dbUtils.Payment.changeData({
-                                status:    info.status.code,
-                                amount:    info.amount,
-                                email:     info.options.user.email,
-                                phone:     info.options.user.phone,
-                                paymentid: info.id
+                                status:     info.status.code,
+                                amount:     info.amount,
+                                email:      info.options.user.email,
+                                phone:      info.options.user.phone,
+                                paymentid:  info.id,
+                                created_at: info.created_at,
+                                updated_at: info.updated_at
                             }, (answer) => {
                                 if (info.status.code == 'success'){
                                     dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
