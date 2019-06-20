@@ -7,8 +7,8 @@ class APIUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(data, next){
-		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount") 
-						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount} )`;
+		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount", "CreatedAt") 
+						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount}, 'now()' )`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {
@@ -45,8 +45,19 @@ class APIUtils extends rootUtils{
 		if (data.status) sSQL += `"Status" = '${data.status}', `;
 		if (data.email)  sSQL += `"Email"  = '${data.email}', `;
 		if (data.phone)  sSQL += `"Phone"  = '${data.phone}', `;
-		if (data.amount) sSQL += `"Amount" = ${data.amount} `;
+		if (data.amount) sSQL += `"Amount" = ${data.amount}, `;
+		if (data.created_at) sSQL += `"CreatedAt" = '${data.created_at}', `;
+		if (data.updated_at) sSQL += `"UpdatedAt" = '${data.updated_at}' `;
 		sSQL += ` WHERE "IDPayment" = ${data.paymentid}`
+		console.log(sSQL);
+
+		this.execute(sSQL, (result) => {
+			next(result);
+		})
+	}
+
+	getAll(next){
+		let sSQL = `SELECT *, TO_CHAR("CreatedAt", \'DD-MM-YYYY HH24:MI\') as "CreatedAt" FROM public."tPayment"`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {

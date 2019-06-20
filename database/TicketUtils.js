@@ -489,6 +489,25 @@ class TicketUtils extends rootUtils{
 			next(result);
 		})
 	}
+	getByIDsCustom(ids, next){
+
+		var sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name"
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					WHERE t."ID" in (${ids})`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (tickets) => {
+			next(tickets);
+		})
+
+	}
 
 }
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include head_html %>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="/javascripts/filter.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<% if(adminLogin){ %>
+				<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+					<% include admmnu %>
+				</div>
+				<div id="workArea" class="main-panel">
+					<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="navbar-toggler-icon icon-bar"></span>
+									<span class="navbar-toggler-icon icon-bar"></span>
+									<span class="navbar-toggler-icon icon-bar"></span>
+								</button>
+								<div class="collapse navbar-collapse justify-content-end">
+									<ul class="navbar-nav">
+										<% include admheader %>
+									</ul>
+								</div>
+							</div>
+					</nav>
+					<div class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<h2>Отчет по продажам билетов для обычных пользователей</h2>
+								</div>
+								<div class="col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table trans">
+													<thead class="text-primary">
+														<th scope="col">Дата и время</th>
+														<th scope="col">IDPayment</th>
+														<th scope="col">Мероприятие</th>
+														<th scope="col">Сектор</th>
+														<th scope="col">Ряд</th>
+														<th scope="col">Место</th>
+														<th scope="col">Статус</th>
+														<th scope="col">E-mail</th>
+														<th scope="col">Телефон</th>
+														<th scope="col">Цена, тг</th>
+													</thead>
+													<tbody>
+														<% payments.forEach(function(payment) { %>
+															<tr>
+																<% if (payment.CreatedAt) { %>
+																	<td scope="row"><%= payment.CreatedAt %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>
+																<td><%= payment.IDPayment %></td>
+																<td><%= payment.Name %></td>
+																<td><%= payment.SectorName %></td>
+																<td><%= payment.RowN %></td>
+																<td><%= payment.SeatN %></td>
+																<td><%= payment.Status %></td>
+																<% if (payment.Email) { %>
+																	<td scope="row"><%= payment.Email %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>
+																<% if (payment.Phone) { %>
+																	<td scope="row"><%= payment.Phone %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>	
+																<% if (payment.Price) { %>
+																	<td scope="row"><%= payment.Price %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>						
+															
+																
+															</tr>
+														<% }); %>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% } else{ %>
+				<% include admloginform %>
+			<% } %>
+		</div>
+	</body>
+</html>
+

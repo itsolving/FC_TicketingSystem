@@ -165,4 +165,76 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 	})
 
+
+	//при открытии страницы "localhost:3000/admin/reports/trans"
+	router.get('/reports/users/payments', function(req, res, next) {
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports/users/payments");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Payment.getAll(async (payments) => {
+			if ( !(payments.length > 0) ){ 
+				payments = []; 
+				res.render('adminUserPayments', { title: sAdminPageTitle, adminLogin: sAdminLogin, payments: [] });
+				return; 
+			}
+				
+				let paymentsN = 0;
+
+				payments.forEach((item) => {
+					paymentsN += (item.Tickets.split(',')).length
+				})
+			
+				let data = [];
+				payments.forEach((payment, paymentIndex) => {
+					
+					let tickets = payment.Tickets.split(',');
+					dbUtils.Ticket.getByIDsCustom(tickets, (ticketsData) => {
+						ticketsData.forEach((ticket) => {
+							data.push({
+								CreatedAt: payment.CreatedAt,
+								Name: ticket.Name,
+								SectorName: ticket.SectorName,
+								RowN: ticket.RowN,
+								SeatN: ticket.SeatN,
+								Status: payment.Status,
+								Email: payment.Email,
+								Phone: payment.Phone,
+								Price: ticket.Price,
+								TicketID: ticket.ID,
+								IDPayment: payment.IDPayment
+							})
+						})
+						
+						if (paymentsN == data.length) { 
+							res.render('adminUserPayments', { title: sAdminPageTitle, adminLogin: sAdminLogin, payments: data });
+							return;
+						}
+
+					//	if (data[data.length-1].TicketID == (payments[payments.length-1].Tickets.split(','))[(payments[payments.length-1].Tickets.split(',')).length-1]) res.json(data);
+					})
+					
+				})
+		
+				//throw newData;
+				//res.json(data);
+				//res.render('adminUserPayments', { title: sAdminPageTitle, adminLogin: sAdminLogin, payments: newData });
+		
+
+
+			
+			
+		})
+
+	});
+
 }
