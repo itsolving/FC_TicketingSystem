@@ -1,14 +1,6 @@
 (create folder for this project)
 (context menu to the folder - "bash here")
-npm install -g express-generator
-express --view ejs
 npm install
-npm install --save pg-promise bluebird
-npm install express-session --save
 
-(copy file "./bin/www" to "./" and rename as "index.js", change code for "server.listen()")
-
-node index.js
-
-(ready, and now you can codding)
-
+(ready, and now you can codding, or you may run this command to start app)
+npm start
