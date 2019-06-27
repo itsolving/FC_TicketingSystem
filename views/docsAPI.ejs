@@ -79,7 +79,7 @@
 		</div>
 		<hr>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/tickets/reserve/:ticketID'</span>	- резерв билета ( если statusID не 2 || 5 || 6 ) </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/reserve/:ticketID'</span>	- резерв билета ( если statusID не 2 || 5 || 6 ) </p>
 			<p>Вид ответа:</p>
 				<code>
 					{
@@ -98,7 +98,7 @@
 		</div>
 		<hr>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/tickets/unreserve/:ticketID'</span>	- снятие резерва билета ( если statusID == 4 ) </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/unreserve/:ticketID'</span>	- снятие резерва билета ( если statusID == 4 ) </p>
 			<p>Вид ответа:</p>
 				<code>
 					{
@@ -116,7 +116,7 @@
 			</p>
 		</div>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/tickets/buy/:ticketID'</span>	- покупка билета ( если IDStatus == 3, доступен )</p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/buy/:ticketID'</span>	- покупка билета ( если IDStatus == 3, доступен )</p>
 			<p>Вид ответа:</p>
 				<code>
 					{
@@ -147,7 +147,7 @@
 		<hr>
 		<div class="method">
 			<p><b>----------------------------------------------------//// EVENTS ////----------------------------------------------------></b></p>
-			<p><span style="color:#0052CC;">'/:APIKEY/get/events'</span> - получение списка мероприятий, которые открыты для API </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/events'</span> - получение списка мероприятий, которые открыты для API </p>
 			<p>Вид ответа:</p>
 				<code>
 					[
@@ -170,7 +170,7 @@
 		</div>
 		<hr>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/get/event/:eventID'</span> - получение информации по ID мероприятия, если мероприятие открыто для API </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/event/:eventID'</span> - получение информации по ID мероприятия, если мероприятие открыто для API </p>
 			<p>Вид ответа:</p>
 				<code>
 					{
@@ -194,7 +194,7 @@
 		</div>
 		<hr>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/:APIKEY/get/event/stadium/:IDStadium'</span> - получение мероприятий по IDStadium, если они открыты для API </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/event/stadium/:IDStadium'</span> - получение мероприятий по IDStadium, если они открыты для API </p>
 			<p>Вид ответа:</p>
 				<code>
 					[
@@ -219,7 +219,7 @@
 		<hr>
 		<div class="method">
 			<p><b>----------------------------------------------------//// STADIUMS ////----------------------------------------------------></b></p>
-			<p><span style="color:#0052CC;">'/:APIKEY/get/stadiums'</span> - получение списка стадионов </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/stadiums'</span> - получение списка стадионов </p>
 			<p>Вид ответа:</p>
 				<code>
 					[
@@ -238,7 +238,7 @@
 		<hr>
 		<div class="method">
 			<p><b>----------------------------------------------------//// CITIES ////----------------------------------------------------></b></p>
-			<p><span style="color:#0052CC;">'/:APIKEY/get/cities'</span> - получение списка городов </p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/get/cities'</span> - получение списка городов </p>
 			<p>Вид ответа:</p>
 				<code>
 					[
