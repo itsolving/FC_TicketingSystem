@@ -1,3 +1,16 @@
+//--- web interfaces: ---
+//phpPgAdmin for DB: 
+//develop: http://185.22.64.26:8000/
+//master: http://185.22.64.31:8000/
+//client prod: http://92.46.109.122:8780/
+//
+//web application: 
+//develop: http://185.22.64.26:3000/events/
+//master: http://185.22.64.31:3000/events/
+//client prod: http://92.46.109.122:8109/events/
+//-----------------------
+
+
 //-------------------
 //для админки использую "свой" коннект к БД. Потому что запарился с общим коннектом из файла "queries.js"
 const { Client } = require('pg');
