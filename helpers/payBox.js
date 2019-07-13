@@ -72,15 +72,18 @@ class payBox {
                         info = JSON.parse(info);
                         console.log(info);
                         if (info.status.code != 'new'){
-                            dbUtils.Payment.changeData({
+                            let obj = {
                                 status:     info.status.code,
                                 amount:     info.amount,
-                                email:      info.options.user.email,
-                                phone:      info.options.user.phone,
                                 paymentid:  info.id,
                                 created_at: info.created_at,
                                 updated_at: info.updated_at
-                            }, (answer) => {
+                            }
+                            if ( info.user ){
+                                obj.email = info.options.user.email;
+                                obj.phone = info.options.user.phone;
+                            }
+                            dbUtils.Payment.changeData(obj, (answer) => {
                                 if (info.status.code == 'success'){
                                     dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
                                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {

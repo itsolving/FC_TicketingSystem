@@ -10,10 +10,11 @@ module.exports = (router, PageTitle, dbUtils) => {
 		var nUserID = 0;
 		var events = {};
 		var sessData = req.session;
-		if(sessData.cashier){
+		if(sessData.cashier || sessData.api){
 			sLogin = sessData.userLogin;
 			nUserID = sessData.userID;
 			events = sessData.eventsList;
+
 		}
 		else {
 			res.redirect('/');
