@@ -701,11 +701,12 @@ app.reserve = function(){
                 tickids += `${tickets[i]},`;
               }
             }
-            $('.open-pdf').attr('href', `/kassa/get/tickets/custom/${tickids}`);
-            $('.open-pdf')[0].click();
-            setTimeout(function(){
-               window.location.reload(1);
-            }, 200);
+            // $('.open-pdf').attr('href', `/kassa/get/tickets/custom/${tickids}`);
+            // $('.open-pdf')[0].click();
+            printJS(`/kassa/get/tickets/custom/${tickids}`)
+            // setTimeout(function(){
+            //    window.location.reload(1);
+            // }, 200);
             
           }
            else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }
