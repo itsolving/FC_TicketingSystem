@@ -703,10 +703,10 @@ app.reserve = function(){
             }
             // $('.open-pdf').attr('href', `/kassa/get/tickets/custom/${tickids}`);
             // $('.open-pdf')[0].click();
-            printJS(`/kassa/get/tickets/custom/${tickids}`)
-            // setTimeout(function(){
-            //    window.location.reload(1);
-            // }, 200);
+            printJS({printable:`/kassa/get/tickets/custom/${tickids}`, type:'pdf', showModal:true, modalMessage: 'Подготовка документа...', onPrintDialogClose: printJobComplete})
+            function printJobComplete(){
+              window.location.reload(1);
+            }
             
           }
            else { alert("Произошла какая-то ошибка, попробуйте еще раз!"); console.log(ans) }
