@@ -6,7 +6,7 @@ module.exports = (router, dbUtils) => {
 		req.session.destroy(function(err) {
 			if(err){throw err;}
 		});
-		res.redirect('/');
+		res.redirect('/login');
 	});
 
 	router.get('/login', function(req, res){
