@@ -152,14 +152,14 @@ module.exports = (router, dbUtils) => {
 
 		console.log(tickets);
 
-		dbUtils.Ticket.getByIDs(tickets.join(','), (data) => {
+		dbUtils.Ticket.getInfoByIDs(tickets.join(','), (data) => {
 			let sum = 0;
 			data.forEach((item) => {
 				sum += parseInt(item.Price);
 
 
 			})
-			payBoxer.createPayment({Price: sum}, (paymentInfo) => {
+			payBoxer.createPayment({Price: sum, tickets: data}, (paymentInfo) => {
 				dbUtils.Payment.insert({
 					IDPayment: paymentInfo.id,
 					Tickets:   tickets,

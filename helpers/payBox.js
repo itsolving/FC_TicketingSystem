@@ -31,13 +31,23 @@ class payBox {
 
     }
     createPayment(data, next){
+        let description = ``;
+        data.tickets.forEach((item, index) => {
+            if (index == data.tickets.length-1){
+                description += `${item.Name} сектор ${item.SectorName} ряд ${item.RowN} место ${item.SeatN}`;
+            }
+            else description += `${item.Name} сектор ${item.SectorName} ряд ${item.RowN} место ${item.SeatN} - `;
+        })
+        let now = new Date();
+        now.setHours(now.getHours() + 1);
         let options = {                 
             method: 'POST',             
             uri: 'https://api.paybox.money/v4/payments',
             json: {
                 "amount": data.Price,
                 "currency": 'KZT',
-                "description": `Электронный билет на мероприятие`
+                "description": description,
+                "expires_at": now
             },                       
             headers: {               
                 'Authorization': 'Basic ' + new Buffer(this.accessData).toString('base64'),
