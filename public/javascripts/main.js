@@ -104,7 +104,7 @@ app.tribuneInit = function () {
         app.setContentTooltip($tribune, true);
 
         // show seats modal
-        $tribune.on('click', app.showTribuneSeats);
+        $tribune.on('click touchstart', app.showTribuneSeats);
       }
     );
   });
@@ -172,7 +172,7 @@ app.initFluid = function () {
       'font-size': Math.min(($(window).width() / baseWidth) * baseSize, 10) + 'px'
     });
 
-    $('.cart__buy').on('click', function() {
+    $('.cart__buy').on('click touchstart', function() {
         app.buy();
       });
   }
@@ -445,7 +445,7 @@ app.setSeatsData = function (data) {
       });
 
       if (seatData.IDStatus === 3) {
-        $seat.on('click', app.handlerForAvaliableSeats);
+        $seat.on('click touchstart', app.handlerForAvaliableSeats);
       }
 
       $seat.attr('data-init', true);
@@ -562,7 +562,7 @@ app.addToCart = function (ticket, $seat) {
     $('[data-tribune=' + ticket.SectorName + ']').removeClass('active');
   });
 
-  $('[data-cart=remove]', addedTicket).on('click', function () {
+  $('[data-cart=remove]', addedTicket).on('click touchstart', function () {
     app.removeFromCart(ticket, $seat);
   });
 
