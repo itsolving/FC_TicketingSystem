@@ -158,7 +158,7 @@ module.exports = (router, dbUtils) => {
 		})
 	})
 
-	// Возврат билета
+	// Возврат билета по ID
 	router.get('/:APIKEY/tickets/cancel/:ticketID', function(req, res){
 		let params = {
 			APIKEY: req.params.APIKEY,
@@ -172,6 +172,39 @@ module.exports = (router, dbUtils) => {
 					if ( ticket.IDStatus == 5 ){
 						// 5 IDStatus - продан
 						dbUtils.Ticket.setStatus(params.ticketID, 3, (ans) => {
+							if ( ans.err ){
+								res.json({err: ans.err});
+							}
+							else {
+								res.json({ success: true });
+							}
+						})
+						
+						
+					}
+					else {	
+						res.json({err: "ticket is already available"})
+					}
+				})
+			}
+			else res.json({err: "no success"});
+		})
+	})
+
+	// Возврат билета по ID
+	router.get('/:APIKEY/tickets/cancel/barcode/:barcode', function(req, res){
+		let params = {
+			APIKEY: req.params.APIKEY,
+			Barcode: req.params.barcode
+		}
+		dbUtils.API.findByKey(params.APIKEY, (data) => {
+			if ( data.success ){
+				//res.json(params);
+				dbUtils.Ticket.getByBarcode({Barcode: params.Barcode}, (ticket) => {
+					console.log(ticket)
+					if ( ticket.IDStatus == 5 ){
+						// 5 IDStatus - продан
+						dbUtils.Ticket.setStatus(ticket.ID, 3, (ans) => {
 							if ( ans.err ){
 								res.json({err: ans.err});
 							}
