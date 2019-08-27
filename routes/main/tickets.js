@@ -156,9 +156,8 @@ module.exports = (router, dbUtils) => {
 			let sum = 0;
 			data.forEach((item) => {
 				sum += parseInt(item.Price);
-
-
 			})
+			console.log(sum);
 			payBoxer.createPayment({Price: sum, tickets: data}, (paymentInfo) => {
 				dbUtils.Payment.insert({
 					IDPayment: paymentInfo.id,
