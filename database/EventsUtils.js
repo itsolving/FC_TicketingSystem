@@ -287,6 +287,16 @@ class EventsUtils extends rootUtils{
 		})
 	}
 
+	getDataByID(id, next){
+		let sSQL = `SELECT * FROM public."tEvent" where "ID" = ${id}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			next(data[0]);
+		})
+	}
+
 
 }
 

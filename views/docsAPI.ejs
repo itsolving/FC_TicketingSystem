@@ -128,7 +128,24 @@
 			</p>
 		</div>
 		<div class="method">
-			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/cancel/:ticketID'</span>	- возврат билета, изменение статуса билета с 5 (продан) на 3 (доступен)</p>
+			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/cancel/:ticketID'</span>	- возврат билета по ID, изменение статуса билета с 5 (продан) на 3 (доступен)</p>
+			<p>Вид ответа:</p>
+				<code>
+					{
+						"success": true
+					}
+				</code>
+			</p>
+			<p>Если статус билета не подходит ( != 5 ):</p>
+				<code>
+					{
+						err: "ticket is not available"
+					}
+				</code>
+			</p>
+		</div>
+		<div class="method">
+			<p><span style="color:#0052CC;">'/api/:APIKEY/tickets/cancel/barcode/:barcode'</span>	- возврат билета по штрих коду (Barcode), изменение статуса билета с 5 (продан) на 3 (доступен)</p>
 			<p>Вид ответа:</p>
 				<code>
 					{

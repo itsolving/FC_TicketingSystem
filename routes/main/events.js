@@ -86,8 +86,10 @@ module.exports = (router, dbUtils) => {
 		dbUtils.Event.customSelect((data => {
 			sessData.eventsList = data;
 			events = data;
-			res.render('eventmap', {title: 'Продажа билетов', userLogin: sLogin, eventsList: events, eventID: eventID});
-		    return;
+			dbUtils.Event.getDataByID(eventID, (data) => {
+				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID});
+				return;
+			})
 		}))
 	})
 	

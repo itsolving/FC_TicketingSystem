@@ -306,10 +306,16 @@ class TicketUtils extends rootUtils{
 		// 	IDEvent: 1,
 		// 	Barcode: 123456789123
 		// }
-
-		var sSQL = `SELECT "ID", "Barcode", "IDEvent" FROM public."tTicket" WHERE 
+		let sSQL = '';
+		if (data.IDEvent){
+			sSQL = `SELECT * FROM public."tTicket" WHERE 
 							"IDEvent" = ${data.IDEvent} AND 
 							"Barcode" = '${data.Barcode}'`;
+		}
+		else {
+			sSQL = `SELECT * FROM public."tTicket" WHERE  
+							"Barcode" = '${data.Barcode}'`;
+		}
 		this.execute(sSQL, (tickets) => {
 			next(tickets[0]);
 		})
