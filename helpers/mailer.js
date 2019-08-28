@@ -4,16 +4,17 @@ let nodemailer = require('nodemailer'),
 class eMailVerification{
 	constructor(){
 		this.smtp = nodemailer.createTransport({
-		    service: "Gmail",
+			service: 'Yandex',
 		    auth: {
-		        user: "ticketscloud.astana",
-		        pass: "f5a175acac4a00aa702424d53b01903a"
+		      user: 'tickets@fcastana.kz', 
+		      pass: 'qwe123+++'
 		    }
 		});
 	}
 	sendMail(data, tickets, next){
 		let mailOptions={
 	        to : data.mail,
+	        from: 'tickets@fcastana.kz',
 	        subject : "Astana Arena | Билеты на мероприятие",
 	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>` 
 	    }
