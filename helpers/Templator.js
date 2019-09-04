@@ -39,7 +39,7 @@ class Templator{
 			let options = {};
 
 			switch(templateType){
-				case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+				case 'custom':  options = { "height": "82mm", "width": "140mm" }; break;
 				case 'A4': 		options = { format: 'A4' }; break;
 			}
 		
@@ -97,7 +97,7 @@ class Templator{
 		var options = {};
 
 		switch(templateType){
-			case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+			case 'custom':  options = { "height": "82mm", "width": "140mm" }; break;
 			case 'A4': 		options = { format: 'A4' }; break;
 		}
 		
@@ -175,7 +175,7 @@ class Templator{
 		}
 		var options = {};
 		switch(templateType){
-			case 'custom':  options = { "height": "70mm", "width": "140mm" }; break;
+			case 'custom':  options = { "height": "82mm", "width": "140mm" }; break;
 			case 'A4': 		options = { format: 'A4' }; break;
 		}
 		let toReplace = {
