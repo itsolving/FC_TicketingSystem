@@ -254,6 +254,15 @@ app.setSeatsNumber = function (data) {
         elem: $seat[0]
       });
     });
+    $('text', $line).each(function () {
+      var $text = $(this);
+      var index = Math.round($text.attr(sortSeatOption));
+
+      arraySeatSort.push({
+        index: index,
+        elem: $text[0]
+      });
+    });
 
     if (sortLineDirection === 'rtl') {
       // right to left
@@ -269,6 +278,10 @@ app.setSeatsNumber = function (data) {
       var $seat = $(this);
       $seat.attr('data-line', lineStart);
       $seat.attr('data-seat', index + 1);
+    });
+    $('text', $line).each(function (index) {
+      $(this).text(lineStart)
+     
     });
 
     lineStart++;

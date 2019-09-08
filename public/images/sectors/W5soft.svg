@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 131 84" enable-background="new 0 0 131 84" xml:space="preserve">
-	 <rect x="0.52" y="0.36" fill="#F1F3F4" stroke="#BCC8CE" stroke-width="0.4" stroke-linecap="round" stroke-miterlimit="10" width="129.95" height="83.28"/>
+	 viewBox="0 0 131 84" style="enable-background:new 0 0 131 84;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F1F3F4;stroke:#BCC8CE;stroke-width:0.4;stroke-linecap:round;stroke-miterlimit:10;}
+	.st1{fill:#AEBDC4;}
+	.st2{font-family:'Roboto-Medium';}
+	.st3{font-size:3px;}
+</style>
+<rect x="0.5" y="0.4" class="st0" width="129.9" height="83.3"/>
 <g onclick="&quot;W 5 (мягкие)&quot;;"
 	data-sort-seat-direction="ltr" 
     data-sort-line-direction="btt" 
@@ -11,314 +17,337 @@
     data-line-start="9"
     >
 	
-		
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="74.64" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="74.64" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="74.6" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="74.6" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 75.6906)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 75.6906)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="68.71" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="68.71" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="68.7" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="68.7" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 69.7605)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 69.7605)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="62.78" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="62.78" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="62.8" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="62.8" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 63.8304)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 63.8304)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="56.85" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="56.85" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="56.8" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="56.8" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 57.9004)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 57.9004)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="50.92" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="50.92" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="50.9" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="50.9" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 51.9703)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 51.9703)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="44.99" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="44.99" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="45" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="45" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="45" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="45" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="45" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="45" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="45" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="45" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="45" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="45" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="45" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="45" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="45" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="45" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="45" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 46.0403)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 46.0403)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="39.06" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="39.06" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="39.1" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="39.1" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 40.1102)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 40.1102)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="13.57" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="17.89" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="22.21" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.53" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.85" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.18" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.5" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.82" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.14" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.47" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="113.1" cy="33.13" r="1.85"/>
-		<circle fill="#AEBDC4" cx="117.43" cy="33.13" r="1.85"/>
+		<circle class="st1" cx="13.6" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="17.9" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="22.2" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="26.5" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="30.9" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="35.2" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="48.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="113.1" cy="33.1" r="1.8"/>
+		<circle class="st1" cx="117.4" cy="33.1" r="1.8"/>
+		<text transform="matrix(1 0 0 1 7.0708 34.1802)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 120.5309 34.1802)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="22.23" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.55" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.87" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.19" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.52" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.84" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.16" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.48" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="27.2" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="27.2" r="1.85"/>
+		<circle class="st1" cx="22.2" cy="27.2" r="1.9"/>
+		<circle class="st1" cx="26.5" cy="27.2" r="1.9"/>
+		<circle class="st1" cx="30.9" cy="27.2" r="1.9"/>
+		<circle class="st1" cx="35.2" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="48.2" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="27.2" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="27.2" r="1.8"/>
+		<text transform="matrix(1 0 0 1 15.7108 28.2501)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 111.8708 28.2501)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="22.23" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.55" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.87" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.19" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.52" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.84" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.16" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.48" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="21.26" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="21.26" r="1.85"/>
+		<circle class="st1" cx="22.2" cy="21.3" r="1.9"/>
+		<circle class="st1" cx="26.5" cy="21.3" r="1.9"/>
+		<circle class="st1" cx="30.9" cy="21.3" r="1.9"/>
+		<circle class="st1" cx="35.2" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="48.2" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="21.3" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="21.3" r="1.8"/>
+		<text transform="matrix(1 0 0 1 15.7108 22.3201)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 111.8708 22.3201)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="22.23" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.55" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.87" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.19" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.52" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.84" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.16" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.48" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="15.33" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="15.33" r="1.85"/>
+		<circle class="st1" cx="22.2" cy="15.3" r="1.9"/>
+		<circle class="st1" cx="26.5" cy="15.3" r="1.9"/>
+		<circle class="st1" cx="30.9" cy="15.3" r="1.9"/>
+		<circle class="st1" cx="35.2" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="48.2" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="15.3" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="15.3" r="1.8"/>
+		<text transform="matrix(1 0 0 1 15.7108 16.39)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 111.8708 16.39)" class="st1 st2 st3">00</text>
 	</g>
 	<g>
-		<circle fill="#AEBDC4" cx="22.23" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="26.55" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="30.87" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="35.19" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="39.52" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="43.84" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="48.16" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="52.48" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="56.8" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="61.13" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="65.46" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="69.79" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="74.12" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="78.45" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="82.78" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="87.12" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="91.45" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="95.78" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="100.11" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="104.44" cy="9.4" r="1.85"/>
-		<circle fill="#AEBDC4" cx="108.77" cy="9.4" r="1.85"/>
+		<circle class="st1" cx="22.2" cy="9.4" r="1.9"/>
+		<circle class="st1" cx="26.5" cy="9.4" r="1.9"/>
+		<circle class="st1" cx="30.9" cy="9.4" r="1.9"/>
+		<circle class="st1" cx="35.2" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="39.5" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="43.8" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="48.2" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="52.5" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="56.8" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="61.1" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="65.5" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="69.8" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="74.1" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="78.4" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="82.8" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="87.1" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="91.4" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="95.8" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="100.1" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="104.4" cy="9.4" r="1.8"/>
+		<circle class="st1" cx="108.8" cy="9.4" r="1.8"/>
+		<text transform="matrix(1 0 0 1 15.7108 10.46)" class="st1 st2 st3">00</text>
+		<text transform="matrix(1 0 0 1 111.8708 10.46)" class="st1 st2 st3">00</text>
 	</g>
 </g>
 </svg>

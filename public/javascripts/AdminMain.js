@@ -244,6 +244,16 @@ app.setSeatsNumber = function (data) {
       });
     });
 
+    $('text', $line).each(function () {
+      var $text = $(this);
+      var index = Math.round($text.attr(sortSeatOption));
+
+      arraySeatSort.push({
+        index: index,
+        elem: $text[0]
+      });
+    });
+
     if (sortLineDirection === 'rtl') {
       // right to left
       arraySeatSort.sort(_asc);
@@ -258,6 +268,9 @@ app.setSeatsNumber = function (data) {
       var $seat = $(this);
       $seat.attr('data-line', lineStart);
       $seat.attr('data-seat', index + 1);
+    });
+    $('text', $line).each(function (index) {
+      $(this).text(lineStart)
     });
 
     lineStart++;

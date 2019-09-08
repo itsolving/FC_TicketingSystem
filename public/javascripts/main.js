@@ -224,6 +224,7 @@ app.setSeatsNumber = function (data) {
 
     $line.attr('data-line', lineStart);
 
+
     $('circle', $line).each(function () {
       var $seat = $(this);
       var index = Math.round($seat.attr(sortSeatOption));
@@ -231,6 +232,16 @@ app.setSeatsNumber = function (data) {
       arraySeatSort.push({
         index: index,
         elem: $seat[0]
+      });
+    });
+
+    $('text', $line).each(function () {
+      var $text = $(this);
+      var index = Math.round($text.attr(sortSeatOption));
+
+      arraySeatSort.push({
+        index: index,
+        elem: $text[0]
       });
     });
 
@@ -248,6 +259,10 @@ app.setSeatsNumber = function (data) {
       var $seat = $(this);
       $seat.attr('data-line', lineStart);
       $seat.attr('data-seat', index + 1);
+    });
+    $('text', $line).each(function (index) {
+      $(this).text(lineStart)
+     
     });
 
     lineStart++;
