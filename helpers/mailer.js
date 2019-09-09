@@ -32,21 +32,15 @@ class eMailVerification{
             }
         }
 
-        let host = data.req.get('host');
-        if ( data.req.get('host') != 'localhost'){
-        	host = host + ":8109";
-        }
+        let host = "92.46.109.122:8109";
+        // let host = data.req.get('host');
+        // if ( data.req.get('host') != 'localhost'){
+        // 	host = host + ":8109";
+        // }
 	    let link = `http://${host}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
 
 	    mailOptions.html = mailOptions.html + `<a href="${link}">Билеты</a><br>`;
 
-	    // tickets.forEach((ticket, index) => {
-	    // 	let hash = md5((ticket.ID + ticket.IDEvent + ticket.Barcode));
-	    // 	console.log(ticket);
-	    // 	console.log((ticket.ID + ticket.IDEvent + ticket.Barcode) + " | " + hash);
-	    // 	let link =`http://${data.req.get('host')}/cloud/ticket/${ticket.ID}/${hash}`;
-	    // 	mailOptions.html = mailOptions.html + `<a href="${link}">Билет №${index+1}</a><br>`;
-	    // })
 	    this.smtp.sendMail(mailOptions, (error, response) => {
 		     if(error) console.log(error)
 		     else next() 
@@ -59,11 +53,11 @@ class eMailVerification{
 	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>` 
 	    }
 
-
-        let host = data.req.get('host');
-        if ( data.req.get('host') != 'localhost'){
-        	host = host + ":8109";
-        }
+	    let host = "92.46.109.122:8109";
+        // let host = data.req.get('host');
+        // if ( data.req.get('host') != 'localhost'){
+        // 	host = host + ":8109";
+        // }
 	 
 
 	    tickets.forEach((ticket, index) => {

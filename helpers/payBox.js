@@ -17,18 +17,6 @@ class payBox {
                 // "capture_url": "string"
             }
         }
-        this.host = null;
-        this.req = null;
-    }
-    setHost(req){
-        this.req = req;
-        let host = req.get('host');
-        if ( req.get('host') != 'localhost'){
-            host = host + ":8109";
-        }
-        this.host = host;
-        this.options.callbacks['success_url'] = `http://${host}/ticketsale/success/{id}`;
-
     }
     createPayment(data, next){
         let description = ``;
@@ -97,7 +85,7 @@ class payBox {
                                 if (info.status.code == 'success'){
                                     dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
                                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
-                                            mailer.sendUserMail({mail: info.options.user.email, req: this.req}, tickets, () => {
+                                            mailer.sendUserMail({mail: info.options.user.email}, tickets, () => {
                                                 // payment success, tickets go to user
                                                 console.log(`payment success (id: ${info.id})`);
                                             })  
