@@ -77,7 +77,7 @@ class payBox {
                                 created_at: info.created_at,
                                 updated_at: info.updated_at
                             }
-                            if ( info.user ){
+                            if ( info.options.user ){
                                 obj.email = info.options.user.email;
                                 obj.phone = info.options.user.phone;
                             }

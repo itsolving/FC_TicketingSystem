@@ -49,6 +49,7 @@ class eMailVerification{
 	sendUserMail(data, tickets, next){
 		let mailOptions={
 	        to : data.mail,
+	        from: 'tickets@fcastana.kz',
 	        subject : "Astana Arena | Билеты на мероприятие",
 	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>` 
 	    }
