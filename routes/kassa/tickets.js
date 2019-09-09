@@ -215,7 +215,7 @@ module.exports = (router, PageTitle, dbUtils) => {
 					dbUtils.Trans.multiInsert(tickets, sessData.cashier.ID, false, (back) => {
 						if ( sessData.cashier.IDRole == 6 ){
 							dbUtils.Ticket.setPriceByID({price: 0, tickets: tickets}, (result) => {
-								mailer.sendMail({mail: clientData.mail, req: req}, data, () => {
+								mailer.sendMail({mail: clientData.mail}, data, () => {
 									res.json({success: true});
 								})	
 							})

@@ -1,10 +1,7 @@
-payBoxer  = require(`${__basedir}/helpers/payBox.js`);
-
 module.exports = (router, dbUtils) => {
 	//страница авторизации кассира
 	router.get('/', function(req, res, next){
 		console.log("get: /");
-		payBoxer.setHost(req);
 		var sLogin = "";
 		var nUserID = 0;
 		var events = {};
