@@ -1,10 +1,16 @@
 var parts = window.location.href.split("/");
 var result = parts[parts.length - 1];
 
+app = {}; 
 
-app = {};
 
 app.id = result;
+
+// HARD 
+if ( result == 'Astana-Shahter-15092019' ){
+  app.id = 61;
+}
+// HARD
 
 app.cart = {
   tickets: [],
