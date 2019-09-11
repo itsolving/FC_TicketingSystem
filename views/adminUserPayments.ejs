@@ -42,13 +42,11 @@
 													<thead class="text-primary">
 														<th scope="col">Дата и время</th>
 														<th scope="col">IDPayment</th>
-														<th scope="col">Мероприятие</th>
-														<th scope="col">Сектор</th>
-														<th scope="col">Ряд</th>
-														<th scope="col">Место</th>
 														<th scope="col">Статус</th>
 														<th scope="col">E-mail</th>
 														<th scope="col">Телефон</th>
+														<th scope="col">CreatedAt</th>
+														<th scope="col">UpdatedAt</th>
 														<th scope="col">Цена, тг</th>
 													</thead>
 													<tbody>
@@ -60,10 +58,6 @@
 																	<td scope="row">в процессе</td>
 																<% } %>
 																<td><%= payment.IDPayment %></td>
-																<td><%= payment.Name %></td>
-																<td><%= payment.SectorName %></td>
-																<td><%= payment.RowN %></td>
-																<td><%= payment.SeatN %></td>
 																<td><%= payment.Status %></td>
 																<% if (payment.Email) { %>
 																	<td scope="row"><%= payment.Email %></td>
@@ -75,6 +69,16 @@
 																<% } else { %>
 																	<td scope="row">в процессе</td>
 																<% } %>	
+																<% if (payment.CreatedAt) { %>
+																	<td scope="row"><%= payment.CreatedAt %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>	
+																<% if (payment.UpdatedAt) { %>
+																	<td scope="row"><%= payment.UpdatedAt %></td>
+																<% } else { %>
+																	<td scope="row">в процессе</td>
+																<% } %>		
 																<% if (payment.Price) { %>
 																	<td scope="row"><%= payment.Price %></td>
 																<% } else { %>

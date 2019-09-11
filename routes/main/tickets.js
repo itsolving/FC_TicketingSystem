@@ -115,10 +115,9 @@ module.exports = (router, dbUtils) => {
 		dbUtils.Ticket.getByID(tickID, (ticket) => {
 			if (ticket.IDStatus == 3 && ticket.Price != 0){
 				dbUtils.Ticket.setStatus(tickID, 4, (data) => {
-					res.json({success: true});
-					// dbUtils.Trans.insert(tickID, sessData.cashier.ID, false, (ans) => {
-					// 	res.json({success: true});
-					// })
+					dbUtils.Trans.insert(tickID, 10 /* HARD */, false, (ans) => {
+						res.json({success: true});
+					})
 				})
 			}
 			else res.json({err: "Ticket is not available!"});
@@ -164,6 +163,15 @@ module.exports = (router, dbUtils) => {
 					Tickets:   tickets,
 					Amount:    sum
 				}, (back) => {
+					dbUtils.Payment.insert({
+						IDPayment: paymentInfo.id,
+						Tickets:   tickets,
+						Amount:    sum
+					}, (back) => {
+						res.json({success: true, link: paymentInfo.payment_page_url})
+					})
+
+
 					res.json({success: true, link: paymentInfo.payment_page_url})
 				})
 			})

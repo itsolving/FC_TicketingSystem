@@ -12,19 +12,26 @@ requireFu(__dirname + '/admin')(router, dbUtils, sAdminPageTitle);					// под
 
 
 setInterval(() => {
-    dbUtils.Timer.analysis((data) => {
+
+	dbUtils.Timer.analysis((data) => {
     	console.log(data);
     	let ticketsID = [];
+    	let transID = [];
     	if ( data.length > 0 ){
     		data.forEach((item) => {
 	    		ticketsID.push(item.IDTicket);
+	    		transID.push(item.ID);
 	    	})
 
-	    	dbUtils.Timer.update(ticketsID, (ans) => {
-	    		console.log(ans);
+	    	dbUtils.Timer.deleteOld(transID, (back) => {
+	    		dbUtils.Timer.update(ticketsID, (ans) => {
+		    		console.log(ans);
+		    	})
 	    	})
+
     	}
     })
-}, 60 * 1000);
+	
+}, 10 * 1000);
 
 module.exports = router;
