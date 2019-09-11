@@ -57,7 +57,7 @@ class APIUtils extends rootUtils{
 	}
 
 	getAll(next){
-		let sSQL = `SELECT *, TO_CHAR("CreatedAt", \'DD-MM-YYYY HH24:MI\') as "CreatedAt" FROM public."tPayment"`;
+		let sSQL = `SELECT *, TO_CHAR("CreatedAt", \'DD-MM-YYYY\') as "CreatedAt", TO_CHAR("UpdatedAt", \'DD-MM-YYYY\') as "UpdatedAt" FROM public."tPayment"`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {
