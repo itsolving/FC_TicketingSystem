@@ -7,19 +7,27 @@ class TimerUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	analysis(next){
-		
-		let sSQL = `SELECT tr."IDTicket" from public."tTrans" tr
+		let sSQL = `SELECT tr."IDTicket", tr."ID" from public."tTrans" tr
 					JOIN public."tTicket" tic on tic."ID" = tr."IDTicket" AND tic."IDStatus" = 4
-					WHERE tr."CreateDate" < now()::timestamp - INTERVAL '60 minutes'
+					WHERE tr."CreateDate" < (now() - '65 minutes'::interval)
 				`;
         console.log(sSQL);
-
 		this.execute(sSQL, (data) => {
-		
+			console.log(data);
 			next(data);
 
 		})
 
+	}
+	deleteOld(ids, next){
+		let sSQL = `DELETE FROM public."tTrans" tr WHERE tr."ID" in (${ids})`
+		console.log(sSQL);
+
+		this.execute(sSQL, (data) => {
+			console.log(data);
+			next(data);
+
+		})
 	}
 
 	update(ids, next){
