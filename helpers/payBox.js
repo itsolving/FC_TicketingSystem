@@ -71,7 +71,12 @@ class payBox {
             dbUtils.Payment.getNew((payments) => {
                 if ( !payments.length ) return;
                 payments.forEach((item) => {
+                    console.log(item.IDPayment);
                     this.getPaymentInfo(item.IDPayment, (info) => {
+                        console.log(info)
+                        if (!info){
+                            return;
+                        }
                         info = JSON.parse(info);
                         console.log(info);
                         if (info.status.code != 'new'){
