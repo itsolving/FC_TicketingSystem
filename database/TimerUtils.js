@@ -9,7 +9,7 @@ class TimerUtils extends rootUtils{
 	analysis(next){
 		let sSQL = `SELECT tr."IDTicket", tr."ID" from public."tTrans" tr
 					JOIN public."tTicket" tic on tic."ID" = tr."IDTicket" AND tic."IDStatus" = 4
-					WHERE tr."CreateDate" < (now() - '65 minutes'::interval)
+					WHERE tr."CreateDate" < (now() - '60 minutes'::interval)
 				`;
         console.log(sSQL);
 		this.execute(sSQL, (data) => {

@@ -16,7 +16,7 @@ class APIUtils extends rootUtils{
 		})
 	}
 	getNew(next){
-		let sSQL = `SELECT * FROM public."tPayment" WHERE "Status" in ('new', 'process') `;
+		let sSQL = `SELECT * FROM public."tPayment" WHERE "Status" in ('new', 'process') ORDER BY random() limit 10`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {
