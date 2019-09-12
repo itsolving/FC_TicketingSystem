@@ -159,60 +159,64 @@ module.exports = (router, dbUtils) => {
 			})
 			console.log(sum);
 			payBoxer.createPayment({Price: sum, tickets: data}, (paymentInfo) => {
-				dbUtils.Payment.insert({
-					IDPayment: paymentInfo.id,
-					Tickets:   tickets,
-					Amount:    sum
-				}, (back) => {
+				if(paymentInfo.id){
 					dbUtils.Payment.insert({
 						IDPayment: paymentInfo.id,
 						Tickets:   tickets,
 						Amount:    sum
 					}, (back) => {
-						res.json({success: true, link: paymentInfo.payment_page_url})
+						dbUtils.Payment.insert({
+							IDPayment: paymentInfo.id,
+							Tickets:   tickets,
+							Amount:    sum
+						}, (back) => {
+							res.json({success: true, link: paymentInfo.payment_page_url})
+						})
 					})
-
-
-					res.json({success: true, link: paymentInfo.payment_page_url})
-				})
+				}
+				else {
+					res.json({success: false, err: true})
+				}
+				
 			})
 		})
 	})
 
 	router.post('/payment/tickets/success', function(req, res){
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		let data = req.body;
-		console.log(data);
-		payBoxer.getPaymentInfo(data.id, (info) => {
-			info = JSON.parse(info);
-			let obj = {
-                status:     info.status.code,
-                amount:     info.amount,
-                paymentid:  info.id,
-                created_at: info.created_at,
-                updated_at: info.updated_at
-            }
-            if ( info.options.user ){
-                obj.email = info.options.user.email;
-                obj.phone = info.options.user.phone;
-            }
-            dbUtils.Payment.changeData(obj, (answer) => {
-                if (info.status.code == 'success'){
-                    dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
-                        dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
-                            mailer.sendUserMail({mail: info.options.user.email}, tickets, () => {
-                                // payment success, tickets go to user
-                                console.log(`ticketsURL | payment success (id: ${info.id})`);
-                                res.json({success: true});
-                            })  
-                        })
-                    })
-                }
-                else{
-                	res.json({success: true})
-                }
-            })
-		})
+		res.json({success: true})
+		// let data = req.body;
+		// console.log(data);
+		// payBoxer.getPaymentInfo(data.id, (info) => {
+		// 	info = JSON.parse(info);
+		// 	let obj = {
+  //               status:     info.status.code,
+  //               amount:     info.amount,
+  //               paymentid:  info.id,
+  //               created_at: info.created_at,
+  //               updated_at: info.updated_at
+  //           }
+  //           if ( info.options.user ){
+  //               obj.email = info.options.user.email;
+  //               obj.phone = info.options.user.phone;
+  //           }
+  //           dbUtils.Payment.changeData(obj, (answer) => {
+  //               if (info.status.code == 'success'){
+  //                   dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
+  //                       dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
+  //                           mailer.sendUserMail({mail: info.options.user.email}, tickets, () => {
+  //                               // payment success, tickets go to user
+  //                               console.log(`ticketsURL | payment success (id: ${info.id})`);
+  //                               res.json({success: true});
+  //                           })  
+  //                       })
+  //                   })
+  //               }
+  //               else{
+  //               	res.json({success: true})
+  //               }
+  //           })
+		// })
 	})
 		
 }
