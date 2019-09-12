@@ -1,7 +1,7 @@
 let uuid    = require('uuid/v4'),
     request = require('request'),
     dbUtils = require(`${__basedir}/database/DatabaseUtils.js`),
-    mailer  = require(`${__basedir}/helpers/mailer.js`); ; 
+    mailer  = require(`${__basedir}/helpers/mailer.js`); 
 
 class payBox {
     constructor(){
@@ -35,7 +35,12 @@ class payBox {
                 "amount": data.Price,
                 "currency": 'KZT',
                 "description": description,
-                "expires_at": now
+                "expires_at": now,
+                "options": {
+                    "callbacks": {
+                        "result_url": 'http://92.46.109.122:8109/payment/tickets/success'
+                    }
+                }
             },                       
             headers: {               
                 'Authorization': 'Basic ' + new Buffer(this.accessData).toString('base64'),
