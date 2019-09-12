@@ -73,12 +73,24 @@ class payBox {
                 payments.forEach((item) => {
                     console.log(item.IDPayment);
                     this.getPaymentInfo(item.IDPayment, (info) => {
-                        console.log(info)
-                        if (!info){
-                            return;
-                        }
-                        info = JSON.parse(info);
                         console.log(info);
+                        function isJSON(str) { 
+                            try { 
+                                return (JSON.parse(str) && !!str); 
+                            } catch (e) { 
+                                return false; 
+                            } 
+                        } 
+                  
+                        if (!isJSON(info)){
+                            return;
+
+                        } else{
+                            info = JSON.parse(info);
+                        }
+
+                        console.log(info);           
+                        
                         if (info.status.code != 'new'){
                             let obj = {
                                 status:     info.status.code,
