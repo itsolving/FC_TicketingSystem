@@ -202,7 +202,7 @@ module.exports = (router, dbUtils) => {
                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
                             mailer.sendUserMail({mail: info.options.user.email}, tickets, () => {
                                 // payment success, tickets go to user
-                                console.log(`payment success (id: ${info.id})`);
+                                console.log(`ticketsURL | payment success (id: ${info.id})`);
                                 res.json({success: true});
                             })  
                         })
