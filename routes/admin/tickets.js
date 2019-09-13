@@ -201,11 +201,21 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 
 		let IDEvent = req.params.IDEvent;
+		function getLastEan13Digit(ean) {
+			if (!ean || ean.length !== 12) throw new Error('Invalid EAN 13, should have 12 digits')
+			const multiply = [1, 3]
+			let total = 0
+			ean.split('').forEach((letter, index) => {
+					total += parseInt(letter, 10) * multiply[index % 2]
+				})
+			const base10Superior = Math.ceil(total / 10) * 10
+			return base10Superior - total
+		}
 
 		dbUtils.Ticket.getBarcodesByEvent(IDEvent, (barcodes) => {
 			let txtFile = '';
 			console.log(barcodes)
-			barcodes.forEach((item) => { txtFile = txtFile + item.Barcode + "\r\n"; })
+			barcodes.forEach((item) => { txtFile = txtFile + item.Barcode + getLastEan13Digit(item.Barcode) + "\r\n"; })
 			res.attachment(`Barcodes (IDEvent_${IDEvent}).txt`);
 			res.type('txt');
 			res.send(txtFile);
