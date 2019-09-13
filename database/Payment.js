@@ -16,7 +16,7 @@ class APIUtils extends rootUtils{
 		})
 	}
 	getNew(next){
-		let sSQL = `SELECT * FROM public."tPayment" WHERE "Status" in ('new', 'process', 'waiting') OR "Email" = 'dmitruy55555@rambler.ru'`;
+		let sSQL = `SELECT * FROM public."tPayment" WHERE "Status" in ('new', 'process', 'waiting')`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {
