@@ -64,6 +64,15 @@ class APIUtils extends rootUtils{
 			next(result);
 		})
 	}
+
+	getSuccess(next){
+		let sSQL = `SELECT * from public."tPayment" WHERE "Status" = 'success'`;
+		console.log(sSQL);
+
+		this.execute(sSQL, (result) => {
+			next(result);
+		})
+	}
 }
 
 module.exports = APIUtils;
