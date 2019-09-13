@@ -82,12 +82,10 @@ class payBox {
                             } 
                         } 
                   
-                        if (!isJSON(info)){
+                        if (isJSON(info) == false){
                             return;
-
-                        } else{
-                            info = JSON.parse(info);
                         }
+                        info = JSON.parse(info);
 
                         console.log(info);           
                         
