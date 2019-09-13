@@ -17,7 +17,14 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 		dbUtils.Event.getAll((events) => {
 			if ( !events.length ) events = [];
-			res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: false});
+			dbUtils.Payment.getSuccess((data) => {
+				events.forEach((event, index) => {
+					if (event.ID == 61){
+						events[index].SaledTickets = data.length;
+					}
+				})
+				res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: false});
+			})
 		})
 	});
 
