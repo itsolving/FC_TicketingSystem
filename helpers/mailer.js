@@ -16,7 +16,8 @@ class eMailVerification{
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
 	        subject : "Astana Arena | Билеты на мероприятие",
-	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>` 
+	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
+	        attachments: []
 	    }
 
 	    let hash = md5((tickets[0].ID + tickets[0].IDEvent + tickets[0].Barcode))
@@ -39,6 +40,11 @@ class eMailVerification{
         // }
 	    let link = `http://${host}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
 
+	    mailOptions.attachments.push({
+	    	filename: 'tickets.pdf',
+        	path: link
+	    })
+
 	    mailOptions.html = mailOptions.html + `<a href="${link}">Билеты</a><br>`;
 
 	    this.smtp.sendMail(mailOptions, (error, response) => {
@@ -51,7 +57,8 @@ class eMailVerification{
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
 	        subject : "Astana Arena | Билеты на мероприятие",
-	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>` 
+	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
+	        attachments: []
 	    }
 
 	    let host = "92.46.109.122:8109";
@@ -67,6 +74,10 @@ class eMailVerification{
 	    	console.log((ticket.ID + ticket.IDEvent + ticket.Barcode) + " | " + hash);
 	    	let link =`http://${host}/cloud/ticket/A4/${ticket.ID}/${hash}`;
 	    	mailOptions.html = mailOptions.html + `<a href="${link}">Билет №${index+1}</a><br>`;
+	    	mailOptions.attachments.push({
+		    	filename: `Ticket_${index+1}.pdf`,
+	        	path: link
+		    })
 	    })
 	    this.smtp.sendMail(mailOptions, (error, response) => {
 		     if(error) console.log(error)
