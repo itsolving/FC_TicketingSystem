@@ -1,4 +1,5 @@
-let builder = require('xmlbuilder');
+let builder = require('xmlbuilder'),
+    xl 		= require('excel4node');
 
 module.exports = (router, dbUtils, sAdminPageTitle) => {
 	
@@ -194,5 +195,40 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		})
 
 	});
+
+	router.get('/tickets/download/barcodes/excel/:IDEvent', function(req, res){
+
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Ticket.getCustomSaled({IDEvent: req.params.IDEvent}, (tickets) => {
+			let wb = new xl.Workbook();
+			wb.write('result.xlsx');
+			let ws = wb.addWorksheet('Sheet 1');
+			for ( let i = 1; i < tickets.length+1; i++ ){
+				ws.cell(i, 1).string(tickets[i-1].ID.toString());
+				ws.cell(i, 2).string(tickets[i-1].statusName);
+				ws.cell(i, 3).string(tickets[i-1].Name);
+				ws.cell(i, 4).string(tickets[i-1].DateFrom.toString());
+
+				ws.cell(i, 5).string(tickets[i-1].SectorName);
+				ws.cell(i, 6).string(tickets[i-1].RowN.toString());
+				ws.cell(i, 7).string(tickets[i-1].SeatN.toString());
+				ws.cell(i, 8).string(tickets[i-1].Price.toString());
+			}
+			//res.json(tickets);
+			wb.write('Giveaway.xlsx', res);
+		})
+	})
 
 }

@@ -540,6 +540,25 @@ class TicketUtils extends rootUtils{
 
 	}
 
+	getCustomSaled(data, next){
+		let sSQL = `SELECT t."Price", t."ID", t."IDEvent", t."IDStatus", t."Barcode", 
+						sc."SectorName", rw."RowN", st."SeatN",
+						ev."Name", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+						ss."Name" as "statusName"
+					From public."tTicket" t
+					join public."tEvent" ev on ev."ID" = t."IDEvent"
+					join public."tSeat" st on st."ID" = t."IDSeat"
+					join public."tRowN" rw on rw."ID" = st."IDRowN"
+					join public."tSector" sc on sc."ID" = rw."IDSector"
+					join public."tStatus" ss on ss."ID" = t."IDStatus"
+					WHERE t."IDStatus" = 5 AND t."IDEvent" = ${data.IDEvent} AND t."Price" > 0`;
+
+		console.log(sSQL);
+		this.execute(sSQL, (tickets) => {
+			next(tickets);
+		})
+	}
+
 }
 
 module.exports = TicketUtils;
