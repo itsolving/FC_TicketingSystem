@@ -165,13 +165,7 @@ module.exports = (router, dbUtils) => {
 						Tickets:   tickets,
 						Amount:    sum
 					}, (back) => {
-						dbUtils.Payment.insert({
-							IDPayment: paymentInfo.id,
-							Tickets:   tickets,
-							Amount:    sum
-						}, (back) => {
-							res.json({success: true, link: paymentInfo.payment_page_url})
-						})
+						res.json({success: true, link: paymentInfo.payment_page_url})
 					})
 				}
 				else {
