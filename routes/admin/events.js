@@ -18,9 +18,19 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		dbUtils.Event.getAll((events) => {
 			if ( !events.length ) events = [];
 			dbUtils.Payment.getSuccess((data) => {
+				let SaledTickets = 0;
+				uniqueArray = data.filter(function(item, pos) {
+				    return data.indexOf(item) == pos;
+				})
+				uniqueArray.forEach((item) => {
+					let arr = []
+					arr = item.Tickets.split(',');
+					if (arr.length == 0) arr.push(item.Tickets);
+					SaledTickets += arr.length;
+				})
 				events.forEach((event, index) => {
 					if (event.ID == 61){
-						events[index].SaledTickets = data.length;
+						events[index].SaledTickets = SaledTickets;
 					}
 				})
 				res.render('adminevents', {title: sAdminPageTitle, adminLogin: sAdminLogin, eventsList: events, archive: false});
