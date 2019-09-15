@@ -57,7 +57,7 @@
 																<% } else { %>
 																	<td scope="row">в процессе</td>
 																<% } %>
-																<td><%= payment.IDPayment %></td>
+																<td><a target="_blank" href="/tickets/frompayment/A4/<%= payment.IDPayment %>"><%= payment.IDPayment %></a></td>
 																<td><%= payment.Status %></td>
 																<% if (payment.Email) { %>
 																	<td scope="row"><%= payment.Email %></td>

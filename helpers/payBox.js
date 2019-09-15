@@ -105,7 +105,7 @@ class payBox {
                                 if (info.status.code == 'success'){
                                     dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
                                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
-                                            mailer.sendUserMail({mail: info.options.user.email}, tickets, () => {
+                                            mailer.sendUserMail({mail: info.options.user.email, paymentId: item.ID}, tickets, () => {
                                                 // payment success, tickets go to user
                                                 console.log(`payment success (id: ${info.id})`);
                                             })  
@@ -119,13 +119,13 @@ class payBox {
                     })
                 })
             })
-        }, 15 * 1000);
+        }, 60 * 1000);
     }
 }
 
 let payBoxer = new payBox();
 
-//payBoxer.analysis();
+payBoxer.analysis();
 
 // payBoxer.createPayment({Price: 550}, (response) => {
 //     setTimeout(function() { payBoxer.getPaymentInfo(response.id, (info) => { console.log(info) }) }, 60000);

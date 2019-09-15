@@ -57,7 +57,7 @@ class eMailVerification{
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
 	        subject : "Astana Arena | Билеты на мероприятие",
-	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
+	        html : `Здравствуйте.<br> Вы купили ${tickets.length} билет(ов). Номер заказа: ${data.paymentId}<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
 	        attachments: []
 	    }
 

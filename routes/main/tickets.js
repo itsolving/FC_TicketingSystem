@@ -212,5 +212,24 @@ module.exports = (router, dbUtils) => {
   //           })
 		// })
 	})
+	router.get('/tickets/frompayment/:templateType/:paymentID', function(req, res) {
+		dbUtils.Payment.getByPaymentID({id:req.params.paymentID}, (data) => {
+			data = data[0];
+			let reqTickets = data.Tickets.split(",");
+			console.log(reqTickets);
+			let reqData = {
+				tickets: reqTickets
+			}
+
+			let templateType = req.params.templateType;
+
+			dbUtils.Ticket.getMultiWithTemplate(reqData.tickets, templateType, (tickets) => {
+					templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, templateType, (pdfData) => {
+						res.type('pdf'); 
+						res.send(pdfData);
+					});		
+			})
+		})
+	})
 		
 }
