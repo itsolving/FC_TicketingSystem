@@ -215,7 +215,11 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 		dbUtils.Ticket.getBarcodesByEvent(IDEvent, (barcodes) => {
 			let txtFile = '';
 			console.log(barcodes)
-			barcodes.forEach((item) => { txtFile = txtFile + item.Barcode + getLastEan13Digit(item.Barcode) + "\r\n"; })
+			barcodes.forEach((item) => { 
+				let barcodeNew = item.Barcode + getLastEan13Digit(item.Barcode);
+				barcodeNew = barcodeNew.substring(1);
+				txtFile = txtFile + barcodeNew + "\r\n";
+			 })
 			res.attachment(`Barcodes (IDEvent_${IDEvent}).txt`);
 			res.type('txt');
 			res.send(txtFile);

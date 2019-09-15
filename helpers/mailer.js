@@ -80,8 +80,13 @@ class eMailVerification{
 		    })
 	    })
 	    this.smtp.sendMail(mailOptions, (error, response) => {
-		     if(error) console.log(error)
-		     else next() 
+		    if(error){
+		    	console.log(error);
+		  	}
+			else { 
+				console.log(response);
+				next(); 
+			}
 	     })
 	}
 
