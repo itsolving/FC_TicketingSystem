@@ -12,10 +12,12 @@ class eMailVerification{
 		});
 	}
 	sendMail(data, tickets, next){
+		console.log("HERE!!!!!!!!!!!!!!!!!!")
+		console.log(tickets);
 		let mailOptions={
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
-	        subject : "Astana Arena | Билеты на мероприятие",
+	        subject : `${tickets[0].Name} | Билеты на мероприятие`,
 	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
 	        attachments: []
 	    }
@@ -56,7 +58,7 @@ class eMailVerification{
 		let mailOptions={
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
-	        subject : "Astana Arena | Билеты на мероприятие",
+	        subject : `${tickets[0].Name} | Билеты на мероприятие`,
 	        html : `Здравствуйте.<br> Вы купили ${tickets.length} билет(ов). Номер заказа: ${data.paymentId}<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
 	        attachments: []
 	    }
