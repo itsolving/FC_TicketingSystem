@@ -220,70 +220,14 @@
 														<a href="/admin/tickets/download/barcodes/giveaway/excel/<%=eventRow.ID %>" class="btn btn-primary btn-editor">Экспорт билетов для розыгрыша (xlsx)</a>
 														<a href="/admin/tickets/download/saled/excel/<%=eventRow.ID %>" class="btn btn-primary btn-editor">Отчет всех проданных билетов (xlsx)</a>
 													</div>
-													<!--<div class="form-group">
-														<button type="button" id="btnGenerateTickets" onclick="GenerateTickets();">Генерация билетов</button>
-														<p id="GenerateTicketsMSG"></p>
-													</div>-->
+													
 												</div>
-										
-												<!-- <div class="col-sm-6 col-md-4">
-													<div class="form-group">
-														<label for="eventImage">Афиша:</label><span style="color: red;">*</span>
-														<input type="file" id="eventImageFile" name="eventImageFile" style="display: none;" />
-														<button class="btn btn-primary" type="button" onclick="ClickNewImg();">Сменить</button>
-														<p id="eventImgMsg"></p>
-														<img id="eventImage" name="eventImage" src="<%= eventRow.ImgPath %>" alt="afisha" width="250" height="350" />
-													</div>
-												</div> -->
 											<% }); %>
 										</form>
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col-md-12">
-								<h2>Назначение цен на билеты</h2>
-							</div>
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-body">
-										<form name="formPrice">
-												<div class="col-md-8">
-													<div class="table-responsive">
-														<table class="table trans">
-															<thead class="text-primary">
-																<tr>
-																	<th>Сектор</th>
-																	<th>Цена</th>
-																	<th>Ряд</th>
-																</tr>
-															</thead>
-															<tbody>
-																<% if(sectors){ %>
-																	<% sectors.forEach(function(seatRow) { %>
-																		<tr class="clickable-row">
-																			<td data-id="<%= seatRow.SectorName %>"><%= seatRow.SectorName %></td>
-																			<td class="cell-price-input">
-																				<input type="text" name="txPrice" class="priceInput form-control" value="<%= seatRow.Price %>"	 />
-																			</td>
-																			<td>
-																				<select name="rowN" class="select-rowN form-control selectpicker" data-style="btn btn-link">
-																					<% rownums[seatRow.SectorName].forEach(function(Row) { %>
-																						<option value='{"rowN": <%= Row.RowN %>, "price": <%= Row.Price || "Ошибка" %>}'><%= Row.RowN %> ( <%= Row.Price || "Ошибка" %> )</option>
-																					<% }); %>
-																				</select>
-																			</td>
-																		</tr>
-																	<% }); %>
-																<% } %>
-															</tbody>
-														</table>
-													</div>
-												</div>
-												
-											</form>
-									</div>
-								</div>
-							</div> -->
+
 							<div class="form-group footer-buttons">
 								<button type="button" class="btn btn-primary" id="btnDeleteEvent" name="btnDeleteEvent" value="DeleteEventClick">Отменить</button>
 								<button type="button" class="btn btn-primary" id="btnSaveEvent" name="btnSaveEvent" value="SaveEventClick">Сохранить</button>
@@ -583,40 +527,6 @@
 					        reader.readAsDataURL(input.files[0]);
 					    }
 					}
-					// $("#eventImageFile").change(function(evt){
-					//     //readURL(this);
-					//     var sImgFileName = evt.target.files[0].name;
-					// 	let file = $('#eventImageFile').get(0).files;
-					// 	console.log('ClickNewImg:: sImgFileName='+sImgFileName);
-					// 	//$("#eventImgMsg").html("Смена картинки - в разработке");
-					// 	//--------------
-					// 	//TODO: after development this functional we must delete this command:
-					// 	//ClearMsg("#eventImgMsg");
-					// 	//--------------
-					// 	var nEventID = $("#eventID").data("value");
-					// 	var data = new FormData();
-					// 	data.append('img', $('#eventImageFile')[0].files[0]);
-					// 	$.ajax({
-					// 		url: "/admin/uploadeventimg",
-					// 		data: data,
-					// 		cache: false,
-					// 		contentType: false,
-					// 		processData: false,
-					// 		method: 'POST',
-					// 		//type: 'POST', // For jQuery < 1.9
-					// 		success: function(result){
-					// 			console.log(result);
-					// 			console.log("POST /admin/uploadeventimg success: result=");
-					// 			$('#eventImage').attr('src', '/images/events/'+sImgFileName);
-					// 			console.log('ClickNewImg2:: sImgFileName='+sImgFileName);
-					// 		},
-					// 		error: function(err){
-					// 			console.log("POST /admin/uploadeventimg error:");
-					// 			console.log(err);
-					// 		}
-					// 	});
-					// });
-					
 					function GetActualEventStatus(){
 						console.log('GetActualEventStatus::');
 						var nEventID = $("#eventID").data("value");
