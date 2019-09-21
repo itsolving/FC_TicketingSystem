@@ -72,23 +72,6 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				let nIDStadiumEvent = rowEventData[0].IDStadium || 0;
 				
 				dbUtils.Seat.customSelect(nID, nIDStadiumEvent, (sectorList) => {
-					
-					dbUtils.Seat.getByStadiumID(nID, nIDStadiumEvent, (rowList) => {
-						//console.log(rowList);
-						let mainPrices = Object;
-						sectorList.forEach((item, i, array) => {
-							mainPrices[item.SectorName] = [];
-						})
-						rowList.forEach((item, i, array) => {
-							sectorList.forEach((sector, i, array) => {
-								if ( sector.SectorName == item.SectorName ){
-									mainPrices[sector.SectorName].push({
-										RowN: item.RowN,
-										Price: item.Price
-									});
-								}
-							})
-						})
 						dbUtils.Template.getAll((templates) => {
 							dbUtils.PriceColor.getByEvent(rowEventData[0].ID, (colorData) => {
 								if ( !colorData.length ) colorData = [];
@@ -100,7 +83,6 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 									eventID: nID, 
 									stadiums: stadiumList, 
 									sectors: sectorList, 
-									rownums: mainPrices,
 									templates: templates,
 									priceColor: colorData
 								});
@@ -108,7 +90,6 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 							
 						})
 						//console.log(mainPrices);
-					});
 				});
 			});
 		});
