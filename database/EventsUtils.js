@@ -17,9 +17,10 @@ class EventsUtils extends rootUtils{
 
 	}
 	getAll(next, api){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."Abonement", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."Abonement", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
-					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					sd."Name" as "StadiumName", st."Name" as "StatusName",
+					(SELECT COUNT(*) FROM public."tTicket" tic WHERE ev."ID" = tic."IDEvent" AND tic."Price" > 0 AND tic."IDStatus" = 5) as "SaledTickets"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
@@ -250,9 +251,10 @@ class EventsUtils extends rootUtils{
 		})
 	}
 	getArchived(next){
-		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."SaledTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
+		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
-					sd."Name" as "StadiumName", st."Name" as "StatusName"
+					sd."Name" as "StadiumName", st."Name" as "StatusName",
+					(SELECT COUNT(*) FROM public."tTicket" tic WHERE ev."ID" = tic."IDEvent" AND tic."Price" > 0 AND tic."IDStatus" = 5) as "SaledTickets"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
