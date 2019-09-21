@@ -196,7 +196,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	});
 
-	router.get('/tickets/download/barcodes/excel/:IDEvent', function(req, res){
+	router.get('/tickets/download/barcodes/excel/giveaway/:IDEvent', function(req, res){
 
 		let sAdminLogin = "",
 			sessData 	= req.session;
@@ -263,6 +263,118 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			}
 			//res.json(tickets);
 			wb.write(`Sales(ID_${req.params.IDEvent}).xlsx`, res);
+		})
+	})
+
+	router.get('/tickets/download/barcodes/excel/:IDEvent', function(req, res){
+
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		dbUtils.Ticket.getBarcodesByEvent(req.params.IDEvent, (tickets) => {
+			let wb = new xl.Workbook();
+			wb.write('result.xlsx');
+			let ws = wb.addWorksheet('Sheet 1');
+			for ( let i = 1; i < tickets.length+1; i++ ){
+				 ws.cell(i, 1).string(tickets[i-1].Barcode);
+			}
+			//res.json(tickets);
+			wb.write('result.xlsx', res);
+		})
+	})
+
+	router.get('/tickets/download/barcodes/txt/:IDEvent', function(req, res){
+		let sAdminLogin = "",
+		sessData 	= req.session;
+
+
+		console.log("GET /admin/tickets/download/barcodes/txt/:IDEvent");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+
+		let IDEvent = req.params.IDEvent;
+		function getLastEan13Digit(ean) {
+			if (!ean || ean.length !== 12) throw new Error('Invalid EAN 13, should have 12 digits')
+			const multiply = [1, 3]
+			let total = 0
+			ean.split('').forEach((letter, index) => {
+					total += parseInt(letter, 10) * multiply[index % 2]
+				})
+			const base10Superior = Math.ceil(total / 10) * 10
+			return base10Superior - total
+		}
+
+		dbUtils.Ticket.getBarcodesByEvent(IDEvent, (barcodes) => {
+			let txtFile = '';
+			console.log(barcodes)
+			barcodes.forEach((item) => { 
+				let barcodeNew = item.Barcode + getLastEan13Digit(item.Barcode);
+				barcodeNew = barcodeNew.substring(1);
+				txtFile = txtFile + barcodeNew + "\r\n";
+			 })
+			res.attachment(`Barcodes (IDEvent_${IDEvent}).txt`);
+			res.type('txt');
+			res.send(txtFile);
+		})
+	})
+
+	router.get('/tickets/download/saled/barcodes/excel/:IDEvent', function(req, res){
+
+		let sAdminLogin = "",
+			sessData 	= req.session;
+
+
+		console.log("GET /admin/reports");
+		if(sessData.admControl){
+	        sAdminLogin = sessData.admControl.Login;
+        }
+		else {
+			res.redirect('/admin');
+			return;
+		}
+
+		let IDEvent = req.params.IDEvent;
+		function getLastEan13Digit(ean) {
+			if (!ean || ean.length !== 12) throw new Error('Invalid EAN 13, should have 12 digits')
+			const multiply = [1, 3]
+			let total = 0
+			ean.split('').forEach((letter, index) => {
+					total += parseInt(letter, 10) * multiply[index % 2]
+				})
+			const base10Superior = Math.ceil(total / 10) * 10
+			return base10Superior - total
+		}
+
+		dbUtils.Ticket.getSaled({IDEvent: IDEvent}, (tickets) => {
+			tickets.forEach((item, index) => { 
+				let barcodeNew = item.Barcode + getLastEan13Digit(item.Barcode);
+				barcodeNew = barcodeNew.substring(1);
+				tickets[index].Barcode = barcodeNew;
+			 })
+			let wb = new xl.Workbook();
+			wb.write('result.xlsx');
+			let ws = wb.addWorksheet('Sheet 1');
+			for ( let i = 1; i < tickets.length+1; i++ ){
+				 ws.cell(i, 1).string(tickets[i-1].Barcode);
+			}
+			//res.json(tickets);
+			wb.write('result.xlsx', res);
 		})
 	})
 
