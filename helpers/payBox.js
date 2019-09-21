@@ -125,7 +125,7 @@ class payBox {
 
 let payBoxer = new payBox();
 
-payBoxer.analysis();
+//payBoxer.analysis();
 
 // payBoxer.createPayment({Price: 550}, (response) => {
 //     setTimeout(function() { payBoxer.getPaymentInfo(response.id, (info) => { console.log(info) }) }, 60000);

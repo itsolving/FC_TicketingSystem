@@ -363,9 +363,11 @@ class TicketUtils extends rootUtils{
 	}
 
 	customSelect(ids, next){
-		let sSQL = `SELECT tic."IDStatus", tic."ID", tic."IDEvent", tic."Barcode"
+		let sSQL = `SELECT tic."IDStatus", tic."ID", tic."IDEvent", tic."Barcode",
+						ev."Name"
 						FROM public."tTicket" tic
-						where "ID" in (${ids})`;
+						join public."tEvent" ev on ev."ID" = tic."IDEvent"
+						where tic."ID" in (${ids})`;
 
 		console.log(sSQL);
 
