@@ -196,7 +196,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 
 	});
 
-	router.get('/tickets/download/barcodes/excel/giveaway/:IDEvent', function(req, res){
+	router.get('/tickets/download/barcodes/giveaway/excel/:IDEvent', function(req, res){
 
 		let sAdminLogin = "",
 			sessData 	= req.session;
