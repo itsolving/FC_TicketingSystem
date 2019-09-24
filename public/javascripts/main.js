@@ -7,8 +7,8 @@ app = {};
 app.id = result;
 
 // HARD 
-if ( result == 'Astana-Shahter-15092019' ){
-  app.id = 61;
+if ( result == 'Astana-Kaysar-29092019' ){
+  app.id = 62;
 }
 // HARD
 
