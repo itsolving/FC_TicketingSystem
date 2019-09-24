@@ -71,7 +71,6 @@ class payBox {
             dbUtils.Payment.getNew((payments) => {
                 if ( !payments.length ) return;
                 payments.forEach((item) => {
-                    console.log(item.IDPayment);
                     this.getPaymentInfo(item.IDPayment, (info) => {
                         function isJSON(str) { 
                             try { 
