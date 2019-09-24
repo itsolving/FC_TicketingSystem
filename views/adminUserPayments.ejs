@@ -47,6 +47,7 @@
 														<th scope="col">Телефон</th>
 														<th scope="col">CreatedAt</th>
 														<th scope="col">UpdatedAt</th>
+														<th scope="col">Доставлено</th>
 														<th scope="col">Цена, тг</th>
 													</thead>
 													<tbody>
@@ -78,7 +79,8 @@
 																	<td scope="row"><%= payment.UpdatedAt %></td>
 																<% } else { %>
 																	<td scope="row">в процессе</td>
-																<% } %>		
+																<% } %>	
+																<td scope="row"><%= payment.Received %></td>	
 																<% if (payment.Amount) { %>
 																	<td scope="row"><%= payment.Amount %></td>
 																<% } else { %>
