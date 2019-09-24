@@ -73,7 +73,6 @@ class payBox {
                 payments.forEach((item) => {
                     console.log(item.IDPayment);
                     this.getPaymentInfo(item.IDPayment, (info) => {
-                        console.log(info);
                         function isJSON(str) { 
                             try { 
                                 return (JSON.parse(str) && !!str); 
@@ -86,9 +85,9 @@ class payBox {
                             return;
                         }
                         info = JSON.parse(info);
-
-                        console.log(info);           
-                        
+                        if (info.status.code == 'success'){
+                            console.log(info);
+                        }     
                         if (info.status.code != 'new'){
                             let obj = {
                                 status:     info.status.code,
@@ -107,7 +106,10 @@ class payBox {
                                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
                                             mailer.sendUserMail({mail: info.options.user.email, paymentId: item.ID}, tickets, () => {
                                                 // payment success, tickets go to user
-                                                console.log(`payment success (id: ${info.id})`);
+                                                console.log(`Payment success (id: ${info.id})`);
+                                                dbUtils.Payment.changeReceived(true, obj.paymentid, (next) => {
+                                                    console.log(`Email received success: ${obj.email}`)
+                                                })
                                             })  
                                         })
                                     })
@@ -119,7 +121,7 @@ class payBox {
                     })
                 })
             })
-        }, 15 * 1000);
+        }, 60 * 1000);
     }
 }
 
