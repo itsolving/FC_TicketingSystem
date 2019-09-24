@@ -11,6 +11,7 @@ app = {};
 
 app.id = result;
 
+
 app.cart = {
   tickets: [],
   total: 0
