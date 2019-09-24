@@ -73,6 +73,15 @@ class APIUtils extends rootUtils{
 			next(result);
 		})
 	}
+	changeReceived(value, IDPayment, mext){
+		let sSQL = `UPDATE public."tPayment" SET "Received" = ${value} WHERE "IDPayment" = ${data.IDPayment}`;
+
+		console.log(sSQL);
+
+		this.execute(sSQL, (result) => {
+			next(result);
+		})
+	}
 }
 
 module.exports = APIUtils;
