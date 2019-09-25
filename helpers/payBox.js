@@ -106,7 +106,8 @@ class payBox {
                                             mailer.sendUserMail({mail: info.options.user.email, paymentId: item.ID}, tickets, () => {
                                                 // payment success, tickets go to user
                                                 console.log(`Payment success (id: ${info.id})`);
-                                                dbUtils.Payment.changeReceived(true, obj.paymentid, (next) => {
+                                                dbUtils.Payment.changeReceived(true, obj.paymentid, (receivedAns) => {
+                                                    console.log(receivedAns);
                                                     console.log(`Email received success: ${obj.email}`)
                                                 })
                                             })  

@@ -74,7 +74,7 @@ class APIUtils extends rootUtils{
 		})
 	}
 	changeReceived(value, IDPayment, mext){
-		let sSQL = `UPDATE public."tPayment" SET "Received" = ${value} WHERE "IDPayment" = ${data.IDPayment}`;
+		let sSQL = `UPDATE public."tPayment" SET "Received" = '${value}' WHERE "IDPayment" = ${data.IDPayment}`;
 
 		console.log(sSQL);
 
