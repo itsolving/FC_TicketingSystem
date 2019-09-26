@@ -86,7 +86,38 @@ module.exports = (router, dbUtils) => {
 			sessData.eventsList = data;
 			events = data;
 			dbUtils.Event.getDataByID(eventID, (data) => {
-				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID});
+				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID, Partner: 'fcastana'});
+				return;
+			})
+		}))
+	})
+
+	//хард роут для мп (ПАРТНЕР)
+	router.get('/event/partner/:Partner/Astana-Kaysar-29092019', function(req, res, next){
+		console.log("get: /event/id");
+		var sLogin = "";
+		var events = {};
+		var sessData = req.session;
+		var eventID = 62;
+		if(sessData.userLogin){
+			sLogin = sessData.userLogin;
+
+		}
+
+		// if (!sessData.cashier){ 
+		// 	res.redirect('/'); 
+		// 	return;
+		// }
+
+		if ( sessData.cashier ){
+			res.redirect('/kassa/event/' + eventID);
+			return;
+		}
+		dbUtils.Event.customSelect((data => {
+			sessData.eventsList = data;
+			events = data;
+			dbUtils.Event.getDataByID(eventID, (data) => {
+				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID, Partner: req.params.Partner});
 				return;
 			})
 		}))

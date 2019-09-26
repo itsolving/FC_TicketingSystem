@@ -1,5 +1,6 @@
 let nodemailer = require('nodemailer'),
-	md5 	   = require('md5');
+	md5 	   = require('md5'),
+	 dbUtils   = require(`${__basedir}/database/DatabaseUtils.js`);
 
 class eMailVerification{
 	constructor(){
@@ -87,7 +88,11 @@ class eMailVerification{
 		  	}
 			else { 
 				console.log(response);
-				next(); 
+				dbUtils.Payment.changeReceived('true', data.paymentId, (receivedAns) => {
+                    console.log(receivedAns);
+                    console.log(`Email received success: ${data.mail}`)
+                    next(true); 
+                })	
 			}
 	     })
 	}
