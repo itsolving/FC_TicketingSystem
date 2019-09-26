@@ -103,13 +103,10 @@ class payBox {
                                 if (info.status.code == 'success'){
                                     dbUtils.Ticket.multiStatus(item.Tickets.split(','), 5, (next) => {
                                         dbUtils.Ticket.customSelect(item.Tickets, (tickets) => {
-                                            mailer.sendUserMail({mail: info.options.user.email, paymentId: item.ID}, tickets, () => {
+                                            mailer.sendUserMail({mail: info.options.user.email, paymentId: obj.paymentid}, tickets, (mailerAnswer) => {
                                                 // payment success, tickets go to user
                                                 console.log(`Payment success (id: ${info.id})`);
-                                                dbUtils.Payment.changeReceived(true, obj.paymentid, (receivedAns) => {
-                                                    console.log(receivedAns);
-                                                    console.log(`Email received success: ${obj.email}`)
-                                                })
+                                                
                                             })  
                                         })
                                     })

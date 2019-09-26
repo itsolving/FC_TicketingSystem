@@ -7,8 +7,8 @@ class APIUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(data, next){
-		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount", "CreatedAt") 
-						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount}, 'now()' )`;
+		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount", "CreatedAt", "Partner") 
+						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount}, 'now()', '${data.Partner}' )`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {
@@ -74,7 +74,7 @@ class APIUtils extends rootUtils{
 		})
 	}
 	changeReceived(value, IDPayment, mext){
-		let sSQL = `UPDATE public."tPayment" SET "Received" = '${value}' WHERE "IDPayment" = ${data.IDPayment}`;
+		let sSQL = `UPDATE public."tPayment" SET "Received" = ${value} WHERE "IDPayment" = ${data.IDPayment}`;
 
 		console.log(sSQL);
 

@@ -31,7 +31,6 @@ class EventsUtils extends rootUtils{
 		console.log(sSQL);
 
 		this.execute(sSQL, (events) => {
-			console.log(events);
 			next(events);
 		})
 

@@ -4,8 +4,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 	router.get('/events', function(req, res, next) {
 		let sAdminLogin = "",
 			sessData 	= req.session;
-
-			console.log(sessData);
+			
 		console.log("GET /admin/events");
 		if(sessData.admControl){
 			sAdminLogin = sessData.admControl.Login;

@@ -665,11 +665,11 @@ app.buy = function(){
   
     console.log(app.cart.tickets);
     var tickets = [];
-
     app.cart.tickets.forEach((item, i, array) => { tickets.push(item.TicketID) })
     $.post('/tickets/buy/', {
           IDEvent: app.id,
-          tickets: tickets
+          tickets: tickets,
+          Partner: $('.partner_name').val()
         }, function (ans) {
           console.log(ans);
            if ( ans.success ) { 

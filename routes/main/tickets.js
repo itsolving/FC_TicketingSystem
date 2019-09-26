@@ -150,7 +150,7 @@ module.exports = (router, dbUtils) => {
 		
 		let tickets = params.tickets;
 
-		console.log(tickets);
+		console.log(params);
 
 		dbUtils.Ticket.getInfoByIDs(tickets.join(','), (data) => {
 			let sum = 0;
@@ -163,7 +163,8 @@ module.exports = (router, dbUtils) => {
 					dbUtils.Payment.insert({
 						IDPayment: paymentInfo.id,
 						Tickets:   tickets,
-						Amount:    sum
+						Amount:    sum,
+						Partner:   params.Partner
 					}, (back) => {
 						res.json({success: true, link: paymentInfo.payment_page_url})
 					})
