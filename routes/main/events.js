@@ -149,7 +149,7 @@ module.exports = (router, dbUtils) => {
 			sessData.eventsList = data;
 			events = data;
 			dbUtils.Event.getDataByID(eventID, (data) => {
-				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID});
+				res.render('eventmap', {title: data.Name, userLogin: sLogin, eventsList: events, eventID: eventID, Partner: 'fcastana'});
 				return;
 			})
 		}))
