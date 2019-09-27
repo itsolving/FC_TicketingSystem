@@ -30,9 +30,7 @@
 						<div class="container-fluid">
 							<div class="col-md-12">
 								<h2>Редактирование мероприятия</h2>
-								<!-- ТЕСТ -->
-								<div style="display: none;">test</div>
-								<!-- ТЕСТ -->
+								
 							</div>
 							<div class="col-md-12">
 								<div class="card">
@@ -43,6 +41,7 @@
 											<% eventData.forEach(function(eventRow) { %>
 												<div class="col-md-5">
 													<p><label>ID: </label> <span id="eventID" data-value="<%= eventRow.ID %>"><%= eventRow.ID %></span></p>
+													<p><label>Сумма успешных продаж: </label> <span><%= eventRow.SaledSum %> тг.</span></p>
 													<!-- <% if(eventRow.IDTemplate){ %>
 														<p>
 															<label>ID шаблона билета: </label> 

@@ -180,8 +180,8 @@ module.exports = (router, dbUtils) => {
 	router.post('/payment/tickets/success', function(req, res){
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json({success: true})
-		// let data = req.body;
-		// console.log(data);
+		let data = req.body;
+		console.log(data);
 		// payBoxer.getPaymentInfo(data.id, (info) => {
 		// 	info = JSON.parse(info);
 		// 	let obj = {
@@ -232,5 +232,29 @@ module.exports = (router, dbUtils) => {
 			})
 		})
 	})
+
+	// router.get('/tickets/tickets/tickets/test', function(req, res){
+		
+
+	// 	let templateType = 'A4';
+
+	// 	dbUtils.Ticket.testTest((ticketsFull) => {
+	// 		let reqTickets = [];
+	// 		ticketsFull.forEach((item) => {
+	// 			reqTickets.push(item.ID);
+	// 		})
+	// 		console.log(reqTickets);
+	// 		dbUtils.Ticket.getMultiWithTemplate(reqTickets, templateType, (tickets) => {
+	// 			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, templateType, (pdfData) => {
+	// 					res.type('pdf'); 
+	// 					res.send(pdfData);
+	// 				});
+	// 			// ------------
+				
+	// 		})
+	// 	})
+
+		
+	// })
 		
 }
