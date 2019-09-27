@@ -96,17 +96,17 @@ class eMailVerification{
 	     })
 	}
 	sendFromGmail(data, tickets, next){
-		let smtp = nodemailer.createTransport({		 		
- 		    service: "Gmail",		 			
- 		    auth: {		 		   
- 		        user: "ticketscloud.astana",		 		   
- 		        pass: "f5a175acac4a00aa702424d53b01903a"		 		    
- 		    }
- 		});
+		// let smtp = nodemailer.createTransport({		 		
+ 	// 	    service: "Gmail",		 			
+ 	// 	    auth: {		 		   
+ 	// 	        user: "ticketscloud.astana",		 		   
+ 	// 	        pass: "f5a175acac4a00aa702424d53b01903a"		 		    
+ 	// 	    }
+ 	// 	});
 		console.log(tickets);
 		let mailOptions={
 	        to : data.mail,
-	        from: 'ticketscloud.astana@gmail.com',
+	        from: 'tickets@fcastana.kz',
 	        subject : `${tickets[0].Name} | Билеты на мероприятие`,
 	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
 	        attachments: []
@@ -139,7 +139,7 @@ class eMailVerification{
 
 	    mailOptions.html = mailOptions.html + `<a href="${link}">Билеты</a><br>`;
 
-	    smtp.sendMail(mailOptions, (error, response) => {
+	    this.smtp.sendMail(mailOptions, (error, response) => {
 		     if(error) console.log(error)
 		     else next() 
 	     })
