@@ -42,6 +42,8 @@ class eMailVerification{
             }
         }
 
+        let host = "92.46.109.122:8109";
+
 	    let link = `http://${host}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
 
 	    mailOptions.attachments.push({
