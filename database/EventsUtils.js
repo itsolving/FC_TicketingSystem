@@ -20,7 +20,8 @@ class EventsUtils extends rootUtils{
 		var sSQL = `SELECT ev."ID", ev."Name", ev."MaxTickets", ev."Abonement", ev."ImgPath", ev."IDTemplate", ev."IDStatus", TO_CHAR(ev."DateFrom", \'DD-MM-YYYY HH24:MI\') as "DateFrom",
 					TO_CHAR(ev."Dateto", \'DD-MM-YYYY HH24:MI\') as "Dateto", ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
 					sd."Name" as "StadiumName", st."Name" as "StatusName",
-					(SELECT COUNT(*) FROM public."tTicket" tic WHERE ev."ID" = tic."IDEvent" AND tic."Price" > 0 AND tic."IDStatus" = 5) as "SaledTickets"
+					(SELECT COUNT(*) FROM public."tTicket" tic WHERE ev."ID" = tic."IDEvent" AND tic."Price" > 0 AND tic."IDStatus" = 5) as "SaledTickets",
+					(SELECT SUM ("Price") FROM public."tTicket" tic WHERE ev."ID" = tic."IDEvent" AND tic."Price" > 0 AND tic."IDStatus" = 5) as "SaledSum"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					join public."tStatus" st on ev."IDStadium" = st."ID"
@@ -121,7 +122,8 @@ class EventsUtils extends rootUtils{
 						replace(TO_CHAR(ev."Dateto", \'YYYY-MM-DD HH24:MI\'), \' \', \'T\') as "Dateto",
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
 						sd."Name" as "Stadium", s."Name" as "StatusName",
-						ev."ShowOnline", ev."ShowCasher", ev."ShowAPI"
+						ev."ShowOnline", ev."ShowCasher", ev."ShowAPI",
+						(SELECT SUM ("Price") FROM public."tTicket" WHERE "IDStatus" = 5 AND "IDEvent" = ${nID} AND "Price" > 0) AS "SaledSum"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
@@ -297,7 +299,6 @@ class EventsUtils extends rootUtils{
 			next(data[0]);
 		})
 	}
-
 
 }
 
