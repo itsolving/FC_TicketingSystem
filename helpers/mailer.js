@@ -134,7 +134,7 @@ class eMailVerification{
 
 	    mailOptions.attachments.push({
 	    	filename: 'tickets.pdf',
-        	path: link
+        	path: 'localhost:3000/kassa/get/main/tickets/A4/${hash}/${tickids}'
 	    })
 
 	    mailOptions.html = mailOptions.html + `<a href="${link}">Билеты</a><br>`;
