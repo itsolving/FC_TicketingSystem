@@ -118,7 +118,7 @@ class payBox {
                     })
                 })
             })
-        }, 60 * 1000);
+        }, (process.env.PAYBOXTIMEOUT || 60) * 1000);
     }
 }
 
