@@ -25,7 +25,7 @@ class eMailVerification{
 	        to : data.mail,
 	        from: 'tickets@fcastana.kz',
 	        subject : `${tickets[0].Name} | Билеты на мероприятие`,
-	        html : `Здравствуйте.<br> Ваши купленные билеты доступны по следующей ссылке:<br><br>`,
+	        html : `Здравствуйте.<br> Ваши купленные билеты (${tickets.length}) доступны по следующей ссылке:<br><br>`,
 	        attachments: []
 	    }
 
