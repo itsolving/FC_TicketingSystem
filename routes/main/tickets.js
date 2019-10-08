@@ -7,7 +7,6 @@ let bwipjs    = require('bwip-js'),
 
 
 module.exports = (router, dbUtils) => {
-	
 	//получение билетов по указанному мероприятию и сектору, используется в схеме зала
 	router.post('/getsectortickets', function(req, res){
 	//получение json-списка билетов по указанному сектору

@@ -7,7 +7,7 @@ app = {};
 app.id = result;
 
 // HARD 
-if ( result == 'Astana-Kaysar-29092019' || result == 'astana-kaysar-29092019'){
+if ( result == 'Astana-Kairat-20102019' || result == 'astana-kairat-20102019'){
   app.id = 62;
 }
 // HARD
