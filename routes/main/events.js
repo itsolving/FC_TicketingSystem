@@ -62,12 +62,12 @@ module.exports = (router, dbUtils) => {
 	});
 
 	//хард роут для мп
-	router.get('/event/Astana-Kaysar-29092019', function(req, res, next){
+	router.get('/event/Astana-Kairat-20102019', function(req, res, next){
 		console.log("get: /event/id");
 		var sLogin = "";
 		var events = {};
 		var sessData = req.session;
-		var eventID = 62;
+		var eventID = 63;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
 
@@ -93,12 +93,12 @@ module.exports = (router, dbUtils) => {
 	})
 
 	//хард роут для мп (ПАРТНЕР)
-	router.get('/event/partner/:Partner/Astana-Kaysar-29092019', function(req, res, next){
+	router.get('/event/partner/:Partner/Astana-Kairat-20102019', function(req, res, next){
 		console.log("get: /event/id");
 		var sLogin = "";
 		var events = {};
 		var sessData = req.session;
-		var eventID = 62;
+		var eventID = 63;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
 
