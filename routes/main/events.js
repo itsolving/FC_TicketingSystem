@@ -145,6 +145,10 @@ module.exports = (router, dbUtils) => {
 			res.redirect('/kassa/event/' + eventID);
 			return;
 		}
+		if ( eventID == 'Astana-Kaysar-29092019' || eventID == 'astana-kaysar-29092019'){
+			res.status(404).send('Not found');	
+			return;
+		}
 		dbUtils.Event.customSelect((data => {
 			sessData.eventsList = data;
 			events = data;

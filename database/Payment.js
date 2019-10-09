@@ -7,8 +7,8 @@ class APIUtils extends rootUtils{
 		this.conOptions = conOptions;
 	}
 	insert(data, next){
-		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount", "CreatedAt", "Partner") 
-						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount}, 'now()', '${data.Partner}' )`;
+		let sSQL = `INSERT INTO public."tPayment" ("IDPayment", "Status", "Tickets", "Email", "Phone", "Amount", "CreatedAt", "Partner", "IDEvent") 
+						values( ${data.IDPayment}, 'new', '${data.Tickets}', null, null, ${data.Amount}, 'now()', '${data.Partner}', ${data.IDEvent} )`;
 		console.log(sSQL);
 
 		this.execute(sSQL, (result) => {

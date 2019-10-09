@@ -163,7 +163,8 @@ module.exports = (router, dbUtils) => {
 						IDPayment: paymentInfo.id,
 						Tickets:   tickets,
 						Amount:    sum,
-						Partner:   params.Partner
+						Partner:   params.Partner,
+						IDEvent:   params.IDEvent
 					}, (back) => {
 						res.json({success: true, link: paymentInfo.payment_page_url})
 					})
