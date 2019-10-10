@@ -123,7 +123,9 @@ class EventsUtils extends rootUtils{
 						ev."IDUserCreator", ev."CreateDate", ev."IDStadium",
 						sd."Name" as "Stadium", s."Name" as "StatusName",
 						ev."ShowOnline", ev."ShowCasher", ev."ShowAPI",
-						(SELECT SUM ("Price") FROM public."tTicket" WHERE "IDStatus" = 5 AND "IDEvent" = ${nID} AND "Price" > 0) AS "SaledSum"
+						(SELECT SUM ("Price") FROM public."tTicket" WHERE "IDStatus" = 5 AND "IDEvent" = ${nID} AND "Price" > 0) AS "SaledSum",
+						(SELECT SUM ("Amount") FROM public."tPayment" WHERE "Partner" = 'fcastana' AND "IDEvent" = ${nID} AND "Status" = 'success') AS "astanaSales",
+						(SELECT SUM ("Amount") FROM public."tPayment" WHERE "Partner" = 'kassirkz' AND "IDEvent" = ${nID} AND "Status" = 'success') AS "kassirSales"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
