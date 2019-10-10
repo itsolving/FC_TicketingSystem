@@ -62,6 +62,15 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			sectorList = {};
 
 		dbUtils.Event.getById(nID, (rowEventData, qres) => {
+			
+			if( rowEventData[0].kassirSales == undefined ){
+				rowEventData[0].kassirSales = 0;
+			}
+			if( rowEventData[0].astanaSales == undefined ){
+				rowEventData[0].astanaSales = 0;
+			}
+			rowEventData[0].ticketonSales = rowEventData[0].SaledSum - rowEventData[0].astanaSales - rowEventData[0].kassirSales;
+			console.log(rowEventData);
 			console.log('rowEventData.IDStadium='+rowEventData.IDStadium);
 			dbUtils.Stadium.getNameID((stadiumList) => {
 				if (typeof rowEventData.IDStadium === 'undefined') {
