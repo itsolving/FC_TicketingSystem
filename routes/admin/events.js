@@ -69,6 +69,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			if( rowEventData[0].astanaSales == undefined ){
 				rowEventData[0].astanaSales = 0;
 			}
+			rowEventData[0].astanaSales = parseInt(rowEventData[0].astanaSales);
+			rowEventData[0].kassirSales = parseInt(rowEventData[0].kassirSales);
 			rowEventData[0].ticketonSales = rowEventData[0].SaledSum - rowEventData[0].astanaSales - rowEventData[0].kassirSales;
 			console.log(rowEventData);
 			console.log('rowEventData.IDStadium='+rowEventData.IDStadium);
