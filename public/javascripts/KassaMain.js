@@ -740,7 +740,8 @@ app.sendMail = function(){
     $.post('/kassa/tickets/send/', {
           IDEvent: app.id,
           tickets: tickets,
-          mail: $('.email').val()
+          mail: $('.email').val(),
+          comment: $('.comment').val()
         }, function (ans) {
            if ( ans.success ) { 
 

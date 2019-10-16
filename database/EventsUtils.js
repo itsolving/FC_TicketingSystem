@@ -161,7 +161,6 @@ class EventsUtils extends rootUtils{
 				}
 			}
 			client.end();
-			console.log(rowEventData);
 			next(rowEventData, qres);
 		})
 	}
