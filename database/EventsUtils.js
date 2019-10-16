@@ -125,7 +125,10 @@ class EventsUtils extends rootUtils{
 						ev."ShowOnline", ev."ShowCasher", ev."ShowAPI",
 						(SELECT SUM ("Price") FROM public."tTicket" WHERE "IDStatus" = 5 AND "IDEvent" = ${nID} AND "Price" > 0) AS "SaledSum",
 						(SELECT SUM ("Amount") FROM public."tPayment" WHERE "Partner" = 'fcastana' AND "IDEvent" = ${nID} AND "Status" = 'success') AS "astanaSales",
-						(SELECT SUM ("Amount") FROM public."tPayment" WHERE "Partner" = 'kassirkz' AND "IDEvent" = ${nID} AND "Status" = 'success') AS "kassirSales"
+						(SELECT SUM ("Amount") FROM public."tPayment" WHERE "Partner" = 'kassirkz' AND "IDEvent" = ${nID} AND "Status" = 'success') AS "kassirSales",
+						(SELECT COUNT("ID") FROM public."tTicket" WHERE "IDStatus" = 5 AND "IDEvent" = ${nID} AND "Price" > 0) as "ticketsSaled",
+						(SELECT string_agg("Tickets", ',') from public."tPayment" WHERE "Status" = 'success' AND "IDEvent" = ${nID} AND "Partner" = 'kassirkz') AS "kassirTickets",
+						(SELECT string_agg("Tickets", ',') from public."tPayment" WHERE "Status" = 'success' AND "IDEvent" = ${nID} AND "Partner" = 'fcastana') AS "fcastanaTickets"
 					FROM public."tEvent" ev
 					join public."tStadium" sd on ev."IDStadium" = sd."ID"
 					left join public."tStatus" s on s."ID" = ev."IDStatus"
@@ -158,6 +161,7 @@ class EventsUtils extends rootUtils{
 				}
 			}
 			client.end();
+			console.log(rowEventData);
 			next(rowEventData, qres);
 		})
 	}

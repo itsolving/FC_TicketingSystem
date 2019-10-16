@@ -69,6 +69,9 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			if( rowEventData[0].astanaSales == undefined ){
 				rowEventData[0].astanaSales = 0;
 			}
+			rowEventData[0].kassirTickets = (rowEventData[0].kassirTickets.split(',')).length;
+			rowEventData[0].fcastanaTickets = (rowEventData[0].fcastanaTickets.split(',')).length;
+			rowEventData[0].ticketonTickets = parseInt(rowEventData[0].ticketsSaled) - rowEventData[0].kassirTickets - rowEventData[0].fcastanaTickets
 			rowEventData[0].astanaSales = parseInt(rowEventData[0].astanaSales);
 			rowEventData[0].kassirSales = parseInt(rowEventData[0].kassirSales);
 			rowEventData[0].ticketonSales = rowEventData[0].SaledSum - rowEventData[0].astanaSales - rowEventData[0].kassirSales;
