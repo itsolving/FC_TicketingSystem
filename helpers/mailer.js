@@ -45,9 +45,8 @@ class eMailVerification{
         let host = "92.46.109.122:8109";
 
 	    let link = `http://${host}/kassa/get/main/tickets/A4/${hash}/${tickids}`;
-
 	    mailOptions.attachments.push({
-	    	filename: 'tickets.pdf',
+	    	filename: `${tickets[0].Name} ${data.comment}.pdf`,
         	path: `http://localhost:3000/kassa/get/main/tickets/A4/${hash}/${tickids}`
 	    })
 
