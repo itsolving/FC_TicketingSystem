@@ -98,6 +98,9 @@ module.exports = (router, dbUtils) => {
 			if ( success ){
 				//res.json(params);
 				dbUtils.Ticket.getByID(params.ticketID, (ticket) => {
+					if (!ticket) {
+						res.json({success: false, data: `unreserve ticket (ID:${params.ticketID}) false, wrong ID`})
+					}
 					if ( ticket.IDStatus != 4 ){
 						res.json({err: "ticket is not reserved"})
 					}
