@@ -69,12 +69,23 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			if( rowEventData[0].astanaSales == undefined ){
 				rowEventData[0].astanaSales = 0;
 			}
-			rowEventData[0].kassirTickets = (rowEventData[0].kassirTickets.split(',')).length;
-			rowEventData[0].fcastanaTickets = (rowEventData[0].fcastanaTickets.split(',')).length;
-			rowEventData[0].ticketonTickets = parseInt(rowEventData[0].ticketsSaled) - rowEventData[0].kassirTickets - rowEventData[0].fcastanaTickets
-			rowEventData[0].astanaSales = parseInt(rowEventData[0].astanaSales);
-			rowEventData[0].kassirSales = parseInt(rowEventData[0].kassirSales);
-			rowEventData[0].ticketonSales = rowEventData[0].SaledSum - rowEventData[0].astanaSales - rowEventData[0].kassirSales;
+			if (!rowEventData[0].kassirTickets && !rowEventData[0].fcastanaTickets){
+				rowEventData[0].kassirTickets = 'Недоступно';
+				rowEventData[0].fcastanaTickets = 'Недоступно';
+				rowEventData[0].ticketonTickets = 'Недоступно';
+				rowEventData[0].astanaSales = 'Недоступно';
+				rowEventData[0].kassirSales = 'Недоступно';
+				rowEventData[0].ticketonSales = 'Недоступно';
+			}
+			else {
+				rowEventData[0].kassirTickets = (rowEventData[0].kassirTickets.split(',')).length;
+				rowEventData[0].fcastanaTickets = (rowEventData[0].fcastanaTickets.split(',')).length;
+				rowEventData[0].ticketonTickets = parseInt(rowEventData[0].ticketsSaled) - rowEventData[0].kassirTickets - rowEventData[0].fcastanaTickets
+				rowEventData[0].astanaSales = parseInt(rowEventData[0].astanaSales);
+				rowEventData[0].kassirSales = parseInt(rowEventData[0].kassirSales);
+				rowEventData[0].ticketonSales = rowEventData[0].SaledSum - rowEventData[0].astanaSales - rowEventData[0].kassirSales;
+			}
+			
 			console.log(rowEventData);
 			console.log('rowEventData.IDStadium='+rowEventData.IDStadium);
 			dbUtils.Stadium.getNameID((stadiumList) => {
