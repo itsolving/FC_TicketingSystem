@@ -62,12 +62,12 @@ module.exports = (router, dbUtils) => {
 	});
 
 	//хард роут для мп
-	router.get('/event/Astana-Kairat-20102019', function(req, res, next){
+	router.get('/event/Astana-Aktobe-27102019', function(req, res, next){
 		console.log("get: /event/id");
 		var sLogin = "";
 		var events = {};
 		var sessData = req.session;
-		var eventID = 63;
+		var eventID = 64;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
 
@@ -93,12 +93,12 @@ module.exports = (router, dbUtils) => {
 	})
 
 	//хард роут для мп (ПАРТНЕР)
-	router.get('/event/partner/:Partner/Astana-Kairat-20102019', function(req, res, next){
+	router.get('/event/partner/:Partner/Astana-Aktobe-27102019', function(req, res, next){
 		console.log("get: /event/id");
 		var sLogin = "";
 		var events = {};
 		var sessData = req.session;
-		var eventID = 63;
+		var eventID = 64;
 		if(sessData.userLogin){
 			sLogin = sessData.userLogin;
 
@@ -140,7 +140,7 @@ module.exports = (router, dbUtils) => {
 			res.redirect('/kassa/event/' + eventID);
 			return;
 		}
-		if ( eventID == 'Astana-Kaysar-29092019' || eventID == 'astana-kaysar-29092019'){
+		if ( eventID == 'Astana-Kaysar-29092019' || eventID == 'astana-kaysar-29092019' || eventID == 'Astana-Kairat-20102019' || eventID == 'astana-kairat-20102019'){
 			res.status(404).send('Not found');	
 			return;
 		}
