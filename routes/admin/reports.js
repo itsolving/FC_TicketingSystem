@@ -259,7 +259,12 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				ws.cell(i, 5).string(tickets[i-1].SectorName);
 				ws.cell(i, 6).string(tickets[i-1].RowN.toString());
 				ws.cell(i, 7).string(tickets[i-1].SeatN.toString());
-				ws.cell(i, 8).string(tickets[i-1].Price.toString());
+				if (tickets[i-1].Price == 0){
+					ws.cell(i, 8).string("Бронь");
+				}
+				else { 
+					ws.cell(i, 8).string(tickets[i-1].Price.toString());
+				}
 			}
 			//res.json(tickets);
 			wb.write(`Sales(ID_${req.params.IDEvent}).xlsx`, res);
