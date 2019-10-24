@@ -69,7 +69,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			if( rowEventData[0].astanaSales == undefined ){
 				rowEventData[0].astanaSales = 0;
 			}
-			if (!rowEventData[0].kassirTickets && !rowEventData[0].fcastanaTickets){
+			if (!rowEventData[0].kassirTickets || !rowEventData[0].fcastanaTickets){
 				rowEventData[0].kassirTickets = 'Недоступно';
 				rowEventData[0].fcastanaTickets = 'Недоступно';
 				rowEventData[0].ticketonTickets = 'Недоступно';
