@@ -69,7 +69,7 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 			if( rowEventData[0].astanaSales == undefined ){
 				rowEventData[0].astanaSales = 0;
 			}
-			if (!rowEventData[0].kassirTickets || !rowEventData[0].fcastanaTickets){
+			if (!rowEventData[0].kassirTickets && !rowEventData[0].fcastanaTickets){
 				rowEventData[0].kassirTickets = 'Недоступно';
 				rowEventData[0].fcastanaTickets = 'Недоступно';
 				rowEventData[0].ticketonTickets = 'Недоступно';
@@ -78,7 +78,8 @@ module.exports = (router, dbUtils, sAdminPageTitle) => {
 				rowEventData[0].ticketonSales = 'Недоступно';
 			}
 			else {
-				rowEventData[0].kassirTickets = (rowEventData[0].kassirTickets.split(',')).length;
+				if (!rowEventData[0].kassirTickets) kassirTickets = [];
+				else rowEventData[0].kassirTickets = (rowEventData[0].kassirTickets.split(',')).length;		
 				rowEventData[0].fcastanaTickets = (rowEventData[0].fcastanaTickets.split(',')).length;
 				rowEventData[0].ticketonTickets = parseInt(rowEventData[0].ticketsSaled) - rowEventData[0].kassirTickets - rowEventData[0].fcastanaTickets
 				rowEventData[0].astanaSales = parseInt(rowEventData[0].astanaSales);
