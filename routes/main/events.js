@@ -73,11 +73,6 @@ module.exports = (router, dbUtils) => {
 
 		}
 
-		// if (!sessData.cashier){ 
-		// 	res.redirect('/'); 
-		// 	return;
-		// }
-
 		if ( sessData.cashier ){
 			res.redirect('/kassa/event/' + eventID);
 			return;
