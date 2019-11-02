@@ -581,10 +581,14 @@ class TicketUtils extends rootUtils{
 	}
 
 	// testTest(next){
-	// 	let sSQL = `SELECT "ID" FROM "tTicket" WHERE "IDSeat" in (SELECT "ID" FROM "tSeat" st WHERE st."SectorName" = 'N4') AND "IDEvent" = 62 AND "Price" = 0 AND "IDStatus" = 5 LIMIT 200 OFFSET 800`;
+	// 	let sSQL = `SELECT "ID" FROM "tTicket" WHERE "IDSeat" in (SELECT "ID" FROM "tSeat" st WHERE st."SectorName" = 'N4') AND "IDEvent" = 65 AND "Price" = 0 AND "IDStatus" = 5 LIMIT 200 OFFSET 200`;
 	// 	console.log(sSQL);
 	// 	this.execute(sSQL, (tickets) => {
-	// 		next(tickets);
+	// 		let tics = [];
+	// 		tickets.forEach((item) => {
+	// 			tics.push(item.ID)
+	// 		})
+	// 		next(tics);
 	// 	})
 	// }
 
