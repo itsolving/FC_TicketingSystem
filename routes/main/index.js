@@ -1,3 +1,5 @@
+let Templator 	 = require(`${__basedir}/helpers/Templator.js`),
+templator 	 = new Templator();
 module.exports = (router, dbUtils) => {
 	//страница авторизации кассира
 	router.get('/', function(req, res, next){
@@ -16,6 +18,19 @@ module.exports = (router, dbUtils) => {
 			res.redirect('/events/');
 		}
 	})
+
+	// router.get('/test/test', function(req, res, next){
+	// 	dbUtils.Ticket.testTest((mainTickets) => {
+	// 		console.log(mainTickets)
+	// 		dbUtils.Ticket.getMultiWithTemplate(mainTickets, 'A4', (tickets) => {
+	// 			console.log(tickets)
+	// 			templator.multiTickets(tickets, { name: tickets[0].templateName, link: `${tickets[0].templateUrl}/${tickets[0].fileName}` }, 'A4', (pdfData) => {
+	// 				res.type('pdf'); 
+	// 				res.send(pdfData);
+	// 			});
+	// 		})
+	// 	})
+	// })
 
 	
 
