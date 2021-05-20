@@ -48,7 +48,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "gulp-watch": "^5.0.1",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "http": "0.0.0",
     "http-errors": "~1.6.2",
     "image-to-base64": "^2.0.1",
